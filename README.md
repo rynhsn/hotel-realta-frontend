@@ -4,7 +4,7 @@
   ```
   git clone https://github.com/rynhsn/hotel-realta-frontend.git
   cd ./hotel-realta-frontend
-  git checkout [namabranch]
+  git checkout -b [namabranch]
   ```
 - [X] Sesuaikan menu section di folder `Shared/Partials/Sidebar.razor`
 - [X] Pindahkan file di folder `Pages` masing-masing module ke `Pages` project baru
