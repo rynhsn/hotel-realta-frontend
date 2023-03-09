@@ -9,7 +9,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="title mb-30">
-                        <h2>Vendor</h2>
+                        <h2>Vendor Product</h2>
                     </div>
                 </div>
                 <!-- end col -->
@@ -21,7 +21,7 @@
                                     <a href="/purchasing">Purchasing</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Vendor
+                                    Vendor Product
                                 </li>
                             </ol>
                         </nav>
@@ -38,18 +38,8 @@
                 <div class="col-lg-12">
                     <div class="card-style mb-30">
                         <div class="title d-flex flex-wrap align-items-left justify-content-between">
-                            <h6 class="mb-10">Vendor Name</h6>
+                            <h6 class="mb-10">PT Maju Sejahtera Bersama</h6>
                             <div class="d-flex align-items-center">
-                                <h6>Status:</h6>
-                                <div class="select-style-1 mb-0 ml-10">
-                                    <div class="select-position">
-                                        <select class="p-0 pe-5 border-0">
-                                            <option value="" selected>Semua</option>
-                                            <option value="1">High</option>
-                                            <option value="0">Lowest</option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
@@ -75,23 +65,21 @@
                                             <h6>#</h6>
                                         </th>
                                         <th class="min-width">
-                                            <h6>Vendor Name</h6>
+                                            <h6>Stock Name</h6>
                                         </th>
                                         <th class="min-width">
-                                            <h6>Status</h6>
+                                            <h6>Qty Stocked</h6>
                                         </th>
                                         <th class="min-width">
-                                            <h6>Priority</h6>
+                                            <h6>Qty Remaining</h6>
                                         </th>
                                         <th class="min-width">
-                                            <h6>Register At</h6>
-                                        </th>
-                                        <th class="min-width">
-                                            <h6>Web URL</h6>
+                                            <h6>Price</h6>
                                         </th>
                                         <th class="min-width">
                                             <h6 class="text-sm text-medium">
-                                                <a href="#"> Add +</a>
+                                                <a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#@($"add")">Add +</a>
+
                                             </h6>
                                         </th>
                                     </tr>
@@ -105,31 +93,21 @@
                                                 <p>@i</p>
                                             </td>
                                             <td class="min-width">
-                                                <p>PT Maju Bersama Sejahtera @i</p>
+                                                <p>Kasur Warna Putih @i</p>
                                             </td>
                                             <td class="min-width">
-                                                <p>Active</p>
+                                                <p>122</p>
                                             </td>
                                             <td class="min-width">
-                                                <p>Priority</p>
+                                                <p>11</p>
                                             </td>
                                             <td class="min-width">
-                                                <p>20 Jan 2013</p>
+                                                <p>Rp.5.000.0000</p>
                                             </td>
-                                            <td class="min-width">
-                                                <p>wwww.majubersama.co</p>
-                                            </td>
-                                            <td>
-                                                <div class="dropdown me-1">
-                                                    <i class="btn lni lni-more-alt dropdown-toggle" data-bs-toggle="dropdown"></i>
-                                                    <ul class="dropdown-menu">
-                                                        <li><button class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit">Edit</button></li>
-                                                        <li><hr class="dropdown-divider"></li>
-                                                        <li><button class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#detail">Add Item Product</button></li>
-                                                        <li><hr class="dropdown-divider"></li>
-                                                        <li><a class="dropdown-item btn btn-sm text-danger" href="#">Delete</a></li>
-                                                    </ul>
-                                                </div>
+                                            <td class="action">
+                                                <button class="text-dark" title="Edit">
+                                                     <i class="mdi mdi-pencil-outline" data-bs-toggle="modal" data-bs-target="#edit"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     }
@@ -151,105 +129,105 @@
     <!-- end container -->
 </section>
 
-<!-- Modal -->
-<div class="modal fade" id="detail" tabindex="-1" aria-labelledby="detailLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="detailLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+<!-- Modal Edit -->
+<div class="warning-modal">
+    <div class="modal fade" id="@($"edit")" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form class="modal-content card-style" action="/update" method="post">
+                <div class="modal-header px-0 border-0">
+                    <h5 class="text-bold">Edit Product</h5>
+                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-0">
+                    <div class="row">
+                        <div class="input-style-1 col-9 rounded-sm">
+                            <label>Stock Name</label>
+                            <div class="select-position">
+                                <input class="form-control" type="text" placeholder="Sprei Putih" disabled>
+                            </div>
+                        </div>
+                        <div class="input-style-1 col-6 rounded-sm">
+                            <label for="exampleDate" class="form-label">Qty Stocked</label>
+                            <input type="number" class="form-control" id="exampleDate" value="50">
+                        </div>
+
+                        <div class="input-style-1 col-6 rounded-sm">
+                            <label for="exampleDate" class="form-label">Remaining</label>
+                            <input type="number" class="form-control" id="exampleDate" value="22">
+                        </div>
+                        <div class="input-style-1 col-9 rounded-sm">
+                            <label for="exampleDate" class="form-label">Sell Price</label>
+                            <input type="number" class="form-control" id="exampleDate" value="Rp.500.000">
+                        </div>
+                    </div>
+                </div>
+                <div class="action d-flex flex-wrap justify-content-end">
+                    <button data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                        Cancel
+                    </button>
+                    <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                       Save
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
+<!-- Modal Add-->
+<div class="warning-modal">
+    <div class="modal fade" id="@($"add")" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form class="modal-content card-style" action="/update" method="post">
+                <div class="modal-header px-0 border-0">
+                    <h5 class="text-bold">Add Product</h5>
+                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-0">
+                    <div class="row">
+                        <div class="input-style-1 col-9 rounded-sm">
+                            <label>Vendor Name</label>
+                            <div class="select-position">
+                                <input class="form-control" type="text" placeholder="PT Maju Sejahtera" disabled>
+                            </div>
+                        </div>
+                        <div class="input-style-1 col-9 rounded-sm">
+                            <label>Stock Name</label>
+                            <div class="select-position">
+                                <input class="form-control" type="text" placeholder="Stock Name">
+                            </div>
+                        </div>
+                        <div class="input-style-1 col-6 rounded-sm">
+                            <label for="exampleDate" class="form-label">Qty Stocked</label>
+                            <input type="number" class="form-control" id="exampleDate" value="50">
+                        </div>
 
-<!-- Modal Edit -->
-<div class="modal modal-lg fade" id="edit" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <form class="modal-content" action="" method="post">
-            <div class="modal-header">
-                <h5 class="modal-title" id="EditLabel">Edit Vendor</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="input-style-1 col-6 rounded-sm">
-                        <label>Vendor Name</label>
-                        <div class="select-position">
-                            <input type="text" />
+                        <div class="input-style-1 col-6 rounded-sm">
+                            <label for="exampleDate" class="form-label">Remaining</label>
+                            <input type="number" class="form-control" id="exampleDate" value="22">
                         </div>
-                    </div>
-                    <div class="input-style-1 col-6 rounded-sm">
-                        <label for="exampleDate" class="form-label">Register Date</label>
-                        <input type="date" class="form-control" id="exampleDate">
-                    </div>
-                    <div class="select-style-1 col-6 rounded-sm">
-                        <label>Status</label>
-                        <div class="select-position">
-                            <select>
-                                <option value="1">Active</option>
-                                <option value="0">InActive</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="select-style-1 col-6 rounded-sm">
-                        <label>Priority</label>
-                        <div class="select-position">
-                            <select>
-                                <option value="1">1=Highest</option>
-                                <option value="0">0=Lowest</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="input-style-1 col-8 rounded-sm">
-                        <label>Website</label>
-                        <div class="select-position">
-                            <input type="text" placeholder="URL..." />
+                        <div class="input-style-1 col-9 rounded-sm">
+                            <label for="exampleDate" class="form-label">Sell Price</label>
+                            <input type="number" class="form-control" id="exampleDate" placeholder="Rp.">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-
-
-            @*<form class="row g-3 needs-validation mt-8" novalidate>*@
-            @*<div class="col-md-4 mx-4 mt-9">
-            <label for="validationCustom01" class="form-label">First name</label>
-            <input type="text" class="form-control" id="validationCustom01" required>
-            </div>
-
-            <div class="col-md-4 mx-4 mt-9">
-            <label for="validationCustom02" class="form-label">Last name</label>
-            <input type="text" class="form-control" id="validationCustom02" required>
-            </div>
-
-            <div class="col-md-4 mx-4">
-            <label for="validationCustom03" class="form-label">City</label>
-            <input type="text" class="form-control" id="validationCustom03" required>
-            </div>
-
-            <div class="col-md-6 mb-4">
-            <label for="validationCustom04" class="form-label">Status</label>
-            <select class="form-select" id="status" required>
-            <option value="1">1=High</option>
-            <option value="0">0=Lowest</option>
-            </select>
-            </div>*@
-        </form>
+                <div class="action d-flex flex-wrap justify-content-end">
+                    <button data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                        Cancel
+                    </button>
+                    <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
-
 @code {
     public int TotalRows { get; set; } = 10;
 }
