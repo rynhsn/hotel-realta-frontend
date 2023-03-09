@@ -120,23 +120,22 @@
                                                 <p>wwww.majubersama.co</p>
                                             </td>
                                             <td>
-                                                <div class="dropdown me-1">
-                                                    <i class="mdi mdi-dots-vertical dropdown-toggle" data-bs-toggle="dropdown" style="cursor:pointer"></i>
-                                                    <ul class="dropdown-menu">
-                                                        <li>
-                                                            <button class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit">
-                                                                Edit
-                                                              </button></li>
-                                                        <li><hr class="dropdown-divider"></li>
-                                                        <li><a class="dropdown-item btn btn-sm" href="/purchasing/vendor-product"> Add Item Product </a></li>
-                                                        <li><hr class="dropdown-divider"></li>
-                                                        <li>
-                                                            <button class="dropdown-item btn btn-sm text-danger" data-bs-toggle="modal" data-bs-target="#delete">
-                                                                Delete
-                                                            </button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
+                                                    <span class="mdi mdi-dots-vertical"></span>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+                                                    <li class="dropdown-item">
+                                                        <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#edit"> Edit </a>
+                                                    </li>
+                                                    <li class="dropdown-item">
+                                                        <a class="text-gray" href="/purchasing/vendor-product"> Add Item Product </a>
+                                                    </li>
+                                                    <li class="dropdown-item">
+                                                        <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete">
+                                                            Delete                                                            
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </td>
                                         </tr>
                                     }
@@ -266,14 +265,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="action d-flex flex-wrap justify-content-end">
-                    <button data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
-                        Cancel
-                    </button>
-                    <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
-                        Save
-                    </button>
+                    <div class="action d-flex flex-wrap justify-content-end">
+                        <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                            Cancel
+                        </button>
+                        <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                            Save
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -298,10 +297,10 @@
                         </p>
                     </div>
                     <div class="action d-flex flex-wrap justify-content-center">
-                        <button data-bs-dismiss="modal" class="main-btn dark-btn btn-hover m-1">
+                        <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
                             Cancel
                         </button>
-                        <button data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                        <button data-bs-dismiss="modal" class="main-btn warning-btn-outline btn-hover m-1">
                             Delete
                         </button>
                     </div>
