@@ -15,12 +15,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="HttpRepository\Purchasing" />
       <Folder Include="Pages\Purchasing" />
       <Folder Include="wwwroot\vendor" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\..\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj" />
-    </ItemGroup>
 </Project>
