@@ -3,7 +3,8 @@
 ## Clone Project  
   ```
   git clone https://github.com/rynhsn/hotel-realta-frontend.git
-  git checkout namabranch
+  cd ./hotel-realta-frontend
+  git checkout [namabranch]
   ```
 - [X] Sesuaikan menu section di folder `Shared/Partials/Sidebar.razor`
 - [X] Pindahkan file di folder `Pages` masing-masing module ke `Pages` project baru
@@ -18,11 +19,11 @@
   ```
 - [X] Buat branch baru
   ```
-  git checkout -b namabranch.data
+  git checkout -b [namabranch].data
   ```
 - [X] Pindahkan file di folder `HttpRepository` masing-masing module ke `HttpRepository` project baru 
 - [X] Sesuaikan services di file `Program.cs` sesuai module
 - [X] Push project
   ```
-  git push -u [namabranch].data
+  git push -u origin [namabranch].data
   ```
