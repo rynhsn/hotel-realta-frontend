@@ -1,0 +1,373 @@
+﻿@page "/facilities"
+
+
+<section class="table-components">
+    <div class="container-fluid">
+        <div class="title-wrapper pt-30">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+            <div class="title">
+                <h2>Hotels</h2>
+            </div>
+            </div>
+            <!-- end col -->
+            <div class="col-md-6">
+            <div class="breadcrumb-wrapper mb-30">
+                <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                    <a href="#0">Hotels</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Facilities 
+                    </li>
+                </ol>
+                </nav>
+            </div>
+            </div>
+
+            <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+
+
+        <div class="invoice-card card-style mb-30">
+                  <div class="invoice-header">
+                    <div class="invoice-for">
+                      <h2 class="mb-10">Grand Livina Malang</h2>
+                      <p class="text-sm">
+                          Jl. Abu Abu no 20, Kec. Kuningan, Kota Malang, Jawa Timur, 65151
+                      </p>
+                    </div>
+                    <div class="invoice-date text-end">
+                      <p>+62 857 0718 0167</p>
+                      <p>
+                          <span class="mdi mdi-star"></span>
+                          <span class="mdi mdi-star"></span>
+                          <span class="mdi mdi-star"></span>
+                          <span class="mdi mdi-star"></span>
+                          <span class="mdi mdi-star-outline"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+        
+
+        <div class="card-style ">
+            <h6 class="mb-10">Facilities</h6>
+            <div class="d-flex justify-content-center">
+                    <div class="search d-md-flex">
+                        <div class="input-style-3 mx-auto">
+                            <input type="search" class="form-control h-50 d-inline-block w-100" placeholder="Search Facilities" aria-label="Search" aria-describedby="search-addon" />
+                            <span class="icon">
+                                <button class="btn 
+                                               border-0 
+                                               lni lni-search-alt
+                                               position-absolute top-40 start-50 translate-middle">
+                                </button>
+                            </span>
+                        </div>
+                        <div class="mx-auto">
+                            <button type="button" class="btn btn-primary h-10 ml-5 align-content-center">
+                                <i class="mdi mdi-magnify"></i>search
+                            </button>
+                        </div>
+                    </div>
+            </div>
+            
+            <!-- End Title -->
+            <div class="table-responsive">
+                <table class="table top-selling-table">
+                    <thead>
+                        <tr>
+                        <th>
+                            <h6 class="text-sm text-medium">Id</h6>
+                        </th>
+                        <th class="min-width">
+                            <h6 class="text-sm text-medium">
+                                Hotel Name 
+                                <i class="lni lni-arrows-vertical"></i>
+                            </h6>
+                        </th>
+                        <th class="min-width">
+                            <h6 class="text-sm text-medium">
+                                Rating Star 
+                                <i class="lni lni-arrows-vertical"></i>
+                            </h6>
+                        </th>
+                        <th class="min-width">
+                            <h6 class="text-sm text-medium">
+                                Phone Number <i class="lni lni-arrows-vertical"></i>
+                            </h6>
+                        </th>
+                        <th class="min-width">
+                            <h6 class="text-sm text-medium">
+                                Status <i class="lni lni-arrows-vertical"></i>
+                            </h6>
+                        </th>
+                        <th class="min-width">
+                            <h6 class="text-sm text-medium">
+                                Modified Date <i class="lni lni-arrows-vertical"></i>
+                            </h6>
+                        </th>
+                        <th>
+                            <div class="action justify-content-end" data-bs-toggle="modal" data-bs-target="#createhotel">
+                                <a href="#0" class="main-btn dark-btn-outline rounded-btn p-2">
+                                <i class="mdi mdi-home-plus"></i> Add</a>
+                            </div>
+                        </th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr>
+                        <td>
+                            <p class="text-sm">1</p>
+                        </td>
+                        <td>
+                            <p class="text-sm">Grand Livina Malang</p>
+                        </td>
+                        <td>
+                            <span class="mdi mdi-star"></span>
+                            <span class="mdi mdi-star"></span>
+                            <span class="mdi mdi-star"></span>
+                            <span class="mdi mdi-star"></span>
+                            <span class="mdi mdi-star-outline"></span>
+                        </td>
+                        <td>
+                            <p class="text-sm">+62 857 0718 0167</p>
+                        </td>
+                        <td>
+                            <span class="status-btn active-btn">Active</span>
+                        </td>
+                        <td>
+                            <p class="text-sm">7-Mei-2023</p>
+                        </td>
+                        <td>
+                            <div class="action justify-content-end">
+                            <button class="more-btn ml-10 dropdown-toggle" id="moreAction1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="lni lni-more-alt"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction1">
+                                <li class="dropdown-item">
+                                <a class="text-gray" data-bs-toggle="modal" data-bs-target="#edithotel">Edit</a>
+                                </li>
+                                <li class="dropdown-item">
+                                <a href="/facilities" class="text-gray">Add Facilities</a>
+                                </li>
+                                <li class="dropdown-item">
+                                <a class="text-gray" data-bs-toggle="modal" data-bs-target="#switchstatushotel">Switch Status</a>
+                                </li>
+                            </ul>
+                            </div>
+                        </td>
+                        </tr>
+
+
+                        <tr>
+                        <td>
+                            <p class="text-sm">2</p>
+                        </td>
+                        <td>
+                            <p class="text-sm">Blibis Palembang</p>
+                        </td>
+                        <td>
+                            <span class="mdi mdi-star"></span>
+                            <span class="mdi mdi-star-outline"></span>
+                            <span class="mdi mdi-star-outline"></span>
+                            <span class="mdi mdi-star-outline"></span>
+                            <span class="mdi mdi-star-outline"></span>
+                        </td>
+                        <td>
+                            <p class="text-sm">+62 857 1234 3214</p>
+                        </td>
+                        <td>
+                            <span class="status-btn close-btn">Disactive</span>
+                        </td>
+                        <td>
+                            <p class="text-sm">2-Mei-2023</p>
+                        </td>
+                        <td>
+                            <div class="action justify-content-end">
+                            <button class="more-btn ml-10 dropdown-toggle" id="moreAction1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="lni lni-more-alt"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction1">
+                                <li class="dropdown-item">
+                                <a href="#0" class="text-gray">Edit</a>
+                                </li>
+                                <li class="dropdown-item">
+                                <a href="#0" class="text-gray">Add Facilities</a>
+                                </li>
+                                <li class="dropdown-item">
+                                <a href="#0" class="text-gray">Switch Status</a>
+                                </li>
+                            </ul>
+                            </div>
+                        </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <!-- End Table -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Edit Hotel -->
+<div class="modal fade" id="edithotel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="edithotelLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="edithotelLabel">Edit Hotel</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <div class="card-style mb-30">
+                  <div class="input-style-1">
+                    <label>Hotel Name</label>
+                    <input type="text" placeholder="Full Name">
+                  </div>
+
+                  <div class="input-style-1">
+                    <label>Phone Number</label>
+                    <input type="text" placeholder="Phone Number">
+                  </div>
+
+                  <div class="select-style-1">
+                    <label>Status</label>
+                    <div class="select-position">
+                      <select>
+                        <option hidden>Choose status hotel</option>
+                        <option value="">Active</option>
+                        <option value="">Disactive</option>
+                      </select>
+                    </div>
+                  </div>                  <!-- end input -->
+
+                  <div class="input-style-3">
+                    <label>City</label>
+                    <input type="text" placeholder="City">
+                    <span class="icon mt-30"><i class="lni lni-search-alt"></i></span>
+                  </div>
+
+                  <div class="input-style-1">
+                    <label>Address</label>
+                    <textarea placeholder="Address" rows="3"></textarea>
+                  </div>
+                  
+                  
+                  <div class="input-style-1">
+                    <label>Hotel Description</label>
+                    <textarea placeholder="Hotel Description" rows="3"></textarea>
+                  </div>
+                  <!-- end input -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Create Hotel -->
+<div class="modal fade" id="createhotel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="createhotelLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createhotelLabel">Create Hotel</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <div class="card-style mb-30">
+                  <div class="input-style-1">
+                    <label>Hotel Name</label>
+                    <input type="text" placeholder="Full Name">
+                  </div>
+
+                  <div class="input-style-1">
+                    <label>Phone Number</label>
+                    <input type="text" placeholder="Phone Number">
+                  </div>
+
+                  <div class="select-style-1">
+                    <label>Status</label>
+                    <div class="select-position">
+                      <select>
+                        <option hidden>Choose status hotel</option>
+                        <option value="">Active</option>
+                        <option value="">Disactive</option>
+                      </select>
+                    </div>
+                  </div>                  <!-- end input -->
+
+                  <div class="input-style-3">
+                    <label>City</label>
+                    <input type="text" placeholder="City">
+                    <span class="icon mt-30"><i class="lni lni-search-alt"></i></span>
+                  </div>
+
+                  <div class="input-style-1">
+                    <label>Address</label>
+                    <textarea placeholder="Address" rows="3"></textarea>
+                  </div>
+                  
+                  
+                  <div class="input-style-1">
+                    <label>Hotel Description</label>
+                    <textarea placeholder="Hotel Description" rows="3"></textarea>
+                  </div>
+                  <!-- end input -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--Switch Status-->
+<div class="modal fade" id="switchstatushotel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="switchstatushotelLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="switchstatushotelLabel">Edit Status Hotel</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <div class="card-style mb-30">
+
+                  <div class="select-style-1">
+                    <label>Status</label>
+                    <div class="select-position">
+                      <select>
+                        <option hidden>Choose status hotel</option>
+                        <option value="">Active</option>
+                        <option value="">Disactive</option>
+                      </select>
+                    </div>
+                  </div>                  <!-- end input -->
+                  
+                  <div class="input-style-1">
+                    <label>Reason Status</label>
+                    <textarea placeholder="Hotel Description" rows="3"></textarea>
+                  </div>
+                  <!-- end input -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
