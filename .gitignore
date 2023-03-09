@@ -1,6 +1,7 @@
 .idea
 .vs
 .vscode
+push-all.sh
 Realta.Frontend/bin
 Realta.Frontend/obj
 Realta.Contract/bin
