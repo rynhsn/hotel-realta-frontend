@@ -2,10 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realta.Frontend", "Realta.Frontend\Realta.Frontend.csproj", "{56875969-C411-439B-B7AD-91FD326C3B85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realta.Contract", "..\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj", "{151F14E1-73C2-4942-94E1-EC0A289D8731}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetronicDashboard", "MetronicDashboard\MetronicDashboard.csproj", "{17FE3995-7AD1-4BAB-8A43-201E63936A9D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,13 +12,5 @@ Global
 		{56875969-C411-439B-B7AD-91FD326C3B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56875969-C411-439B-B7AD-91FD326C3B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56875969-C411-439B-B7AD-91FD326C3B85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{151F14E1-73C2-4942-94E1-EC0A289D8731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{151F14E1-73C2-4942-94E1-EC0A289D8731}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{151F14E1-73C2-4942-94E1-EC0A289D8731}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{151F14E1-73C2-4942-94E1-EC0A289D8731}.Release|Any CPU.Build.0 = Release|Any CPU
-		{17FE3995-7AD1-4BAB-8A43-201E63936A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17FE3995-7AD1-4BAB-8A43-201E63936A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17FE3995-7AD1-4BAB-8A43-201E63936A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17FE3995-7AD1-4BAB-8A43-201E63936A9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

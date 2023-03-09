@@ -1,5 +1,7 @@
 ﻿@page "/purchasing/list-order"
 
+@inherits LayoutComponentBase
+
 <PageTitle>Purchase Order</PageTitle>
 
 <section class="table-components">
@@ -20,8 +22,11 @@
                 <li class="breadcrumb-item">
                   <a href="/">Dashboard</a>
                 </li>
+                <li class="breadcrumb-item">
+                  <a href="/purchasing">Purchasing</a>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                  Tables
+                  Purchase Order
                 </li>
               </ol>
             </nav>
@@ -110,7 +115,7 @@
                       <p>@i</p>
                     </td>
                     <td>
-                      <p>PO-20230303-00 @i</p>
+                      <p>@("PO-20230303-00{i}")</p>
                     </td>
                     <td>
                       <p>2023-03-01</p>
@@ -128,19 +133,18 @@
                       <span class="status-btn success-btn">Pending</span>
                     </td>
                     <td>
-                      <button class="more-btn ml-10 dropdown-toggle" id="moreAction1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="lni lni-more-alt"></i>
                       </button>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction1">
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
                         <li class="dropdown-item">
                           <a class="text-gray" href="list-order/PO-20230303-001">Details</a>
                         </li>
                         <li class="dropdown-item">
-                          @* <a href="#0" class="text-gray">Reply</a> *@
-                          <button class="text-gray" href="#" data-bs-target="#@($"updateStatus{@i}")">Switch Status</button>
+                          <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#@($"updateStatus{i}")">Switch Status</a>
                         </li>
                         <li class="dropdown-item">
-                          <a class="btn btn-sm m-0 text-danger " data-bs-toggle="modal" data-bs-target="#@($"delete{@i}")">Delete</a>
+                          <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#@($"delete{i}")">Delete</a>
                         </li>
                       </ul>
                     </td>
@@ -197,7 +201,7 @@
 {
   // Update Modal
   <div class="warning-modal">
-    <div class="modal fade" id="@($"updateStatus{@i}")" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="@($"updateStatus{i}")" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <form class="modal-content card-style" action="/update" method="post">
           <div class="modal-header px-0 border-0">

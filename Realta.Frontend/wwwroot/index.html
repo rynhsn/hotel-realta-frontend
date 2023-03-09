@@ -35,6 +35,14 @@
     
     <script src="_framework/blazor.webassembly.js"></script>
 
+    <script>
+        var uri = window.location.toString();
+        if (uri.indexOf("?") > 0) {
+            var clean_uri = uri.substring(0, uri.indexOf("?"));
+            window.history.replaceState({}, document.title, clean_uri);
+        }
+    </script>
+
     <!-- ========= All Javascript files linkup ======== -->
     <script src="vendor/assets/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/assets/js/Chart.min.js"></script>
