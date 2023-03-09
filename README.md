@@ -1,4 +1,4 @@
-# MIGRASI PROJECT
+# MIGRASI FRONTEND PROJECT
 
 ## Clone Project  
   ```
