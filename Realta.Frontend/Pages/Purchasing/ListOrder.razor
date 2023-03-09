@@ -133,12 +133,13 @@
                       <span class="status-btn success-btn">Pending</span>
                     </td>
                     <td>
-                      <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="lni lni-more-alt"></i>
+                      <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
+                        @* <i class="lni lni-more-alt"></i> *@
+                        <span class="mdi mdi-dots-vertical"></span>
                       </button>
                       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
                         <li class="dropdown-item">
-                          <a class="text-gray" href="list-order/PO-20230303-001">Details</a>
+                          <a class="text-gray" href="/purchasing/list-order/PO-20230303-001">Details</a>
                         </li>
                         <li class="dropdown-item">
                           <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#@($"updateStatus{i}")">Switch Status</a>
