@@ -91,7 +91,7 @@
                                         </th>
                                         <th class="min-width">
                                             <h6 class="text-sm text-medium">
-                                                <a href="#"> Add +</a>
+                                                <a a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#@($"addVendor")">Add +</a>
                                             </h6>
                                         </th>
                                     </tr>
@@ -121,13 +121,20 @@
                                             </td>
                                             <td>
                                                 <div class="dropdown me-1">
-                                                    <i class="mdi mdi-dots-vertical dropdown-toggle" data-bs-toggle="dropdown"></i>
+                                                    <i class="mdi mdi-dots-vertical dropdown-toggle" data-bs-toggle="dropdown" style="cursor:pointer"></i>
                                                     <ul class="dropdown-menu">
-                                                        <li><button class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit">Edit</button></li>
+                                                        <li>
+                                                            <button class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit">
+                                                                Edit
+                                                              </button></li>
                                                         <li><hr class="dropdown-divider"></li>
                                                         <li><a class="dropdown-item btn btn-sm" href="/purchasing/vendor-product"> Add Item Product </a></li>
                                                         <li><hr class="dropdown-divider"></li>
-                                                        <li><a class="dropdown-item btn btn-sm text-danger" href="#">Delete</a></li>
+                                                        <li>
+                                                            <button class="dropdown-item btn btn-sm text-danger" data-bs-toggle="modal" data-bs-target="#delete">
+                                                                Delete
+                                                            </button>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>
@@ -151,117 +158,155 @@
     <!-- end container -->
 </section>
 
-<!-- Modal -->
-<div class="modal fade" id="detail" tabindex="-1" aria-labelledby="detailLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="detailLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal Edit -->
-<div class="modal modal-lg fade" id="edit" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <form class="modal-content" action="" method="post">
-            <div class="modal-header">
-                <h5 class="modal-title" id="EditLabel">Edit Vendor</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="input-style-1 col-6 rounded-sm">
-                        <label>Vendor Name</label>
-                        <div class="select-position">
-                            <input type="text" />
-                        </div>
-                    </div>
-                    <div class="input-style-1 col-6 rounded-sm">
-                        <label for="exampleDate" class="form-label">Register Date</label>
-                        <input type="date" class="form-control" id="exampleDate">
-                    </div>
-                    <div class="select-style-1 col-6 rounded-sm">
-                        <label>Status</label>
-                        <div class="select-position">
-                            <select>
-                                <option value="1">Active</option>
-                                <option value="0">InActive</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="select-style-1 col-6 rounded-sm">
-                        <label>Priority</label>
-                        <div class="select-position">
-                            <select>
-                                <option value="1">1=Highest</option>
-                                <option value="0">0=Lowest</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="input-style-1 col-8 rounded-sm">
-                        <label>Website</label>
-                        <div class="select-position">
-                            <input type="text" placeholder="URL..." />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-
-<!-- Modal Edit New -->
+<!-- Modal Add Vendor -->
 <div class="warning-modal">
-    <div class="modal fade" id="@($"updateStatus")" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="@($"addVendor")" tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <form class="modal-content card-style" action="/update" method="post">
                 <div class="modal-header px-0 border-0">
-                    <h5 class="text-bold">Switch Status</h5>
+                    <h5 class="text-bold">Add Vendor</h5>
                     <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
                         <i class="lni lni-cross-circle"></i>
                     </button>
                 </div>
                 <div class="modal-body px-0">
-                    <div class="content mb-30">
-                        <div class="select-style-1 col rounded-sm">
-                            <label>Purchase Order Status</label>
+                    <div class="row">
+                        <div class="input-style-1 col-3 rounded-sm">
+                            <label>Vendor Id</label>
+                            <div class="select-position">
+                                <input class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="input-style-1 col-9 rounded-sm">
+                            <label>Vendor Name</label>
+                            <div class="select-position">
+                                <input class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="select-style-1 col-6 rounded-sm">
+                            <label>Status</label>
                             <div class="select-position">
                                 <select>
-                                    <option value="1">Pending</option>
-                                    <option value="2">Approve</option>
-                                    <option value="3">Receive</option>
-                                    <option value="4">Reject</option>
-                                    <option value="5">Complete</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">InActive</option>
                                 </select>
                             </div>
                         </div>
+                        <div class="select-style-1 col-6 rounded-sm">
+                            <label>Priority</label>
+                            <div class="select-position">
+                                <select>
+                                    <option value="1">Highest</option>
+                                    <option value="0">Lowest</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-style-1 col-8 rounded-sm">
+                            <label>Website</label>
+                            <div class="select-position">
+                                <input type="text" placeholder="URL..." />
+                            </div>
+                        </div>
                     </div>
-                    <div class="action d-flex flex-wrap justify-content-end">
-                        <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                </div>
+                <div class="action d-flex flex-wrap justify-content-end">
+                    <button data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                        Cancel
+                    </button>
+                    <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit Vendor -->
+<div class="warning-modal">
+    <div class="modal fade" id="@($"edit")" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form class="modal-content card-style" action="/update" method="post">
+                <div class="modal-header px-0 border-0">
+                    <h5 class="text-bold">Add Product</h5>
+                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-0">
+                    <div class="row">
+                        <div class="input-style-1 col-9 rounded-sm">
+                            <label>Vendor Name</label>
+                            <div class="select-position">
+                                <input class="form-control" type="text" placeholder="PT Maju Sejahtera">
+                            </div>
+                        </div>
+                        <div class="select-style-1 col-6 rounded-sm">
+                            <label>Status</label>
+                            <div class="select-position">
+                                <select>
+                                    <option value="1">Active</option>
+                                    <option value="0">InActive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="select-style-1 col-6 rounded-sm">
+                            <label>Priority</label>
+                            <div class="select-position">
+                                <select>
+                                    <option value="1">Highest</option>
+                                    <option value="0">Lowest</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="input-style-1 col-8 rounded-sm">
+                            <label>Website</label>
+                            <div class="select-position">
+                                <input type="text" placeholder="URL..." />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="action d-flex flex-wrap justify-content-end">
+                    <button data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                        Cancel
+                    </button>
+                    <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Delete Vendor -->
+<div class="warning-modal">
+    <div class="modal fade" id="@($"delete")" tabindex="-1" aria-hidden="true" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content card-style warning-card text-center">
+                <div class="modal-body">
+                    <div class="icon text-danger mb-20">
+                        <i class="lni lni-warning"></i>
+                    </div>
+                    <div class="content mb-30">
+                        <h3 class="mb-15">
+                            Anda akan menghapus Vendor ini?
+                        </h3>
+                        <p class="text-sm text-medium">
+                            Cancel untuk Membatalkan
+                        </p>
+                    </div>
+                    <div class="action d-flex flex-wrap justify-content-center">
+                        <button data-bs-dismiss="modal" class="main-btn dark-btn btn-hover m-1">
                             Cancel
                         </button>
-                        <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
-                            Send
+                        <button data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                            Delete
                         </button>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

@@ -78,8 +78,7 @@
                                         </th>
                                         <th class="min-width">
                                             <h6 class="text-sm text-medium">
-                                                <a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#@($"add")">Add +</a>
-
+                                                <a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#@($"addProduct")">Add +</a>
                                             </h6>
                                         </th>
                                     </tr>
@@ -115,7 +114,6 @@
                             </table>
                             <!-- end table -->
                         </div>
-
                         <Paging />
                     </div>
                     <!-- end card -->
@@ -178,7 +176,7 @@
 
 <!-- Modal Add-->
 <div class="warning-modal">
-    <div class="modal fade" id="@($"add")" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="@($"addProduct")" tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <form class="modal-content card-style" action="/update" method="post">
                 <div class="modal-header px-0 border-0">
