@@ -1,0 +1,87 @@
+@page "/purchasing/gallery"
+
+<PageTitle>Gallery</PageTitle>
+
+<section class="card-components">
+  <div class="container-fluid">
+    <!-- ========== title-wrapper start ========== -->
+    <div class="title-wrapper pt-30">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <div class="title mb-30">
+            <h2>Gallery</h2>
+          </div>
+        </div>
+        <!-- end col -->
+        <div class="col-md-6">
+          <div class="breadcrumb-wrapper mb-30">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="/">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                  <a href="purchasing">Purchasing</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Gallery
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+        <!-- end col -->
+      </div>
+      <!-- end row -->
+    </div>
+    <!-- ========== title-wrapper end ========== -->
+
+    <!-- ========== cards-styles start ========== -->
+    <div class="cards-styles">
+
+      <!-- ========= card-style-2 start ========= -->
+      <div class="row">
+        @for (int i = 0; i < @TotalRows; i++)
+        {
+          <div class="col-xl-3 col-lg-3 col-md-4 col-sm-4">
+            <div class="card-style-2 mb-30">
+              <div class="card-image">
+                <a href="#0">
+                  <img src="vendor/assets/images/cards/card-style-2/card-1.jpg" alt="">
+                </a>
+              </div>
+              <div class="card-content">
+                <h5 class="mb-10">
+                  <a href="#0">Card Title here </a>
+                </h5>
+                <p class="text-sm">
+                  With supporting text below as a natural lead-in to
+                  additional content. consectetur adipiscing elit. Integer
+                  posuere erat a ante.
+                </p>
+              </div>
+            </div>
+          </div>
+        }
+        <!-- end col -->
+      </div>
+      <!-- end row -->
+      <!-- ========= card-style-2 end ========= -->
+
+    </div>
+    <!-- ========== cards-styles end ========== -->
+  </div>
+  <!-- end container -->
+</section>
+
+@code{
+  public int TotalRows { get; set; } = 10;
+
+  [Parameter]
+  public EventCallback<bool> OnToggleSidebar { get; set; }
+
+  private async Task ToggleSidebar()
+  {
+    await OnToggleSidebar.InvokeAsync(true);
+  }
+}
