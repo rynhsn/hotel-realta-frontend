@@ -36,15 +36,8 @@
     
     <script src="_framework/blazor.webassembly.js"></script>
 
-    <script>
-        var uri = window.location.toString();
-        if (uri.indexOf("?") > 0) {
-            var clean_uri = uri.substring(0, uri.indexOf("?"));
-            window.history.replaceState({}, document.title, clean_uri);
-        }
-    </script>
-
     <!-- ========= All Javascript files linkup ======== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="vendor/assets/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/assets/js/Chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -58,6 +51,11 @@
     <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
     <script src="vendor/assets/js/main.js"></script>
+    <script>
+        const dataTable = new simpleDatatables.DataTable("#table", {
+            searchable: true,
+        });
+    </script>
 </body>
 
 </html>
