@@ -18,7 +18,7 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a href="#0">Dashboard</a>
+                  <a href="/">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
                   Tables
@@ -38,7 +38,24 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="card-style mb-30">
-            <h6 class="mb-10">Purchase Order</h6>
+            <div class="title d-flex flex-wrap align-items-left justify-content-between">
+              <h6 class="mb-10">Purchase Order</h6>
+              <div class="d-flex align-items-center">
+                <h6>Status:</h6>
+                <div class="select-style-1 mb-0 ml-10">
+                  <div class="select-position">
+                    <select class="p-0 pe-5 border-0">
+                    <option value="" selected>Semua</option>
+                    <option value="1">Pending</option>
+                    <option value="2">Approved</option>
+                    <option value="3">Received</option>
+                    <option value="4">Rejected</option>
+                    <option value="5">Completed</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
               <div class="left">
                 <p>Show <span>@TotalRows</span> entries</p>
@@ -111,26 +128,21 @@
                       <span class="status-btn success-btn">Pending</span>
                     </td>
                     <td>
-                      <div class="dropdown me-1">
-                        <i class="btn lni lni-more-alt dropdown-toggle" data-bs-toggle="dropdown"></i>
-                        <ul class="dropdown-menu">
-                          <li>
-                            <a class="dropdown-item btn btn-sm" href="list-order/PO-20230303-001">Details</a>
-                          </li>
-                          <li>
-                            <hr class="dropdown-divider">
-                          </li>
-                          <li>
-                            <button class="dropdown-item btn btn-sm btn-hover" data-bs-toggle="modal" data-bs-target="#@($"updateStatus{@i}")">Switch Status</button>
-                          </li>
-                          <li>
-                            <hr class="dropdown-divider">
-                          </li>
-                          <li>
-                            <button class="dropdown-item btn btn-sm text-danger btn-hover" data-bs-toggle="modal" data-bs-target="#@($"delete{@i}")">Delete</button>
-                          </li>
-                        </ul>
-                      </div>
+                      <button class="more-btn ml-10 dropdown-toggle" id="moreAction1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="lni lni-more-alt"></i>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction1">
+                        <li class="dropdown-item">
+                          <a class="text-gray" href="list-order/PO-20230303-001">Details</a>
+                        </li>
+                        <li class="dropdown-item">
+                          @* <a href="#0" class="text-gray">Reply</a> *@
+                          <button class="text-gray" href="#" data-bs-target="#@($"updateStatus{@i}")">Switch Status</button>
+                        </li>
+                        <li class="dropdown-item">
+                          <a class="btn btn-sm m-0 text-danger " data-bs-toggle="modal" data-bs-target="#@($"delete{@i}")">Delete</a>
+                        </li>
+                      </ul>
                     </td>
                   </tr>
                 }
