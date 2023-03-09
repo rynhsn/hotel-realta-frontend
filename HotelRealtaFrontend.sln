@@ -2,11 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realta.Frontend", "Realta.Frontend\Realta.Frontend.csproj", "{56875969-C411-439B-B7AD-91FD326C3B85}"
 EndProject
-<<<<<<< HEAD
-=======
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realta.Contract", "..\RealtaHotelWebApi\Realta.Contract\Realta.Contract.csproj", "{B132427A-4EE8-4244-B5DD-733EAEEC1635}"
-EndProject
->>>>>>> 8e2c3fdfe8ae09866aeae4c53e1563fa9817fbeb
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +12,5 @@ Global
 		{56875969-C411-439B-B7AD-91FD326C3B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56875969-C411-439B-B7AD-91FD326C3B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56875969-C411-439B-B7AD-91FD326C3B85}.Release|Any CPU.Build.0 = Release|Any CPU
-<<<<<<< HEAD
-=======
-		{B132427A-4EE8-4244-B5DD-733EAEEC1635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B132427A-4EE8-4244-B5DD-733EAEEC1635}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B132427A-4EE8-4244-B5DD-733EAEEC1635}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B132427A-4EE8-4244-B5DD-733EAEEC1635}.Release|Any CPU.Build.0 = Release|Any CPU
->>>>>>> 8e2c3fdfe8ae09866aeae4c53e1563fa9817fbeb
 	EndGlobalSection
 EndGlobal
