@@ -1,238 +1,258 @@
 ﻿<!-- ======== sidebar-nav start =========== -->
-<aside class="sidebar-nav-wrapper">
-    <div class="navbar-logo">
-        <a href="index.html">
-            <img src="vendor/assets/images/logo/logo.svg" alt="logo" />
-        </a>
-    </div>
-    <nav class="sidebar-nav">
-        <ul>
-            @* Dashboard *@
-            <li class="nav-item nav-item-has-children">
-                <a href="#0"
-                   class=""
-                   data-bs-toggle="collapse"
-                   data-bs-target="#dashboard"
-                   aria-controls="dashboard"
-                   aria-expanded="false"
-                   aria-label="Toggle navigation">
-                    <span class="icon">
-                        <svg width="22" height="22" viewBox="0 0 22 22">
-                            <path d="M17.4167 4.58333V6.41667H13.75V4.58333H17.4167ZM8.25 4.58333V10.0833H4.58333V4.58333H8.25ZM17.4167 11.9167V17.4167H13.75V11.9167H17.4167ZM8.25 15.5833V17.4167H4.58333V15.5833H8.25ZM19.25 2.75H11.9167V8.25H19.25V2.75ZM10.0833 2.75H2.75V11.9167H10.0833V2.75ZM19.25 10.0833H11.9167V19.25H19.25V10.0833ZM10.0833 13.75H2.75V19.25H10.0833V13.75Z" />
-                        </svg>
-                    </span>
-                    <span class="text">Dashboard</span>
-                </a>
-                <ul id="dashboard" class="collapse show dropdown-nav">
-                    <li>
-                        <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Home</NavLink>
-                    </li>
-                </ul>
-            </li>
-            <span class="divider"><hr /></span>
-            
-            @* Master *@
-            <li class="nav-item nav-item-has-children">
-                <a href="#0"
-                   class="collapsed"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#master"
-                   aria-controls="master"
-                   aria-expanded="false"
-                   aria-label="Toggle navigation">
-                    <span class="icon">
-                        <i class="mdi mdi-view-dashboard-outline"></i>
-                    </span>
-                    <span class="text">Master</span>
-                </a>
-                <ul id="master" class="collapse dropdown-nav">
-                    <li>
-                        <a href="settings.html"> Settings </a>
-                    </li>
-                    <li>
-                        <a href="blank-page.html"> Blank Page </a>
-                    </li>
-                </ul>
-            </li>
-        
-            @* Users *@
-            <li class="nav-item nav-item-has-children">
-                <a href="#0"
-                   class="collapsed"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#users"
-                   aria-controls="users"
-                   aria-expanded="false"
-                   aria-label="Toggle navigation">
-                    <span class="icon">
-                        <i class="mdi mdi-account-group-outline"></i>
-                    </span>
-                    <span class="text">Users</span>
-                </a>
-                <ul id="users" class="collapse dropdown-nav">
-                    <li>
-                        <a href="settings.html"> Settings </a>
-                    </li>
-                    <li>
-                        <a href="blank-page.html"> Blank Page </a>
-                    </li>
-                </ul>
-            </li>
-            
-            @* HR *@
-            <li class="nav-item nav-item-has-children">
-                <a href="#0"
-                   class="collapsed"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#hr"
-                   aria-controls="hr"
-                   aria-expanded="false"
-                   aria-label="Toggle navigation">
-                    <span class="icon">
-                        <i class="mdi mdi-human-greeting-proximity"></i>
-                    </span>
-                    <span class="text">Human Resources</span>
-                </a>
-                <ul id="hr" class="collapse dropdown-nav">
-                    <li>
-                        <NavLink class="nav-link" href="/purchasing/vendor">Vendor</NavLink>
-                    </li>
-                    <li>
-                        <NavLink class="nav-link" href="/purchasing/stock">Stock</NavLink>
-                    </li>
-                    <li>
-                        <NavLink class="nav-link" href="/purchasing/list-order">Purchase Order</NavLink>
-                    </li>
-                </ul>
-            </li> 
-        
-            @* Hotel *@
-            <li class="nav-item nav-item-has-children">
-                <a href="#0"
-                   class="collapsed"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#hotel"
-                   aria-controls="hotel"
-                   aria-expanded="false"
-                   aria-label="Toggle navigation">
-                    <span class="icon">
-                        <i class="mdi mdi-bed-outline"></i>
-                    </span>
-                    <span class="text">Hotel</span>
-                </a>
-                <ul id="hotel" class="collapse dropdown-nav">
-                    <li>
-                        <NavLink class="nav-link" href="hotels">Hotels</NavLink>
-                    </li>
-                    <li>
-                        <NavLink class="nav-link" href="facility">Facility</NavLink>
-                    </li>
-                    <li>
-                        <NavLink class="nav-link" href="reviews">Reviews</NavLink>
-                    </li>
-                </ul>
-            </li>
-        
-            @* Booking *@
-            <li class="nav-item nav-item-has-children">
-                <a href="#0"
-                   class="collapsed"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#booking"
-                   aria-controls="booking"
-                   aria-expanded="false"
-                   aria-label="Toggle navigation">
-                    <span class="icon">
-                        <i class="mdi mdi-calendar-clock-outline"></i>
-                    </span>
-                    <span class="text">Booking</span>
-                </a>
-                <ul id="booking" class="collapse dropdown-nav">
-                    <li>
-                        <a href="settings.html"> Settings </a>
-                    </li>
-                    <li>
-                        <a href="blank-page.html"> Blank Page </a>
-                    </li>
-                </ul>
-            </li> 
-        
-            @* Resto *@
-            <li class="nav-item nav-item-has-children">
-                <a href="#0"
-                   class="collapsed"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#resto"
-                   aria-controls="resto"
-                   aria-expanded="false"
-                   aria-label="Toggle navigation">
-                    <span class="icon">
-                        <i class="mdi mdi-silverware"></i>
-                    </span>
-                    <span class="text">Resto</span>
-                </a>
-                <ul id="resto" class="collapse dropdown-nav">
-                    <li>
-                        <a href="settings.html"> Settings </a>
-                    </li>
-                    <li>
-                        <a href="blank-page.html"> Blank Page </a>
-                    </li>
-                </ul>
-            </li>
-        
-            @* Payment *@
-            <li class="nav-item nav-item-has-children">
-                <a href="#0"
-                   class="collapsed"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#payment"
-                   aria-controls="payment"
-                   aria-expanded="false"
-                   aria-label="Toggle navigation">
-                    <span class="icon">
-                        <i class="mdi mdi-wallet-outline"></i>
-                    </span>
-                    <span class="text">Payment</span>
-                </a>
-                <ul id="payment" class="collapse dropdown-nav">
-                    <li>
-                        <a href="settings.html"> Settings </a>
-                    </li>
-                    <li>
-                        <a href="blank-page.html"> Blank Page </a>
-                    </li>
-                </ul>
-            </li>
-        
-            @* Purchasing *@
-            <li class="nav-item nav-item-has-children">
-                <a href="#0"
-                   class="collapsed"
-                   data-bs-toggle="collapse"
-                   data-bs-target="#purchasing"
-                   aria-controls="purchasing"
-                   aria-expanded="false"
-                   aria-label="Toggle navigation">
-                    <span class="icon">
-                        <i class="mdi mdi-dolly"></i>
-                    </span>
-                    <span class="text">Purchasing</span>
-                </a>
-                <ul id="purchasing" class="collapse dropdown-nav">
-                    <li>
-                        <NavLink class="nav-link" href="/purchasing/vendor">Vendor</NavLink>
-                    </li>
-                    <li>
-                        <NavLink class="nav-link" href="/purchasing/stock">Stock</NavLink>
-                    </li>
-                    <li>
-                        <NavLink class="nav-link" href="/purchasing/list-order">Purchase Order</NavLink>
-                    </li>
-                </ul>
-            </li> 
-        </ul>
-    </nav>
+<aside class="sidebar-nav-wrapper  @(IsOpen ? "active" : "")">
+<div class="navbar-logo">
+  <a href="index.html">
+    <img src="vendor/assets/images/logo/logo.svg" alt="logo"/>
+  </a>
+</div>
+<nav class="sidebar-nav">
+<ul>
+@* Dashboard *@
+<li class="nav-item nav-item-has-children">
+  <a href="#0"
+     class=""
+     data-bs-toggle="collapse"
+     data-bs-target="#dashboard"
+     aria-controls="dashboard"
+     aria-expanded="false"
+     aria-label="Toggle navigation">
+    <span class="icon">
+      <svg width="22" height="22" viewBox="0 0 22 22">
+        <path d="M17.4167 4.58333V6.41667H13.75V4.58333H17.4167ZM8.25 4.58333V10.0833H4.58333V4.58333H8.25ZM17.4167 11.9167V17.4167H13.75V11.9167H17.4167ZM8.25 15.5833V17.4167H4.58333V15.5833H8.25ZM19.25 2.75H11.9167V8.25H19.25V2.75ZM10.0833 2.75H2.75V11.9167H10.0833V2.75ZM19.25 10.0833H11.9167V19.25H19.25V10.0833ZM10.0833 13.75H2.75V19.25H10.0833V13.75Z"/>
+      </svg>
+    </span>
+    <span class="text">Dashboard</span>
+  </a>
+  <ul id="dashboard" class="collapse show dropdown-nav">
+    <li>
+      <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">Home</NavLink>
+    </li>
+  </ul>
+</li>
+<span class="divider">
+  <hr/>
+</span>
+
+@* Master *@
+<li class="nav-item nav-item-has-children">
+  <a href="#0"
+     class="collapsed"
+     data-bs-toggle="collapse"
+     data-bs-target="#master"
+     aria-controls="master"
+     aria-expanded="false"
+     aria-label="Toggle navigation">
+    <span class="icon">
+      <i class="mdi mdi-view-dashboard-outline"></i>
+    </span>
+    <span class="text">Master</span>
+  </a>
+  <ul id="master" class="collapse dropdown-nav">
+    <li>
+      <a href="settings.html"> Settings </a>
+    </li>
+    <li>
+      <a href="blank-page.html"> Blank Page </a>
+    </li>
+  </ul>
+</li>
+
+@* Users *@
+<li class="nav-item nav-item-has-children">
+  <a href="#0"
+     class="collapsed"
+     data-bs-toggle="collapse"
+     data-bs-target="#users"
+     aria-controls="users"
+     aria-expanded="false"
+     aria-label="Toggle navigation">
+    <span class="icon">
+      <i class="mdi mdi-account-group-outline"></i>
+    </span>
+    <span class="text">Users</span>
+  </a>
+  <ul id="users" class="collapse dropdown-nav">
+    <li>
+      <a href="settings.html"> Settings </a>
+    </li>
+    <li>
+      <a href="blank-page.html"> Blank Page </a>
+    </li>
+  </ul>
+</li>
+
+@* HR *@
+<li class="nav-item nav-item-has-children">
+  <a href="#0"
+     class="collapsed"
+     data-bs-toggle="collapse"
+     data-bs-target="#hr"
+     aria-controls="hr"
+     aria-expanded="false"
+     aria-label="Toggle navigation">
+    <span class="icon">
+      <i class="mdi mdi-human-greeting-proximity"></i>
+    </span>
+    <span class="text">Human Resources</span>
+  </a>
+  <ul id="hr" class="collapse dropdown-nav">
+    <li>
+      <NavLink class="nav-link" href="/purchasing/vendor">Vendor</NavLink>
+    </li>
+    <li>
+      <NavLink class="nav-link" href="/purchasing/stock">Stock</NavLink>
+    </li>
+    <li>
+      <NavLink class="nav-link" href="/purchasing/list-order">Purchase Order</NavLink>
+    </li>
+  </ul>
+</li>
+
+@* Hotel *@
+<li class="nav-item nav-item-has-children">
+  <a href="#0"
+     class="collapsed"
+     data-bs-toggle="collapse"
+     data-bs-target="#hotel"
+     aria-controls="hotel"
+     aria-expanded="false"
+     aria-label="Toggle navigation">
+    <span class="icon">
+      <i class="mdi mdi-bed-outline"></i>
+    </span>
+    <span class="text">Hotel</span>
+  </a>
+  <ul id="hotel" class="collapse dropdown-nav">
+    <li>
+      <NavLink class="nav-link" href="hotels">Hotels</NavLink>
+    </li>
+    <li>
+      <NavLink class="nav-link" href="facility">Facility</NavLink>
+    </li>
+    <li>
+      <NavLink class="nav-link" href="reviews">Reviews</NavLink>
+    </li>
+  </ul>
+</li>
+
+@* Booking *@
+<li class="nav-item nav-item-has-children">
+  <a href="#0"
+     class="collapsed"
+     data-bs-toggle="collapse"
+     data-bs-target="#booking"
+     aria-controls="booking"
+     aria-expanded="false"
+     aria-label="Toggle navigation">
+    <span class="icon">
+      <i class="mdi mdi-calendar-clock-outline"></i>
+    </span>
+    <span class="text">Booking</span>
+  </a>
+  <ul id="booking" class="collapse dropdown-nav">
+    <li>
+      <a href="settings.html"> Settings </a>
+    </li>
+    <li>
+      <a href="blank-page.html"> Blank Page </a>
+    </li>
+  </ul>
+</li>
+
+@* Resto *@
+<li class="nav-item nav-item-has-children">
+  <a href="#0"
+     class="collapsed"
+     data-bs-toggle="collapse"
+     data-bs-target="#resto"
+     aria-controls="resto"
+     aria-expanded="false"
+     aria-label="Toggle navigation">
+    <span class="icon">
+      <i class="mdi mdi-silverware"></i>
+    </span>
+    <span class="text">Resto</span>
+  </a>
+  <ul id="resto" class="collapse dropdown-nav">
+    <li>
+      <a href="settings.html"> Settings </a>
+    </li>
+    <li>
+      <a href="blank-page.html"> Blank Page </a>
+    </li>
+  </ul>
+</li>
+
+@* Payment *@
+<li class="nav-item nav-item-has-children">
+  <a href="#0"
+     class="collapsed"
+     data-bs-toggle="collapse"
+     data-bs-target="#payment"
+     aria-controls="payment"
+     aria-expanded="false"
+     aria-label="Toggle navigation">
+    <span class="icon">
+      <i class="mdi mdi-wallet-outline"></i>
+    </span>
+    <span class="text">Payment</span>
+  </a>
+  <ul id="payment" class="collapse dropdown-nav">
+    <li>
+      <a href="banks"> Bank </a>
+    </li>
+    <li>
+      <a href="fintechs"> Fintech </a>
+    </li>
+    <li>
+      <a href="accounts"> Account </a>
+    </li>
+    <li>
+      <a href="topup"> Topup </a>
+    </li>
+    <li>
+      <a href="transactions"> Transaction </a>
+    </li>
+  </ul>
+</li>
+
+@* Purchasing *@
+<li class="nav-item nav-item-has-children">
+  <a href="#0"
+     class="collapsed"
+     data-bs-toggle="collapse"
+     data-bs-target="#purchasing"
+     aria-controls="purchasing"
+     aria-expanded="false"
+     aria-label="Toggle navigation">
+    <span class="icon">
+      <i class="mdi mdi-dolly"></i>
+    </span>
+    <span class="text">Purchasing</span>
+  </a>
+  <ul id="purchasing" class="collapse dropdown-nav">
+    <li>
+      <NavLink class="nav-link" href="/purchasing/vendor">Vendor</NavLink>
+    </li>
+    <li>
+      <NavLink class="nav-link" href="/purchasing/stock">Stock</NavLink>
+    </li>
+    <li>
+      <NavLink class="nav-link" href="/purchasing/list-order">Purchase Order</NavLink>
+    </li>
+  </ul>
+</li>
+</ul>
+</nav>
 </aside>
-<div class="overlay"></div>
+<div class="overlay @(IsOpen ? "active" : "")"></div>
 <!-- ======== sidebar-nav end =========== -->
+
+@code {
+  
+  [Parameter]
+  public bool IsOpen { get; set; }
+
+  [Parameter]
+  public EventCallback<bool> OnIsOpenChanged { get; set; }
+} 

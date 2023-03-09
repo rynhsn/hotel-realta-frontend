@@ -1,0 +1,231 @@
+﻿@page "/purchasing/vendor-product"
+
+<PageTitle>Vendor Product</PageTitle>
+
+<section class="tabsle-components">
+    <div class="container-fluid">
+        <!-- ========== title-wrapper start ========== -->
+        <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="title mb-30">
+                        <h2>Vendor Product</h2>
+                    </div>
+                </div>
+                <!-- end col -->
+                <div class="col-md-6">
+                    <div class="breadcrumb-wrapper mb-30">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/purchasing">Purchasing</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Vendor Product
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- ========== title-wrapper end ========== -->
+        <!-- ========== tables-wrapper start ========== -->
+        <div class="tables-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-style mb-30">
+                        <div class="title d-flex flex-wrap align-items-left justify-content-between">
+                            <h6 class="mb-10">PT Maju Sejahtera Bersama</h6>
+                            <div class="d-flex align-items-center">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
+                            <div class="left">
+                                <p>Show <span>@TotalRows</span> entries</p>
+                            </div>
+                            <div class="right">
+                                <div class="table-search d-flex">
+                                    <form action="#">
+                                        <input type="text" placeholder="Search...">
+                                        <button>
+                                            <i class="lni lni-search-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-wrapper table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="min-width">
+                                            <h6>#</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6>Stock Name</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6>Qty Stocked</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6>Qty Remaining</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6>Price</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6 class="text-sm text-medium">
+                                                <a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#@($"addProduct")">Add +</a>
+                                            </h6>
+                                        </th>
+                                    </tr>
+                                    <!-- end table row-->
+                                </thead>
+                                <tbody>
+                                    @for (int i = 1; i <= TotalRows; i++)
+                                    {
+                                        <tr>
+                                            <td class="min-width">
+                                                <p>@i</p>
+                                            </td>
+                                            <td class="min-width">
+                                                <p>Kasur Warna Putih @i</p>
+                                            </td>
+                                            <td class="min-width">
+                                                <p>122</p>
+                                            </td>
+                                            <td class="min-width">
+                                                <p>11</p>
+                                            </td>
+                                            <td class="min-width">
+                                                <p>Rp.5.000.0000</p>
+                                            </td>
+                                            <td class="action">
+                                                <button class="text-dark" title="Edit">
+                                                     <i class="mdi mdi-pencil-outline" data-bs-toggle="modal" data-bs-target="#edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <!-- end table -->
+                        </div>
+                        <Paging />
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- ========== tables-wrapper end ========== -->
+    </div>
+    <!-- end container -->
+</section>
+
+<!-- Modal Edit -->
+<div class="warning-modal">
+    <div class="modal fade" id="@($"edit")" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form class="modal-content card-style" action="/update" method="post">
+                <div class="modal-header px-0 border-0">
+                    <h5 class="text-bold">Edit Product</h5>
+                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-0">
+                    <div class="row">
+                        <div class="input-style-1 col-9 rounded-sm">
+                            <label>Stock Name</label>
+                            <div class="select-position">
+                                <input class="form-control" type="text" placeholder="Sprei Putih" disabled>
+                            </div>
+                        </div>
+                        <div class="input-style-1 col-6 rounded-sm">
+                            <label for="exampleDate" class="form-label">Qty Stocked</label>
+                            <input type="number" class="form-control" id="exampleDate" value="50">
+                        </div>
+
+                        <div class="input-style-1 col-6 rounded-sm">
+                            <label for="exampleDate" class="form-label">Remaining</label>
+                            <input type="number" class="form-control" id="exampleDate" value="22">
+                        </div>
+                        <div class="input-style-1 col-9 rounded-sm">
+                            <label for="exampleDate" class="form-label">Sell Price</label>
+                            <input type="number" class="form-control" id="exampleDate" value="Rp.500.000">
+                        </div>
+                    </div>
+                </div>
+                <div class="action d-flex flex-wrap justify-content-end">
+                    <button type="button"  data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                        Cancel
+                    </button>
+                    <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                       Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Add-->
+<div class="warning-modal">
+    <div class="modal fade" id="@($"addProduct")" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form class="modal-content card-style" action="/update" method="post">
+                <div class="modal-header px-0 border-0">
+                    <h5 class="text-bold">Add Product</h5>
+                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-0">
+                    <div class="row">
+                        <div class="input-style-1 col-9 rounded-sm">
+                            <label>Vendor Name</label>
+                            <div class="select-position">
+                                <input class="form-control" type="text" placeholder="PT Maju Sejahtera" disabled>
+                            </div>
+                        </div>
+                        <div class="input-style-1 col-9 rounded-sm">
+                            <label>Stock Name</label>
+                            <div class="select-position">
+                                <input class="form-control" type="text" placeholder="Stock Name">
+                            </div>
+                        </div>
+                        <div class="input-style-1 col-6 rounded-sm">
+                            <label for="exampleDate" class="form-label">Qty Stocked</label>
+                            <input type="number" class="form-control" id="exampleDate" value="50">
+                        </div>
+
+                        <div class="input-style-1 col-6 rounded-sm">
+                            <label for="exampleDate" class="form-label">Remaining</label>
+                            <input type="number" class="form-control" id="exampleDate" value="22">
+                        </div>
+                        <div class="input-style-1 col-9 rounded-sm">
+                            <label for="exampleDate" class="form-label">Sell Price</label>
+                            <input type="number" class="form-control" id="exampleDate" placeholder="Rp.">
+                        </div>
+                    </div>
+                </div>
+                <div class="action d-flex flex-wrap justify-content-end">
+                    <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                        Cancel
+                    </button>
+                    <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@code {
+    public int TotalRows { get; set; } = 10;
+}

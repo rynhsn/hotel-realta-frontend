@@ -221,7 +221,7 @@
 <!-- end container -->
 </section>
 
-@for (int i = 1; i <= 5; i++)
+@for (var i = 1; i <= @TotalRows; i++)
 {
   <!-- Update Status Modal -->
   <div class="modal fade" id="detail[@i]" tabindex="-1" aria-labelledby="detail[@i]Label" aria-hidden="true">
@@ -278,6 +278,11 @@
 }
 
 @code {
+
   [Parameter]
   public string? Id { get; set; }
+
+  [Parameter]
+  public int TotalRows { get; set; } = 5;
+
 }
