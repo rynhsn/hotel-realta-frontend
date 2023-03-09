@@ -17,4 +17,37 @@
     <ItemGroup>
       <Folder Include="wwwroot\vendor" />
     </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\.DS_Store" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\apexcharts.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\bootstrap.bundle.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\Chart.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\datatable.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\dynamic-pie-chart.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\fullcalendar.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\jvectormap.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\loading-bar.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\main.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\moment.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\polyfill.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\quill.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\Sortable.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\_content\js\world-merc.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\.DS_Store" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\apexcharts.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\bootstrap.bundle.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Chart.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\datatable.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\dynamic-pie-chart.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\fullcalendar.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\jvectormap.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\loading-bar.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\main.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\moment.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\polyfill.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\quill.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\Sortable.min.js" />
+      <_ContentIncludedByDefault Remove="wwwroot\js\world-merc.js" />
+    </ItemGroup>
 </Project>
