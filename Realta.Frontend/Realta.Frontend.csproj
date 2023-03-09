@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.11" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.11" PrivateAssets="all" />
+        <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+        <PackageReference Include="System.Net.Http.Json" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Components\Booking" />
+      <Folder Include="Components\Hotel" />
+      <Folder Include="Components\Hr" />
+      <Folder Include="Components\Master" />
+      <Folder Include="Components\Payment" />
+      <Folder Include="Components\Purchasing" />
+      <Folder Include="Components\Resto" />
+      <Folder Include="Components\Users" />
+      <Folder Include="HttpRepository\Booking" />
+      <Folder Include="HttpRepository\Hotel" />
+      <Folder Include="HttpRepository\Hr" />
+      <Folder Include="HttpRepository\Master" />
+      <Folder Include="HttpRepository\Payment" />
+      <Folder Include="HttpRepository\Purchasing" />
+      <Folder Include="HttpRepository\Resto" />
+      <Folder Include="HttpRepository\Users" />
+      <Folder Include="Pages\Booking" />
+      <Folder Include="Pages\Hotel" />
+      <Folder Include="Pages\Hr" />
+      <Folder Include="Pages\Master" />
+      <Folder Include="Pages\Payment" />
+      <Folder Include="Pages\Purchasing" />
+      <Folder Include="Pages\Resto" />
+      <Folder Include="Pages\Users" />
+      <Folder Include="wwwroot\vendor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj" />
+    </ItemGroup>
+</Project>

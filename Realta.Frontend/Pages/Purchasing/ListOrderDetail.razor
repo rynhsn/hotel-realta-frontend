@@ -1,0 +1,219 @@
+﻿@page "/purchasing/list-order/{id}"
+<PageTitle>Purchase Order Detail</PageTitle>
+
+<section class="table-components">
+    <div class="container-fluid">
+        <!-- ========== title-wrapper start ========== -->
+        <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="title mb-30">
+                        <h2>Purchase Order Detail</h2>
+                    </div>
+                </div>
+                <!-- end col -->
+                <div class="col-md-6">
+                    <div class="breadcrumb-wrapper mb-30">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/">Home</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="/purchasing">Purchasing</a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">
+                                    <a href="/purchasing/list-order">Purchase Order</a>
+                                </li>
+                                <li class="breadcrumb-item" aria-current="page">
+                                    Detail
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- ========== title-wrapper end ========== -->
+        <!-- ========== tables-wrapper start ========== -->
+        <div class="tables-wrapper">
+            <div class="row">
+                <div class="col">
+                    <div class="card-style mb-30">
+                        <div class="mb-3 row g-3">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label for="poNumber" class="col-form-label col-5">PO Number</label>
+                                    <div class="col">
+                                        <input type="email" class="form-control-plaintext" readonly id="poNumber" value="@Id">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="poDate" class="col-form-label col-5">PO Date</label>
+                                    <div class="col">
+                                        <input type="email" class="form-control-plaintext" readonly id="poDate" value="2023/03/03   ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label for="vendor" class="col-form-label col-4">Vendor</label>
+                                    <div class="col">
+                                        <input type="email" class="form-control-plaintext" readonly id="vendor" value="Cocoalatica LLC">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-form-label col-4">Status</label>
+                                    <div class="col">
+                                        <span class="status-btn success-btn">Pending</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <label for="subTotal" class="col-form-label col-5">Sub total</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control-plaintext" readonly id="subTotal" value="IDR 5,000,000.00">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label for="totalAmount" class="col-form-label col-5">Total amount</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control-plaintext" readonly id="totalAmount" value="IDR 5,750,000.00">
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="divider"><hr/></span>
+                        </div>
+                        <div class="table-wrapper table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th><h6>#</h6></th>
+                                        <th><h6>PO Number</h6></th>
+                                        <th><h6>PO Date</h6></th>
+                                        <th><h6>Vendor Target</h6></th>
+                                        <th><h6>Line Items</h6></th>
+                                        <th><h6> Amount</h6></th>
+                                        <th><h6>Status</h6></th>
+                                        <th><h6></h6></th>
+                                    </tr>
+                                    <!-- end table row-->
+                                </thead>
+                                <tbody>
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <tr>
+                                            <td class="min-width"><p>@i</p></td>
+                                            <td class="min-width"><p>PO-20230303-00 @i</p></td>
+                                            <td class="min-width"><p>2023-03-01</p></td>
+                                            <td class="min-width"><p>Cocoalici LLC</p></td>
+                                            <td class="min-width"><p>2</p></td>
+                                            <td class="min-width"><p>IDR 5,000,000.00</p></td>
+                                            <td class="min-width">
+                                                <span class="status-btn success-btn">Pending</span>
+                                            </td>
+                                            <td>
+                                                <div class="dropdown me-1">
+                                                    <i class="btn lni lni-more-alt dropdown-toggle" data-bs-toggle="dropdown"></i>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item btn btn-sm" href="#">Details</a></li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><button class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#detail[@i]">Switch status</button></li>
+                                                        <li><hr class="dropdown-divider"></li>
+                                                        <li><button class="dropdown-item btn btn-sm text-danger" data-bs-toggle="modal" data-bs-target="#delete[@i]">Delete</button></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <!-- end table -->
+                        </div>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- ========== tables-wrapper end ========== -->
+    </div>
+    <!-- end container -->
+</section>
+
+@for (int i = 1; i <= 5; i++)
+{
+    <!-- Update Status Modal -->
+    <div class="modal fade" id="detail[@i]" tabindex="-1" aria-labelledby="detail[@i]Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" action="" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detail[@i]Label">Switch status</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="select-style-1 col rounded-sm">
+                        <label>Purchase Order Status</label>
+                        <div class="select-position">
+                            <select>
+                                <option value="1">Pending</option>
+                                <option value="2">Approve</option>
+                                <option value="3">Receive</option>
+                                <option value="4">Reject</option>
+                                <option value="5">Complete</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+@for (int i = 1; i <= 5; i++)
+{
+    <!-- Update Status Modal -->
+    <div class="modal fade" id="delete[@i]" tabindex="-1" aria-labelledby="delete[@i]Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" action="" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="delete[@i]Label">Delete Purchase Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Purchase Order with PO Number: PO-20230303-00 @i will be deleted. data that has been deleted cannot be recovered!</p>
+                    <p>Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+@code {
+    [Parameter]
+    public string? Id { get; set; } 
+}

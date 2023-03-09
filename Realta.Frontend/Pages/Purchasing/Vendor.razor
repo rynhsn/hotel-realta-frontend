@@ -1,0 +1,226 @@
+﻿@page "/purchasing/vendor"
+
+<PageTitle>Vendor</PageTitle>
+
+<section class="table-components">
+    <div class="container-fluid">
+        <!-- ========== title-wrapper start ========== -->
+        <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="title mb-30">
+                        <h2>Vendor</h2>
+                    </div>
+                </div>
+                <!-- end col -->
+                <div class="col-md-6">
+                    <div class="breadcrumb-wrapper mb-30">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/purchasing">Purchasing</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Vendor
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- ========== title-wrapper end ========== -->
+        <!-- ========== tables-wrapper start ========== -->
+        <div class="tables-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-style mb-30">
+                        <form class="row">
+                            <div class="search col-4">
+                                <div class="input-style-3 rounded-5">
+                                    <input type="text" placeholder="Vendor Name">
+                                    <button class="btn icon"><i class="lni lni-search-alt"></i></button>
+                                </div>
+                            </div>
+                            <div class="select-style-1 col-3 rounded-sm">
+                                <div class="select-position">
+                                    <select>
+                                        <option value="1" selected>1=High</option>
+                                        <option value="0">0=Lowest</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <a href="#0" class="main-btn dark-btn rounded-md btn-hover">Search</a>
+                            </div>
+                        </form>
+                        <div class="table-wrapper table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th><h6>#</h6></th>
+                                        <th><h6>Vendor Name</h6></th>
+                                        <th><h6>Status</h6></th>
+                                        <th><h6>Priority</h6></th>
+                                        <th><h6>Register At</h6></th>
+                                        <th><h6>Web URL</h6></th>
+                                        <th class="min-width">
+                                            <h6 class="text-sm text-medium">
+                                                <a href="#"> Add +</a>
+                                            </h6>
+                                        </th>
+                                    </tr>
+                                    <!-- end table row-->
+                                </thead>
+                                <tbody>
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <tr>
+                                        <td class="min-width">
+                                            <p>@i</p>
+                                        </td>
+                                        <td class="min-width">
+                                            <p>PT Maju Bersama Sejahtera @i</p>
+                                        </td>
+                                        <td class="min-width">
+                                            <p>Active</p>
+                                        </td>
+                                        <td class="min-width">
+                                            <p>Priority</p>
+                                        </td>
+                                        <td class="min-width">
+                                            <p>20 Jan 2013</p>
+                                        </td>
+                                        <td class="min-width">
+                                            <p>wwww.majubersama.co</p>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown me-1">
+                                                <i class="btn lni lni-more-alt dropdown-toggle" data-bs-toggle="dropdown"></i>
+                                                <ul class="dropdown-menu">
+                                                    <li><button class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit">Edit</button></li>
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li><button class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#detail">Add Item Product</button></li>
+                                                    <li><hr class="dropdown-divider"></li>
+                                                    <li><a class="dropdown-item btn btn-sm text-danger" href="#">Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                            <!-- end table -->
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- ========== tables-wrapper end ========== -->
+    </div>
+    <!-- end container -->
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="detail" tabindex="-1" aria-labelledby="detailLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Edit -->
+<div class="modal modal-lg fade" id="edit" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" action="" method="post">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditLabel">Edit Vendor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="input-style-1 col-6 rounded-sm">
+                        <label>Vendor Name</label>
+                        <div class="select-position">
+                            <input type="text"/>
+                        </div>
+                    </div>
+                    <div class="input-style-1 col-6 rounded-sm">
+                        <label for="exampleDate" class="form-label">Register Date</label>
+                         <input type="date" class="form-control" id="exampleDate">
+                    </div>
+                    <div class="select-style-1 col-6 rounded-sm">
+                        <label>Status</label>
+                        <div class="select-position">
+                            <select>
+                                <option value="1">Active</option>
+                                <option value="0">InActive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="select-style-1 col-6 rounded-sm">
+                        <label>Priority</label>
+                        <div class="select-position">
+                            <select>
+                                <option value="1">1=Highest</option>
+                                <option value="0">0=Lowest</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-style-1 col-8 rounded-sm">
+                        <label>Website</label>
+                        <div class="select-position">
+                            <input type="text" placeholder="URL..."/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+
+
+            @*<form class="row g-3 needs-validation mt-8" novalidate>*@
+                @*<div class="col-md-4 mx-4 mt-9">
+                    <label for="validationCustom01" class="form-label">First name</label>
+                    <input type="text" class="form-control" id="validationCustom01" required>
+                </div>
+
+                <div class="col-md-4 mx-4 mt-9">
+                    <label for="validationCustom02" class="form-label">Last name</label>
+                    <input type="text" class="form-control" id="validationCustom02" required>
+                </div>
+
+                <div class="col-md-4 mx-4">
+                    <label for="validationCustom03" class="form-label">City</label>
+                    <input type="text" class="form-control" id="validationCustom03" required>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <label for="validationCustom04" class="form-label">Status</label>
+                    <select class="form-select" id="status" required>
+                        <option value="1">1=High</option>
+                        <option value="0">0=Lowest</option>
+                    </select>
+                </div>*@
+        </form>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+.vs
+.vscode
+Realta.Frontend/bin
+Realta.Frontend/obj
+Realta.Contract/bin
+Realta.Contract/obj
+MetronicDashboard
+MetronicDashboard/*

@@ -1,0 +1,261 @@
+﻿@page "/purchasing/list-order"
+
+<PageTitle>Purchase Order</PageTitle>
+
+<section class="table-components">
+  <div class="container-fluid">
+    <!-- ========== title-wrapper start ========== -->
+    <div class="title-wrapper pt-30">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <div class="title mb-30">
+            <h2>Purchase Order</h2>
+          </div>
+        </div>
+        <!-- end col -->
+        <div class="col-md-6">
+          <div class="breadcrumb-wrapper mb-30">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="#0">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Tables
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+        <!-- end col -->
+      </div>
+      <!-- end row -->
+    </div>
+    <!-- ========== title-wrapper end ========== -->
+
+    <!-- ========== tables-wrapper start ========== -->
+    <div class="tables-wrapper">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card-style mb-30">
+            <h6 class="mb-10">Purchase Order</h6>
+            <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
+              <div class="left">
+                <p>Show <span>@TotalRows</span> entries</p>
+              </div>
+              <div class="right">
+                <div class="table-search d-flex">
+                  <form action="#">
+                    <input type="text" placeholder="Search...">
+                    <button>
+                      <i class="lni lni-search-alt"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="table-wrapper table-responsive">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th class="min-width">
+                    <h6>#</h6>
+                  </th>
+                  <th class="min-width">
+                    <h6>PO Number</h6>
+                  </th>
+                  <th class="min-width">
+                    <h6>PO Date</h6>
+                  </th>
+                  <th class="min-width">
+                    <h6>Vendor Target</h6>
+                  </th>
+                  <th class="min-width">
+                    <h6>Line Items</h6>
+                  </th>
+                  <th class="min-width">
+                    <h6>Total Amount</h6>
+                  </th>
+                  <th class="min-width">
+                    <h6>Status</h6>
+                  </th>
+                  <th>
+                    <h6>Action</h6>
+                  </th>
+                </tr>
+                <!-- end table row-->
+                </thead>
+                <tbody>
+                @for (int i = 1; i <= @TotalRows; i++)
+                {
+                  <tr>
+                    <td>
+                      <p>@i</p>
+                    </td>
+                    <td>
+                      <p>PO-20230303-00 @i</p>
+                    </td>
+                    <td>
+                      <p>2023-03-01</p>
+                    </td>
+                    <td>
+                      <p>Cocoalici LLC</p>
+                    </td>
+                    <td>
+                      <p>2</p>
+                    </td>
+                    <td>
+                      <p>IDR 5,000,000.00</p>
+                    </td>
+                    <td>
+                      <span class="status-btn success-btn">Pending</span>
+                    </td>
+                    <td>
+                      <div class="dropdown me-1">
+                        <i class="btn lni lni-more-alt dropdown-toggle" data-bs-toggle="dropdown"></i>
+                        <ul class="dropdown-menu">
+                          <li>
+                            <a class="dropdown-item btn btn-sm" href="list-order/PO-20230303-001">Details</a>
+                          </li>
+                          <li>
+                            <hr class="dropdown-divider">
+                          </li>
+                          <li>
+                            <button class="dropdown-item btn btn-sm btn-hover" data-bs-toggle="modal" data-bs-target="#@($"updateStatus{@i}")">Switch Status</button>
+                          </li>
+                          <li>
+                            <hr class="dropdown-divider">
+                          </li>
+                          <li>
+                            <button class="dropdown-item btn btn-sm text-danger btn-hover" data-bs-toggle="modal" data-bs-target="#@($"delete{@i}")">Delete</button>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                }
+                </tbody>
+              </table>
+              <!-- end table -->
+            </div>
+            <div class="pt-10 d-flex flex-wrap justify-content-between">
+              <div class="left">
+                <p class="text-sm text-gray">Showing 12/30 products</p>
+              </div>
+              <div class="right table-pagination">
+                <ul class="d-flex justify-content-end align-items-center">
+                  <li class="ms-2">
+                    <a href="#0">
+                      <i class="lni lni-angle-double-left"></i>
+                    </a>
+                  </li>
+                  <li class="ms-2">
+                    <a href="#0"> 1 </a>
+                  </li>
+                  <li class="ms-2">
+                    <a href="#0" class="active"> 2 </a>
+                  </li>
+                  <li class="ms-2">
+                    <a href="#0"> 3 </a>
+                  </li>
+                  <li class="ms-2">
+                    <a href="#0"> 4 </a>
+                  </li>
+                  <li class="ms-2">
+                    <a href="#0">
+                      <i class="lni lni-angle-double-right"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- end card -->
+        </div>
+        <!-- end col -->
+      </div>
+      <!-- end row -->
+    </div>
+    <!-- ========== tables-wrapper end ========== -->
+  </div>
+  <!-- end container -->
+</section>
+
+@for (int i = 1; i <= @TotalRows; i++)
+{
+  // Update Modal
+  <div class="warning-modal">
+    <div class="modal fade" id="@($"updateStatus{@i}")" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content card-style" action="/update" method="post">
+          <div class="modal-header px-0 border-0">
+            <h5 class="text-bold">Switch Status</h5>
+            <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+              <i class="lni lni-cross-circle"></i>
+            </button>
+          </div>
+          <div class="modal-body px-0">
+            <div class="content mb-30">
+              <div class="select-style-1 col rounded-sm">
+                <label>Purchase Order Status</label>
+                <div class="select-position">
+                  <select>
+                    <option value="1">Pending</option>
+                    <option value="2">Approve</option>
+                    <option value="3">Receive</option>
+                    <option value="4">Reject</option>
+                    <option value="5">Complete</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="action d-flex flex-wrap justify-content-end">
+              <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                Cancel
+              </button>
+              <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                Send
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  // Delete Modal
+  <div class="warning-modal">
+    <div class="modal fade" id="@($"delete{i}")" tabindex="-1" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <form class="modal-content card-style" action="/delete" method="post">
+          <div class="modal-header px-0 border-0">
+            <h5 class="text-bold">
+              <i class="lni lni-warning text-danger me-2"></i> Are you sure
+              you want to delete?
+            </h5>
+          </div>
+          <div class="modal-body px-0">
+            <div class="content mb-30">
+              <p class="text-sm">
+                Purchase Order with PO Number: @i will be deleted. data that has been deleted cannot be recovered!
+              </p>
+            </div>
+            <div class="action d-flex flex-wrap justify-content-end">
+              <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                Cancel
+              </button>
+              <button type="submit" class="main-btn warning-btn btn-hover m-1">
+                Delete
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
+
+
+@code{
+  public int TotalRows { get; set; } = 10;
+}

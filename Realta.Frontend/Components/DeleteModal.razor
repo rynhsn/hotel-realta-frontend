@@ -1,0 +1,49 @@
+<div class="warning-modal">
+  <div class="modal fade" id="@Target" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form class="modal-content card-style" action="@Action" method="@Method">
+        <div class="modal-header px-0 border-0">
+          <h5 class="text-bold">
+            <i class="lni lni-warning text-danger me-2"></i> Are you sure
+            you want to submit?
+          </h5>
+        </div>
+        <div class="modal-body px-0">
+          <div class="content mb-30">
+            <p class="text-sm">
+              Purchase Order with PO Number: @Id will be deleted. data that has been deleted cannot be recovered!
+            </p>
+            <p class="text-sm">Are you sure?</p>
+          </div>
+          <div class="action d-flex flex-wrap justify-content-end">
+            <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+              Cancel
+            </button>
+            <button type="submit" class="main-btn danger-btn btn-hover m-1">
+              Delete
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+@code {
+  [Parameter] public string Target { get; set; }
+  [Parameter] public string Action { get; set; }
+  [Parameter] public string Method { get; set; }
+  [Parameter] public string Id { get; set; }
+  
+  protected override void OnInitialized()
+  {
+    if (string.IsNullOrEmpty(Target))
+      throw new ArgumentException($"{nameof(Target)} attribute is required.");
+    if (string.IsNullOrEmpty(Action))
+      throw new ArgumentException($"{nameof(Action)} attribute is required.");
+    if (string.IsNullOrEmpty(Method))
+      throw new ArgumentException($"{nameof(Method)} attribute is required.");
+    if (string.IsNullOrEmpty(Id))
+      throw new ArgumentException($"{nameof(Id)} attribute is required.");
+  }
+}
