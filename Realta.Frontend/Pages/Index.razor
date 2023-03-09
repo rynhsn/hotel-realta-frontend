@@ -1,125 +1,308 @@
 ﻿@page "/"
-@layout MainLayout
-
-<PageTitle>Index</PageTitle>
 
 <section class="table-components">
-  <div class="container-fluid">
-    <!-- ========== title-wrapper start ========== -->
-    <div class="title-wrapper pt-30">
-      <div class="row align-items-center">
+<div class="container-fluid">
+<!-- ========== title-wrapper start ========== -->
+<div class="title-wrapper pt-30">
+    <div class="row align-items-center">
         <div class="col-md-6">
-          <div class="title mb-30">
-            <h2>Tables</h2>
-          </div>
+            <div class="title mb-30">
+                <h2>Tables</h2>
+            </div>
         </div>
         <!-- end col -->
         <div class="col-md-6">
-          <div class="breadcrumb-wrapper mb-30">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="#0">Dashboard</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                  Tables
-                </li>
-              </ol>
-            </nav>
-          </div>
+            <div class="breadcrumb-wrapper mb-30">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="#0">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Tables
+                        </li>
+                    </ol>
+                </nav>
+            </div>
         </div>
         <!-- end col -->
-      </div>
-      <!-- end row -->
     </div>
-    <!-- ========== title-wrapper end ========== -->
+    <!-- end row -->
+</div>
+<!-- ========== title-wrapper end ========== -->
 
-    <!-- ========== tables-wrapper start ========== -->
-    <div class="tables-wrapper">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card-style mb-30">
-            <h6 class="mb-10">Responsive Data Table</h6>
-            <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
-              <div class="left">
-                <p>Show <span>10</span> entries</p>
-              </div>
-              <div class="right">
-                <div class="table-search d-flex">
-                  <form action="#">
-                    <input type="text" placeholder="Search...">
-                    <button><i class="lni lni-search-alt"></i></button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div class="table-wrapper table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th class="lead-info">
-                      <h6>Lead</h6>
-                    </th>
-                    <th class="lead-email">
-                      <h6>Email</h6>
-                    </th>
-                    <th class="lead-phone">
-                      <h6>Phone No</h6>
-                    </th>
-                    <th class="lead-company">
-                      <h6>Company</h6>
-                    </th>
-                    <th>
-                      <h6>Action</h6>
-                    </th>
-                  </tr>
-                  <!-- end table row-->
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="lead">
-                        <div class="lead-image">
-                          <img src="vendor/assets/images/lead/lead-1.png" alt="">
-                        </div>
-                        <div class="lead-text">
-                          <p>Courtney Henry</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <p><a href="#0">yourmail@gmail.com</a></p>
-                    </td>
-                    <td>
-                      <p>(303)555 3343523</p>
-                    </td>
-                    <td>
-                      <p>UIdeck digital agency</p>
-                    </td>
-                    <td>
-                      <div class="action">
-                        <button class="text-danger">
-                          <i class="lni lni-trash-can"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                  <!-- end table row -->
-                </tbody>
-              </table>
-              <!-- end table -->
-            </div>
-            
-            <Paging/>
-          
-          </div>
-          <!-- end card -->
-        </div>
-        <!-- end col -->
-      </div>
-      <!-- end row -->
+<!-- ========== tables-wrapper start ========== -->
+<div class="tables-wrapper">
+<div class="row">
+<div class="col-lg-12">
+<div class="card-style mb-30">
+<h6 class="mb-10">Responsive Data Table</h6>
+<div class="table-responsive">
+<div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+<div class="dataTable-top">
+    <div class="dataTable-dropdown">
+        <label>
+            <select class="dataTable-selector">
+                <option value="5">5</option><option value="10" selected="">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option>
+            </select> entries per page
+        </label>
     </div>
-    <!-- ========== tables-wrapper end ========== -->
-  </div>
-  <!-- end container -->
+    <div class="dataTable-search">
+        <input class="dataTable-input" placeholder="Search..." type="text">
+    </div>
+</div>
+<div class="dataTable-container">
+<table id="table" class="table dataTable-table">
+<thead>
+<tr>
+    <th data-sortable="" style="width: 24.4768%;" class="desc">
+        <a href="#" class="dataTable-sorter">
+            <h6>Name</h6>
+        </a>
+    </th>
+    <th data-sortable="" style="width: 9.75523%;">
+        <a href="#" class="dataTable-sorter">
+            <h6>Ext.</h6>
+        </a>
+    </th>
+    <th data-sortable="" style="width: 30.9507%;">
+        <a href="#" class="dataTable-sorter">
+            <h6>City</h6>
+        </a>
+    </th>
+    <th data-type="date" data-format="YYYY/MM/DD" data-sortable="" style="width: 17.6481%;">
+        <a href="#" class="dataTable-sorter">
+            <h6>Start Date</h6>
+        </a>
+    </th>
+    <th data-sortable="" style="width: 17.2047%;">
+        <a href="#" class="dataTable-sorter">
+            <h6>Completion</h6>
+        </a>
+    </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>
+        <p>Zelenia Roman</p>
+    </td>
+    <td>
+        <p>7516</p>
+    </td>
+    <td>
+        <p>Redwater</p>
+    </td>
+    <td>
+        <p>2012/03/03</p>
+    </td>
+    <td>
+        <p>31%</p>
+    </td>
+</tr>
+<tr>
+    <td>
+        <p>Zachery Morgan</p>
+    </td>
+    <td>
+        <p>6730</p>
+    </td>
+    <td>
+        <p>Collines-de-l'Outaouais</p>
+    </td>
+    <td>
+        <p>2006/04/09</p>
+    </td>
+    <td>
+        <p>51%</p>
+    </td>
+</tr>
+<tr>
+    <td>
+        <p>Yoko Freeman</p>
+    </td>
+    <td>
+        <p>4077</p>
+    </td>
+    <td>
+        <p>Lidköping</p>
+    </td>
+    <td>
+        <p>2002/27/12</p>
+    </td>
+    <td>
+        <p>48%</p>
+    </td>
+</tr>
+<tr>
+    <td>
+        <p>Wyatt Riley</p>
+    </td>
+    <td>
+        <p>5694</p>
+    </td>
+    <td>
+        <p>Cavaion Veronese</p>
+    </td>
+    <td>
+        <p>2012/19/02</p>
+    </td>
+    <td>
+        <p>67%</p>
+    </td>
+</tr>
+<tr>
+    <td>
+        <p>Wyatt Mccarthy</p>
+    </td>
+    <td>
+        <p>3547</p>
+    </td>
+    <td>
+        <p>Patan</p>
+    </td>
+    <td>
+        <p>2014/23/06</p>
+    </td>
+    <td>
+        <p>9%</p>
+    </td>
+</tr>
+<tr>
+    <td>
+        <p>Willow Gilliam</p>
+    </td>
+    <td>
+        <p>3497</p>
+    </td>
+    <td>
+        <p>Amqui</p>
+    </td>
+    <td>
+        <p>2009/29/11</p>
+    </td>
+    <td>
+        <p>30%</p>
+    </td>
+</tr>
+<tr>
+    <td>
+        <p>Walker Nixon</p>
+    </td>
+    <td>
+        <p>6901</p>
+    </td>
+    <td>
+        <p>Metz</p>
+    </td>
+    <td>
+        <p>2011/12/11</p>
+    </td>
+    <td>
+        <p>41%</p>
+    </td>
+</tr>
+<tr>
+    <td>
+        <p>Vivien Dominguez</p>
+    </td>
+    <td>
+        <p>5653</p>
+    </td>
+    <td>
+        <p>Bargagli</p>
+    </td>
+    <td>
+        <p>2001/09/01</p>
+    </td>
+    <td>
+        <p>86%</p>
+    </td>
+</tr>
+<tr>
+    <td>
+        <p>Vielka Olsen</p>
+    </td>
+    <td>
+        <p>3745</p>
+    </td>
+    <td>
+        <p>Vrasene</p>
+    </td>
+    <td>
+        <p>2016/08/01</p>
+    </td>
+    <td>
+        <p>70%</p>
+    </td>
+</tr>
+<tr>
+    <td>
+        <p>Ursula Reynolds</p>
+    </td>
+    <td>
+        <p>7544</p>
+    </td>
+    <td>
+        <p>Southampton</p>
+    </td>
+    <td>
+        <p>1999/16/12</p>
+    </td>
+    <td>
+        <p>61%</p>
+    </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="dataTable-bottom">
+    <div class="dataTable-info">Showing 1 to 10 of 100 entries</div>
+    <nav class="dataTable-pagination">
+        <ul class="dataTable-pagination-list">
+            <li class="active">
+                <a href="#" data-page="1">1</a>
+            </li>
+            <li class="">
+                <a href="#" data-page="2">2</a>
+            </li>
+            <li class="">
+                <a href="#" data-page="3">3</a>
+            </li>
+            <li class="">
+                <a href="#" data-page="4">4</a>
+            </li>
+            <li class="">
+                <a href="#" data-page="5">5</a>
+            </li>
+            <li class="">
+                <a href="#" data-page="6">6</a>
+            </li>
+            <li class="">
+                <a href="#" data-page="7">7</a>
+            </li>
+            <li class="ellipsis">
+                <a href="#">…</a>
+            </li>
+            <li class="">
+                <a href="#" data-page="10">10</a>
+            </li>
+            <li class="pager">
+                <a href="#" data-page="2">›</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</div>
+</div>
+</div>
+<!-- end card -->
+</div>
+<!-- end col -->
+</div>
+<!-- end row -->
+</div>
+<!-- ========== tables-wrapper end ========== -->
+</div>
+<!-- end container -->
 </section>
