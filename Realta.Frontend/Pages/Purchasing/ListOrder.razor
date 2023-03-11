@@ -1,158 +1,259 @@
 ﻿@page "/purchasing/list-order"
 
-<PageTitle>Purchase Order</PageTitle>
+@* <PageTitle>Purchase Order</PageTitle> *@
 
-<section class="table-components">
-  <div class="container-fluid">
-    <!-- ========== title-wrapper start ========== -->
-    <div class="title-wrapper pt-30">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <div class="title mb-30">
-            <h2>Purchase Order</h2>
-          </div>
+@* <section class="table-components"> *@
+@*   <div class="container-fluid"> *@
+@*     <!-- ========== title-wrapper start ========== --> *@
+@*     <div class="title-wrapper pt-30"> *@
+@*       <div class="row align-items-center"> *@
+@*         <div class="col-md-6"> *@
+@*           <div class="title mb-30"> *@
+@*             <h2>Purchase Order</h2> *@
+@*           </div> *@
+@*         </div> *@
+@*         <!-- end col --> *@
+@*         <div class="col-md-6"> *@
+@*           <div class="breadcrumb-wrapper mb-30"> *@
+@*             <nav aria-label="breadcrumb"> *@
+@*               <ol class="breadcrumb"> *@
+@*                 <li class="breadcrumb-item"> *@
+@*                   <a href="/">Dashboard</a> *@
+@*                 </li> *@
+@*                 <li class="breadcrumb-item"> *@
+@*                   <a href="/purchasing">Purchasing</a> *@
+@*                 </li> *@
+@*                 <li class="breadcrumb-item active" aria-current="page"> *@
+@*                   Purchase Order *@
+@*                 </li> *@
+@*               </ol> *@
+@*             </nav> *@
+@*           </div> *@
+@*         </div> *@
+@*         <!-- end col --> *@
+@*       </div> *@
+@*       <!-- end row --> *@
+@*     </div> *@
+@*     <!-- ========== title-wrapper end ========== --> *@
+@* *@
+@*     <!-- ========== tables-wrapper start ========== --> *@
+@*     <div class="tables-wrapper"> *@
+@*       <div class="row"> *@
+@*         <div class="col-lg-12"> *@
+@*           <div class="card-style mb-30"> *@
+@*             <div class="title d-flex flex-wrap align-items-left justify-content-between"> *@
+@*               <h6 class="mb-10">Purchase Order</h6> *@
+@*               <div class="d-flex align-items-center"> *@
+@*                 <h6>Status:</h6> *@
+@*                 <div class="select-style-1 mb-0 ml-10"> *@
+@*                   <div class="select-position"> *@
+@*                     <select class="p-0 pe-5 border-0"> *@
+@*                       <option value="" selected>Semua</option> *@
+@*                       <option value="1">Pending</option> *@
+@*                       <option value="2">Approved</option> *@
+@*                       <option value="3">Received</option> *@
+@*                       <option value="4">Rejected</option> *@
+@*                       <option value="5">Completed</option> *@
+@*                     </select> *@
+@*                   </div> *@
+@*                 </div> *@
+@*               </div> *@
+@*             </div> *@
+@*             <TableToolbar/> *@
+@*             <div class="table-wrapper table-responsive"> *@
+@*               <table class="table"> *@
+@*                 <thead> *@
+@*                 <tr> *@
+@*                   <th class="min-width"> *@
+@*                     <h6>#</h6> *@
+@*                   </th> *@
+@*                   <th class="min-width"> *@
+@*                     <h6>PO Number</h6> *@
+@*                   </th> *@
+@*                   <th class="min-width"> *@
+@*                     <h6>PO Date</h6> *@
+@*                   </th> *@
+@*                   <th class="min-width"> *@
+@*                     <h6>Vendor Target</h6> *@
+@*                   </th> *@
+@*                   <th class="min-width"> *@
+@*                     <h6>Line Items</h6> *@
+@*                   </th> *@
+@*                   <th class="min-width"> *@
+@*                     <h6>Total Amount</h6> *@
+@*                   </th> *@
+@*                   <th class="min-width"> *@
+@*                     <h6>Status</h6> *@
+@*                   </th> *@
+@*                   <th> *@
+@*                     <h6>Action</h6> *@
+@*                   </th> *@
+@*                 </tr> *@
+@*                 <!-- end table row--> *@
+@*                 </thead> *@
+@*                 <tbody> *@
+@*                 @foreach (var po in PurchaseOrders) *@
+@*                 { *@
+@*                   <tr> *@
+@*                     <td> *@
+@*                       <p>@po.PoheId</p> *@
+@*                     </td> *@
+@*                     <td> *@
+@*                       <p>@po.PoNumber</p> *@
+@*                     </td> *@
+@*                     <td> *@
+@*                       <p>@po.PoDate</p> *@
+@*                     </td> *@
+@*                     <td> *@
+@*                       <p>@po.VendorTarget</p> *@
+@*                     </td> *@
+@*                     <td> *@
+@*                       <p>@po.LineItems</p> *@
+@*                     </td> *@
+@*                     <td> *@
+@*                       <p>@po.TotalAmount</p> *@
+@*                     </td> *@
+@*                     <td> *@
+@*                       <span class="status-btn success-btn">@po.Status</span> *@
+@*                     </td> *@
+@*                     <td> *@
+@*                       <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more"> *@
+@*                         $1$ <i class="lni lni-more-alt"></i> #1# *@
+@*                         <span class="mdi mdi-dots-vertical"></span> *@
+@*                       </button> *@
+@*                       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction"> *@
+@*                         <li class="dropdown-item"> *@
+@*                           <a class="text-gray" href="/purchasing/list-order/PO-20230303-001">Details</a> *@
+@*                         </li> *@
+@*                         <li class="dropdown-item"> *@
+@*                           <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#updateStatus">Switch Status</a> *@
+@*                         </li> *@
+@*                         <li class="dropdown-item"> *@
+@*                           <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete">Delete</a> *@
+@*                         </li> *@
+@*                       </ul> *@
+@*                     </td> *@
+@*                   </tr> *@
+@*                 } *@
+@*                 </tbody> *@
+@*               </table> *@
+@*               <!-- end table --> *@
+@*             </div> *@
+@* *@
+@*             <Paging/> *@
+@* *@
+@*           </div> *@
+@*           <!-- end card --> *@
+@*         </div> *@
+@*         <!-- end col --> *@
+@*       </div> *@
+@*       <!-- end row --> *@
+@*     </div> *@
+@*     <!-- ========== tables-wrapper end ========== --> *@
+@*   </div> *@
+@*   <!-- end container --> *@
+@* </section> *@
+
+<TableSection Title="Purchase Order"
+              Link="/purchasing"
+              LinkText="Purchasing">
+  <CustomComponent>
+    <div class="d-flex align-items-center">
+      <h6>Status:</h6>
+      <div class="select-style-1 mb-0 ml-10">
+        <div class="select-position">
+          <select class="p-0 pe-5 border-0">
+            <option value="" selected>Semua</option>
+            <option value="1">Pending</option>
+            <option value="2">Approved</option>
+            <option value="3">Received</option>
+            <option value="4">Rejected</option>
+            <option value="5">Completed</option>
+          </select>
         </div>
-        <!-- end col -->
-        <div class="col-md-6">
-          <div class="breadcrumb-wrapper mb-30">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="/">Dashboard</a>
-                </li>
-                <li class="breadcrumb-item">
-                  <a href="/purchasing">Purchasing</a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                  Purchase Order
-                </li>
-              </ol>
-            </nav>
-          </div>
-        </div>
-        <!-- end col -->
       </div>
-      <!-- end row -->
     </div>
-    <!-- ========== title-wrapper end ========== -->
+  </CustomComponent>
+  <Thead>
+    <tr>
+      <th class="min-width">
+        <h6>#</h6>
+      </th>
+      <th class="min-width">
+        <h6>PO Number</h6>
+      </th>
+      <th class="min-width">
+        <h6>PO Date</h6>
+      </th>
+      <th class="min-width">
+        <h6>Vendor Target</h6>
+      </th>
+      <th class="min-width">
+        <h6>Line Items</h6>
+      </th>
+      <th class="min-width">
+        <h6>Total Amount</h6>
+      </th>
+      <th class="min-width">
+        <h6>Status</h6>
+      </th>
+      <th>
+        <h6>Action</h6>
+      </th>
+    </tr>
+  </Thead>
+  <Tbody>
 
-    <!-- ========== tables-wrapper start ========== -->
-    <div class="tables-wrapper">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="card-style mb-30">
-            <div class="title d-flex flex-wrap align-items-left justify-content-between">
-              <h6 class="mb-10">Purchase Order</h6>
-              <div class="d-flex align-items-center">
-                <h6>Status:</h6>
-                <div class="select-style-1 mb-0 ml-10">
-                  <div class="select-position">
-                    <select class="p-0 pe-5 border-0">
-                      <option value="" selected>Semua</option>
-                      <option value="1">Pending</option>
-                      <option value="2">Approved</option>
-                      <option value="3">Received</option>
-                      <option value="4">Rejected</option>
-                      <option value="5">Completed</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <TableToolbar/>
-            <div class="table-wrapper table-responsive">
-              <table class="table">
-                <thead>
-                <tr>
-                  <th class="min-width">
-                    <h6>#</h6>
-                  </th>
-                  <th class="min-width">
-                    <h6>PO Number</h6>
-                  </th>
-                  <th class="min-width">
-                    <h6>PO Date</h6>
-                  </th>
-                  <th class="min-width">
-                    <h6>Vendor Target</h6>
-                  </th>
-                  <th class="min-width">
-                    <h6>Line Items</h6>
-                  </th>
-                  <th class="min-width">
-                    <h6>Total Amount</h6>
-                  </th>
-                  <th class="min-width">
-                    <h6>Status</h6>
-                  </th>
-                  <th>
-                    <h6>Action</h6>
-                  </th>
-                </tr>
-                <!-- end table row-->
-                </thead>
-                <tbody>
-                @foreach (var po in PurchaseOrders)
-                {
-                  <tr>
-                    <td>
-                      <p>@po.PoheId</p>
-                    </td>
-                    <td>
-                      <p>@po.PoNumber</p>
-                    </td>
-                    <td>
-                      <p>@po.PoDate</p>
-                    </td>
-                    <td>
-                      <p>@po.VendorTarget</p>
-                    </td>
-                    <td>
-                      <p>@po.LineItems</p>
-                    </td>
-                    <td>
-                      <p>@po.TotalAmount</p>
-                    </td>
-                    <td>
-                      <span class="status-btn success-btn">@po.Status</span>
-                    </td>
-                    <td>
-                      <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
-                        @* <i class="lni lni-more-alt"></i> *@
-                        <span class="mdi mdi-dots-vertical"></span>
-                      </button>
-                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
-                        <li class="dropdown-item">
-                          <a class="text-gray" href="/purchasing/list-order/PO-20230303-001">Details</a>
-                        </li>
-                        <li class="dropdown-item">
-                          <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#updateStatus">Switch Status</a>
-                        </li>
-                        <li class="dropdown-item">
-                          <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete">Delete</a>
-                        </li>
-                      </ul>
-                    </td>
-                  </tr>
-                }
-                </tbody>
-              </table>
-              <!-- end table -->
-            </div>
-
-            <Paging/>
-
-          </div>
-          <!-- end card -->
-        </div>
-        <!-- end col -->
-      </div>
-      <!-- end row -->
-    </div>
-    <!-- ========== tables-wrapper end ========== -->
-  </div>
-  <!-- end container -->
-</section>
+  @{
+    var index = 1;
+  }
+  @if (PurchaseOrders != null)
+  {
+    foreach (var po in PurchaseOrders)
+    {
+      <tr>
+        <td>
+          <p>@(index++)</p>
+        </td>
+        <td>
+          <p>@po.PoNumber</p>
+        </td>
+        <td>
+          <p>@po.PoDate</p>
+        </td>
+        <td>
+          <p>@po.VendorTarget</p>
+        </td>
+        <td>
+          <p>@po.LineItems</p>
+        </td>
+        <td>
+          <p>@po.TotalAmount</p>
+        </td>
+        <td>
+          <span class="status-btn success-btn">@po.Status</span>
+        </td>
+        <td>
+          <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
+            <span class="mdi mdi-dots-vertical"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+            <li class="dropdown-item">
+              <a class="text-gray" href="/purchasing/list-order/@po.PoNumber">Details</a>
+            </li>
+            <li class="dropdown-item">
+              <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#updateStatus">Switch Status</a>
+            </li>
+            <li class="dropdown-item">
+              <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete">Delete</a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    }
+  }
+  </Tbody>
+</TableSection>
 
 @* // Update Modal *@
 <div class="warning-modal">
@@ -194,38 +295,12 @@
   </div>
 </div>
 
-@* // Delete Modal *@
-@* <div class="warning-modal"> *@
-@*   <div class="modal fade" id="delete" tabindex="-1" style="display: none;" aria-modal="true" role="dialog"> *@
-@*     <div class="modal-dialog modal-dialog-centered"> *@
-@*       <div class="modal-content card-style warning-card text-center"> *@
-@*         <div class="modal-body"> *@
-@*           <div class="icon text-danger mb-20"> *@
-@*             <i class="lni lni-warning"></i> *@
-@*           </div> *@
-@*           <div class="content mb-30"> *@
-@*             <h2 class="mb-15">Warning!</h2> *@
-@*             <p class="text-sm text-medium"> *@
-@*               An error has occurred while operating an error report *@
-@*             </p> *@
-@*           </div> *@
-@*           <div class="action d-flex flex-wrap justify-content-center"> *@
-@*             <button data-bs-dismiss="modal" class="main-btn danger-btn rounded-full btn-hover m-1"> *@
-@*               Close *@
-@*             </button> *@
-@*           </div> *@
-@*         </div> *@
-@*       </div> *@
-@*     </div> *@
-@*   </div> *@
-@* </div> *@
-
 <DeleteModal Target="#delete"/>
 
 @code{
-  
+
   public List<PurchaseOrderHeader>? PurchaseOrders { get; set; }
-  
+
   protected override void OnInitialized()
   {
     PurchaseOrders = new List<PurchaseOrderHeader>
@@ -282,4 +357,5 @@
       }
     };
   }
+
 }

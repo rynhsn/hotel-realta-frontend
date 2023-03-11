@@ -58,7 +58,7 @@
                         <p class="card-text text-sm">ReOrd:20</p>
                       </div>
                     </div>
-                    <p class="card-text text-sm fw-bold text-muted">IDR @product.Price.ToString("N0")</p>
+                    <p class="card-text text-sm fw-bold text-muted">@product.Price.ToString("C0", new CultureInfo("id-ID"))</p>
                   </div>
                   <div class="d-flex justify-content-end">
                     <button @onclick="() => AddToCart(product)" class="main-btn dark-btn btn-sm rounded-bottom rounded-top-0 btn-hover w-100" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart">Add to cart</button>
@@ -83,17 +83,17 @@
                 {
                   <div class="d-flex justify-content-between">
                     <p class="card-text text-sm fw-bold text-muted">
-                      @item.Product.StockName <produk></produk>
+                      @item.Product?.StockName <produk></produk>
                     </p>
                     <button type="button" class="border-0 bg-transparent h6" @onclick="() => RemoveItem(item.Product.VeproId)">
                       <i class="lni lni-trash-can text-danger"></i>
                     </button>
                   </div> 
-                  <p class="card-text text-sm mb-2">@item.Product.VendorName</p>
+                  <p class="card-text text-sm mb-2">@item.Product?.VendorName</p>
                   <div class="row">
                     <label for="price" class="card-text text-sm form-label text-muted col">Price</label>
                     <div class="col-7">
-                      <input type="text" name="price" id="price" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent" value="@item.Product.Price.ToString("C0", new CultureInfo("id-ID"))" readonly/>
+                      <input type="text" name="price" id="price" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent" value="@item.Product?.Price.ToString("C0", new CultureInfo("id-ID"))" readonly/>
                     </div>
                   </div>
                   <div class="row">

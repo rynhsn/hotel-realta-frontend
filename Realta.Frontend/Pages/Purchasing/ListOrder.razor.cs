@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace Realta.Frontend.Pages.Purchasing;
 
@@ -22,5 +23,8 @@ public class PurchaseOrderHeader
     [DisplayName("Status")]
     public string Status { get; set; }
 
+    [IgnoreDataMember]
     public int PoheId { get; set; }
+    
+    
 }
