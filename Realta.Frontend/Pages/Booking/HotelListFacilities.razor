@@ -40,21 +40,30 @@
         <div class="row mb-0">
             <div class="col-lg-3 col-xl-3">
                 <div class="input-style-1">
+                    <p class="ml-5">Hotel Name :</p>
                     <input type="text" id="inputName" placeholder="Enter hotel name">
                 </div>
             </div>
-            <div class="col-lg-3 col-xl-3">
+            <div class="col-lg-2 col-xl-2">
                 <div class="input-style-1">
-                    <input type="date" id="inputDate" placeholder="startDate-EndDate">
+                    <p class="ml-5">Start Date :</p>
+                    <input type="date" id="inputStartDate" placeholder="Start Date">
+                </div>
+            </div>
+            <div class="col-lg-2 col-xl-2">
+                <div class="input-style-1">
+                    <p class="ml-5">End Date :</p>
+                    <input type="date" id="inputEndDate" placeholder="End Date ">
                 </div>
             </div>
             <div class="col-lg-3 col-xl-3">
                 <div class="input-style-1">
+                    <p class="ml-5">Room and Guest :</p>
                     <input type="text" id="inputRoom" placeholder="Room and Guest">
                 </div>
             </div>
-            <div class="col-lg-3 col-xl-3">
-                <a href="#0" class="main-btn success-btn btn-hover"> Search </a>
+            <div class="col-lg-1 col-xl-1 mt-30 ml-40 ">
+                <a href="#0" class="main-btn success-btn btn-sm"> Search </a>
             </div>
         </div>
     </form>
@@ -131,23 +140,23 @@
             {
                 <div class="row mt-30 mb-30">
                     <div class="card-body col-xl-5 col-lg-5">
-                            <h4 class="mt-10 ml-10">@room.RoomName</h4>
-                            <p class="mt-0 ml-10" style="font-size: 12px;">Kamar untuk @room.RoomCapacity orang</p>
-                            <p class="mt-30 ml-10 mr-3 fw-bold" style="font-size: 12px">
-                                @room.RoomPrice.ToString("C0", new CultureInfo("id-ID"))<s class="ml-10 text-danger"> @room.RoomMaxPrice.ToString("C0", new CultureInfo("id-ID"))</s>
-                            </p>
+                        <h4 class="mt-10 ml-10">@room.RoomName</h4>
+                        <p class="mt-0 ml-10" style="font-size: 12px;">Kamar untuk @room.RoomCapacity orang</p>
+                        <p class="mt-30 ml-10 mr-3 fw-bold" style="font-size: 12px">
+                            @room.RoomPrice.ToString("C0", new CultureInfo("id-ID"))<s class="ml-10 text-danger"> @room.RoomMaxPrice.ToString("C0", new CultureInfo("id-ID"))</s>
+                        </p>
+                    </div>
+                    <div class="card-body col-xl-7 col-lg-7">
+                        <a href="@room.RoomPicLink" target="_blank">
+                            <img class="card-img-top" src="@room.RoomPicLink" alt="Room Picture">
+                        </a>
+                        <div class="d-flex justify-content-end">
+                            <button class="main-btn primary-btn btn-hover mt-10 mr-60" @onclick="() => { AddtoCart(room); }"> Add Room </button>
                         </div>
-                        <div class="card-body col-xl-7 col-lg-7">
-                            <a href="@room.RoomPicLink" target="_blank">
-                                <img class="card-img-top" src="@room.RoomPicLink" alt="Room Picture">
-                            </a>
-                            <div class="d-flex justify-content-end">
-                                <button class="main-btn primary-btn btn-hover mt-10 mr-60" @onclick="() => AddtoCart(room)"> Add Room </button>
-                            </div>
-
-                        </div>
+                    </div>
                 </div>
                 <hr/>
+            }
                 <!-- End Perulangan Hotel Lain -->
             }
             <div class="row mt-30 mb-30">
@@ -292,26 +301,56 @@
 
                         <hr/>
                     }
-                <div class="alert-box secondary-alert text-sm";>
-                    <div class="alert ">
-                        <div class="row">
-                            <div class="col-6">
-                                <p style="font-size: 12px">GET COUPONS</p>
-                            </div>
-                            <div class="col-6">
-                                <p style="font-size: 12px">Rp.50.000</p>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="main-btn primary-btn btn-hover mt-0 mb-20 mr-60" data-bs-toggle="modal" data-bs-target="#addCoupon">Get Coupons</button>
+                    </div>
+                    <!-- Pop up form -->
+
+                    <div class="warning-modal">
+                        <div class="modal fade" id="@($"addCoupon")" tabindex="-1" style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <form class="modal-content card-style" action="/update" method="post">
+                                    <div class="modal-header px-0 border-0">
+                                        <h5 class="text-bold">Choose Coupon</h5>
+                                        <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                                            <i class="lni lni-cross-circle"></i>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body px-0">
+                                        @foreach (var item in coupon)
+                                        {
+                                            <div class="row mb-4">
+                                                <div class="col-12">
+                                                    <input type="checkbox" id="@item.Name" name="coupon" value="@item.DiscountPercent">
+                                                    <label for="@item.Name">@item.Name</label>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    
+                                    <div class="action d-flex flex-wrap justify-content-end">
+                                        <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                                            Cancel
+                                        </button>
+                                        <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1" @onclick="() => {}">
+                                            Save
+                                        </button>
+                                    </div>
+                                    
+                                </form>
                             </div>
                         </div>
                     </div>
-                </div>
+
                     <div class="row">
                         <div class="col-5">
-                            <p class="text-sm mb-10 fw-bold">Your Savings </p>
+                            <p class="text-sm mb-10 fw-bold">Your Savings</p>
                         </div>
                         <div class="col-7">
-                            <p class="text-sm mb-10 fw-bold">: Rp. 50.000</p>
+                            <p class="text-sm mb-10 fw-bold">: @Cart.Instance.YourSavingsText </p>
                         </div>
                     </div>
+
                     <div class="row">
                         <label for="tax" class="card-text fw-bold form-label text-muted col">Tax (10%)</label>
                         <div class="col-7">
@@ -349,10 +388,12 @@
         public double RoomMaxPrice { get; set; }
         public int RoomCapacity { get; set; }
         public string? RoomPicLink { get; set; }
+        
     }
 
     public class HotelDesc
     {
+        
         public string? HotelName { get; set; }
         public string? HotelLocation { get; set; }
         public double RatingStar { get; set; }
@@ -362,12 +403,27 @@
         public int TotalRating { get; set; }
     }
     
+    public class Coupon
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Code { get; set; }
+        public bool IsActive { get; set; }
+        public double DiscountPercent { get; set; }
+    }
+    
     [Parameter]
     public int OrderDetail { get; set; } = 0;
 
     private void AddtoCart(RoomDesc desc)
     {
         Cart.Instance.AddItem(desc);
+    }
+
+    private void ShowDiscont(Coupon kupon)
+    {
+        Cart.Instance.ApplyCoupon(kupon);
     }
 
     public class CartItem
@@ -407,6 +463,13 @@
 
         public void AddItem(RoomDesc desc, int qty = 1)
         {
+            // Cek apakah kamar sudah ditambahkan sebelumnya
+            if (items.Any(item => item.Room.RoomName == desc.RoomName))
+            {
+                Console.WriteLine($"Kamar {desc.RoomName} sudah ditambahkan sebelumnya.");
+                return;
+            }
+
             var existingItem = items.FirstOrDefault(item => item.Room.RoomName == desc.RoomName);
 
             if (existingItem != null)
@@ -421,7 +484,8 @@
                     Quantity = qty,
                 });
             }
-        }
+            }
+
 
         public IEnumerable<CartItem> getItems
         {
@@ -458,7 +522,7 @@
             get { return items.Sum(item => item.Quantity); }
         }
 
-    // Get total price of items in cart (excluding tax)
+        // Get total price of items in cart (excluding tax)
         public double TotalPriceExcludingTax
         {
             get { return items.Sum(item => item.Room.RoomPrice * item.Quantity); }
@@ -468,11 +532,81 @@
             get { return TotalPriceExcludingTax * 0.1d; }
         }
 
-    // Get total price of items in cart (including tax)
+        // Get total price of items in cart (including tax)
         public double TotalPrice
         {
             get { return TotalPriceExcludingTax + TaxAmount; }
         }
+        public double DiscountPercentage { get; set; } // new property for the chosen discount percentage
+        
+        bool isButtonClicked = false;
+
+    // Fungsi untuk menambahkan kamar
+        void AddRoom()
+        {
+    // Cek apakah tombol sudah diklik sebelumnya
+            if (isButtonClicked)
+            {
+                Console.WriteLine("Anda sudah menambahkan kamar sebelumnya!");
+                return;
+            }
+        
+            isButtonClicked = true;
+        }
+    
+        public void ApplyCoupon(Coupon kupon)
+        {
+    // Cari coupon yang terpilih
+            var selectedCoupon = Coupons.FirstOrDefault(c => c.Name == SelectedCoupon);
+
+            if (selectedCoupon != null)
+            {
+    // Hitung diskon yang diterapkan
+                var discountPercent = selectedCoupon.DiscountPercent;
+                var discountAmount = TotalPrice * (discountPercent / 100);
+
+    // Tampilkan hasil diskon di elemen "Your Savings"
+                YourSavingsText = $"Rp. {discountAmount:N0}";
+            }
+        }
+
+        private decimal _yourSavings;
+
+        public decimal YourSavings
+        {
+            get { return _yourSavings; }
+            set { _yourSavings = value; }
+        }
+
+        private Coupon _selectedCoupon;
+
+        public string SelectedCoupon
+        {
+            get { return _selectedCoupon?.Name; }
+            set { _selectedCoupon = Coupons.FirstOrDefault(c => c.Name == value); }
+        }
+
+        private void SaveCoupon()
+        {
+            if (_selectedCoupon != null)
+            {
+                foreach (var c in Coupons)
+                {
+                    if (c.Name == _selectedCoupon.Name)
+                    {
+                        YourSavings = (decimal)(TotalPrice * (c.DiscountPercent / 100));
+                        break;
+                    }
+                }
+            }
+        }
+
+        public List<Coupon> Coupons { get; set; } = new List<Coupon>();
+        
+        public string YourSavingsText { get; set; }
+
+
+
     }
     
     
@@ -517,4 +651,36 @@
             TotalRating = 337
         }
     };
+    private readonly List<Coupon> coupon = new List<Coupon>()
+    {
+        new Coupon()
+        {
+            Id = 1,
+            Name = "New Member",
+            DiscountPercent = 10
+        },
+        new Coupon()
+        {
+            Id = 2,
+            Name = "Using Gopay",
+            DiscountPercent = 5
+        },
+        new Coupon()
+        {
+            Id = 3,
+            Name = "More than 2 people",
+            DiscountPercent = 15
+        },
+        new Coupon()
+        {
+            Id = 4,
+            Name = "VIP Member",
+            DiscountPercent = 20
+        }
+    };
+
+    
+ 
+
+
 }
