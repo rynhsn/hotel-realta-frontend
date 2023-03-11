@@ -59,21 +59,7 @@
                 </div>
               </div>
             </div>
-            <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
-              <div class="left">
-                <p>Show <span>@TotalRows</span> entries</p>
-              </div>
-              <div class="right">
-                <div class="table-search d-flex">
-                  <form action="#">
-                    <input type="text" placeholder="Search...">
-                    <button>
-                      <i class="lni lni-search-alt"></i>
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
+            <TableToolbar/>
             <div class="table-wrapper table-responsive">
               <table class="table">
                 <thead>
@@ -106,29 +92,29 @@
                 <!-- end table row-->
                 </thead>
                 <tbody>
-                @for (int i = 1; i <= @TotalRows; i++)
+                @foreach (var po in PurchaseOrders)
                 {
                   <tr>
                     <td>
-                      <p>@i</p>
+                      <p>@po.PoheId</p>
                     </td>
                     <td>
-                      <p>@($"PO-20230303-00{i}")</p>
+                      <p>@po.PoNumber</p>
                     </td>
                     <td>
-                      <p>2023-03-01</p>
+                      <p>@po.PoDate</p>
                     </td>
                     <td>
-                      <p>Cocoalici LLC</p>
+                      <p>@po.VendorTarget</p>
                     </td>
                     <td>
-                      <p>2</p>
+                      <p>@po.LineItems</p>
                     </td>
                     <td>
-                      <p>IDR 5,000,000.00</p>
+                      <p>@po.TotalAmount</p>
                     </td>
                     <td>
-                      <span class="status-btn success-btn">Pending</span>
+                      <span class="status-btn success-btn">@po.Status</span>
                     </td>
                     <td>
                       <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
@@ -140,10 +126,10 @@
                           <a class="text-gray" href="/purchasing/list-order/PO-20230303-001">Details</a>
                         </li>
                         <li class="dropdown-item">
-                          <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#@($"updateStatus{i}")">Switch Status</a>
+                          <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#updateStatus">Switch Status</a>
                         </li>
                         <li class="dropdown-item">
-                          <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#@($"delete{i}")">Delete</a>
+                          <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete">Delete</a>
                         </li>
                       </ul>
                     </td>
@@ -168,81 +154,132 @@
   <!-- end container -->
 </section>
 
-@for (int i = 1; i <= @TotalRows; i++)
-{
-  // Update Modal
-  <div class="warning-modal">
-    <div class="modal fade" id="@($"updateStatus{i}")" tabindex="-1" style="display: none;" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <form class="modal-content card-style" action="/update" method="post">
-          <div class="modal-header px-0 border-0">
-            <h5 class="text-bold">Switch Status</h5>
-            <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
-              <i class="lni lni-cross-circle"></i>
-            </button>
-          </div>
-          <div class="modal-body px-0">
-            <div class="content mb-30">
-              <div class="select-style-1 col rounded-sm">
-                <label>Purchase Order Status</label>
-                <div class="select-position">
-                  <select>
-                    <option value="1">Pending</option>
-                    <option value="2">Approve</option>
-                    <option value="3">Receive</option>
-                    <option value="4">Reject</option>
-                    <option value="5">Complete</option>
-                  </select>
-                </div>
+@* // Update Modal *@
+<div class="warning-modal">
+  <div class="modal fade" id="updateStatus" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form class="modal-content card-style" action="/update" method="post">
+        <div class="modal-header px-0 border-0">
+          <h5 class="text-bold">Switch Status</h5>
+          <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+            <i class="lni lni-cross-circle"></i>
+          </button>
+        </div>
+        <div class="modal-body px-0">
+          <div class="content mb-30">
+            <div class="select-style-1 col rounded-sm">
+              <label>Purchase Order Status</label>
+              <div class="select-position">
+                <select>
+                  <option value="1">Pending</option>
+                  <option value="2">Approve</option>
+                  <option value="3">Receive</option>
+                  <option value="4">Reject</option>
+                  <option value="5">Complete</option>
+                </select>
               </div>
             </div>
-            <div class="action d-flex flex-wrap justify-content-end">
-              <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
-                Cancel
-              </button>
-              <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
-                Send
-              </button>
-            </div>
           </div>
-        </form>
-      </div>
+          <div class="action d-flex flex-wrap justify-content-end">
+            <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+              Cancel
+            </button>
+            <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+              Send
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
+</div>
 
-  // Delete Modal
-  <div class="warning-modal">
-    <div class="modal fade" id="@($"delete{i}")" tabindex="-1" style="display: none;" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <form class="modal-content card-style" action="/delete" method="post">
-          <div class="modal-header px-0 border-0">
-            <h5 class="text-bold">
-              <i class="lni lni-warning text-danger me-2"></i> Are you sure
-              you want to delete?
-            </h5>
-          </div>
-          <div class="modal-body px-0">
-            <div class="content mb-30">
-              <p class="text-sm">
-                Purchase Order with PO Number: @i will be deleted. data that has been deleted cannot be recovered!
-              </p>
-            </div>
-            <div class="action d-flex flex-wrap justify-content-end">
-              <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
-                Cancel
-              </button>
-              <button type="submit" class="main-btn warning-btn btn-hover m-1">
-                Delete
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-}
+@* // Delete Modal *@
+@* <div class="warning-modal"> *@
+@*   <div class="modal fade" id="delete" tabindex="-1" style="display: none;" aria-modal="true" role="dialog"> *@
+@*     <div class="modal-dialog modal-dialog-centered"> *@
+@*       <div class="modal-content card-style warning-card text-center"> *@
+@*         <div class="modal-body"> *@
+@*           <div class="icon text-danger mb-20"> *@
+@*             <i class="lni lni-warning"></i> *@
+@*           </div> *@
+@*           <div class="content mb-30"> *@
+@*             <h2 class="mb-15">Warning!</h2> *@
+@*             <p class="text-sm text-medium"> *@
+@*               An error has occurred while operating an error report *@
+@*             </p> *@
+@*           </div> *@
+@*           <div class="action d-flex flex-wrap justify-content-center"> *@
+@*             <button data-bs-dismiss="modal" class="main-btn danger-btn rounded-full btn-hover m-1"> *@
+@*               Close *@
+@*             </button> *@
+@*           </div> *@
+@*         </div> *@
+@*       </div> *@
+@*     </div> *@
+@*   </div> *@
+@* </div> *@
 
+<DeleteModal Target="#delete"/>
 
 @code{
-  public int TotalRows { get; set; } = 10;
+  
+  public List<PurchaseOrderHeader>? PurchaseOrders { get; set; }
+  
+  protected override void OnInitialized()
+  {
+    PurchaseOrders = new List<PurchaseOrderHeader>
+    {
+      new PurchaseOrderHeader
+      {
+        PoheId = 1,
+        PoNumber = "PO001",
+        PoDate = new DateTime(2022, 3, 12),
+        VendorTarget = "Vendor A",
+        LineItems = 3,
+        TotalAmount = 500000,
+        Status = "Open"
+      },
+      new PurchaseOrderHeader
+      {
+        PoheId = 2,
+        PoNumber = "PO002",
+        PoDate = new DateTime(2022, 3, 13),
+        VendorTarget = "Vendor B",
+        LineItems = 2,
+        TotalAmount = 700000,
+        Status = "Closed"
+      },
+      new PurchaseOrderHeader
+      {
+        PoheId = 3,
+        PoNumber = "PO003",
+        PoDate = new DateTime(2022, 3, 14),
+        VendorTarget = "Vendor C",
+        LineItems = 4,
+        TotalAmount = 900000,
+        Status = "Open"
+      },
+      new PurchaseOrderHeader
+      {
+        PoheId = 4,
+        PoNumber = "PO004",
+        PoDate = new DateTime(2022, 3, 15),
+        VendorTarget = "Vendor A",
+        LineItems = 1,
+        TotalAmount = 150000,
+        Status = "Closed"
+      },
+      new PurchaseOrderHeader
+      {
+        PoheId = 5,
+        PoNumber = "PO005",
+        PoDate = new DateTime(2022, 3, 16),
+        VendorTarget = "Vendor D",
+        LineItems = 5,
+        TotalAmount = 1200000,
+        Status = "Open"
+      }
+    };
+  }
 }

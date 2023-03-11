@@ -1,0 +1,37 @@
+<div class="warning-modal">
+  <div class="modal fade" tabindex="-1" role="dialog" @attributes="Attributes">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content card-style warning-card text-center">
+        <div class="modal-body">
+          <div class="icon text-danger mb-20">
+            <i class="lni lni-warning"></i>
+          </div>
+          <div class="content mb-30">
+            <h2 class="mb-15">Warning!</h2>
+            <p class="text-sm text-medium">
+              An error has occurred while operating an error report
+            </p>
+          </div>
+          <div class="action d-flex flex-wrap justify-content-center">
+            <button data-bs-dismiss="modal" class="main-btn danger-btn rounded-full btn-hover m-1">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@code {
+  [Parameter]
+  public string Target { get; set; }
+
+  private Dictionary<string, object> Attributes => new Dictionary<string, object>
+  {
+    { "class", "modal fade" },
+    { "tabindex", "-1" },
+    { "role", "dialog" },
+    { "id", Target.TrimStart('#') }
+  };
+}
