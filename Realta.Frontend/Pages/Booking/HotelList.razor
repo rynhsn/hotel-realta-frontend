@@ -1,0 +1,291 @@
+﻿@page "/booking/hotelList"
+@using Microsoft.AspNetCore.Components
+<section>
+    <div class="container-fluid">
+        <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="title mb-30">
+                        <h2>Hotel List</h2>
+                    </div>
+                </div>
+                <!-- end col -->
+                <div class="col-md-6">
+                    <div class="breadcrumb-wrapper mb-30">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">/</ol>
+                        </nav>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <div class="container"><!--!-->
+            <div class="row mt-3">
+                <div class="col">
+                    <div class="card-style mb-30">
+                        <form class="">
+                            <div class="row mb-0">
+                                <div class="col-lg-3 col-xl-3">
+                                    <div class="input-style-1">
+                                        <input type="text" id="inputName" placeholder="Enter hotel name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-xl-3">
+                                    <div class="input-style-1">
+                                        <input type="date" id="inputDate" placeholder="startDate-EndDate">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-xl-3">
+                                    <div class="input-style-1">
+                                        <input type="text" id="inputRoom" placeholder="Room and Guest">
+                                    </div></div>
+                                <div class="col-lg-3 col-xl-3">
+                                    <a href="#0" class="main-btn success-btn btn-hover"> Search </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-3 col-lg-3">
+                    <div class="card-style mb-30"><!--!-->
+                        <h5>Filter</h5><br>
+                        <form>
+                            <div class="form-group"><!--!-->
+                                <div class="input-style-1">
+                                    <label for="inputMinPrice">Min Price</label>
+                                    <input type="text" id="inputMinPrice" placeholder="Start Price">
+                                </div>
+                                <!--!-->
+                                <div class="input-style-1">
+                                    <label for="inputMaxPrice">Max Price </label>
+                                    <input type="text" id="inputMaxPrice" placeholder="Max Price">
+                                </div>
+                                <div class="form-check checkbox-style mb-20">
+                                    <input class="form-check-input" type="checkbox" name="facilityRadio" id="facilityRoomRadio" value="room">
+                                    <label class="form-check-label" for="facilityRoomRadio">
+                                        Room
+                                    </label>
+                                </div>
+                                <div class="form-check checkbox-style mb-20">
+                                    <input class="form-check-input" type="checkbox" name="facilityRadio" id="facilityRestoRadio" value="resto">
+                                    <label class="form-check-label" for="facilityRestoRadio">
+                                        Restaurant
+                                    </label>
+                                </div><!--!-->
+                                <div class="form-check checkbox-style mb-20">
+                                    <input class="form-check-input" type="checkbox" name="facilityRadio" id="facilityMeetingRoomRadio" value="meeting-room">
+                                    <label class="form-check-label" for="facilityMeetingRoomRadio">
+                                        Meeting Room
+                                    </label>
+                                </div><!--!-->
+                                <div class="form-check checkbox-style mb-20"><input class="form-check-input" type="checkbox" name="facilityRadio" id="facilityGymRadio" value="gym"><!--!-->
+                                    <!--!-->
+                                    <label class="form-check-label" for="facilityGymRadio">
+                                        Gym
+                                    </label></div><!--!-->
+                                <div class="form-check checkbox-style mb-20">
+                                    <input class="form-check-input" type="checkbox" name="facilityRadio" id="facilityAulaRadio" value="aula"><!--!-->
+                                    <!--!-->
+                                    <label class="form-check-label" for="facilityAulaRadio">
+                                        Aula
+                                    </label>
+                                </div>
+                                <div class="form-check checkbox-style mb-20">
+                                    <input class="form-check-input" type="checkbox" name="facilityRadio" id="facilityPoolRadio" value="swimming-pool"><!--!-->
+                                    <!--!-->
+                                    <label class="form-check-label" for="facilityPoolRadio">
+                                        Swimming Pool
+                                    </label>
+                                </div>
+                                <div class="form-check checkbox-style mb-20">
+                                    <input class="form-check-input" type="checkbox" name="facilityRadio" id="facilityBalroomRadio" value="balroom"><!--!-->
+                                    <!--!-->
+                                    <label class="form-check-label" for="facilityBalroomRadio">
+                                        Ballroom
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </form>
+                    </div>
+                </div>
+                <!--!-->
+
+                <div class="col-xl-9 col-lg-9">
+                    @foreach (var hotel in hotels.Where(h => string.IsNullOrEmpty(FilterFacility) ||
+                                                             (h.HasRoom && FilterFacility == "room") ||
+                                                             (h.HasMeetingRoom && FilterFacility == "meeting") ||
+                                                             (h.HasRestaurant && FilterFacility == "restaurant") ||
+                                                             (h.HasGym && FilterFacility == "gym") ||
+                                                             (h.HasAula && FilterFacility == "aula") ||
+                                                             (h.HasSwimmingPool && FilterFacility == "swimming") ||
+                                                             (h.HasBalroom && FilterFacility == "balroom")))
+                    {
+                        <div class="card-style mb-30">
+                            <div class="row">
+                                <div class="card-image col-lg-5 col-xl-5">
+                                    <a href="@hotel.ImageUrl" target="_blank">
+                                        <img class="card-img-top" src="@hotel.ThumbnailUrl" alt="@hotel.Name">
+                                    </a>
+                                </div>
+                                <div class="card-content col-lg-7 col-xl-7">
+                                    <h4>
+                                        <a href="@hotel.ImageUrl" target="_blank">@hotel.Name</a>
+                                    </h4>
+                                    <h5 class="text-sm text-regular mb-10">@hotel.Location</h5>
+                                    <h5 class="text-sm text-regular mb-10"><span class="mdi mdi-star"></span>@hotel.RatingStar</h5>
+                                    <div class="card-facilities">
+                                        @if (hotel.HasRoom)
+                                        {
+                                            <span class="mdi mdi-bed-outline px-3"></span>
+                                        }
+                                        @if (hotel.HasMeetingRoom)
+                                        {
+                                            <span class="mdi mdi-google-classroom px-3"></span>
+                                        }
+                                        @if (hotel.HasRestaurant)
+                                        {
+                                            <span class="mdi mdi-silverware-fork-knife px-3"></span>
+                                        }
+                                        @if (hotel.HasGym)
+                                        {
+                                            <span class="mdi mdi-run px-3"></span>
+                                        }
+                                        @if (hotel.HasAula)
+                                        {
+                                            <span class="mdi mdi-school-outline px-3"></span>
+                                        }
+                                        @if (hotel.HasSwimmingPool)
+                                        {
+                                            <span class="mdi mdi-pool px-3"></span>
+                                        }
+                                        @if (hotel.HasBalroom)
+                                        {
+                                            <span class="mdi mdi-crown-outline px-3"></span>
+                                        }
+                                    </div>
+                                    <h5 class="text-sm text-regular mb-10">@hotel.RoomName</h5>
+                                    <h5 class="text-sm text-regular mb-10">Rp. @hotel.RoomPrice</h5>
+                                    <a href="#0" class="main-btn primary-btn btn-hover">Book Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@code {
+    private string FilterFacility { get; set; }
+
+    private void HandleFilterFacilityChange(ChangeEventArgs e)
+    {
+        FilterFacility = e.Value.ToString();
+    }
+
+    private List<Hotel> hotels = new List<Hotel>
+    {
+        new Hotel
+        {
+            Name = "Grand Hotel",
+            Location = "Danau Limboto",
+            RatingStar = 4.5 ,
+            RoomName = "Indonesian Regular Room",
+            RoomPrice = 300000,
+            Description = "A luxurious hotel with world-class amenities",
+            ThumbnailUrl = "https://via.placeholder.com/350x150",
+            ImageUrl = "https://www.example.com/grand-hotel.jpg",
+            HasRoom = true,
+            HasMeetingRoom = true,
+            HasRestaurant = true,
+            HasGym = false,
+            HasAula = true,
+            HasSwimmingPool = true,
+            HasBalroom = true
+        },
+        new Hotel
+        {
+            Name = "Economy Inn",
+            Location = "Danau Dekat Rumah",
+            RatingStar = 4.8 ,
+            RoomName = "Indonesian Deluxe Room",
+            RoomPrice = 350000,
+            Description = "A budget hotel for the cost-conscious traveler",
+            ThumbnailUrl = "https://via.placeholder.com/350x150",
+            ImageUrl = "https://www.example.com/economy-inn.jpg",
+            HasRoom = true,
+            HasMeetingRoom = true,
+            HasRestaurant = true,
+            HasGym = true,
+            HasAula = true,
+            HasSwimmingPool = true,
+            HasBalroom = true
+        },
+        new Hotel
+        {
+            Name = "Aston Sentul City",
+            Location = "Sentul City",
+            RatingStar = 4.8 ,
+            RoomName = "Indonesian Deluxe Room",
+            RoomPrice = 50000,
+            Description = "A budget hotel for the cost-conscious traveler",
+            ThumbnailUrl = "https://via.placeholder.com/350x150",
+            ImageUrl = "https://www.example.com/economy-inn.jpg",
+            HasRoom = true,
+            HasMeetingRoom = true,
+            HasRestaurant = true,
+            HasGym = true,
+            HasAula = true,
+            HasSwimmingPool = true,
+            HasBalroom = true
+        },
+        new Hotel
+        {
+            Name = "Sentul Hotel",
+            Location = "Dekat Rumah Kamu",
+            RatingStar = 4.8 ,
+            RoomName = "Indonesian Deluxe Room",
+            RoomPrice = 450000,
+            Description = "A budget hotel for the cost-conscious traveler",
+            ThumbnailUrl = "https://via.placeholder.com/350x150",
+            ImageUrl = "https://www.example.com/economy-inn.jpg",
+            HasRoom = true,
+            HasMeetingRoom = true,
+            HasRestaurant = true,
+            HasGym = true,
+            HasAula = true,
+            HasSwimmingPool = true,
+            HasBalroom = true
+        },
+        
+        // Add more hotels here...
+    };
+
+    public class Hotel
+    {
+        public string? Name { get; set; }
+        public string? Location { get; set; }
+        public double RatingStar { get; set; }
+        public string? Description { get; set; }
+        public string? ThumbnailUrl { get; set; }
+        public string? ImageUrl { get; set; }
+        public string? RoomName { get; set; }
+        public double RoomPrice { get; set;}
+        public bool HasRoom { get; set; }
+        public bool HasMeetingRoom { get; set; }
+        public bool HasRestaurant { get; set; }
+        public bool HasGym { get; set; }
+        public bool HasAula { get; set; }
+        public bool HasSwimmingPool { get; set; }
+        public bool HasBalroom { get; set; }
+    }
+
+}

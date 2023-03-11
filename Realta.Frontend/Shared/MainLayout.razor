@@ -2,7 +2,7 @@
 
 <Sidebar IsOpen="@IsSidebarOpen" OnIsOpenChanged="@((bool isOpen) => IsSidebarOpen = isOpen)"/>
 <main class="main-wrapper @(IsSidebarOpen ? "active" : "")">
-    <Header OnToggleSidebar="@((bool isOpen) => IsSidebarOpen = isOpen)"></Header>
+    <Header IsOpen="@IsSidebarOpen" OnToggleSidebar="@((bool isOpen) => IsSidebarOpen = isOpen)"></Header>
     @Body
     <Footer></Footer>
 </main>

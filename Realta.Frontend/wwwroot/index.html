@@ -2,54 +2,61 @@
 <html lang="en">
 
 <head>
-    <base href="/" />
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/"/>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link
-      rel="shortcut icon"
-      href="vendor/assets/images/favicon.svg"
-      type="image/x-icon"
+            rel="shortcut icon"
+            href="vendor/assets/images/favicon.svg"
+            type="image/x-icon"
     />
     <title>Dashboard | Hotel Realta</title>
 
     <!-- ========== All CSS files linkup ========= -->
-    <link rel="stylesheet" href="vendor/assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="vendor/assets/css/lineicons.css" />
+    <link rel="stylesheet" href="vendor/assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="vendor/assets/css/lineicons.css"/>
     <link rel="stylesheet" href="vendor/assets/css/quill/bubble.css">
     <link rel="stylesheet" href="vendor/assets/css/quill/snow.css">
-    <link rel="stylesheet" href="vendor/assets/css/fullcalendar.css" />
+    <link rel="stylesheet" href="vendor/assets/css/fullcalendar.css"/>
     <link rel="stylesheet" href="vendor/assets/css/morris.css">
     <link rel="stylesheet" href="vendor/assets/css/datatables.css">
-    <link rel="stylesheet" href="vendor/assets/css/main.css" />
-    <link rel="stylesheet" href="vendor/assets/css/materialdesignicons.min.css" />
-<!--    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css">-->
-  </head>
+    <link rel="stylesheet" href="vendor/assets/css/main.css"/>
+    <link rel="stylesheet" href="vendor/assets/css/materialdesignicons.min.css"/>
+    <!--    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/jquery.dataTables.min.css">-->
+</head>
 
 <body>
-    <div id="app">Loading...</div>
-
-    <!--<div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>-->
+    <section id="app">
+        <div class="d-flex justify-content-center align-items-center vh-100">
+            <div class="spinner-border text-primary">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </section>
     
-    <script src="_framework/blazor.webassembly.js"></script>
+<!--<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>-->
 
-    <!-- ========= All Javascript files linkup ======== -->
-    <script src="vendor/assets/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/assets/js/Chart.min.js"></script>
-    <script src="vendor/assets/js/apexcharts.min.js"></script>
-    <script src="vendor/assets/js/dynamic-pie-chart.js"></script>
-    <script src="vendor/assets/js/moment.min.js"></script>
-    <script src="vendor/assets/js/fullcalendar.js"></script>
-    <script src="vendor/assets/js/jvectormap.min.js"></script>
-    <script src="vendor/assets/js/world-merc.js"></script>
-    <script src="vendor/assets/js/polyfill.js"></script>
-    <script src="vendor/assets/js/quill.min.js"></script>
-    <script src="vendor/assets/js/datatable.js"></script>
-    <script src="vendor/assets/js/Sortable.min.js"></script>
+<script src="_framework/blazor.webassembly.js"></script>
+<!--<script src="_framework/aspnetcore-browser-refresh.js"></script>-->
+
+<!-- ========= All Javascript files linkup ======== -->
+<script src="vendor/assets/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/assets/js/Chart.min.js"></script>
+<script src="vendor/assets/js/apexcharts.min.js"></script>
+<script src="vendor/assets/js/dynamic-pie-chart.js"></script>
+<script src="vendor/assets/js/moment.min.js"></script>
+<script src="vendor/assets/js/fullcalendar.js"></script>
+<script src="vendor/assets/js/jvectormap.min.js"></script>
+<script src="vendor/assets/js/world-merc.js"></script>
+<script src="vendor/assets/js/polyfill.js"></script>
+<script src="vendor/assets/js/quill.min.js"></script>
+<script src="vendor/assets/js/datatable.js"></script>
+<script src="vendor/assets/js/Sortable.min.js"></script>
 <!--    <script src="vendor/assets/js/main.js" defer></script>-->
 <!--    <script>-->
 <!--        const dataTable = new simpleDatatables.DataTable("#table", {-->
