@@ -1,229 +1,345 @@
 ﻿@page "/booking/room"
-@using Microsoft.AspNetCore.Components
-<link rel="stylesheet" href="HotelFacilitites.razor.css" />
+<link rel="stylesheet" href="HotelFacilitites.razor.css"/>
+<PageTitle>Booking Room Detail</PageTitle>
 <section class="card-components">
-    <div class="container-fluid">
-        <div class="title-wrapper pt-30">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="title mb-30">
-                        <h2>Room Detail</h2>
-                    </div>
-                </div>
-                <!-- end col -->
-                <div class="col-md-6">
-                    <div class="breadcrumb-wrapper mb-30">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">/</ol>
-                        </nav>
-                    </div>
-                </div>
-                <!-- end col -->
+<div class="container-fluid">
+    <div class="title-wrapper pt-30">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <div class="title mb-30">
+                <h2>Room Detail</h2>
             </div>
-            <!-- end row -->
-            <!-- ========== cards-styles end ========== -->
         </div>
-        <div class="row mt-3">
-            <div class="col">
-                <div class="card-style mb-30">
-                    <form class="">
-                        <div class="row mb-0">
-                            <div class="col-lg-3 col-xl-3">
-                                <div class="input-style-1">
-                                    <input type="text" id="inputName" placeholder="Enter hotel name">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-xl-3">
-                                <div class="input-style-1">
-                                    <input type="date" id="inputDate" placeholder="startDate-EndDate">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-xl-3">
-                                <div class="input-style-1">
-                                    <input type="text" id="inputRoom" placeholder="Room and Guest">
-                                </div></div>
-                            <div class="col-lg-3 col-xl-3">
-                                <a href="#0" class="main-btn success-btn btn-hover"> Search </a>
-                            </div>
-                        </div>
-                    </form>
+        <!-- end col -->
+                <div class="col-md-6">
+                  <div class="breadcrumb-wrapper mb-30">
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                          <a href="/">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                          <a href="/hotelList">Hotel List</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                          Booking Room Detail
+                        </li>
+                      </ol>
+                    </nav>
+                  </div>
+                </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+    <!-- ========== cards-styles end ========== -->
+</div>
+<div class="row mt-3">
+<div class="col">
+<div class="card-style mb-30">
+    <form class="">
+        <div class="row mb-0">
+            <div class="col-lg-3 col-xl-3">
+                <div class="input-style-1">
+                    <input type="text" id="inputName" placeholder="Enter hotel name">
+                </div>
+            </div>
+            <div class="col-lg-3 col-xl-3">
+                <div class="input-style-1">
+                    <input type="date" id="inputDate" placeholder="startDate-EndDate">
+                </div>
+            </div>
+            <div class="col-lg-3 col-xl-3">
+                <div class="input-style-1">
+                    <input type="text" id="inputRoom" placeholder="Room and Guest">
+                </div>
+            </div>
+            <div class="col-lg-3 col-xl-3">
+                <a href="#0" class="main-btn success-btn btn-hover"> Search </a>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="card-style mb-30">
+<div class="row">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://via.placeholder.com/800x400?text=Gambar+1" class="d-block w-100" alt="Gambar 1">
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/800x400?text=Gambar+2" class="d-block w-100" alt="Gambar 2">
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/800x400?text=Gambar+3" class="d-block w-100" alt="Gambar 3">
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/800x400?text=Gambar+4" class="d-block w-100" alt="Gambar 4">
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/800x400?text=Gambar+5" class="d-block w-100" alt="Gambar 5">
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/800x400?text=Gambar+6" class="d-block w-100" alt="Gambar 6">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-7 col-lg-7">
+        <div class="card-style-3 mb-30 mt-30">
+            <div class="card-content mt-10">
+                @foreach (var hotel in hotelDesc)
+                {
                     <div class="row">
-                        
-                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="https://via.placeholder.com/800x400?text=Gambar+1" class="d-block w-100" alt="Gambar 1">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://via.placeholder.com/800x400?text=Gambar+2" class="d-block w-100" alt="Gambar 2">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://via.placeholder.com/800x400?text=Gambar+3" class="d-block w-100" alt="Gambar 3">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://via.placeholder.com/800x400?text=Gambar+4" class="d-block w-100" alt="Gambar 4">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://via.placeholder.com/800x400?text=Gambar+5" class="d-block w-100" alt="Gambar 5">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="https://via.placeholder.com/800x400?text=Gambar+6" class="d-block w-100" alt="Gambar 6">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
+                        <div class="col-xl-6 col-lg-6">
+                            <h2 class="mb-0 mr-20">
+                                <a href="#0"> @hotel.HotelName </a>
+                            </h2>
+                            <h5 class="text-sm text-regular mt-0 mr-20"> @hotel.HotelLocation </h5>
+                            <p class="mt-15">
+                                <span class="badge danger-btn">@hotel.MemberStatus</span>
+                            </p>
+                            <h5 class="text-medium mt-20 mb-10">Description</h5>
+                            <p class="mt-0">
+                                @hotel.Description
+                            </p>
+                        </div>
+                        <div class="col-xl-6 col-lg-6">
+                            <li class="badge success-btn">
+                                <span class="mdi mdi-star-box">@hotel.RatingStar</span>
+                            </li>
+                            <p class="fw-bold" style="font-size: 12px;">(@hotel.TotalRating Ratings) @hotel.RatingDescription</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xl-9 col-lg-4">
-                            <div class="card-style-3 mb-30 mt-30">
-                                <div class="card-content mt-10">
-                                    @foreach (var hotel in hotelDesc)
-                                    {
-                                        <div class="row">
-                                            <div class="col-xl-6 col-lg-6">
-                                                <h2 class="mb-0 mr-20"><a href="#0"> @hotel.HotelName </a></h2>
-                                                <h5 class="text-sm text-regular mt-0 mr-20"> @hotel.HotelLocation </h5>
-                                                <p class="mt-15">
-                                                    <span class="badge danger-btn">@hotel.MemberStatus</span>
-                                                </p>
-                                                <h5 class="text-medium mt-20 mb-10">Description</h5>
-                                                <p class="mt-0">
-                                                    @hotel.Description
-                                                </p>
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6">
-                                                <li class="badge success-btn">
-                                                    <span class="mdi mdi-star-box">@hotel.RatingStar</span>
-                                                </li>
-                                                <p style="font-size: 12px;">@hotel.RatingDescription</p>
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                                <div class="card-style-3 mb-30 mt-20" style="max-width: 750px; height: 70px"> 
-                                    <div class="card-content mb-10" style="text-align: center;">
-                                        <h4 class="mb-40 " style="justify-content: center; align-items: center; font-weight: bold;">ANOTHER ROOM</h4>
+                }
+            </div>
+            <div class="card-style-3 mb-30 mt-20" style="max-width: 750px; height: 70px">
+                <div class="card-content mb-10" style="text-align: center;">
+                    <h4 class="mb-40 " style="justify-content: center; align-items: center; font-weight: bold;">ANOTHER ROOM</h4>
+                </div>
+            </div>
+            <!-- Perulangan Hotel Lain -->
+            @foreach (var room in rooms)
+            {
+                <div class="row mt-30 mb-30">
+                    <div class="card-body col-xl-5 col-lg-5">
+                            <h4 class="mt-10 ml-10">@room.RoomName</h4>
+                            <p class="mt-0 ml-10" style="font-size: 12px;">Kamar untuk @room.RoomCapacity orang</p>
+                            <p class="mt-30 ml-10 mr-3 fw-bold" style="font-size: 12px">
+                                @room.RoomPrice.ToString("C0", new CultureInfo("id-ID"))<s class="ml-10 text-danger"> @room.RoomMaxPrice.ToString("C0", new CultureInfo("id-ID"))</s>
+                            </p>
+                        </div>
+                        <div class="card-body col-xl-7 col-lg-7">
+                            <a href="@room.RoomPicLink" target="_blank">
+                                <img class="card-img-top" src="@room.RoomPicLink" alt="Room Picture">
+                            </a>
+                            <div class="d-flex justify-content-end">
+                                <button class="main-btn primary-btn btn-hover mt-10 mr-60" @onclick="() => AddtoCart(room)"> Add Room </button>
+                            </div>
+
+                        </div>
+                </div>
+                <hr/>
+                <!-- End Perulangan Hotel Lain -->
+            }
+            <div class="row mt-30 mb-30">
+                @foreach (var hotel in hotelDesc)
+                {
+                    <div class="card-body col-xl-6 col-lg-6">
+                    <h4 class="mt-20 ml-30">Rating And Review</h4>
+                    <p class="mt-10 ml-100 " style="font-size: 16px;">
+                        <span class="mdi mdi-star-box">@hotel.RatingStar</span>
+                    </p>
+                    <h6 class="mt-50 ml-40"> (@hotel.TotalRating ratings) Good </h6>
+
+                </div>
+                }
+                <div class="card-body col-xl-6 col-lg-6">
+                    <div class="card-style mb-30">
+                        <div class="file-list">
+                            <div class="file-item">
+                                <div class="file-item-data w-100">
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="text-sm text-medium">
+                                            <span class="mdi mdi-star-box">5</span>
+                                        </h6>
+                                        <h6 class="text-xs text-medium">60%</h6>
                                     </div>
-                                </div>
-                                <!-- Perulangan Hotel Lain -->
-                                @foreach(var room in rooms)
-                                {
-                                    <div class="row mt-30 mb-30">
-                                        <div class="card-body col-xl-5 col-lg-5">
-                                            <h4 class="mt-20 ml-30">@room.RoomName</h4>
-                                            <p class="mt-0 ml-30" style="font-size: 12px;">Kamar untuk @room.RoomCapacity orang</p>
-                                            <h6 class="mt-50 ml-30">Rp. @room.RoomPrice <s class="ml-10">Rp. 1.000.000</s></h6>
-                                        
-                                        </div>
-                                        <div class="card-body col-xl-7 col-lg-7">
-                                            <a href="@room.RoomPicLink" target="_blank">
-                                                <img class="card-img-top" src="@room.RoomPicLink" alt="Room Picture">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                <!-- End Perulangan Hotel Lain -->
-                                }
-                                <div class="row mt-30 mb-30">
-                                    <div class="card-body col-xl-6 col-lg-6">
-                                        <h4 class="mt-20 ml-30">Rating And Review</h4>
-                                        <p class="mt-10 ml-100 " style="font-size: 14px;"><span class="mdi mdi-star-box">4.5</span></p>
-                                        <h6 class="mt-50 ml-40"> (336 ratings) Good </h6>
-                                                                        
-                                    </div>
-                                    <div class="card-body col-xl-6 col-lg-6">
-                                        <div class="card-style mb-30">
-                                            <div class="file-list">
-                                                <div class="file-item">
-                                                    <div class="file-item-data w-100">
-                                                        <div class="d-flex justify-content-between">
-                                                            <h6 class="text-sm text-medium"><span class="mdi mdi-star-box">5</span></h6>
-                                                            <h6 class="text-xs text-medium">60%</h6>
-                                                        </div>
-                                                        <div class="file-size-wrapper">
-                                                            <div class="file-size bg-warning" style="width: 60%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="file-item">
-                                                    <div class="file-item-data w-100">
-                                                        <div class="d-flex justify-content-between">
-                                                            <h6 class="text-sm text-medium"><span class="mdi mdi-star-box">4</span></h6>
-                                                            <h6 class="text-xs text-medium">20%</h6>
-                                                        </div>
-                                                        <div class="file-size-wrapper">
-                                                            <div class="file-size bg-warning" style="width: 20%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="file-item">
-                                                    <div class="file-item-data w-100">
-                                                        <div class="d-flex justify-content-between">
-                                                            <h6 class="text-sm text-medium"><span class="mdi mdi-star-box">3</span></h6>
-                                                            <h6 class="text-xs text-medium">10%</h6>
-                                                        </div>
-                                                        <div class="file-size-wrapper">
-                                                            <div class="file-size bg-warning" style="width: 10%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="file-item">
-                                                    <div class="file-item-data w-100">
-                                                        <div class="d-flex justify-content-between">
-                                                            <h6 class="text-sm text-medium"><span class="mdi mdi-star-box">2</span></h6>
-                                                            <h6 class="text-xs text-medium">7%</h6>
-                                                        </div>
-                                                        <div class="file-size-wrapper">
-                                                            <div class="file-size bg-warning" style="width: 7%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="file-item">
-                                                    <div class="file-item-data w-100">
-                                                        <div class="d-flex justify-content-between">
-                                                            <h6 class="text-sm text-medium"><span class="mdi mdi-star-box">1</span></h6>
-                                                            <h6 class="text-xs text-medium">3%</h6>
-                                                        </div>
-                                                        <div class="file-size-wrapper">
-                                                            <div class="file-size bg-warning" style="width: 3%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="file-size-wrapper">
+                                        <div class="file-size bg-warning" style="width: 60%"></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3 col-xl-3">
-                            <div class="card-style-3 mb-30 mt-30">
-                                <div class="card-content mt-10">
-                                    <h4><a href="#0">Card Title here </a></h4>
-                                    <p>
-                                        With supporting text below as a natural lead-in to
-                                        additional content. consectetur adipiscing elit. Integer
-                                        posuere erat a ante. With supporting text below as a
-                                        natural lead-in to additional content. consectetur
-                                        adipiscing elit. Integer posuere erat a ante.
-                                    </p>
-                                    <a href="#0" class="read-more">Read More</a>
+                            <div class="file-item">
+                                <div class="file-item-data w-100">
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="text-sm text-medium">
+                                            <span class="mdi mdi-star-box">4</span>
+                                        </h6>
+                                        <h6 class="text-xs text-medium">20%</h6>
+                                    </div>
+                                    <div class="file-size-wrapper">
+                                        <div class="file-size bg-warning" style="width: 20%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-item-data w-100">
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="text-sm text-medium">
+                                            <span class="mdi mdi-star-box">3</span>
+                                        </h6>
+                                        <h6 class="text-xs text-medium">10%</h6>
+                                    </div>
+                                    <div class="file-size-wrapper">
+                                        <div class="file-size bg-warning" style="width: 10%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-item-data w-100">
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="text-sm text-medium">
+                                            <span class="mdi mdi-star-box">2</span>
+                                        </h6>
+                                        <h6 class="text-xs text-medium">7%</h6>
+                                    </div>
+                                    <div class="file-size-wrapper">
+                                        <div class="file-size bg-warning" style="width: 7%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="file-item">
+                                <div class="file-item-data w-100">
+                                    <div class="d-flex justify-content-between">
+                                        <h6 class="text-sm text-medium">
+                                            <span class="mdi mdi-star-box">1</span>
+                                        </h6>
+                                        <h6 class="text-xs text-medium">3%</h6>
+                                    </div>
+                                    <div class="file-size-wrapper">
+                                        <div class="file-size bg-warning" style="width: 3%"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-                    </div>
-        <!-- end container -->
+        </div>
     </div>
+    <div class="col-xl-5 col-lg-5">
+        <div class="card-style-3 mb-30 mt-30">
+            <div class="card-content mt-10 mb-0 ml-0">
+                <div class="alert-box primary-alert">
+                    <div class="alert">
+                        <p style="font-size: 13px"; class="fw-bold">
+                            Login to see lower price
+                        </p>
+                        <a href="#0" class="main-btn primary-btn btn-hover btn-sm mt-2"> login </a>
+                    </div>
+                </div>
+                <!-- yang akan di hidden -->
+                @if (Cart.Instance.getItems.Any())
+                {
+                    @foreach (var item in Cart.Instance.getItems)
+                    { 
+                        <div class="d-flex justify-content-between">
+                            <h2 class="mb-20 mt-20">@item.Room.RoomName</h2>
+                            <button type="button" class="border-0 bg-transparent h6" @onclick="() => RemoveItem(item.Room.RoomName)">
+                                <i class="lni lni-trash-can text-danger"></i>
+                            </button>
+                        </div>
+                        <div class="row">
+                            <div class="col-7">
+                                <p style="font-size: 12px"; class="fw-bold ">
+                                    hari, DD bulan <br>-<br/> hari, DD bulan
+                                </p>
+                            </div>
+                            <div class="col-5">
+                                <p style="font-size: 12px"; class="fw-bold">
+                                    1 Guest
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="price" class="card-text text-sm form-label text-muted col">Price</label>
+                            <div class="col-7">
+                                <input type="text" name="price" id="price" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent" value="@item.Room.RoomPrice.ToString("C0", new CultureInfo("id-ID"))" readonly/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="qty" class="card-text text-sm form-label text-muted col">Qty</label>
+                            <div class="col-7">
+                                <input type="number" name="qty" id="qty" class="form-control form-control-sm text-sm text-muted border-0" min="1" value="@item.Quantity" @oninput="@(e => UpdateItemQuantity(item, int.Parse(e.Value.ToString())))"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="subtotal" class="card-text text-sm form-label text-muted col">Sub total</label>
+                            <div class="col-7">
+                                <input type="text" name="subtotal" id="subtotal" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent" value="@item.Subtotal.ToString("C0", new CultureInfo("id-ID"))" readonly/>
+                            </div>
+                        </div>
+
+
+                        <hr/>
+                    }
+                <div class="alert-box secondary-alert text-sm";>
+                    <div class="alert ">
+                        <div class="row">
+                            <div class="col-6">
+                                <p style="font-size: 12px">GET COUPONS</p>
+                            </div>
+                            <div class="col-6">
+                                <p style="font-size: 12px">Rp.50.000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="col-5">
+                            <p class="text-sm mb-10 fw-bold">Your Savings </p>
+                        </div>
+                        <div class="col-7">
+                            <p class="text-sm mb-10 fw-bold">: Rp. 50.000</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="tax" class="card-text fw-bold form-label text-muted col">Tax (10%)</label>
+                        <div class="col-7">
+                            <input type="text" name="tax" id="tax" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@Cart.Instance.TaxAmount.ToString("C0", new CultureInfo("id-ID"))" readonly/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="total" class="card-text fw-bold form-label text-muted col">Total</label>
+                        <div class="col-7">
+                            <input type="text" name="total" id="total" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@Cart.Instance.TotalPrice.ToString("C0", new CultureInfo("id-ID"))" readonly/>
+                        </div>
+                    </div>
+                <a href="#0" class="main-btn primary-btn rounded-full btn-hover mt-20 ml-50">Continue To Book</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+<!-- end container -->
+</div>
 </section>
+
 @code
 {
     public class RoomDesc
@@ -232,7 +348,7 @@
         public double RoomPrice { get; set; }
         public double RoomMaxPrice { get; set; }
         public int RoomCapacity { get; set; }
-        public string RoomPicLink { get; set; }
+        public string? RoomPicLink { get; set; }
     }
 
     public class HotelDesc
@@ -243,11 +359,126 @@
         public string? MemberStatus { get; set; }
         public string? Description { get; set; }
         public string? RatingDescription { get; set; }
+        public int TotalRating { get; set; }
+    }
+    
+    [Parameter]
+    public int OrderDetail { get; set; } = 0;
+
+    private void AddtoCart(RoomDesc desc)
+    {
+        Cart.Instance.AddItem(desc);
     }
 
-    private List<RoomDesc> rooms = new List<RoomDesc>
+    public class CartItem
     {
-        new RoomDesc
+        public RoomDesc? Room { get; set; }
+        public int Quantity { get; set;}
+
+        public double Subtotal
+        {
+            get { return (Room.RoomPrice * Quantity); }
+        }
+    }
+
+    private void UpdateItemQuantity(CartItem item, int newQuantity)
+    {
+        if (newQuantity < 1)
+        {
+            newQuantity = 1;
+        }
+        
+        if(item.Room != null) Cart.Instance.UpdateQuantity(item.Room.RoomName, newQuantity);
+        
+        StateHasChanged();
+    }
+    private static void RemoveItem(string roomName)
+    {
+        Cart.Instance.RemoveItem(roomName);
+    }
+
+    public class Cart
+    {
+        public static readonly Cart Instance = new Cart();
+        
+        private Cart() {}
+        
+        private List<CartItem> items = new List<CartItem>();
+
+        public void AddItem(RoomDesc desc, int qty = 1)
+        {
+            var existingItem = items.FirstOrDefault(item => item.Room.RoomName == desc.RoomName);
+
+            if (existingItem != null)
+            {
+                existingItem.Quantity += qty;
+            }
+            else
+            {
+                items.Add(new CartItem
+                {
+                    Room = desc,
+                    Quantity = qty,
+                });
+            }
+        }
+
+        public IEnumerable<CartItem> getItems
+        {
+            get { return items; }
+        }
+        
+        public void UpdateQuantity(string roomName, int quantity)
+        {
+            var itemToUpdate = items.FirstOrDefault(item => item.Room.RoomName == roomName);
+
+            if (itemToUpdate != null)
+            {
+                itemToUpdate.Quantity = quantity;
+            }
+        }
+        
+        public void RemoveItem(string roomName)
+        {
+            var itemToRemove = items.FirstOrDefault(item => item.Room.RoomName == roomName);    
+
+            if (itemToRemove != null)
+            {
+                items.Remove(itemToRemove);
+            }
+        }
+        
+        // Clear all items from cart
+        public void Clear()
+        {
+            items.Clear();
+        }
+        public int TotalItems
+        {
+            get { return items.Sum(item => item.Quantity); }
+        }
+
+    // Get total price of items in cart (excluding tax)
+        public double TotalPriceExcludingTax
+        {
+            get { return items.Sum(item => item.Room.RoomPrice * item.Quantity); }
+        }
+        public double TaxAmount
+        {
+            get { return TotalPriceExcludingTax * 0.1d; }
+        }
+
+    // Get total price of items in cart (including tax)
+        public double TotalPrice
+        {
+            get { return TotalPriceExcludingTax + TaxAmount; }
+        }
+    }
+    
+    
+    private readonly List<RoomDesc> rooms = new()
+    {
+        new()
         {
             RoomName = "Regular Room",
             RoomPrice = 1_500_000,
@@ -255,7 +486,7 @@
             RoomCapacity = 2,
             RoomPicLink = "https://via.placeholder.com/800x400?text=Gambar+1"
         },
-        new RoomDesc
+        new()
         {
             RoomName = "Deluxe Room",
             RoomPrice = 2_500_000,
@@ -263,7 +494,7 @@
             RoomCapacity = 4,
             RoomPicLink = "https://via.placeholder.com/800x400?text=Gambar+1"
         },
-        new RoomDesc
+        new()
         {
             RoomName = "Diamond Room",
             RoomPrice = 3_500_000,
@@ -273,18 +504,17 @@
         }
     };
 
-    private List<HotelDesc> hotelDesc = new List<HotelDesc>
+    private readonly List<HotelDesc> hotelDesc = new()
     {
-        new HotelDesc
+        new HotelDesc()
         {
             HotelName = "Hotel Name",
             HotelLocation = "Hotel Location",
             RatingStar = 4.5,
             MemberStatus = "VIP",
             Description = "Hotel ditengah kota",
-            RatingDescription = "Good"
-
+            RatingDescription = "Good",
+            TotalRating = 337
         }
     };
 }
-
