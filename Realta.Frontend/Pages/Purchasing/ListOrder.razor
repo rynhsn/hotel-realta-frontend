@@ -1,7 +1,5 @@
 ﻿@page "/purchasing/list-order"
 
-@inherits LayoutComponentBase
-
 <PageTitle>Purchase Order</PageTitle>
 
 <section class="table-components">
@@ -50,12 +48,12 @@
                 <div class="select-style-1 mb-0 ml-10">
                   <div class="select-position">
                     <select class="p-0 pe-5 border-0">
-                    <option value="" selected>Semua</option>
-                    <option value="1">Pending</option>
-                    <option value="2">Approved</option>
-                    <option value="3">Received</option>
-                    <option value="4">Rejected</option>
-                    <option value="5">Completed</option>
+                      <option value="" selected>Semua</option>
+                      <option value="1">Pending</option>
+                      <option value="2">Approved</option>
+                      <option value="3">Received</option>
+                      <option value="4">Rejected</option>
+                      <option value="5">Completed</option>
                     </select>
                   </div>
                 </div>
@@ -115,7 +113,7 @@
                       <p>@i</p>
                     </td>
                     <td>
-                      <p>@("PO-20230303-00{i}")</p>
+                      <p>@($"PO-20230303-00{i}")</p>
                     </td>
                     <td>
                       <p>2023-03-01</p>
@@ -133,12 +131,13 @@
                       <span class="status-btn success-btn">Pending</span>
                     </td>
                     <td>
-                      <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="lni lni-more-alt"></i>
+                      <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
+                        @* <i class="lni lni-more-alt"></i> *@
+                        <span class="mdi mdi-dots-vertical"></span>
                       </button>
                       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
                         <li class="dropdown-item">
-                          <a class="text-gray" href="list-order/PO-20230303-001">Details</a>
+                          <a class="text-gray" href="/purchasing/list-order/PO-20230303-001">Details</a>
                         </li>
                         <li class="dropdown-item">
                           <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#@($"updateStatus{i}")">Switch Status</a>
@@ -154,37 +153,9 @@
               </table>
               <!-- end table -->
             </div>
-            <div class="pt-10 d-flex flex-wrap justify-content-between">
-              <div class="left">
-                <p class="text-sm text-gray">Showing 12/30 products</p>
-              </div>
-              <div class="right table-pagination">
-                <ul class="d-flex justify-content-end align-items-center">
-                  <li class="ms-2">
-                    <a href="#0">
-                      <i class="lni lni-angle-double-left"></i>
-                    </a>
-                  </li>
-                  <li class="ms-2">
-                    <a href="#0"> 1 </a>
-                  </li>
-                  <li class="ms-2">
-                    <a href="#0" class="active"> 2 </a>
-                  </li>
-                  <li class="ms-2">
-                    <a href="#0"> 3 </a>
-                  </li>
-                  <li class="ms-2">
-                    <a href="#0"> 4 </a>
-                  </li>
-                  <li class="ms-2">
-                    <a href="#0">
-                      <i class="lni lni-angle-double-right"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+
+            <Paging/>
+
           </div>
           <!-- end card -->
         </div>
@@ -202,7 +173,7 @@
   // Update Modal
   <div class="warning-modal">
     <div class="modal fade" id="@($"updateStatus{i}")" tabindex="-1" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered">
         <form class="modal-content card-style" action="/update" method="post">
           <div class="modal-header px-0 border-0">
             <h5 class="text-bold">Switch Status</h5>
@@ -238,7 +209,7 @@
       </div>
     </div>
   </div>
-  
+
   // Delete Modal
   <div class="warning-modal">
     <div class="modal fade" id="@($"delete{i}")" tabindex="-1" style="display: none;" aria-hidden="true">
