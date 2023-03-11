@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realta.Frontend", "Realta.Frontend\Realta.Frontend.csproj", "{56875969-C411-439B-B7AD-91FD326C3B85}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Frontend", "Realta.Frontend\Realta.Frontend.csproj", "{56875969-C411-439B-B7AD-91FD326C3B85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +15,11 @@ Global
 		{56875969-C411-439B-B7AD-91FD326C3B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56875969-C411-439B-B7AD-91FD326C3B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56875969-C411-439B-B7AD-91FD326C3B85}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AB275760-657A-4B69-9960-71F2F4C598CD}
 	EndGlobalSection
 EndGlobal
