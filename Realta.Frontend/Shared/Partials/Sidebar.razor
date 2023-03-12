@@ -1,5 +1,5 @@
 ﻿<!-- ======== sidebar-nav start =========== -->
-<aside class="sidebar-nav-wrapper">
+<aside class="sidebar-nav-wrapper  @(IsOpen ? "active" : "")">
     <div class="navbar-logo">
         <a href="index.html">
             <img src="vendor/assets/images/logo/logo.svg" alt="logo" />
@@ -260,6 +260,26 @@
         </ul>
     </nav>
 </aside>
-<div class="overlay"></div>
+<div class="overlay @(IsOpen ? "active" : "")" @onclick="ToggleSidebar">
+
+</div>
+
+
 <!-- ======== sidebar-nav end =========== -->
+
+@code {
+
+    [Parameter]
+    public bool IsOpen { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OnIsOpenChanged { get; set; }
+
+    private async Task ToggleSidebar()
+    {
+        IsOpen = !IsOpen;
+        await OnIsOpenChanged.InvokeAsync(IsOpen);
+    }
+
+}
 
