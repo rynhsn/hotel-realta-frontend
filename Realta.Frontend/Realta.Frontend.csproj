@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.11" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Microsoft.JSInterop" Version="6.0.11" />
@@ -50,5 +51,10 @@
     <_ContentIncludedByDefault Remove="wwwroot\js\quill.min.js" />
     <_ContentIncludedByDefault Remove="wwwroot\js\Sortable.min.js" />
     <_ContentIncludedByDefault Remove="wwwroot\js\world-merc.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj" />
+    <ProjectReference Include="..\..\HotelRealtaAPI\Realta.Domain\Realta.Domain.csproj" />
   </ItemGroup>
 </Project>

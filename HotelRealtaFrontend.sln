@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Frontend", "Realta.F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realta.Contract", "..\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj", "{EEBE6C92-0B06-47C1-9F40-60BB5060A606}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Realta.Domain", "..\HotelRealtaAPI\Realta.Domain\Realta.Domain.csproj", "{72CE108E-EFCC-4C17-AA13-7B13391F1ECB}"
+EndProject
 
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +24,10 @@ Global
 		{EEBE6C92-0B06-47C1-9F40-60BB5060A606}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEBE6C92-0B06-47C1-9F40-60BB5060A606}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEBE6C92-0B06-47C1-9F40-60BB5060A606}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72CE108E-EFCC-4C17-AA13-7B13391F1ECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72CE108E-EFCC-4C17-AA13-7B13391F1ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72CE108E-EFCC-4C17-AA13-7B13391F1ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72CE108E-EFCC-4C17-AA13-7B13391F1ECB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

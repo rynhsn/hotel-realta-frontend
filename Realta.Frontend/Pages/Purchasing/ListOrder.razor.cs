@@ -1,30 +1,48 @@
-using System.ComponentModel;
-using System.Runtime.Serialization;
+using Microsoft.AspNetCore.Components;
+using Realta.Contract.Models;
+using Realta.Domain.RequestFeatures;
+using Realta.Frontend.HttpRepository.Purchasing;
 
 namespace Realta.Frontend.Pages.Purchasing;
 
-public class PurchaseOrderHeader
+public partial class ListOrder
 {
-    [DisplayName("PO Number")]
-    public string PoNumber { get; set; }
 
-    [DisplayName("PO Date")]
-    public DateTime PoDate { get; set; }
+    [Inject]
+    public IPurchaseOrderHttpRepository? PurchaseOrderRepo { get; set; }
+    public List<PurchaseOrderDto>? PurchaseOrders { get; set; } = new List<PurchaseOrderDto>();
+    public MetaData MetaData { get; set; }
+    private PurchaseOrderParameters? _purchaseOrderParameters = new PurchaseOrderParameters();
 
-    [DisplayName("Vendor Target")]
-    public string VendorTarget { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        //if (PurchaseOrderRepo != null) 
+        // PurchaseOrders = await PurchaseOrderRepo.Get();
+        await GetPaging();
+    }   
 
-    [DisplayName("Line Items")]
-    public int LineItems { get; set; }
-
-    [DisplayName("Total Amount")]
-    public decimal TotalAmount { get; set; }
-
-    [DisplayName("Status")]
-    public string Status { get; set; }
-
-    [IgnoreDataMember]
-    public int PoheId { get; set; }
+    private async Task SelectedPage(int page)
+    {
+        _purchaseOrderParameters.PageNumber = page;
+        await GetPaging();
+    }
+    private async Task GetPaging()
+    {
+        var response = await PurchaseOrderRepo.GetPaging(_purchaseOrderParameters);
+        PurchaseOrders = response.Items;
+        MetaData = response.MetaData;
+    }
     
-    
+    public static (string, string) GetStatus(int status)
+    {
+        return status switch
+        {
+            1 => ("warning-btn", "Pending"),
+            2 => ("info-btn", "Approve"),
+            3 => ("danger-btn", "Reject"),
+            4 => ("secondary-btn", "Receive"),
+            5 => ("dark-btn", "Complete")
+        };
+    }
+
 }
