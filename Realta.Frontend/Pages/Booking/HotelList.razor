@@ -1,19 +1,26 @@
 ﻿@page "/hotelList"
 @using Microsoft.AspNetCore.Components
 <section>
-    <div class="container-fluid">
-        <div class="title-wrapper pt-30">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="title mb-30">
-                        <h2>Hotel List</h2>
-                    </div>
+<div class="container-fluid">
+    <div class="title-wrapper pt-30">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <div class="title mb-30 ml-20 mt-30">
+                <h2>Hotel List</h2>
+            </div>
                 </div>
                 <!-- end col -->
                 <div class="col-md-6">
-                    <div class="breadcrumb-wrapper mb-30">
+                    <div class="breadcrumb-wrapper mb-30 mr-20 mt-30">
                         <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">/</ol>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Hotel List
+                                </li>
+                            </ol>
                         </nav>
                     </div>
                 </div>
@@ -119,7 +126,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <button type="submit" class="btn btn-primary mt-20 ml-40">Filter</button>
                         </form>
                     </div>
                 </div>
@@ -139,7 +146,7 @@
                             <div class="row">
                                 <div class="card-image col-lg-5 col-xl-5">
                                     <a href="@hotel.ImageUrl" target="_blank">
-                                        <img class="card-img-top" src="@hotel.ThumbnailUrl" alt="@hotel.Name">
+                                        <img class="img-thumbnail" style="height: 230px; width: 450px" src="@hotel.ThumbnailUrl" alt="@hotel.Name">
                                     </a>
                                 </div>
                                 <div class="card-content col-lg-7 col-xl-7">
