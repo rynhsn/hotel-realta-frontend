@@ -1,0 +1,136 @@
+﻿@page "/purchasing/stock/{Id:int}"
+
+<TableSection Title="Stock Detail"
+              Link="/purchasing"
+              LinkText="Purchasing">
+    <Thead>
+        <tr>
+            <th class="min-width">
+                <h6>Barcode</h6>
+            </th>
+            <th class="min-width">
+                <h6>Status</h6>
+            </th>
+            <th class="min-width">
+                <h6>Notes</h6>
+            </th>
+            <th class="min-width">
+                <h6>Po Number</h6>
+            </th>
+            <th class="min-width">
+                <h6>Used In</h6>
+            </th>
+            <th class="min-width">
+                <h6>Action</h6>
+            </th>
+        </tr>
+    </Thead>
+    <Tbody>
+        @if (stocksDetailList != null)
+        {
+            foreach (var so in stocksDetailList)
+            {
+                <tr>
+                    <td>
+                        <p>@so.StodBarcodeNumber</p>
+                    </td>
+                    <td>
+                        @if (so.StodStatus == "1 ")
+                        {
+                            <p>Stocked</p>
+                        }else if (so.StodStatus == "2 ")
+                        {
+                            <p>Used</p>
+                        }else if (so.StodStatus == "3 ")
+                        {
+                            <p>Broken</p>
+                        }
+                        else if (so.StodStatus == "4 ")
+                        {
+                            <p>Completed</p>
+                        }
+                    </td>
+                    <td>
+                        <p>@so.StodNotes</p>
+                    </td>
+                    <td>
+                        <p>@so.StodPoNumber</p>
+                    </td>
+                    <td>
+                        <p>@so.FaciRoomNumber</p>
+                    </td>
+                    <td>
+                        <button style="border: 0; background-color: transparent;" data-bs-toggle="modal" data-bs-target="#editStatusDetail">
+                            <i class="lni lni-pencil"></i>
+                            <b>Edit</b>
+                    </button>
+                    </td>
+                </tr>
+            }
+        }
+    </Tbody>
+</TableSection>
+
+@* // Update Modal *@
+<div class="warning-modal">
+    <div class="modal fade" id="editStatusDetail" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form class="modal-content card-style" action="" method="post">
+                <div class="modal-header px-0 border-0">
+                    <h5 class="text-bold">Switch Status</h5>
+                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-0">
+                    <div class="content mb-20">
+                        <div class="row">
+                            <div class="col">
+                                <div class="select-style-1 rounded-sm">
+                                    <label>Status</label>
+                                    <div class="select-position">
+                                        <select>
+                                            <option value="1">Stocked</option>
+                                            <option value="2">Expired</option>
+                                            <option value="3">Broken</option>
+                                            <option value="4">Complete</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class=" mt-20">
+                                    <p>Used In</p>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="input-style-3 rounded-sm">
+                                    <input type="text" placeholder="Room, BallRoom, other facility">
+                                    <span class="icon"><i class="lni lni-search-alt"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-style-1 rounded-sm">
+                                    <label>Notes</label>
+                                    <input type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action d-flex flex-wrap justify-content-end">
+                        <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                            Cancel
+                        </button>
+                        <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
