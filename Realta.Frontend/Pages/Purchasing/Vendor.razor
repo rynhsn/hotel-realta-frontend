@@ -101,7 +101,7 @@
                                     @{
                                         var i = 1;
                                     }
-                                    @foreach (var items in VendorList)
+                                    @foreach (var items in VendorListPaging)
                                     {
                                         <tr>
                                             <td class="min-width">
@@ -148,7 +148,13 @@
                             <!-- end table -->
                         </div>
 
-                        <Paging />
+                        <!-- <Paging /> -->
+                        <div class="row">
+                            <div class="col">
+                                @*Place for pagination*@
+                                <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+                            </div>
+                        </div>
                     </div>
                     <!-- end card -->
                 </div>
@@ -226,7 +232,7 @@
 </div>
 
 <!-- Modal Edit Vendor -->
-@foreach (var items in VendorList)
+@foreach (var items in VendorListPaging)
 {
 <div class="warning-modal">
     <div class="modal fade" id="@($"edit{items.VendorEntityId}")"  tabindex="-1" style="display: none;" aria-hidden="true">
