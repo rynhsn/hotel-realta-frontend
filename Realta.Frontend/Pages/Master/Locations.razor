@@ -1,0 +1,688 @@
+﻿@page "/locations"
+
+<PageTitle>Locations</PageTitle>
+
+<section class="table-components">
+    <div class="container-fluid">
+        <!-- ========== title-wrapper start ========== -->
+        <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="title mb-30">
+                        <h2>Locations</h2>
+
+                    </div>
+                </div>
+                <!-- end col -->
+                <div class="col-md-6">
+                    <div class="breadcrumb-wrapper mb-30">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/locations">locations</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    locations
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- ========== title-wrapper end ========== -->
+        <!-- ========== tables-wrapper start ========== -->
+        <div class="tables-wrapper">
+            <div class="row">
+                <div class="col ">
+                    <div class="card-style mb-30">
+                        <div class="title d-flex flex-wrap align-items-left justify-content-center">
+                            <h3 class="mb-10">Regions</h3>
+                            <div class="d-flex align-items-center">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-center align-items-center py-3">
+
+                            <div class="right">
+                                <div class="table-search d-sm-flex">
+                                    <button type="button" class="btn btn-primary mr-10 " title="Add" data-bs-toggle="modal" data-bs-target="#addregions">
+                                        +
+                                    </button>
+                                    <form action="#">
+                                        <input type="text" placeholder="Search...">
+                                        <button>
+                                            <i class="lni lni-search-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-wrapper table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="min-width">
+                                            <h6>ID</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6>Regions Name</h6>
+                                        </th>
+                                        <th>
+                                            <h6>Action</h6>
+                                        </th>
+                                    </tr>
+                                    <!-- end table row-->
+                                </thead>
+                                <tbody>
+                                    @for (int i = 1; i <= @TotalRows; i++)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="lead">
+                                                    <div class="check-input-primary">
+                                                        <input class="form-check-input" type="radio" name="flexRadioRegions" id="flexRadioDefault1">
+                                                    </div>
+                                                    <div class="lead-text ml-10">
+                                                        <p>@i</p>
+                                                    </div>
+                                                </div>
+  
+                                            </td>
+                                            <td>
+                                                <p>SEA</p>
+                                            </td>
+
+                                            <td>
+                                                <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <span class="mdi mdi-dots-vertical"></span>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+
+                                                    <li class="dropdown-item">
+                                                        <a class="text-gray" href="list-order/PO-20230303-001">Edit</a>
+                                                    </li>
+                                                    <li class="dropdown-item">
+                                                        <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#@($"delete{i}")">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <!-- end table -->
+                        </div>
+                        <div class="pt-10 d-flex flex-wrap justify-content-center">
+                            <div class="right table-pagination">
+                                <ul class="d-flex justify-content-end align-items-center">
+                                    <li class="ms-2">
+                                        <a href="#0">
+                                            <i class="lni lni-angle-double-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0"> 1 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0" class="active"> 2 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0"> 3 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0"> 4 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0">
+                                            <i class="lni lni-angle-double-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div> <!--Regions-->
+                <div class="col">
+                    <div class="card-style mb-30">
+                        <div class="title d-flex flex-wrap align-items-left justify-content-center">
+                            <h3 class="mb-10">Country</h3>
+                            <div class="d-flex align-items-center">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-center align-items-center py-3">
+
+                            <div class="right">
+                                <div class="table-search d-sm-flex">
+                                    <button type="button" class="btn btn-primary mr-10 " title="Add" data-bs-toggle="modal" data-bs-target="#addcountry">
+                                        +
+                                    </button>
+                                    <form action="#">
+                                        <input type="text" placeholder="Search...">
+                                        <button>
+                                            <i class="lni lni-search-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-wrapper table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="min-width">
+                                            <h6>ID</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6>Country Name</h6>
+                                        </th>
+                                        <th>
+                                            <h6>Action</h6>
+                                        </th>
+                                    </tr>
+                                    <!-- end table row-->
+                                </thead>
+                                <tbody>
+                                    @for (int i = 1; i <= @TotalRows; i++)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="lead">
+                                                    <div class="check-input-primary">
+                                                        <input class="form-check-input" type="radio" name="flexRadioCountry" id="flexRadioDefault1">
+                                                    </div>
+                                                    <div class="lead-text ml-10">
+                                                        <p>@i</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p>Indonesia</p>
+                                            </td>
+
+                                            <td>
+                                                <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <span class="mdi mdi-dots-vertical"></span>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+                                                    <li class="dropdown-item">
+                                                        <a class="text-gray" href="list-order/PO-20230303-001">Edit</a>
+                                                    </li>
+                                                    <li class="dropdown-item">
+                                                        <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#@($"delete{i}")">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <!-- end table -->
+                        </div>
+                        <div class="pt-10 d-flex flex-wrap justify-content-center">
+                            <div class="right table-pagination">
+                                <ul class="d-flex justify-content-end align-items-center">
+                                    <li class="ms-2">
+                                        <a href="#0">
+                                            <i class="lni lni-angle-double-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0"> 1 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0" class="active"> 2 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0"> 3 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0"> 4 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0">
+                                            <i class="lni lni-angle-double-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div> <!--Country-->
+                <div class="col">
+                    <div class="card-style mb-30 ">
+                        <div class="title d-flex flex-wrap align-items-left justify-content-center">
+                            <h3 class="mb-10">Provinces</h3>
+                            <div class="d-flex align-items-center">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-center align-items-center py-3">
+
+                            <div class="right">
+                                <div class="table-search d-sm-flex">
+                                    <button type="button" class="btn btn-primary mr-10 " title="Add" data-bs-toggle="modal" data-bs-target="#addprovinces">
+                                        +
+                                    </button>
+                                    <form action="#">
+                                        <input type="text" placeholder="Search...">
+                                        <button>
+                                            <i class="lni lni-search-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-wrapper table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="min-width">
+                                            <h6>ID</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6>Provinces Name</h6>
+                                        </th>
+                                        <th>
+                                            <h6>Action</h6>
+                                        </th>
+                                    </tr>
+                                    <!-- end table row-->
+                                </thead>
+                                <tbody>
+                                    @for (int i = 1; i <= @TotalRows; i++)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="lead">
+                                                    <div class="check-input-primary">
+                                                        <input class="form-check-input" type="radio" name="flexRadioProvinces" id="flexRadioDefault1">
+                                                    </div>
+                                                    <div class="lead-text ml-10">
+                                                        <p>@i</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p>Jakarta</p>
+                                            </td>
+
+                                            <td>
+                                                <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <span class="mdi mdi-dots-vertical"></span>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+                                                    <li class="dropdown-item">
+                                                        <a class="text-gray" href="list-order/PO-20230303-001">Edit</a>
+                                                    </li>
+                                                    <li class="dropdown-item">
+                                                        <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#@($"delete{i}")">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <!-- end table -->
+                        </div>
+                        <div class="pt-10 d-flex flex-wrap justify-content-center">
+                            <div class="right table-pagination">
+                                <ul class="d-flex justify-content-end align-items-center">
+                                    <li class="ms-2">
+                                        <a href="#0">
+                                            <i class="lni lni-angle-double-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0"> 1 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0" class="active"> 2 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0"> 3 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0"> 4 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0">
+                                            <i class="lni lni-angle-double-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div> <!-- Provinces-->
+
+            </div>
+        </div>
+        <div class="tables-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-style mb-30">
+                        <div class="title d-flex flex-wrap align-items-left justify-content-center mt-3">
+                            <h3 class="mb-10">Address</h3>
+                            <div class="d-flex align-items-center">
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
+                            <div class="left">
+                                <p>Show <span>@TotalRows</span> entries</p>
+                            </div>
+                            <div class="right">
+                                <div class="table-search d-flex">
+                                    <button type="button" class="btn btn-primary mr-10 " title="Ada" data-bs-toggle="modal" data-bs-target="#addaddress">
+                                        +
+                                    </button>
+                                    <form action="#">
+                                        <input type="text" placeholder="Search...">
+                                        <button>
+                                            <i class="lni lni-search-alt"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-wrapper table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="min-width">
+                                            <h6>ID</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6>City</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6>Address</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6>Postal Code</h6>
+                                        </th>
+                                        <th class="min-width">
+                                            <h6>Spatial Location</h6>
+                                        </th>
+                                        <th>
+                                            <h6>Action</h6>
+                                        </th>
+                                    </tr>
+                                    <!-- end table row-->
+                                </thead>
+                                <tbody>
+                                    @for (int i = 1; i <= @TotalRows; i++)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="lead">
+                                                    <div class="check-input-primary">
+                                                        <input class="form-check-input" type="radio" name="flexradioaddres" id="flexRadioDefault1">
+                                                    </div>
+                                                    <div class="lead-text ml-10">
+                                                        <p>@i</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p>Jakarta</p>
+                                            </td>
+                                            <td>
+                                                <p style="word-wrap: break-word ">Jl. Pahlawan No. 10, Kel. Mulyorejo, Kec. Sukun,</p>
+                                            </td>
+                                            <td>
+                                                <p>23152</p>
+                                            </td>
+                                            <td>
+                                                <p>Point(47.6204, -122.3491, 4326)</p>
+                                            </td>
+
+                                            <td>
+                                                <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <span class="mdi mdi-dots-vertical"></span>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+                                                    <li class="dropdown-item">
+                                                        <a class="text-gray" href="list-order/PO-20230303-001">Edit</a>
+                                                    </li>
+                                                    <li class="dropdown-item">
+                                                        <a class="text-danger" data-bs-toggle="modal" data-bs-target="#@($"delete{i}")">Delete</a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <!-- end table -->
+                        </div>
+                        <div class="pt-10 d-flex flex-wrap justify-content-between">
+                            <div class="left">
+                                <p class="text-sm text-gray">Showing 12/30 products</p>
+                            </div>
+                            <div class="right table-pagination">
+                                <ul class="d-flex justify-content-end align-items-center">
+                                    <li class="ms-2">
+                                        <a href="#0">
+                                            <i class="lni lni-angle-double-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0"> 1 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0" class="active"> 2 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0"> 3 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0"> 4 </a>
+                                    </li>
+                                    <li class="ms-2">
+                                        <a href="#0">
+                                            <i class="lni lni-angle-double-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+
+        </div><!--Address-->
+    </div>
+    <!-- end container -->
+</section>
+
+@for (int i = 1; i <= @TotalRows; i++)
+{
+
+    @*Delete Modal*@
+    <div class="warning-modal">
+        <div class="modal fade" id="@($"delete{i}")" tabindex="-1" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <form class="modal-content card-style" action="/delete" method="post">
+                    <div class="modal-header px-0 border-0">
+                        <h5 class="text-bold">
+                            <i class="lni lni-warning text-danger me-2"></i> Are you sure
+                            you want to delete?
+                        </h5>
+                    </div>
+                    <div class="modal-body px-0">
+                        <div class="content mb-30">
+                            <p class="text-sm">
+                                Item with ID: @i will be deleted. data that has been deleted cannot be recovered!
+                            </p>
+                        </div>
+                        <div class="action d-flex flex-wrap justify-content-end">
+                            <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                                Cancel
+                            </button>
+                            <button type="submit" class="main-btn warning-btn btn-hover m-1">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+<!-- Modal Add regions -->
+<div class="modal fade" id="addregions" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addRegionsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Regions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="card-style mb-30">
+                        <div class="mb-3 row">
+                            <label for="recipient-name" class="col-sm-2 col-form-label">Regions Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="Item-price">
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="message-text" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="Description"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Add country -->
+<div class="modal fade" id="addcountry" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCountryLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Country</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="card-style mb-30">
+                        <div class="mb-3 row">
+                            <label for="recipient-name" class="col-sm-2 col-form-label">Regions Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="Item-price">
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label for="recipient-name" class="col-sm-2 col-form-label">Country Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="Item-price">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Add provinces -->
+<div class="modal fade" id="addprovinces" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addProvincesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Provinces</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="card-style mb-30">
+                        <div class="mb-3 row">
+                            <label for="recipient-name" class="col-sm-2 col-form-label">Country Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="Item-price">
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3 row">
+                            <label for="addprovinces" class="col-sm-2 col-form-label">Provinces Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="addprovinces">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Add address -->
+<div class="modal fade" id="addaddress" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addaddressLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="card-style mb-30">
+                        <div class="mb-3 row">
+                            <label for="recipient-name" class="col-sm-2 col-form-label">Provinces Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="Item-price">
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3 row">
+                            <label for="addaddress" class="col-sm-2 col-form-label">Address Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="addaddress">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    public int TotalRows { get; set; } = 5;
+}
+
