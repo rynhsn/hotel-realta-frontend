@@ -151,10 +151,16 @@
   </a>
   <ul id="booking" class="collapse dropdown-nav">
     <li>
-      <a href="settings.html"> Settings </a>
+      <a href="/booking/hotelList"> Hotel List </a>
     </li>
     <li>
-      <a href="blank-page.html"> Blank Page </a>
+      <a href="/booking/room"> Hotel Facilities </a>
+    </li>
+    <li>
+      <a href="/booking/room-invoice"> Invoice </a>
+    </li>
+    <li>
+      <a href="/booking/room-extra"> Room Detail </a>
     </li>
   </ul>
 </li>
@@ -248,14 +254,25 @@
 </ul>
 </nav>
 </aside>
-<div class="overlay @(IsOpen ? "active" : "")"></div>
+<div class="overlay @(IsOpen ? "active" : "")" @onclick="ToggleSidebar">
+
+</div>
+
+
 <!-- ======== sidebar-nav end =========== -->
 
 @code {
-  
+
   [Parameter]
   public bool IsOpen { get; set; }
 
   [Parameter]
   public EventCallback<bool> OnIsOpenChanged { get; set; }
-} 
+
+  private async Task ToggleSidebar()
+  {
+    IsOpen = !IsOpen;
+    await OnIsOpenChanged.InvokeAsync(IsOpen);
+  }
+
+}

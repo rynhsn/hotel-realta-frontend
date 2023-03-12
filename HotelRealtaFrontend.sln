@@ -5,8 +5,12 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Frontend", "Realta.Frontend\Realta.Frontend.csproj", "{56875969-C411-439B-B7AD-91FD326C3B85}"
 EndProject
+<<<<<<< HEAD
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Contract", "..\HotelRealtaApi\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj", "{975E9A07-C345-4881-BA52-8FC39A1A4B2B}"
 EndProject
+=======
+
+>>>>>>> 9b8a3e4c0cd0bda9cce33df1ee68aec678f35324
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
