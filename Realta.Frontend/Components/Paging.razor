@@ -5,7 +5,7 @@
       @foreach (var link in _links)
       {
       <li class="@(link.Enabled ? null : "disabled") @(link.Active ? "active" : "")" @onclick="() => OnSelectedPage(link)">
-        <a href="#0" data-page="@link.Text">@link.Text</a>
+        <a href="#" data-page="@link.Text">@link.Text</a>
       </li>
       }
     </ul>
