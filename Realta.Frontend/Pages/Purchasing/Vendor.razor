@@ -98,26 +98,29 @@
                                     <!-- end table row-->
                                 </thead>
                                 <tbody>
-                                    @for (int i = 1; i <= TotalRows; i++)
+                                    @{
+                                        var i = 1;
+                                    }
+                                    @foreach (var items in VendorList)
                                     {
                                         <tr>
                                             <td class="min-width">
                                                 <p>@i</p>
                                             </td>
                                             <td class="min-width">
-                                                <p>PT Maju Bersama Sejahtera @i</p>
+                                                <p>@items.VendorName </p>
                                             </td>
                                             <td class="min-width">
-                                                <p>Active</p>
+                                                <p>@items.VendorActive</p>
                                             </td>
                                             <td class="min-width">
-                                                <p>Priority</p>
+                                                <p>@items.VendorPriority</p>
                                             </td>
                                             <td class="min-width">
-                                                <p>20 Jan 2013</p>
+                                                <p>@items.VendorModifiedDate</p>
                                             </td>
                                             <td class="min-width">
-                                                <p>wwww.majubersama.co</p>
+                                                <p>@items.VendorWeburl</p>
                                             </td>
                                             <td>
                                                 <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
@@ -125,7 +128,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
                                                     <li class="dropdown-item">
-                                                        <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#edit"> Edit </a>
+                                                        <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#@($"edit{items.VendorEntityId}")"> Edit </a>
                                                     </li>
                                                     <li class="dropdown-item">
                                                         <a class="text-gray" href="/purchasing/vendor-product"> Add Item Product </a>
@@ -138,6 +141,7 @@
                                                 </ul>
                                             </td>
                                         </tr>
+                                        i++;
                                     }
                                 </tbody>
                             </table>
@@ -222,12 +226,14 @@
 </div>
 
 <!-- Modal Edit Vendor -->
+@foreach (var items in VendorList)
+{
 <div class="warning-modal">
-    <div class="modal fade" id="@($"edit")" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="@($"edit{items.VendorEntityId}")"  tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <form class="modal-content card-style" action="/update" method="post">
                 <div class="modal-header px-0 border-0">
-                    <h5 class="text-bold">Add Product</h5>
+                    <h5 class="text-bold">Edit Vendor</h5>
                     <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
                         <i class="lni lni-cross-circle"></i>
                     </button>
@@ -237,7 +243,7 @@
                         <div class="input-style-1 col-9 rounded-sm">
                             <label>Vendor Name</label>
                             <div class="select-position">
-                                <input class="form-control" type="text" placeholder="PT Maju Sejahtera">
+                                <input class="form-control" type="text" placeholder="@items.VendorName">
                             </div>
                         </div>
                         <div class="select-style-1 col-6 rounded-sm">
@@ -261,7 +267,7 @@
                         <div class="input-style-1 col-8 rounded-sm">
                             <label>Website</label>
                             <div class="select-position">
-                                <input type="text" placeholder="URL..." />
+                                <input type="text" placeholder="@items.VendorWeburl" />
                             </div>
                         </div>
                     </div>
@@ -278,7 +284,7 @@
         </div>
     </div>
 </div>
-
+}
 <!-- Modal Delete Vendor -->
 <div class="warning-modal">
     <div class="modal fade" id="@($"delete")" tabindex="-1" aria-hidden="true" role="dialog" style="display: none;">
