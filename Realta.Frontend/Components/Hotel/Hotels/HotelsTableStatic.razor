@@ -1,0 +1,135 @@
+﻿<table class="table top-selling-table">
+    <thead>
+    <tr>
+        <th>
+            <h6 class="text-sm text-medium">Id</h6>
+        </th>
+        <th class="min-width">
+            <h6 class="text-sm text-medium">
+                Hotel Name
+                <i class="lni lni-arrows-vertical"></i>
+            </h6>
+        </th>
+        <th class="min-width">
+            <h6 class="text-sm text-medium">
+                Rating Star
+            </h6>
+        </th>
+        <th class="min-width">
+            <h6 class="text-sm text-medium">
+                Phone Number
+            </h6>
+        </th>
+        <th class="min-width">
+            <h6 class="text-sm text-medium">
+                Status
+            </h6>
+        </th>
+        <th class="min-width">
+            <h6 class="text-sm text-medium">
+                Modified Date <i class="lni lni-arrows-vertical"></i>
+            </h6>
+        </th>
+        <th>
+            <div class="action justify-content-end" data-bs-toggle="modal" data-bs-target="#createhotel">
+                <a href="#0" class="main-btn primary-btn-outline rounded-btn p-2">
+                    <i class="mdi mdi-home-plus"></i> Add
+                </a>
+            </div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @for (int i = 1; i < 11; i++)
+    {
+        <tr>
+            <td>
+                <p class="text-sm">@i</p>
+            </td>
+            <td>
+                <p class="text-sm">Hotel Sample @i</p>
+            </td>
+            <td>
+
+
+                @for (int j = 1; j <= 5; j++)
+                {
+                    if (j > randomNum)
+                    {
+                        <span class="mdi mdi-star-outline"></span>
+                    }
+                    else
+                    {
+                        <span class="mdi mdi-star"></span>
+                    }
+                }
+            </td>
+            <td>
+                <p class="text-sm">+62 857 0718 016<span>@i</span> </p>
+            </td>
+            <td>
+
+
+                @if (checkerStatus == 0)
+
+                {
+                    <span class="status-btn close-btn">Inactive</span>
+                }
+
+                else
+                {
+                    <span class="status-btn active-btn">Active</span>
+                }
+
+            </td>
+            <td>
+                <p class="text-sm">
+                   @randomDate.ToString("dd MMMM yyyy") 
+                </p>
+            </td>
+            <td>
+                <div class="action justify-content-end">
+                    <button class="more-btn ml-10 dropdown-toggle" id="moreAction1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="lni lni-more-alt"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction1">
+                        <li class="dropdown-item">
+                            <a class="text-gray" data-bs-toggle="modal" data-bs-target="#edithotel">Edit</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a href="facility" class="text-gray">Add Facilities</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a class="text-gray" data-bs-toggle="modal" data-bs-target="#switchstatushotel">Switch Status</a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code
+{
+    int checkerStatus = new Random().Next(2);
+    int randomNum = new Random().Next(1, 6);
+    
+    private DateTime randomDate;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        randomDate = RandomDate(new DateTime(2021, 1, 1), new DateTime(2023, 12, 31));
+    }
+
+    private static DateTime RandomDate(DateTime start, DateTime end)
+    {
+        Random random = new Random();
+        int range = (end - start).Days;
+        return start.AddDays(random.Next(range));
+    }
+
+}

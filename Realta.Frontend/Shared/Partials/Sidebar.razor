@@ -163,7 +163,7 @@
       <a href="/booking/room-extra"> Modify Booking </a>
     </li>                    
   </ul>
-</li> 
+</li>
 
 @* Resto *@
 <li class="nav-item nav-item-has-children">
@@ -254,19 +254,25 @@
 </ul>
 </nav>
 </aside>
-<div class="overlay @(IsOpen ? "active" : "")">
-    
+<div class="overlay @(IsOpen ? "active" : "")" @onclick="ToggleSidebar">
+
 </div>
 
 
-<!-- ======== sidebar-nav end =========== --> 
+<!-- ======== sidebar-nav end =========== -->
 
 @code {
 
-    [Parameter]
-    public bool IsOpen { get; set; }
+  [Parameter]
+  public bool IsOpen { get; set; }
 
-    [Parameter]
-    public EventCallback<bool> OnIsOpenChanged { get; set; }
+  [Parameter]
+  public EventCallback<bool> OnIsOpenChanged { get; set; }
+
+  private async Task ToggleSidebar()
+  {
+    IsOpen = !IsOpen;
+    await OnIsOpenChanged.InvokeAsync(IsOpen);
+  }
 
 }
