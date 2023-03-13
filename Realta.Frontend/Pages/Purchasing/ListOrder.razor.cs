@@ -25,6 +25,7 @@ public partial class ListOrder
         _purchaseOrderParameters.PageNumber = page;
         await GetPaging();
     }
+    
     private async Task GetPaging()
     {
         var response = await PurchaseOrderRepo.GetPaging(_purchaseOrderParameters);
@@ -42,6 +43,13 @@ public partial class ListOrder
             4 => ("secondary-btn", "Receive"),
             5 => ("dark-btn", "Complete")
         };
+    }
+    
+    private async Task SearchChange(string keyword)
+    {
+        _purchaseOrderParameters.PageNumber = 1;
+        _purchaseOrderParameters.Keyword = keyword;
+        await GetPaging();
     }
 
 }

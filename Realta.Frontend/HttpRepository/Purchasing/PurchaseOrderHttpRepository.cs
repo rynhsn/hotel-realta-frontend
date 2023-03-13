@@ -17,11 +17,12 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
         _options =  new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
     
-    public async Task<PagingResponse<PurchaseOrderDto>> GetPaging(PurchaseOrderParameters purchaseOrderParameters)
+    public async Task<PagingResponse<PurchaseOrderDto>> GetPaging(PurchaseOrderParameters parameters)
     {
         var queryStringParam = new Dictionary<string, string>
         {
-            ["pageNumber"] = purchaseOrderParameters.PageNumber.ToString()
+            ["pageNumber"] = parameters.PageNumber.ToString(),
+            ["keyword"] = parameters.Keyword == null ? "": parameters.Keyword
         };
 
         var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("PurchaseOrder", queryStringParam));

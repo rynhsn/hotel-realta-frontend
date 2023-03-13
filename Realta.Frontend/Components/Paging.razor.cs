@@ -44,6 +44,5 @@ public partial class Paging
         
         MetaData.CurrentPage = link.Page;
         await SelectedPage.InvokeAsync(link.Page);
-
     }
 }
