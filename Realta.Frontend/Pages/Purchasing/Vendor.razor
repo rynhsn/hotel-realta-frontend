@@ -58,12 +58,13 @@
                             </div>
                             <div class="right">
                                 <div class="table-search d-flex">
-                                    <form action="#">
-                                        <input type="text" placeholder="Search...">
-                                        <button>
-                                            <i class="lni lni-search-alt"></i>
-                                        </button>
-                                    </form>
+                                    @* <form action="#"> *@
+                                    @*     <input type="text" placeholder="Search..."> *@
+                                    @*     <button> *@
+                                    @*         <i class="lni lni-search-alt"></i> *@
+                                    @*     </button> *@
+                                    @* </form> *@
+                                    <Search OnSearchChanged="SearchChange"/>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +153,7 @@
                         <div class="row">
                             <div class="col">
                                 @*Place for pagination*@
-                                <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+                                <Pagination MetaData="MetaData" Spread="1" SelectedPage="SelectedPage" />
                             </div>
                         </div>
                     </div>

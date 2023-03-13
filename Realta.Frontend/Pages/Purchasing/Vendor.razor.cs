@@ -36,5 +36,13 @@ namespace Realta.Frontend.Pages.Purchasing
             _vendorParameters.PageNumber = page;
             await GetVendorPaging();
         }
+
+        private async Task SearchChange(string keyword)
+        {
+            Console.WriteLine(keyword);
+            _vendorParameters.PageNumber = 1;
+            _vendorParameters.Keyword = keyword;
+            await GetVendorPaging();
+        }
     }
 }

@@ -38,7 +38,7 @@ namespace Realta.Frontend.HttpRepository.Purchasing
             var queryStringParam = new Dictionary<string, string>
             {
                 ["pageNumber"] = vendorsParameters.PageNumber.ToString(),
-                // ["searchTerm"] = vendorsParameters.Keyword == null ? "" : vendorsParameters.Keyword,
+                ["Keyword"] = vendorsParameters.Keyword == null ? "" : vendorsParameters.Keyword
                 // ["orderBy"] = vendorsParameters.OrderBy
             };
 
