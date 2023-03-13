@@ -1,61 +1,98 @@
 using System.Collections;
+using Realta.Contract.Models;
+using Realta.Frontend.HttpRepository.Booking;
+using Microsoft.AspNetCore.Components;
+using Realta.Domain.RequestFeatures;
 
 namespace Realta.Frontend.Pages.Booking;
 
-public class RoomDesc
-{
-    public string? RoomName { get; set; }
-    public double RoomPrice { get; set; }
-    public double RoomMaxPrice { get; set; }
-    public int RoomCapacity { get; set; }
-    public string? RoomPicLink { get; set; }
-        
-}
-
-public class HotelDesc
-{
-        
-    public string? HotelName { get; set; }
-    public string? HotelLocation { get; set; }
-    public double RatingStar { get; set; }
-    public string? MemberStatus { get; set; }
-    public string? Description { get; set; }
-    public string? RatingDescription { get; set; }
-    public int TotalRating { get; set; }
-}
-    
-public class Coupon
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string Code { get; set; }
-    public bool IsActive { get; set; }
-    public double DiscountPercent { get; set; }
-}
-
-public class CartItem
-{
-    public RoomDesc? Room { get; set; }
-    public int Quantity { get; set;}
-
-    public double Subtotal
+    public partial class HotelListFacilities
     {
-        get { return (Room.RoomPrice * Quantity); } 
+        [Parameter] public List<SpecialOffersDto> SpecialOffer { get; set; }
+        public List<SpecialOffersDto> SpecialOffersList { get; set; } = new List<SpecialOffersDto>();
+        public MetaData MetaData { get; set; } = new MetaData();
+        
+        [Inject] 
+        public ISpecialOfferHttpRepository SpecialOfferHttpRepository { get; set; }
+        
+        protected async override Task OnInitializedAsync()
+        {
+            SpecialOffersList= await SpecialOfferHttpRepository.GetSpecialOffers();
+            Console.WriteLine("SpecialOffersList");
+        }
+
+        private SpecialOfferParameters _specialOfferParameters = new SpecialOfferParameters();
+
+        private async Task GetSpecialOfferPaging()
+        {
+            var pagingResponse = await SpecialOfferHttpRepository.GetSpecialOfferPaging(_specialOfferParameters);
+            SpecialOffersList = pagingResponse.Items;
+            MetaData = pagingResponse.MetaData;
+        }
+
+        private async Task SelectedPage(int page)
+        {
+            _specialOfferParameters.PageNumber = page;
+            await GetSpecialOfferPaging();
+        }
     }
 
-    public IEnumerator GetEnumerator()
+    public class RoomDesc
     {
-        throw new NotImplementedException();
-    }
-}
+        public string? RoomName { get; set; }
+        public double RoomPrice { get; set; }
+        public double RoomMaxPrice { get; set; }
+        public int RoomCapacity { get; set; }
+        public string? RoomPicLink { get; set; }
 
-public class Cart
+    }
+
+    public class HotelDesc
+    {
+
+        public string? HotelName { get; set; }
+        public string? HotelLocation { get; set; }
+        public double RatingStar { get; set; }
+        public string? MemberStatus { get; set; }
+        public string? Description { get; set; }
+        public string? RatingDescription { get; set; }
+        public int TotalRating { get; set; }
+    }
+
+    public class Coupon
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Code { get; set; }
+        public bool IsActive { get; set; }
+        public double DiscountPercent { get; set; }
+    }
+
+    public class CartItem
+    {
+        public RoomDesc? Room { get; set; }
+        public int Quantity { get; set; }
+
+        public double Subtotal
+        {
+            get { return (Room.RoomPrice * Quantity); }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class Cart
     {
         public static readonly Cart Instance = new Cart();
-        
-        private Cart() {}
-        
+
+        private Cart()
+        {
+        }
+
         private List<CartItem> items = new List<CartItem>();
 
         public void AddItem(RoomDesc desc, int qty = 1)
@@ -81,14 +118,14 @@ public class Cart
                     Quantity = qty,
                 });
             }
-            }
+        }
 
 
         public IEnumerable<CartItem> getItems
         {
             get { return items; }
         }
-        
+
         public void UpdateQuantity(string roomName, int quantity)
         {
             var itemToUpdate = items.FirstOrDefault(item => item.Room.RoomName == roomName);
@@ -98,22 +135,23 @@ public class Cart
                 itemToUpdate.Quantity = quantity;
             }
         }
-        
+
         public void RemoveItem(string roomName)
         {
-            var itemToRemove = items.FirstOrDefault(item => item.Room.RoomName == roomName);    
+            var itemToRemove = items.FirstOrDefault(item => item.Room.RoomName == roomName);
 
             if (itemToRemove != null)
             {
                 items.Remove(itemToRemove);
             }
         }
-        
+
         // Clear all items from cart
         public void Clear()
         {
             items.Clear();
         }
+
         public int TotalItems
         {
             get { return items.Sum(item => item.Quantity); }
@@ -124,6 +162,7 @@ public class Cart
         {
             get { return items.Sum(item => item.Room.RoomPrice * item.Quantity); }
         }
+
         public double TaxAmount
         {
             get { return TotalPriceExcludingTax * 0.1d; }
@@ -134,6 +173,8 @@ public class Cart
         {
             get { return TotalPriceExcludingTax + TaxAmount; }
         }
-        
+
     }
-    
+
+
+

@@ -1,0 +1,67 @@
+@page "/specialOffer"
+@using Realta.Frontend.Components.Booking
+@using Realta.Domain.RequestFeatures
+
+
+
+<section class="table-components">
+    <div class="container-fluid">
+        <!-- ========== title-wrapper start ========== -->
+        <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="title mb-30">
+                        <h2>Tables</h2>
+                    </div>
+                </div>
+                <!-- end col -->
+                <div class="col-md-6">
+                    <div class="breadcrumb-wrapper mb-30">
+                        <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                            <a href="#0">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                            Tables
+                            </li>
+                        </ol>
+                        </nav>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+        <!-- end row -->
+        </div>
+        <!-- ========== title-wrapper end ========== -->
+
+        <!-- ========== tables-wrapper start ========== -->
+        <div class="tables-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-style mb-30">
+                        <h5 class="mb-10">Special Offers List</h5>
+                        <p class="text-sm mb-20">
+                        </p>
+                        <div class="table-wrapper table-responsive">
+                            <SpofTable SpecialOffer="SpecialOffersList"/>
+                            <!-- end table -->
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <!-- Place for Paginatioon -->
+                                <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"></Pagination>
+                            </div>
+                        </div>
+                    </div>
+                <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+        <!-- end row -->
+        <!-- end row -->
+        </div>
+        <!-- ========== tables-wrapper end ========== -->
+    </div>
+<!-- end container -->
+</section>

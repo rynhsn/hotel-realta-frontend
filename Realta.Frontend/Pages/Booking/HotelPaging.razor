@@ -1,0 +1,31 @@
+@using Realta.Frontend.Components
+@page "/hotelPaging"
+<h3>Hotel Paging</h3>
+
+<div class="row">
+    <div class="col-md-5">
+        @*Place for search and sort*@
+        <Search OnSearchChanged="SearchChange"/>
+    </div>
+    
+    <div class="col-md-5">
+        @*Place for search and sort*@
+        <Sort OnSortChanged="SortChanged"/>
+    </div>
+
+    <div class="col-md-2">
+        <a href="/createProduct">Create Product</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        @*Place for products*@
+        <HotelTable hotels="HotelListPaging"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        @*Place for pagination*@
+        <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+    </div>
+</div>

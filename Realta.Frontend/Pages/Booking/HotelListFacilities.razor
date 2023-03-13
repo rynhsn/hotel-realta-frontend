@@ -315,12 +315,12 @@
                                         </button>
                                     </div>
                                     <div class="modal-body px-0">
-                                        @foreach (var item in coupon)
+                                        @foreach (var specialoffers in SpecialOffer )
                                         {
                                             <div class="row mb-4">
                                                 <div class="col-12">
-                                                    <input type="checkbox" id="@item.Name" name="coupon" value="@item.DiscountPercent">
-                                                    <label for="@item.Name">@item.Name</label>
+                                                    <input type="checkbox" id="@specialoffers.SpofName" name="coupon" value="@specialoffers.SpofDiscount">
+                                                    <label for="@specialoffers.SpofName">@specialoffers.SpofName</label>
                                                 </div>
                                             </div>
                                         }
@@ -417,6 +417,8 @@
             TotalRating = 337
         }
     };
+    
+    
 
     private readonly List<Coupon> coupon = new List<Coupon>()
     {

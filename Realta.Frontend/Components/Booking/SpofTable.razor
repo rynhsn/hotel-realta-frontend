@@ -1,0 +1,34 @@
+@if(SpecialOffer.Count > 0)
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th><h6>SpofName</h6></th>
+            <th><h6>Action</h6></th>
+        </tr>
+        <!-- end table row-->
+        </thead>
+        <tbody>
+        @foreach (var specialOffer in SpecialOffer)
+        {
+            <tr>
+                <td class="min-width">
+                    <div class="lead">
+                        <div class="lead-text">
+                            <p>@specialOffer.SpofName</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="action">
+                        <button class="text-danger">
+                            <i class="lni lni-trash-can"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr> 
+        }
+        </tbody>
+    </table>
+}
+

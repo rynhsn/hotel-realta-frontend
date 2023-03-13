@@ -215,17 +215,17 @@
                     <i class="lni lni-cross-circle"></i>
                   </button>
                 </div>
-                <div class="modal-body px-0">
-                  @foreach (var item in coupon)
-                  {
-                    <div class="row mb-4">
-                      <div class="col-12">
-                        <input type="checkbox" id="@item.Name" name="coupon" value="@item.DiscountPercent">
-                        <label for="@item.Name">@item.Name</label>
-                      </div>
-                    </div>
-                  }
-                </div>
+                @* <div class="modal-body px-0"> *@
+                @*   @foreach (var item in coupon) *@
+                @*   { *@
+                @*     <div class="row mb-4"> *@
+                @*       <div class="col-12"> *@
+                @*         <input type="checkbox" id="@item.Name" name="coupon" value="@item.DiscountPercent"> *@
+                @*         <label for="@item.Name">@item.Name</label> *@
+                @*       </div> *@
+                @*     </div> *@
+                @*   } *@
+                @* </div> *@
                 <div class="action d-flex flex-wrap justify-content-end">
                   <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
                     Cancel
@@ -249,13 +249,13 @@
         <div class="row">
           <label for="tax" class="card-text fw-bold form-label text-muted col">Tax (10%)</label>
           <div class="col-7">
-            <input type="text" name="tax" id="tax" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@Cart.Instance.TaxAmount.ToString("C0", new CultureInfo("id-ID"))" readonly/>
+            @* <input type="text" name="tax" id="tax" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@Cart.Instance.TaxAmount.ToString("C0", new CultureInfo("id-ID"))" readonly/> *@
           </div>
         </div>
         <div class="row">
           <label for="total" class="card-text fw-bold form-label text-muted col">Total</label>
           <div class="col-7">
-            <input type="text" name="total" id="total" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@Cart.Instance.TotalPrice.ToString("C0", new CultureInfo("id-ID"))" readonly/>
+            @* <input type="text" name="total" id="total" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@Cart.Instance.TotalPrice.ToString("C0", new CultureInfo("id-ID"))" readonly/> *@
           </div>
         </div>
         <a href="#0" class="main-btn primary-btn rounded-full btn-hover mt-20 ml-30">Continue To Book</a>
@@ -265,31 +265,5 @@
 </section>
 
 @code {
-private readonly List<Coupon> coupon = new List<Coupon>()
-    {
-        new Coupon()
-        {
-            Id = 1,
-            Name = "New Member",
-            DiscountPercent = 10
-        },
-        new Coupon()
-        {
-            Id = 2,
-            Name = "Using Gopay",
-            DiscountPercent = 5
-        },
-        new Coupon()
-        {
-            Id = 3,
-            Name = "More than 2 people",
-            DiscountPercent = 15
-        },
-        new Coupon()
-        {
-            Id = 4,
-            Name = "VIP Member",
-            DiscountPercent = 20
-        }
-    };
+
 }
