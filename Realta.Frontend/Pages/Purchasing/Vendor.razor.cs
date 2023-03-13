@@ -44,5 +44,11 @@ namespace Realta.Frontend.Pages.Purchasing
             _vendorParameters.Keyword = keyword;
             await GetVendorPaging();
         }
+
+        private async Task SortChanged(string orderBy)
+        {
+            _vendorParameters.OrderBy = orderBy;
+            await GetVendorPaging();
+        }
     }
 }
