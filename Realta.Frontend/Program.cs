@@ -24,6 +24,9 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 // purchasing
 builder.Services.AddScoped<IVendorHttpRepository, VendorHttpRepository>();
 builder.Services.AddScoped<IPurchaseOrderHttpRepository, PurchaseOrderHttpRepository>();
+builder.Services.AddScoped<IStocksHttpRepository, StocksHttpRepository>();
+builder.Services.AddScoped<IStockDetailHttpRepository, StockDetailHttpRepository>();
+
 
 // resto
 
