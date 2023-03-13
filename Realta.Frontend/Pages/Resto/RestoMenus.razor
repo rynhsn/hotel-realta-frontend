@@ -139,12 +139,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @* @foreach (var item in RestoMenusList)*@
-                                    @for (var i = 0; i <= 3; i++)
+                                    @foreach (var item in RestoMenusList)
+                                    @*    @for (var i = 0; i <= 3; i++)*@
                                     {
-
-
-
 
                                         <tr>
                                             <td>
@@ -154,28 +151,29 @@
                                             </td>
                                             <td border="1" width="100px">
                                                 <div class="product">
-                                                    <div class="icon">
-                                                        <img src="vendor/assets/images/resto/meal-food-icon.png" alt="" width="50" height="50">
-
+                                                    <div>
+                                                        <img src="@item.RempUrl" alt="@item.RempUrl" width="50" height="50">
+                                                       
                                                     </div>
 
                                                 </div>
                                             </td>
                                             <td>
-                                                <p class="text-sm">"HAha"</p>
-
+                                                <p class="text-sm">@item.RemeId</p>
                                             </td>
                                             <td>
-                                                <p class="text-sm">RemeName</p>
+                                                <p class="text-sm">@item.RemeName</p>
                                             </td>
                                             <td>
-                                                <p class="text-sm">@*Rp. @string.Format("{0:n0}", item.RemePrice)*@HAHA</p>
+                                                <p class="text-sm">Rp. @string.Format("{0:n0}", item.RemePrice)</p>
                                             </td>
                                             <td>
-                                                <p class="text-sm">Food</p>
+                                                <p class="text-sm">@item.RemeType</p>
                                             </td>
                                             <td>
-                                                <p class="text-sm">Available</p>
+                                                <p class="text-sm">
+                                                    Available
+                                                    </p>
                                             </td>
                                             <td>
                                                 <div class="text-sm" style="margin-left: 20px;">

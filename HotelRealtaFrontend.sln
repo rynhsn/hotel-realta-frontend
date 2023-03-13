@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Frontend", "Realta.Frontend\Realta.Frontend.csproj", "{56875969-C411-439B-B7AD-91FD326C3B85}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Contract", "..\..\HotelRealtaAPI-main\Realta.Contract\Realta.Contract.csproj", "{81FBA25E-D0AA-42BA-BFBC-3DEBAA6DF3D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{56875969-C411-439B-B7AD-91FD326C3B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56875969-C411-439B-B7AD-91FD326C3B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56875969-C411-439B-B7AD-91FD326C3B85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81FBA25E-D0AA-42BA-BFBC-3DEBAA6DF3D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81FBA25E-D0AA-42BA-BFBC-3DEBAA6DF3D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81FBA25E-D0AA-42BA-BFBC-3DEBAA6DF3D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81FBA25E-D0AA-42BA-BFBC-3DEBAA6DF3D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
