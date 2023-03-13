@@ -9,14 +9,13 @@ public partial class ListOrder
 {
 
     [Inject]
-    public IPurchaseOrderHttpRepository? PurchaseOrderRepo { get; set; }
-    public List<PurchaseOrderDto>? PurchaseOrders { get; set; } = new List<PurchaseOrderDto>();
+    public IPurchaseOrderHttpRepository PurchaseOrderRepo { get; set; }
+    public List<PurchaseOrderDto> PurchaseOrders { get; set; } = new List<PurchaseOrderDto>();
     public MetaData MetaData { get; set; }
-    private PurchaseOrderParameters? _purchaseOrderParameters = new PurchaseOrderParameters();
+    private PurchaseOrderParameters _purchaseOrderParameters = new PurchaseOrderParameters();
 
     protected async override Task OnInitializedAsync()
     {
-        //if (PurchaseOrderRepo != null) 
         // PurchaseOrders = await PurchaseOrderRepo.Get();
         await GetPaging();
     }   

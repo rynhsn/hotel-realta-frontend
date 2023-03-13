@@ -4,9 +4,9 @@
     <ul class="dataTable-pagination-list">
       @foreach (var link in _links)
       {
-      <li class="@(link.Enabled ? null : "disabled") @(link.Active ? "active" : "")" @onclick="() => OnSelectedPage(link)">
-        <a href="#" data-page="@link.Text">@link.Text</a>
-      </li>
+        <li @onclick="() => OnSelectedPage(link)" class="@(link.Active ? "active" : null) @(link.Enabled ? "visible" : "invisible")">
+          <a class="page-link">@link.Text</a>
+        </li>
       }
     </ul>
   </nav>

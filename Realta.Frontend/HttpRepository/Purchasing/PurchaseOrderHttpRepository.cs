@@ -17,30 +17,6 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
         _options =  new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
     
-    // public async Task<PagingResponse<PurchaseOrderDto>> GetPaging(PurchaseOrderParameters purchaseOrderParameters)
-    // {
-    //     var queryStringParam = new Dictionary<string, string>
-    //     {
-    //         ["pageNumber"] = purchaseOrderParameters.PageNumber.ToString()
-    //     };
-    //     
-    //     var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("purchaseorder",queryStringParam));
-    //     var content = await response.Content.ReadAsStringAsync();
-    //     
-    //     if (!response.IsSuccessStatusCode)
-    //     {
-    //         throw new ApplicationException(content);
-    //     }
-    //
-    //     var pagingResponse = new PagingResponse<PurchaseOrderDto>
-    //     {
-    //         Items = JsonSerializer.Deserialize<List<PurchaseOrderDto>>(content, _options),
-    //         MetaData = JsonSerializer.Deserialize<MetaData>(response.Headers.GetValues("X-Pagination").First(), _options)
-    //     };
-    //
-    //     return pagingResponse;
-    // }
-    
     public async Task<PagingResponse<PurchaseOrderDto>> GetPaging(PurchaseOrderParameters purchaseOrderParameters)
     {
         var queryStringParam = new Dictionary<string, string>
@@ -48,10 +24,9 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
             ["pageNumber"] = purchaseOrderParameters.PageNumber.ToString()
         };
 
-        var uri = QueryHelpers.AddQueryString("purchaseorder", queryStringParam);
-        var response = await _httpClient.GetAsync(uri);
+        var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("PurchaseOrder", queryStringParam));
         var content = await response.Content.ReadAsStringAsync();
-
+        
         if (!response.IsSuccessStatusCode)
         {
             throw new ApplicationException(content);
@@ -59,15 +34,9 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
 
         var pagingResponse = new PagingResponse<PurchaseOrderDto>
         {
-            Items = JsonSerializer.Deserialize<List<PurchaseOrderDto>>(content, _options)
+            Items = JsonSerializer.Deserialize<List<PurchaseOrderDto>>(content, _options),
+            MetaData = JsonSerializer.Deserialize<MetaData>(response.Headers.GetValues("X-Pagination").First(), _options)
         };
-
-        if (response.Headers.TryGetValues("X-Pagination", out var values))
-        {
-            var metaDataJson = values.First();
-            var metaData = JsonSerializer.Deserialize<MetaData>(metaDataJson, _options);
-            pagingResponse.MetaData = metaData;
-        }
 
         return pagingResponse;
     }

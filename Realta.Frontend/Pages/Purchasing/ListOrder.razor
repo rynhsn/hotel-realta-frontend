@@ -31,9 +31,6 @@
   <Thead>
     <tr>
       <th class="min-width">
-        <h6>#</h6>
-      </th>
-      <th class="min-width">
         <h6>PO Number</h6>
       </th>
       <th class="min-width">
@@ -58,17 +55,11 @@
   </Thead>
   <Tbody>
 
-  @{
-    var index = 1;
-  }
   @if (PurchaseOrders != null)
   {
     foreach (var po in PurchaseOrders)
     {
       <tr>
-        <td>
-          <p>@(index++)</p>
-        </td>
         <td>
           <p>@po.PoheNumber</p>
         </td>
@@ -107,9 +98,9 @@
     }
   }
   </Tbody>
-  <Pagination>
+  <Page>
     <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
-  </Pagination>
+  </Page>
 </TableSection>
 
 @* // Update Modal *@
