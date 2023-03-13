@@ -1,0 +1,74 @@
+﻿@page "/hotels"
+
+@using Realta.Frontend.Components.Hotel.Hotels
+
+
+<section class="table-components">
+    <div class="container-fluid">
+        <div class="title-wrapper pt-30">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+            <div class="title mb-30">
+                <h2>Hotels</h2>
+            </div>
+            </div>
+            <!-- end col -->
+            <div class="col-md-6">
+            <div class="breadcrumb-wrapper mb-30">
+                <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                    <a href="#0">Hotels</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                    Hotel
+                    </li>
+                </ol>
+                </nav>
+            </div>
+            </div>
+
+            <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+
+        
+
+        <div class="card-style ">
+            <div class="d-flex justify-content-center">
+                    <div class="search d-md-flex">
+                        <div class="input-style-3 mx-auto">
+                            <input type="search" class="form-control h-50 d-inline-block w-100" placeholder="Search Hotel" aria-label="Search" aria-describedby="search-addon" />
+                            <span class="icon">
+                                <button class="btn 
+                                               border-0 
+                                               lni lni-search-alt
+                                               position-absolute top-40 start-50 translate-middle">
+                                </button>
+                            </span>
+                        </div>
+                        <div class="mx-auto">
+                            <button type="button" class="btn btn-primary h-10 ml-5 align-content-center">
+                                <i class="mdi mdi-home-search-outline"></i>search
+                            </button>
+                        </div>
+                    </div>
+            </div>
+            
+            <!-- End Title -->
+            <div class="table-responsive">
+              @* <HotelsTableStatic /> *@
+              
+              <HotelsTableStatic /> 
+              <!-- End Table -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<CreateHotelStatic />
+<EditHotelStatic />
+<SwitchStatusHotelStatic />
+
+
