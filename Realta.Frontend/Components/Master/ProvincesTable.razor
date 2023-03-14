@@ -1,0 +1,54 @@
+﻿@if (Provinces.Count > 0)
+{
+    <table class="table">
+                <thead>
+                <tr>
+                    <th class="min-width">
+                        <h6>ID</h6>
+                    </th>
+                    <th class="min-width">
+                        <h6>Provinces Name</h6>
+                    </th>
+                    <th>
+                        <h6>Action</h6>
+                    </th>
+                </tr>
+                <!-- end table row-->
+                </thead>
+                <tbody>
+                @foreach(var provinces in Provinces)
+                {
+                    <tr>
+                        <td>
+                            <div class="lead">
+                                <div class="check-input-primary">
+                                    <input class="form-check-input" type="radio" name="flexRadioProvinces" id="flexRadioDefault1">
+                                </div>
+                                <div class="lead-text ml-10">
+                                    <p>@provinces.ProvId</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <p>@provinces.ProvName</p>
+                        </td>
+
+                        <td>
+                            <button class="more-btn ml-10 dropdown-toggle" id="moreAction" title="More" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="mdi mdi-dots-vertical"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+                                <li class="dropdown-item">
+                                    <a class="text-gray" href="list-order/PO-20230303-001">Edit</a>
+                                </li>
+                                <li class="dropdown-item">
+                                    <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#@($"delete")">Delete</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+
+}

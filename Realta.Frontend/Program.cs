@@ -1,6 +1,11 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Realta.Frontend;
+using Realta.Frontend.HttpRepository.Master.CategoryGroup;
+using Realta.Frontend.HttpRepository.Master;
+using Realta.Frontend.HttpRepository.Master.Policy;
+using Realta.Frontend.HttpRepository.Master.PriceItems;
+using Realta.Frontend.HttpRepository.Master.ServiceTask;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -17,7 +22,14 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 // hr
 
 // master
-
+builder.Services.AddScoped<ICategoryGroupHttpRepository, CategoryGroupHttpRepository>();
+builder.Services.AddScoped<IPriceItemsHttpRepository, PriceItemsHttpRepository>();
+builder.Services.AddScoped<IPolicyHttpRepository, PolicyHttpRepository>();
+builder.Services.AddScoped<IServiceTaskHttpRepository, ServiceTaskHttpRepository>();
+builder.Services.AddScoped<IRegionsHttpRepository, RegionsHttpRepository>();
+builder.Services.AddScoped<ICountryHttpRepository, CountryHttpRepository>();
+builder.Services.AddScoped<IProvincesHttpRepository, ProvincesHttpRepository>();
+builder.Services.AddScoped<IAddressHttpRepository, AddressHttpRepository>();
 // payment
 
 // purchasing

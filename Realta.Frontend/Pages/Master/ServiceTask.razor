@@ -1,4 +1,6 @@
 ﻿@page "/servicetask"
+@using Realta.Frontend.Components.Master
+@inherits LayoutComponentBase
 <PageTitle>Service Task</PageTitle>
 
 <section class="table-components">
@@ -60,53 +62,7 @@
                             </div>
                         </div>
                         <div>
-                            <table class="table">
-                                <thead>
-                                    <tr class="align-content-lg-stretch">
-                                        <th class="min-width">
-                                            <h6>ID</h6>
-                                        </th>
-                                        <th>
-                                            <h6>Task Name</h6>
-                                        </th>
-                                        <th>
-                                            <h6>Sequence Order</h6>
-                                        </th>
-                                        <th>
-                                            <h6>Action</h6>
-                                        </th>
-                                    </tr>
-                                    <!-- end table row-->
-                                </thead>
-                                <tbody>
-                                    @for (int i = 1; i < @TotalRows; i++)
-                                    {
-                                        <tr>
-                                            <td>
-                                                <p>@i</p>
-                                            </td>
-                                            <td>
-                                                <p>Clean Room</p>
-                                            </td>
-                                            <td>
-                                                <p>1</p>
-                                            </td>
-                                            <td>
-                                                <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <span class="mdi mdi-dots-vertical"></span>                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
-                                                    <li class="dropdown-item">
-                                                        <a class="text-gray" href="list-order/PO-20230303-001">Edit</a>
-                                                    </li>
-                                                    <li class="dropdown-item">
-                                                        <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#@($"delete{i}")">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
+                            <ServiceTaskGroupTable ServiceTask="ServiceTasList"/>
                         </div>
                     </div>
                 </div>

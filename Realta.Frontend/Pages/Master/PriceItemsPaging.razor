@@ -1,0 +1,25 @@
+﻿@page "/priceItemsPaging"
+@using Realta.Frontend.Components
+
+<h3>Price Items Paging</h3>
+
+<div class="row">
+    <div class="col-md-10">
+        @*Place for search and sort*@
+    </div>
+    <div class="col-md-2">
+        <a href="/createPriceItems">Create Price Items</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        @*Place for products*@
+        <PriceItemsTable priceItems="PriceItemsList"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        @*Place for pagination*@
+        <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
+    </div>
+</div>

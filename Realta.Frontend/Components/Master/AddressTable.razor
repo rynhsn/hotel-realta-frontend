@@ -1,0 +1,72 @@
+﻿@if (Address.Count > 0)
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="min-width">
+                <h6>ID</h6>
+            </th>
+            <th class="min-width">
+                <h6>Address</h6>
+            </th>
+            <th class="min-width">
+                <h6>City</h6>
+            </th>
+            <th class="min-width">
+                <h6>Postal Code</h6>
+            </th>
+            <th class="min-width">
+                <h6>Spatial Location</h6>
+            </th>
+            <th>
+                <h6>Action</h6>
+            </th>
+        </tr>
+        <!-- end table row-->
+        </thead>
+        <tbody>
+        @foreach (var address in Address)
+        {
+            <tr>
+                <td>
+                    <div class="lead">
+                        <div class="check-input-primary">
+                            <input class="form-check-input" type="radio" name="flexradioaddres" id="flexRadioDefault1">
+                        </div>
+                        <div class="lead-text ml-10">
+                            <p>@address.AddrId</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <p>@address.AddrLine1</p>
+                    <p style="word-wrap: break-word ">@address.AddrLine2</p>
+                </td>
+                <td>
+                    <p>@address.AddrCity</p>
+                </td>
+                <td>
+                    <p>@address.AddrPostalCode</p>
+                </td>
+                <td>
+                    <p>@address.AddrSpatialLocation</p>
+                </td>
+
+                <td>
+                    <button class="more-btn ml-10 dropdown-toggle" id="moreAction" title="More" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="mdi mdi-dots-vertical"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction" >
+                        <li class="dropdown-item">
+                            <a class="text-gray" href="list-order/PO-20230303-001">Edit</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a class="text-danger" data-bs-toggle="modal" data-bs-target="#@($"delete")">Delete</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,60 @@
+﻿@using Realta.Frontend.Pages.Master
+@if (Policy.Count > 0)
+{
+    <table class="table ">
+        <thead>
+        <tr>
+            <th class="lead-info">
+                <h6>ID</h6>
+            </th>
+            <th class="lead-email">
+                <h6>Policy Name</h6>
+            </th>
+            <th>
+                <h6>Action</h6>
+            </th>
+        </tr>
+        <!-- end table row-->
+        </thead>
+        <tbody>
+        @foreach (var policy in Policy)
+        {
+            <tr>
+                <td>
+                    <div class="lead-text">
+                        <p>@policy.PoliId</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="lead">
+                        <div class="lead-text">
+                            <p>
+                                <a>@policy.PoliDescription</a>
+                            </p>
+                        </div>
+                        <div class="lead-info action">
+                            <button title="Description" class="text-grey  ">
+                                <i class="lni lni-angle-double-right " data-bs-toggle="modal" data-bs-target="#popupmodal"></i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
+                        <span class="mdi mdi-dots-vertical"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+                        <li class="dropdown-item">
+                            <a class="text-gray" href="list-order/PO-20230303-001">Edit</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#@($"delete")">Delete</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        }
+        <!-- end table row -->
+        </tbody>
+    </table>
+}

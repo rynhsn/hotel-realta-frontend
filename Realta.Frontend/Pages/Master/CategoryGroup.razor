@@ -1,4 +1,7 @@
 ﻿@page "/categorygroup"
+
+@using Realta.Frontend.Components.Master
+
 <PageTitle>Category Group</PageTitle>
 
 <section class="table-components">
@@ -58,71 +61,7 @@
                             </div>
                         </div>
                         <div class="table-wrapper table-responsive">
-                            <table class="table ">
-                                <thead>
-                                    <tr>
-                                        <th class="lead-info">
-                                            <h6>ID</h6>
-                                        </th>
-                                        <th class="lead-email">
-                                            <h6>Category Name</h6>
-                                        </th>
-                                        <th class="lead-phone">
-                                            <h6>Type</h6>
-                                        </th>
-                                        <th>
-                                            <h6>Action</h6>
-                                        </th>
-                                    </tr>
-                                    <!-- end table row-->
-                                </thead>
-                                <tbody>
-                                    @for (int i = 1; i < @TotalRows; i++)
-                                    {
-                                        <tr>
-                                            <td>
-                                                <div class="lead">
-                                                    <div class="lead-image">
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/2607/2607269.png" alt="">
-                                                    </div>
-                                                    <div class="lead-text">
-                                                        <p>@i</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="lead">
-                                                    <div class="lead-text">
-                                                        <p><a>Rooms</a></p>
-                                                    </div>
-                                                    <div class="lead-info action">
-                                                        <button title="Description" class="text-grey ">
-                                                            <i class="lni lni-angle-double-right " data-bs-toggle="modal" data-bs-target="#popupmodal"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <p>Facility</p>
-                                            </td>
-                                            <td>
-                                                <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
-                                                    <span class="mdi mdi-dots-vertical"></span>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
-                                                    <li class="dropdown-item">
-                                                        <a class="text-gray" href="#" data-bs-toogle="modal" data-bs-target="EditCagroLabel">Edit</a>
-                                                    </li>
-                                                    <li class="dropdown-item">
-                                                        <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#@($"delete{i}")">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    }
-                                    <!-- end table row -->
-                                </tbody>
-                            </table>
+                            <CategoryGroupTable CategoryGroups="CategoryGroupList"/>
                             <!-- end table -->
                         </div>
                         <div class="pt-10 d-flex flex-wrap justify-content-between">
@@ -169,7 +108,7 @@
 @for (int i = 1; i <= @TotalRows; i++)
 {
     <!-- Modal Add Category Group -->
-    <div class="modal fade" id="addmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCagroLabel" aria-hidden="true">
+    <div class="modal fade" id="addmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addmodal" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -228,7 +167,7 @@
     </div>
 
     <!-- Modal Edit Category Group -->
-    <div class="modal fade" id="addmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="EditCagroLabel" aria-hidden="true">
+    <div class="modal fade" id="editmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editmodal" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -317,34 +256,12 @@
             </div>
         </div>
     </div>
+
 }
 
-@*pop up modal*@
-<div class="warning-modal">
-    <div class="modal fade" id="popupmodal" tabindex="-1" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content card-style">
-                <div class="modal-header px-0 border-0">
-                    <h5 class="text-bold">Description</h5>
-                </div>
-                <div class="modal-body px-0">
-                    <div class="content mb-30">
-                        <p class="text-sm">
-                            Pembatalan Gratis	Kebijakan pembatalan gratis yang memberikan kemudahan bagi tamu untuk membatalkan reservasi mereka hingga 24 jam sebelum tanggal check-in tanpa dikenakan biaya apapun
-                        </p>
-                    </div>
-                    <div class="action d-flex flex-wrap align-items-center justify-content-center">
-
-                        <!-- end checkbox -->
-                        <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
-                            Okay
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 @code {
     public int TotalRows { get; set; } = 5;
+    [Parameter]
+    public string CagroDesc { get; set; }
+
 }
