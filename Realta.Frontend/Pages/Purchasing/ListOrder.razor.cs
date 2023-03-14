@@ -9,29 +9,29 @@ public partial class ListOrder
 {
 
     [Inject]
-    public IPurchaseOrderHttpRepository PurchaseOrderRepo { get; set; }
-    public List<PurchaseOrderDto> PurchaseOrders { get; set; } = new List<PurchaseOrderDto>();
+    public IPurchaseOrderHttpRepository Repo { get; set; }
+    public List<PurchaseOrderDto> DataList { get; set; } = new();
 
     protected async override Task OnInitializedAsync()
     {
-        // PurchaseOrders = await PurchaseOrderRepo.Get();
-        Console.WriteLine(_purchaseOrderParameters.OrderBy);
+        // DataList = await Repo.Get();
+        Console.WriteLine(_param.OrderBy);
         await GetPaging();
     }
     
-    private PurchaseOrderParameters _purchaseOrderParameters = new PurchaseOrderParameters();
-    public MetaData MetaData { get; set; } = new MetaData();
+    private PurchaseOrderParameters _param = new();
+    public MetaData MetaData { get; set; } = new();
 
     private async Task SelectedPage(int page)
     {
-        _purchaseOrderParameters.PageNumber = page;
+        _param.PageNumber = page;
         await GetPaging();
     }
     
     private async Task GetPaging()
     {
-        var response = await PurchaseOrderRepo.GetPaging(_purchaseOrderParameters);
-        PurchaseOrders = response.Items;
+        var response = await Repo.GetHeaders(_param);
+        DataList = response.Items;
         MetaData = response.MetaData;
     }
     
@@ -49,14 +49,14 @@ public partial class ListOrder
     
     private async Task SearchChanged(string keyword)
     {
-        _purchaseOrderParameters.PageNumber = 1;
-        _purchaseOrderParameters.Keyword = keyword;
+        _param.PageNumber = 1;
+        _param.Keyword = keyword;
         await GetPaging();
     }
     // private async Task SortChanged(string orderBy)
     // {
-    //     Console.WriteLine(_purchaseOrderParameters.OrderBy);
-    //     _purchaseOrderParameters.OrderBy = orderBy;
+    //     Console.WriteLine(_param.OrderBy);
+    //     _param.OrderBy = orderBy;
     //     await GetPaging();
     // }
     
@@ -77,7 +77,7 @@ public partial class ListOrder
             sortOrder = sortOrder == "asc" ? "desc" : "asc";
         }
     
-        _purchaseOrderParameters.OrderBy = orderBy + " " + sortOrder; // menambahkan urutan sortir baru ke parameter
+        _param.OrderBy = orderBy + " " + sortOrder; // menambahkan urutan sortir baru ke parameter
         await GetPaging();
     }
 }
