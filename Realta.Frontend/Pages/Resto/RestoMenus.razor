@@ -1,4 +1,5 @@
 ﻿@page "/restoMenus"
+@using Realta.Frontend.Components.Resto
 
 <style>
 
@@ -101,8 +102,9 @@
                             <div class="right">
                                 <div class="table-search d-flex">
                                     <form action="#">
-                                        <input type="text" placeholder="Search...">
-                                        <button><i class="lni lni-search-alt"></i></button>
+                                        <Search OnSearchChanged="SearchChange"/>
+                                       
+                                        <button disabled><i class="lni lni-search-alt"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -139,7 +141,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in RestoMenusList)
+                                    @foreach (var item in RestoMenusListPaging)
                                     @*    @for (var i = 0; i <= 3; i++)*@
                                     {
 
@@ -153,7 +155,7 @@
                                                 <div class="product">
                                                     <div>
                                                         <img src="@item.RempUrl" alt="@item.RempUrl" width="50" height="50">
-                                                       
+
                                                     </div>
 
                                                 </div>
@@ -173,7 +175,7 @@
                                             <td>
                                                 <p class="text-sm">
                                                     Available
-                                                    </p>
+                                                </p>
                                             </td>
                                             <td>
                                                 <div class="text-sm" style="margin-left: 20px;">
@@ -193,106 +195,98 @@
                                             </td>
                                         </tr>
                                     }
-
-
-                                    <!-- Modal Edit -->
-                                    <div class="modal modal-lg fade" id="edit" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <form class="modal-content" action="" method="post">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="EditLabel">Add Resto Menus</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row">
-                                                        <div class="input-style-1 col-6 rounded-sm">
-                                                            <label>Resto Name</label>
-                                                            <div class="select-position">
-                                                                <input type="text" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="input-style-1 col-6 rounded-sm">
-                                                            <label>Price</label>
-                                                            <div class="select-position">
-                                                                <input type="number" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="select-style-1 col-6 rounded-sm">
-                                                            <label>Status</label>
-                                                            <div class="select-position">
-                                                                <select>
-                                                                    <option value="1">Active</option>
-                                                                    <option value="0">InActive</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <div class="container">
-                                                        <div class="row">
-                                                            @for (var i = 0; i <= 3; i++)
-                                                            {
-                                                                <div class="col-sm-3">
-                                                                    <div class="upload-container">
-                                                                        <img src="vendor/assets/images/resto/meal-food-icon.png" alt="Foto 4" class="img-fluid upload-img">
-                                                                        <label for="file2" class="upload-label">
-                                                                            <i class="bi bi-cloud-upload"></i> Choose Image
-                                                                        </label>
-                                                                        <input type="file" id="file2" style="display:none;">
-                                                                    </div>
-                                                                    <div>
-                                                                        <input type="radio" name="primary_key" value="1">
-                                                                        <label> Primary Image</label>
-                                                                    </div>
-                                                                </div>
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                @* <div class="select-style-1 col-6 rounded-sm">
-                                                <label>Priority</label>
-                                                <div class="select-position">
-                                                <select>
-                                                <option value="1">1=Highest</option>
-                                                <option value="0">0=Lowest</option>
-                                                </select>
-                                                </div>
-                                                </div>
-                                                <div class="input-style-1 col-8 rounded-sm">
-                                                <label>Website</label>
-                                                <div class="select-position">
-                                                <input type="text" placeholder="URL..." />
-                                                </div>
-                                                </div>
-                                                </div>
-                                                </div>*@
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="pt-10 d-flex flex-wrap justify-content-between">
-                            <div class="left"><p class="text-sm text-gray">Showing 12/30 products</p></div>
-                            <div class="right table-pagination">
-                                <ul class="d-flex justify-content-end align-items-center">
-                                    <li class="ms-2"><a href="#0"><i class="lni lni-angle-double-left"></i></a></li>
-                                    <li class="ms-2"><a href="#0"> 1 </a></li>
-                                    <li class="ms-2"><a href="#0" class="active"> 2 </a></li>
-                                    <li class="ms-2"><a href="#0"> 3 </a></li>
-                                    <li class="ms-2"><a href="#0"> 4 </a></li>
-                                    <li class="ms-2"><a href="#0"><i class="lni lni-angle-double-right"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"></Pagination>
+
+
+
+
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Modal Edit -->
+<div class="modal modal-lg fade" id="edit" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" action="" method="post">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditLabel">Add Resto Menus</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="input-style-1 col-6 rounded-sm">
+                        <label>Resto Name</label>
+                        <div class="select-position">
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <div class="input-style-1 col-6 rounded-sm">
+                        <label>Price</label>
+                        <div class="select-position">
+                            <input type="number" />
+                        </div>
+                    </div>
+                    <div class="select-style-1 col-6 rounded-sm">
+                        <label>Status</label>
+                        <div class="select-position">
+                            <select>
+                                <option value="1">Active</option>
+                                <option value="0">InActive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="container">
+                    <div class="row">
+                        @for (var i = 0; i <= 3; i++)
+                        {
+                            <div class="col-sm-3">
+                                <div class="upload-container">
+                                    <img src="vendor/assets/images/resto/meal-food-icon.png" alt="Foto 4" class="img-fluid upload-img">
+                                    <label for="file2" class="upload-label">
+                                        <i class="bi bi-cloud-upload"></i> Choose Image
+                                    </label>
+                                    <input type="file" id="file2" style="display:none;">
+                                </div>
+                                <div>
+                                    <input type="radio" name="primary_key" value="1">
+                                    <label> Primary Image</label>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            @* <div class="select-style-1 col-6 rounded-sm">
+            <label>Priority</label>
+            <div class="select-position">
+            <select>
+            <option value="1">1=Highest</option>
+            <option value="0">0=Lowest</option>
+            </select>
+            </div>
+            </div>
+            <div class="input-style-1 col-8 rounded-sm">
+            <label>Website</label>
+            <div class="select-position">
+            <input type="text" placeholder="URL..." />
+            </div>
+            </div>
+            </div>
+            </div>*@
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

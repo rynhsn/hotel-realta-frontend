@@ -1,0 +1,11 @@
+﻿<section style="margin-bottom: 10px">
+    <input type="text" class="form-control" placeholder="Search..."
+           @bind-value="@SearchTerm" @bind-value:event="oninput" @onkeyup="async () => await OnSearchChanged.InvokeAsync(SearchTerm)" />
+</section>
+
+@*<div class="table-search d-flex">
+    <form action="#">
+        <input type="text" placeholder="Search...">
+        <button disabled><i class="lni lni-search-alt"></i></button>
+    </form>
+</div>*@
