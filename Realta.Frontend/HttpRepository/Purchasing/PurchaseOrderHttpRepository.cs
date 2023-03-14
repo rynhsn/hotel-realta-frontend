@@ -1,6 +1,8 @@
+using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.WebUtilities;
 using Realta.Contract.Models;
+using Realta.Domain.Entities;
 using Realta.Domain.RequestFeatures;
 using Realta.Frontend.Features;
 
@@ -17,12 +19,27 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
         _options =  new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
     
+    public async Task Create(PurchaseOrderTransfer data)
+    {
+        var content = JsonSerializer.Serialize(data);
+        var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+
+        var postResult = await _httpClient.PostAsync("PurchaseOrder", bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(postContent);
+        }
+    }
+    
     public async Task<PagingResponse<PurchaseOrderDto>> GetPaging(PurchaseOrderParameters parameters)
     {
         var queryStringParam = new Dictionary<string, string>
         {
             ["pageNumber"] = parameters.PageNumber.ToString(),
-            ["keyword"] = parameters.Keyword == null ? "": parameters.Keyword
+            ["keyword"] = parameters.Keyword == null ? "": parameters.Keyword,
+            ["orderBy"] = parameters.OrderBy 
         };
 
         var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("PurchaseOrder", queryStringParam));
