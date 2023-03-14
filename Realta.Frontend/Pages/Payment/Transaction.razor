@@ -1,4 +1,4 @@
-﻿@page "/transactions"
+﻿@page "/payments/transactions"
 
 <section class="table-components">
     <div class="container-fluid">
@@ -36,19 +36,44 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card-style mb-30">
-                        <h6 class="mb-10">Daftar Transaction</h6>
-                        <p class="text-sm mb-20">
-                            Informasi tentang daftar transaction.
-                        </p>
+                        <div class="dataTable-top">
+                            <div class="dataTable-dropdown mb-20">
+                                <h6 class="mb-10">Daftar Transaction</h6>
+                                <p class="text-sm mb-20">
+                                    Informasi tentang daftar transaction.
+                                </p>
+                            </div>
+                            <div class="dataTable-search">
+                                <select class="p-0 pe-5 border-0">
+                                    <option value="" selected="">Semua</option><!--!-->
+                                    <option value="1">TP (TopUp)</option><!--!-->
+                                    <option value="2">TRB (Transfer Booking)</option><!--!-->
+                                    <option value="3">RPY (Repayment)</option><!--!-->
+                                    <option value="4">RF (Refund)</option><!--!-->
+                                    <option value="5">ORM (Order Menu)</option>
+                                </select>
+                                <input class="dataTable-input" placeholder="Search..." type="text">
+                                <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="#">Action</a>
+                                      <a class="dropdown-item" href="#">Another action</a>
+                                      <a class="dropdown-item" href="#">Something else here</a>
+                                      <div role="separator" class="dropdown-divider"></div>
+                                      <a class="dropdown-item" href="#">Separated link</a>
+                                    </div>
+                                  </div>
+                                  <input type="text" class="form-control" aria-label="Text input with dropdown button">
+                                </div>
+                            </div>
+                        </div>
                         <div class="table-wrapper table-responsive">
                             <table class="table">
                                 <thead>
                                 <tr>
                                     <th>
-                                        <h6>#</h6>
-                                    </th>
-                                    <th>
-                                        <h6>Transaction Number</h6>
+                                        <h6>Transaction No</h6>
                                     </th>
                                     <th>
                                         <h6>Date</h6>
@@ -87,40 +112,37 @@
                                 @for (int i = 1; i < 8; i++)
                                 {
                                     <tr>
-                                        <td class="min-width">
-                                            <p>@i</p>
+                                        <td>
+                                            <p>TRX#202127-113</p>
                                         </td>
-                                        <td class="min-width">
-                                            <p>TRX#202127-0001</p>
-                                        </td>
-                                        <td class="min-width">
+                                        <td>
                                             <p>12 Jul 2022</p>
                                         </td>
-                                        <td class="min-width">
+                                        <td>
                                             <p>Rp. 10,000,000</p>
                                         </td>
-                                        <td class="min-width">
+                                        <td>
                                             <p>-</p>
                                         </td>
-                                        <td class="min-width">
+                                        <td>
                                             <p>Topup</p>
                                         </td>
-                                        <td class="min-width">
+                                        <td>
                                             <p>-</p>
                                         </td>
-                                        <td class="min-width">
+                                        <td>
                                             <p>131-3456-78</p>
                                         </td>
-                                        <td class="min-width">
+                                        <td>
                                             <p>11-4567-980</p>
                                         </td>
-                                        <td class="min-width">
+                                        <td>
                                             <p>-</p>
                                         </td>
-                                        <td class="min-width">
+                                        <td>
                                             <p>TP</p>
                                         </td>
-                                        <td class="min-width">
+                                        <td>
                                             <p>John Doe</p>
                                         </td>
                                     </tr>
@@ -129,6 +151,50 @@
                                 </tbody>
                             </table>
                             <!-- end table -->
+                        </div>
+                        <div class="dataTable-bottom">
+                            @* <div class="dataTable-info">Showing 1 to 10 of 100 entries</div> *@
+                            <div class="dataTable-dropdown">
+                                <label>
+                                    <select class="dataTable-selector">
+                                        <option value="5">5</option><option value="10" selected="">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option>
+                                    </select> entries per page
+                                </label>
+                            </div>
+                            <nav class="dataTable-pagination">
+                                <ul class="dataTable-pagination-list">
+                                    <li class="active">
+                                        <a href="#" data-page="1">1</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#" data-page="2">2</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#" data-page="3">3</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#" data-page="4">4</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#" data-page="5">5</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#" data-page="6">6</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#" data-page="7">7</a>
+                                    </li>
+                                    <li class="ellipsis">
+                                        <a href="#">…</a>
+                                    </li>
+                                    <li class="">
+                                        <a href="#" data-page="10">10</a>
+                                    </li>
+                                    <li class="pager">
+                                        <a href="#" data-page="2">›</a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                     <!-- end card -->
