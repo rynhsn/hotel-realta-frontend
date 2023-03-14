@@ -93,7 +93,8 @@
                   </ul>
                 </td>
               </tr>
-
+                @* // Upload Foto Modal *@
+                <ModalUploadFotoStock PhotoList="stocksPhotoList" Id="@so.StockId.Value" />    
                
         }
     }
@@ -255,7 +256,6 @@
     </div>
 </div>
 
-@* // Upload Foto Modal *@
-<ModalUploadFotoStock PhotoList="stocksPhotoList" />
+
 
 <DeleteModal Target="#delete"/>

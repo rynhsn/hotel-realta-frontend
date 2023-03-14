@@ -1,8 +1,8 @@
-﻿@* @page "/purchasing/list-order/{id}" *@
-@* @using Realta.Domain.Entities *@
-@* *@
-@* <PageTitle>Purchase Order Detail</PageTitle> *@
-@* *@
+﻿@page "/purchasing/list-order/{id}"
+@using Realta.Domain.Entities
+
+<PageTitle>Purchase Order Detail</PageTitle>
+
 @* <section class="table-components"> *@
 @*   <div class="container-fluid"> *@
 @*     <!-- ========== title-wrapper start ========== --> *@
@@ -45,53 +45,53 @@
 @*       <div class="row"> *@
 @*         <div class="col-lg-12"> *@
 @*           <div class="card-style mb-30"> *@
-@*             <div class="mb-3 row g-3"> *@
-@*               <div class="col-md-4"> *@
-@*                 <div class="row"> *@
-@*                   <label for="poNumber" class="col-form-label col-5">PO Number</label> *@
-@*                   <div class="col"> *@
-@*                     <input type="text" class="form-control-plaintext" readonly id="poNumber" value="@_selectedHeader.PoNumber"> *@
-@*                   </div> *@
-@*                 </div> *@
-@*                 <div class="row"> *@
-@*                   <label for="poDate" class="col-form-label col-5">PO Date</label> *@
-@*                   <div class="col"> *@
-@*                     <input type="text" class="form-control-plaintext" readonly id="poDate" value="@(_selectedHeader.PoDate.Date.ToString("dd/MM/yyyy") ?? "-")"> *@
-@*                   </div> *@
-@*                 </div> *@
-@*               </div> *@
-@*               <div class="col-md-4"> *@
-@*                 <div class="row"> *@
-@*                   <label for="vendor" class="col-form-label col-4">Vendor</label> *@
-@*                   <div class="col"> *@
-@*                     <input type="text" class="form-control-plaintext" readonly id="vendor" value="@_selectedHeader.VendorTarget"> *@
-@*                   </div> *@
-@*                 </div> *@
-@*                 <div class="row"> *@
-@*                   <label class="col-form-label col-4">Status</label> *@
-@*                   <div class="col"> *@
-@*                     <span class="status-btn success-btn">@_selectedHeader.Status</span> *@
-@*                   </div> *@
-@*                 </div> *@
-@*               </div> *@
-@*               <div class="col-md-4"> *@
-@*                 <div class="row"> *@
-@*                   <label for="subTotal" class="col-form-label col-5">Sub total</label> *@
-@*                   <div class="col"> *@
-@*                     <input type="text" class="form-control-plaintext" readonly id="subTotal" value="IDR @_selectedHeader.TotalAmount"> *@
-@*                   </div> *@
-@*                 </div> *@
-@*                 <div class="row"> *@
-@*                   <label for="totalAmount" class="col-form-label col-5">Total amount</label> *@
-@*                   <div class="col"> *@
-@*                     <input type="text" class="form-control-plaintext" readonly id="totalAmount" value="IDR @_selectedHeader.TotalAmount"> *@
-@*                   </div> *@
-@*                 </div> *@
-@*               </div> *@
-@*               <span class="divider"> *@
-@*                 <hr/> *@
-@*               </span> *@
-@*             </div> *@
+@* <div class="mb-3 row g-3"> *@
+@*   <div class="col-md-4"> *@
+@*     <div class="row"> *@
+@*       <label for="poNumber" class="col-form-label col-5">PO Number</label> *@
+@*       <div class="col"> *@
+@*         <input type="text" class="form-control-plaintext" readonly id="poNumber" value="@_selectedHeader.PoNumber"> *@
+@*       </div> *@
+@*     </div> *@
+@*     <div class="row"> *@
+@*       <label for="poDate" class="col-form-label col-5">PO Date</label> *@
+@*       <div class="col"> *@
+@*         <input type="text" class="form-control-plaintext" readonly id="poDate" value="@(_selectedHeader.PoDate.Date.ToString("dd/MM/yyyy") ?? "-")"> *@
+@*       </div> *@
+@*     </div> *@
+@*   </div> *@
+@*   <div class="col-md-4"> *@
+@*     <div class="row"> *@
+@*       <label for="vendor" class="col-form-label col-4">Vendor</label> *@
+@*       <div class="col"> *@
+@*         <input type="text" class="form-control-plaintext" readonly id="vendor" value="@_selectedHeader.VendorTarget"> *@
+@*       </div> *@
+@*     </div> *@
+@*     <div class="row"> *@
+@*       <label class="col-form-label col-4">Status</label> *@
+@*       <div class="col"> *@
+@*         <span class="status-btn success-btn">@_selectedHeader.Status</span> *@
+@*       </div> *@
+@*     </div> *@
+@*   </div> *@
+@*   <div class="col-md-4"> *@
+@*     <div class="row"> *@
+@*       <label for="subTotal" class="col-form-label col-5">Sub total</label> *@
+@*       <div class="col"> *@
+@*         <input type="text" class="form-control-plaintext" readonly id="subTotal" value="IDR @_selectedHeader.TotalAmount"> *@
+@*       </div> *@
+@*     </div> *@
+@*     <div class="row"> *@
+@*       <label for="totalAmount" class="col-form-label col-5">Total amount</label> *@
+@*       <div class="col"> *@
+@*         <input type="text" class="form-control-plaintext" readonly id="totalAmount" value="IDR @_selectedHeader.TotalAmount"> *@
+@*       </div> *@
+@*     </div> *@
+@*   </div> *@
+@*   <span class="divider"> *@
+@*     <hr/> *@
+@*   </span> *@
+@* </div> *@
 @*             <TableToolbar/> *@
 @*             <div class="table-wrapper table-responsive"> *@
 @*               <table class="table"> *@
@@ -239,6 +239,144 @@
 @* <!-- Update Status Modal --> *@
 @* <DeleteModal Target="#delete"></DeleteModal> *@
 @* *@
+
+<TableSection Title="Purchase Order Detail" Link="/purchasing/list-order" LinkText="Purchase Order">
+  <CustomComponent>
+    <div class="d-flex justify-content-between">
+      <div class="mb-3 row g-3">
+        <div class="col-md-4">
+          <div class="row">
+            <label for="poNumber" class="col-form-label col-5">PO Number</label>
+            <div class="col">
+              <input type="text" class="form-control-plaintext" readonly id="poNumber" value="PoNumber">
+            </div>
+          </div>
+          <div class="row">
+            <label for="poDate" class="col-form-label col-5">PO Date</label>
+            <div class="col">
+              <input type="text" class="form-control-plaintext" readonly id="poDate" value="Tanggal">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <label for="vendor" class="col-form-label col-4">Vendor</label>
+            <div class="col">
+              <input type="text" class="form-control-plaintext" readonly id="vendor" value="VendorTarget">
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-form-label col-4">Status</label>
+            <div class="col">
+              <span class="status-btn success-btn">Status</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <label for="subTotal" class="col-form-label col-5">Sub total</label>
+            <div class="col">
+              <input type="text" class="form-control-plaintext" readonly id="subTotal" value="IDR TotalAmount">
+            </div>
+          </div>
+          <div class="row">
+            <label for="totalAmount" class="col-form-label col-5">Total amount</label>
+            <div class="col">
+              <input type="text" class="form-control-plaintext" readonly id="totalAmount" value="IDR TotalAmount">
+            </div>
+          </div>
+        </div>
+        <span class="divider"><hr/></span>
+      </div>
+    </div>
+  </CustomComponent>
+
+  <Topbar>
+    <TableToolbar Placeholder="Stock Name..." OnSearchChanged="SearchChanged"/>
+  </Topbar>
+
+  <Thead>
+  <tr>
+    <th data-sortable class="@(_param.OrderBy switch { "StockName desc" => "desc", "StockName asc" => "asc", _ => ""})" onclick="@(() => SortChanged("StockName"))">
+      <a class="dataTable-sorter">
+        <h6>Stock Name</h6>
+      </a>
+    </th>
+    <th data-sortable class="@(_param.OrderBy switch { "PodeOrderQuantity desc" => "desc", "PodeOrderQuantity asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PodeOrderQuantity"))">
+      <a class="dataTable-sorter">
+        <h6>Qty</h6>
+      </a>
+    </th>
+    <th data-sortable class="@(_param.OrderBy switch { "PodePrice desc" => "desc", "PodePrice asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PodePrice"))">
+      <a class="dataTable-sorter">
+        <h6>Price</h6>
+      </a>
+    </th>
+    <th data-sortable class="@(_param.OrderBy switch { "PodeReceivedQuantity desc" => "desc", "PodeReceivedQuantity asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PodeReceivedQuantity"))">
+      <a class="dataTable-sorter">
+        <h6>Received</h6>
+      </a>
+    </th>
+    <th data-sortable class="@(_param.OrderBy switch { "PodeRejectedQuantity desc" => "desc", "PodeRejectedQuantity asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PodeRejectedQuantity"))">
+      <a class="dataTable-sorter">
+        <h6>Rejected</h6>
+      </a>
+    </th>
+    <th data-sortable class="@(_param.OrderBy switch { "PodeLineTotal desc" => "desc", "PodeLineTotal asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PodeLineTotal"))">
+      <a class="dataTable-sorter">
+        <h6>Total</h6>
+      </a>
+    </th>
+    <th>
+      <h6>Action</h6>
+    </th>
+  </tr>
+  </Thead>
+  <Tbody>
+
+  @if (DataList != null)
+  {
+    foreach (var item in DataList)
+    {
+      <tr>
+        <td>
+          <p>@item.StockName</p>
+        </td>
+        <td>
+          <p>@item.PodeOrderQty</p>
+        </td>
+        <td>
+          <p>@(((decimal)item.PodePrice).ToString("C", new CultureInfo("id-ID")))</p>
+        </td>
+        <td>
+          <p>@item.PodeReceivedQty</p>
+        </td>
+        <td>
+          <p>@item.PodeRejectedQty</p>
+        </td>
+        <td>
+          <p>@(((decimal)item.PodeLineTotal).ToString("C", new CultureInfo("id-ID")))</p>
+        </td>
+        <td>
+          <div class="action">
+            <button class="text-gray" data-bs-toggle="modal" data-bs-target="#updateqty">
+              <i class="lni lni-pencil"></i>
+            </button>
+            <button class="text-danger" data-bs-toggle="modal" data-bs-target="#delete">
+              <i class="lni lni-trash-can"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    }
+  }
+  </Tbody>
+  <Page>
+    <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
+  </Page>
+</TableSection>
+
+
 @* @code { *@
 @* *@
 @*   [Parameter] *@

@@ -1,52 +1,63 @@
 ﻿@page "/purchasing/list-order"
-@using Realta.Domain.RequestFeatures
 
 <PageTitle>Purchase Order</PageTitle>
 
-<TableSection Title="Purchase Order"
-              Link="/purchasing"
-              LinkText="Purchasing">
+<TableSection Title="Purchase Order" Link="/purchasing" LinkText="Purchasing">
   <CustomComponent>
-    <div class="d-flex align-items-center">
-      <h6>Status:</h6>
-      <div class="select-style-1 mb-0 ml-10">
-        <div class="select-position">
-          <select class="p-0 pe-5 border-0">
-            <option value="" selected>Semua</option>
-            <option value="1">Pending</option>
-            <option value="2">Approved</option>
-            <option value="3">Received</option>
-            <option value="4">Rejected</option>
-            <option value="5">Completed</option>
-          </select>
+    <div class="d-flex justify-content-end">
+      <div class="d-flex align-items-center">
+        <h6>Status:</h6>
+        <div class="select-style-1 mb-0 ml-10">
+          <div class="select-position">
+            <select class="p-0 pe-5 border-0">
+              <option value="" selected>Semua</option>
+              <option value="1">Pending</option>
+              <option value="2">Approved</option>
+              <option value="3">Received</option>
+              <option value="4">Rejected</option>
+              <option value="5">Completed</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
   </CustomComponent>
   
   <Topbar>
-    <TableToolbar Placeholder="PO Number / Vendor Name" OnSearchChanged="SearchChange"/>
+    <TableToolbar Placeholder="PO Number / Vendor Name" OnSearchChanged="SearchChanged"/>
   </Topbar>
   
   <Thead>
     <tr>
-      <th class="min-width">
-        <h6>PO Number</h6>
+      <th data-sortable class="@(_param.OrderBy switch { "PoheNumber desc" => "desc", "PoheNumber asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PoheNumber"))">
+        <a class="dataTable-sorter">
+          <h6>PO Number</h6>
+        </a>
       </th>
-      <th class="min-width">
-        <h6>PO Date</h6>
+      <th data-sortable class="@(_param.OrderBy switch { "PoheOrderDate desc" => "desc", "PoheOrderDate asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PoheOrderDate"))">
+        <a class="dataTable-sorter">
+          <h6>PO Date</h6>
+        </a>
       </th>
-      <th class="min-width">
-        <h6>Vendor Target</h6>
+      <th data-sortable class="@(_param.OrderBy switch { "VendorName desc" => "desc", "VendorName asc" => "asc", _ => ""})" onclick="@(() => SortChanged("VendorName"))">
+        <a class="dataTable-sorter">
+          <h6>Vendor Target</h6>
+        </a>
       </th>
-      <th class="min-width">
-        <h6>Line Items</h6>
+      <th data-sortable class="@(_param.OrderBy switch { "LineNumber desc" => "desc", "LineNumber asc" => "asc", _ => ""})" onclick="@(() => SortChanged("LineNumber"))">
+        <a class="dataTable-sorter">
+          <h6>Line Number</h6>
+        </a>
       </th>
-      <th class="min-width">
-        <h6>Total Amount</h6>
+      <th data-sortable class="@(_param.OrderBy switch { "PoheTotalAmount desc" => "desc", "PoheTotalAmount asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PoheTotalAmount"))">
+        <a class="dataTable-sorter">
+          <h6>Total Amount</h6>
+        </a>
       </th>
-      <th class="min-width">
-        <h6>Status</h6>
+      <th data-sortable class="@(_param.OrderBy switch { "PoheStatus desc" => "desc", "PoheStatus asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PoheStatus"))">
+        <a class="dataTable-sorter">
+          <h6>Status</h6>
+        </a>
       </th>
       <th>
         <h6>Action</h6>
@@ -55,22 +66,22 @@
   </Thead>
   <Tbody>
 
-  @if (PurchaseOrders != null)
+  @if (DataList != null)
   {
-    foreach (var po in PurchaseOrders)
+    foreach (var po in DataList)
     {
       <tr>
         <td>
           <p>@po.PoheNumber</p>
         </td>
         <td>
-          <p>@po.PoheOrderDate</p>
+          <p>@po.PoheOrderDate.ToString("dd/MM/yyyy")</p>
         </td>
         <td>
           <p>@po.VendorName</p>
         </td>
         <td>
-          <p>line items</p>
+          <p>@po.LineItem Item(s)</p>
         </td>
         <td>
           <p>@(((decimal)po.PoheTotalAmount).ToString("C", new CultureInfo("id-ID")))</p>

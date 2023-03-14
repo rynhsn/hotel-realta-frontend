@@ -11,6 +11,6 @@
     </label>
   </div>
   <div class="dataTable-search">
-    <input class="dataTable-input" placeholder="@Placeholder" type="text" @bind-value="@Keyword" @bind-value:event="oninput"  @onkeyup="async () => await OnSearchChanged.InvokeAsync(Keyword)" >
+    <input class="dataTable-input bg-transparent text-sm" placeholder="@Placeholder" type="text" @bind-value="@Keyword" @bind-value:event="oninput"  @onkeyup="async () => await OnSearchChanged.InvokeAsync(Keyword)" >
   </div>
 </div>

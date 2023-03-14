@@ -12,16 +12,29 @@
                 <div class="modal-body px-0">
                     <div class="content mb-20">
                         <div class="row">
-                            @foreach (var photo in PhotoList)
+                            @if (PhotoList.Count > 0)
                             {
+                                @foreach (var photo in PhotoList)
+                                {
+                                    <div class="col-3">
+                                        <img src="/resources/images/@photo.SphoPhotoFileName" width="150" height="110" />
+                                    </div>
+                                }
+                            }else{
                                 <div class="col-3">
-                                    <img src="/resources/images/@photo.SphoPhotoFileName" />
+                                    <img src="/resources/images/5817814e-2cb2-4d75-8444-55c50570df13RobloxScreenShot 2.png" width="150"   height="110" />
+                                    
+                                </div>
+                                <div class="col-3">
+                                    <img src="/resources/images/0f765e6f-b583-43e6-8adb-01c6d70d2465Capture001.png" width="150" height="110" />
+                                </div>
+                                <div class="col-3">
+                                    <img src="/resources/images/6038383f-9644-459b-9c68-679e74859a8cRobloxScreenShot 1.png" width="150" height="110" />
+                                </div>
+                                <div class="col-3">
+                                    <img src="/resources/images/c5bee9dc-62ad-4b6b-aec8-33fcb1600913RobloxScreenShot 1.png" width="150" height="110" />
                                 </div>
                             }
-                            @*<div class="col-3">
-                                <img src="/resources/images/5817814e-2cb2-4d75-8444-55c50570df13RobloxScreenShot 2.png" width="150" height="110" />
-                            </div>*@
-                           
                         </div>
                     </div>
                     <div class="action d-flex flex-wrap justify-content-end">
