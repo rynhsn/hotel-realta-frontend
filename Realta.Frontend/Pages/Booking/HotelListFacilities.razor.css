@@ -1,0 +1,8 @@
+.carousel-inner {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.carousel-item {
+    width: 100px;
+    height: 50px;
+}
