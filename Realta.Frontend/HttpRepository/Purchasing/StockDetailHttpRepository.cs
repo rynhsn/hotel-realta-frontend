@@ -37,8 +37,8 @@ public class StockDetailHttpRepository : IStockDetailHttpRepository
     {
         var queryStringParam = new Dictionary<string, string>
         {
-            ["pageNumber"] = stocksParameters.PageNumber.ToString(),
-            ["stockId"] = stocksParameters.StockId.ToString()
+            ["stockId"] = stocksParameters.StockId.ToString(),
+            ["pageNumber"] = stocksParameters.PageNumber.ToString()
         };
 
         var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("stock/pageList", queryStringParam));

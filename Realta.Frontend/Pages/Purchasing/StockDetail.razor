@@ -1,12 +1,10 @@
 ﻿@page "/purchasing/stock/{Id:int}"
 @using Realta.Domain.RequestFeatures
 
-<TableSection Title="Stock Detail"
+
+<TableSection Title="@stocksDetailList[0].StockName"
               Link="/purchasing"
               LinkText="Purchasing">
-    <Topbar>
-        <TableToolbar />
-    </Topbar>
     <Thead>
         <tr>
             <th class="min-width">
@@ -30,7 +28,7 @@
         </tr>
     </Thead>
     <Tbody>
-        @if (stocksDetailList != null)
+        @if (stocksDetailList.Count > 0)
         {
             foreach (var so in stocksDetailList)
             {
@@ -61,7 +59,7 @@
         }
     </Tbody>
     <Page>
-        <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+        <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
     </Page>
 </TableSection>
 

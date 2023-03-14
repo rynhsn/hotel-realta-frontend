@@ -11,7 +11,7 @@ public partial class ListOrder
     [Inject]
     public IPurchaseOrderHttpRepository PurchaseOrderRepo { get; set; }
     public List<PurchaseOrderDto> PurchaseOrders { get; set; } = new List<PurchaseOrderDto>();
-    public MetaData MetaData { get; set; }
+    public MetaData MetaData { get; set; } = new MetaData();
     private PurchaseOrderParameters _purchaseOrderParameters = new PurchaseOrderParameters();
 
     protected async override Task OnInitializedAsync()

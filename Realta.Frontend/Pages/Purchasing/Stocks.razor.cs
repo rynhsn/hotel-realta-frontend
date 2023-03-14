@@ -9,13 +9,17 @@ public partial class Stocks
 {
     [Inject]
     public IStocksHttpRepository StocksHttpRepository { get; set; }
+
     public List<StocksDto> stocksList { get; set; } = new List<StocksDto>();
-    public MetaData MetaData { get; set; }
+    public List<StockPhotoDto> stocksPhotoList { get; set; } = new List<StockPhotoDto>();
+
+    public MetaData MetaData { get; set; } = new MetaData();
     private StocksParameters _stocksParameters = new StocksParameters();
 
     protected async override Task OnInitializedAsync()
     {
         await GetPaging();
+
     }
 
     private async Task SelectedPage(int page)
@@ -30,6 +34,11 @@ public partial class Stocks
         MetaData = response.MetaData;
     }
 
-    
+    private async Task SearchChange(string searchTerm)
+    {
+        _stocksParameters.PageNumber = 1;
+        _stocksParameters.SearchTerm = searchTerm;
+        await GetPaging();
+    }
 
 }

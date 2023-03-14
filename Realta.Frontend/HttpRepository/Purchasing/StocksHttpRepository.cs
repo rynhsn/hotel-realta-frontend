@@ -36,7 +36,8 @@ public class StocksHttpRepository : IStocksHttpRepository
     {
         var queryStringParam = new Dictionary<string, string>
         {
-            ["pageNumber"] = stocksParameters.PageNumber.ToString()
+            ["pageNumber"] = stocksParameters.PageNumber.ToString(),
+            ["searchTerm"] = stocksParameters.SearchTerm == null ? "" : stocksParameters.SearchTerm.ToString(),
         };
 
         var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("stocks/pageList", queryStringParam));
@@ -54,6 +55,22 @@ public class StocksHttpRepository : IStocksHttpRepository
         };
 
         return pagingResponse;
+    }
+
+    public async Task<List<StockPhotoDto>> GetStocksPhoto(int stockId)
+    {
+        // call api end point e.g : http://localhost:7068/api/stocks
+        string url = "stock_photo" + stockId;
+        var response = await _httpClient.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+
+        var stockPhoto = JsonSerializer.Deserialize<List<StockPhotoDto>>(content, _options);
+        return stockPhoto;
     }
 }
 

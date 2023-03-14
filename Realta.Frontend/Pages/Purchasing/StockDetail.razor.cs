@@ -11,13 +11,14 @@ namespace Realta.Frontend.Pages.Purchasing
         [Parameter] public int Id { get; set; }
 
         [Inject] public IStockDetailHttpRepository StockDetailHttpRepository { get; set;}
-        public MetaData MetaData { get; set; }
+        public MetaData MetaData { get; set; } = new MetaData();
         public List<StockDetailDto> stocksDetailList { get; set; }
-        public StockDetailParameters _stockDetailParameters { get; set; } 
+
+        public StockDetailParameters _stockDetailParameters = new StockDetailParameters();
 
         protected async override Task OnInitializedAsync()
         {
-            Console.WriteLine(Id);
+           
             await GetPaging();
         }
 
@@ -28,6 +29,8 @@ namespace Realta.Frontend.Pages.Purchasing
         }
         private async Task GetPaging()
         {
+            _stockDetailParameters.StockId = Id;
+
             var response = await StockDetailHttpRepository.GetStockDetailPaging(_stockDetailParameters);
             stocksDetailList = response.Items;
             MetaData = response.MetaData;
@@ -37,7 +40,7 @@ namespace Realta.Frontend.Pages.Purchasing
         {
             return status switch
             {
-                1 => ("warning-btn", "Stock"),
+                1 => ("warning-btn", "Stocked"),
                 2 => ("info-btn", "Used"),
                 3 => ("danger-btn", "Broken"),
                 4 => ("dark-btn", "Complete")
