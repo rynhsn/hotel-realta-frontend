@@ -2,50 +2,51 @@
 using Realta.Domain.RequestFeatures;
 using Realta.Frontend.Features;
 
-namespace Realta.Frontend.Components;
-
-public partial class Pagination
+namespace Realta.Frontend.Components
 {
-    [Parameter]
-    public MetaData MetaData { get; set; }
-
-    [Parameter]
-    public int Spread { get; set; }
-
-    [Parameter]
-    public EventCallback<int> SelectedPage { get; set; }
-
-    private List<PagingLink> _links;
-
-        
-    protected override void OnParametersSet()
+    public partial class Pagination
     {
-        CreatePaginationLinks();
-    }
+        [Parameter]
+        public MetaData MetaData { get; set; }
 
-    private void CreatePaginationLinks()
-    {
-        _links = new List<PagingLink>();
+        [Parameter]
+        public int Spread { get; set; }
 
-        _links.Add(new PagingLink(MetaData.CurrentPage - 1, MetaData.HasPrevious, "Previous"));
+        [Parameter]
+        public EventCallback<int> SelectedPage { get; set; }
 
-        for (int i = 1; i <= MetaData.TotalPages; i++)
+        private List<PagingLink> _links;
+
+        protected override void OnParametersSet()
         {
-            if (i >= MetaData.CurrentPage - Spread && i <= MetaData.CurrentPage + Spread)
-            {
-                _links.Add(new PagingLink(i, true, i.ToString()) { Active = MetaData.CurrentPage == i });
-            }
+            CreatePaginationLinks();
         }
 
-        _links.Add(new PagingLink(MetaData.CurrentPage + 1, MetaData.HasNext, "Next"));
-    }
+        private void CreatePaginationLinks()
+        {
+            _links = new List<PagingLink>();
 
-    private async Task OnSelectedPage(PagingLink link)
-    {
-        if (link.Page == MetaData.CurrentPage || !link.Enabled)
-            return;
+            _links.Add(new PagingLink(MetaData.CurrentPage - 1, MetaData.HasPrevious, "Previous"));
 
-        MetaData.CurrentPage = link.Page;
-        await SelectedPage.InvokeAsync(link.Page);
+            for (int i = 1; i <= MetaData.TotalPages; i++)
+            {
+                if (i >= MetaData.CurrentPage - Spread && i <= MetaData.CurrentPage + Spread)
+                {
+                    _links.Add(new PagingLink(i, true, i.ToString()) { Active = MetaData.CurrentPage == i });
+                }
+            }
+
+            _links.Add(new PagingLink(MetaData.CurrentPage + 1, MetaData.HasNext, "Next"));
+        }
+
+        private async Task OnSelectedPage(PagingLink link)
+        {
+            if (link.Page == MetaData.CurrentPage || !link.Enabled)
+                return;
+
+            MetaData.CurrentPage = link.Page;
+            await SelectedPage.InvokeAsync(link.Page);
+        }
     }
 }
+>>>>>>> 256fff3a7da96e16be2fa137ce37ee7f9463207a

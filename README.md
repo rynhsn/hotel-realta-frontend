@@ -32,5 +32,7 @@
 - [X] Sesuaikan services di file `Program.cs` sesuai module
 - [X] Push project
   ```
+  git add .
+  git commit -m "[message]"
   git push -u origin [namabranch]-data
   ```

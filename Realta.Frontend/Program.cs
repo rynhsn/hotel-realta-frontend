@@ -1,3 +1,5 @@
+using Realta.Frontend;
+using Realta.Frontend.HttpRepository.Purchasing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Realta.Frontend;
@@ -33,6 +35,7 @@ builder.Services.AddScoped<IAddressHttpRepository, AddressHttpRepository>();
 // payment
 
 // purchasing
+// builder.Services.AddScoped<IVendorHttpRepository, VendorHttpRepository>();
 // builder.Services.AddScoped<IPurchaseOrderHttpRepository, PurchaseOrderHttpRepository>();
 
 // resto
