@@ -8,8 +8,13 @@ namespace Realta.Frontend.Pages.Booking
 {
     public partial class SpofPages
     {
-        
-        
+        private async Task SeacrhChange(string searchTerm)
+        {
+            Console.WriteLine(searchTerm);
+            _specialOfferParameters.PageNumber = 1;
+            _specialOfferParameters.SearchTerm = searchTerm;
+            await GetSpecialOfferPaging();
+        }
         public List<SpecialOffersDto> SpecialOffersList { get; set; } = new List<SpecialOffersDto>();
         
         public MetaData MetaData { get; set; } = new MetaData();
@@ -20,6 +25,7 @@ namespace Realta.Frontend.Pages.Booking
         protected async override Task OnInitializedAsync()
         {
             SpecialOffersList= await SpecialOfferHttpRepository.GetSpecialOffers();
+            
             Console.WriteLine("SpecialOffersList");
         }
 

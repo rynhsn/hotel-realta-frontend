@@ -1,4 +1,7 @@
 ﻿@page "/booking/room"
+@using Realta.Contract.Models
+@using Realta.Domain.RequestFeatures
+@using Realta.Frontend.HttpRepository.Booking
 <link rel="stylesheet" href="HotelFacilitites.razor.css"/>
 <PageTitle>Booking Room Detail</PageTitle>
 <section class="card-components">
@@ -151,7 +154,7 @@
                             <img class="card-img-top" src="@room.RoomPicLink" alt="Room Picture">
                         </a>
                         <div class="d-flex justify-content-end">
-                            <button class="main-btn primary-btn btn-hover mt-10 mr-60" @onclick="() => { AddtoCart(room); }"> Add Room </button>
+                            <button class="main-btn primary-btn btn-hover mt-10 mr-60" @onclick="() => AddtoCart(room)" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart"> Add Room </button>
                         </div>
                     </div>
                 </div>
@@ -315,7 +318,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body px-0">
-                                        @foreach (var specialoffers in SpecialOffer )
+                                        @foreach (var specialoffers in SpecialOffersList )
                                         {
                                             <div class="row mb-4">
                                                 <div class="col-12">
@@ -376,6 +379,15 @@
 
 @code
 {
+    public List<SpecialOffersDto> SpecialOffersList { get; set; } = new List<SpecialOffersDto>();
+    [Inject] 
+    public ISpecialOfferHttpRepository SpecialOfferHttpRepository { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        SpecialOffersList= await SpecialOfferHttpRepository.GetSpecialOffers();
+    }
+    
     private readonly List<RoomDesc> rooms = new()
     {
         new()
@@ -418,39 +430,12 @@
         }
     };
     
-    
-
-    private readonly List<Coupon> coupon = new List<Coupon>()
-    {
-        new Coupon()
-        {
-            Id = 1,
-            Name = "New Member",
-            DiscountPercent = 10
-        },
-        new Coupon()
-        {
-            Id = 2,
-            Name = "Using Gopay",
-            DiscountPercent = 5
-        },
-        new Coupon()
-        {
-            Id = 3,
-            Name = "More than 2 people",
-            DiscountPercent = 15
-        },
-        new Coupon()
-        {
-            Id = 4,
-            Name = "VIP Member",
-            DiscountPercent = 20
-        }
-    };
 
     private void AddtoCart(RoomDesc desc)
     {
         Cart.Instance.AddItem(desc);
+        OpenCart();
+        
     }
 
     private void UpdateItemQuantity(CartItem item, int newQuantity)
@@ -468,6 +453,19 @@
     private static void RemoveItem(string roomName)
     {
         Cart.Instance.RemoveItem(roomName);
+    }
+    
+    [Parameter]
+    public bool CartIsOpen { get; set; } = false;
+
+    private void OpenCart()
+    {
+        CartIsOpen = true;
+    }
+
+    private void CloseCart()
+    {
+        CartIsOpen = !CartIsOpen;
     }
 
     [Parameter]

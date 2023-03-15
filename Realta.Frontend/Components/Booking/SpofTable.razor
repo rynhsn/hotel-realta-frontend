@@ -1,34 +1,129 @@
 @if(SpecialOffer.Count > 0)
 {
-    <table class="table">
-        <thead>
-        <tr>
-            <th><h6>SpofName</h6></th>
-            <th><h6>Action</h6></th>
-        </tr>
-        <!-- end table row-->
-        </thead>
-        <tbody>
-        @foreach (var specialOffer in SpecialOffer)
-        {
-            <tr>
-                <td class="min-width">
-                    <div class="lead">
-                        <div class="lead-text">
-                            <p>@specialOffer.SpofName</p>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="action">
-                        <button class="text-danger">
-                            <i class="lni lni-trash-can"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr> 
-        }
-        </tbody>
-    </table>
+    <div class="card-style mb-30">
+    <div class="table-responsive">
+        <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+            <div class="dataTable-top">
+                <div class="dataTable-dropdown">
+                    @* <label> *@
+                    @*     <select class="dataTable-selector mb-10"><option value="5">5</option><option value="10" selected="">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option></select><!--!--> entries per page *@
+                    @* </label> *@
+                </div>
+                
+            </div>
+            <div class="dataTable-container">
+                <table id="table" class="table dataTable-table">
+                    <thead>
+                    <tr>
+                        <th data-sortable="" style="width: 5%;"><a href="#" class="dataTable-sorter"><h6>ID</h6></a></th>
+                        <th data-sortable="" style="width: 10%;" class="name"><a href="#" class="dataTable-sorter"><h6>Name</h6></a></th>
+                        <th data-sortable="" style="width: 20%;"><a href="#" class="dataTable-sorter"><h6>Description</h6></a></th>
+                        <th data-sortable="" style="width: 5%;"><a href="#" class="dataTable-sorter"><h6>Type</h6></a></th>
+                        <th data-sortable="" style="width: auto;"><a href="#" class="dataTable-sorter"><h6>Discount</h6></a></th>
+                        <th data-type="date" data-format="YYYY/MM/DD" data-sortable="" style="width: auto;"><a href="#" class="dataTable-sorter"><h6>Start Date</h6></a></th>
+                        <th data-type="date" data-format="YYYY/MM/DD" data-sortable="" style="width: auto;"><a href="#" class="dataTable-sorter"><h6>End Date</h6></a></th>
+                        <th data-sortable="" style="width: auto;"><a href="#" class="dataTable-sorter"><h6>Min Qty</h6></a></th>
+                        <th data-sortable="" style="width: auto;"><a href="#" class="dataTable-sorter"><h6>Max Qty</h6></a></th>
+                        <th data-type="date" data-format="YYYY/MM/DD" data-sortable="" style="width: auto;"><a href="#" class="dataTable-sorter"><h6>Modified Date</h6></a></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                     @foreach (var specialOffer in SpecialOffer)
+                     {
+                         <tr>
+                             <td class="min-width">
+                                 <div class="lead">
+                                     <div class="lead-text">
+                                         <p>@specialOffer.SpofId</p>
+                                     </div>
+                                 </div>
+                             </td>
+                             <td class="min-width">
+                                 <div class="lead">
+                                     <div class="lead-text">
+                                         <p>@specialOffer.SpofName</p>
+                                     </div>
+                                 </div>
+                             </td>
+                             <td class="min-width">
+                                 <div class="lead">
+                                     <div class="lead-text">
+                                         <p>@specialOffer.SpofDescription</p>
+                                     </div>
+                                 </div>
+                             </td>
+                             <td class="min-width">
+                                 <div class="lead">
+                                     <div class="lead-text">
+                                         <p>@specialOffer.SpofType</p>
+                                     </div>
+                                 </div>
+                             </td>
+                             <td class="min-width">
+                                 <div class="lead">
+                                      <div class="lead">
+                                          <div class="lead-text">
+                                              <p>@(specialOffer.SpofDiscount.ToString("P0"))</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                             </td>
+                             <td class="min-width">
+                                 <div class="lead">
+                                     <div class="lead-text">
+                                         <p>@specialOffer.SpofStartDate</p>
+                                     </div>
+                                 </div>
+                             </td>
+                             <td class="min-width">
+                                 <div class="lead">
+                                     <div class="lead-text">
+                                         <p>@specialOffer.SpofEndDate</p>
+                                     </div>
+                                 </div>
+                             </td>
+                             <td class="min-width">
+                                 <div class="lead">
+                                     <div class="lead-text">
+                                         <p>@specialOffer.SpofMinQty</p>
+                                     </div>
+                                 </div>
+                             </td>
+                             <td class="min-width">
+                                 <div class="lead">
+                                     <div class="lead-text">
+                                         <p>@specialOffer.SpofMaxQty</p>
+                                     </div>
+                                 </div>
+                             </td>
+                             <td class="min-width">
+                                 <div class="lead">
+                                     <div class="lead-text">
+                                         <p>@specialOffer.SpofModifiedDate</p>
+                                     </div>
+                                 </div>
+                             </td>
+                         </tr>
+                     }
+                    </tbody>
+                </table>
+            </div>
+            <!--!--><!--!-->
+            @* <div class="dataTable-bottom"> *@
+            @*     <div class="dataTable-info">Showing 1 to 10 of 100 entries</div> *@
+            @*     <nav class="dataTable-pagination"> *@
+            @*         <ul class="dataTable-pagination-list"><li class="active"><a href="#" data-page="1">1</a></li> *@
+            @*             <li class=""><a href="#" data-page="2">2</a></li> *@
+            @*             <li class=""><a href="#" data-page="3">3</a></li> *@
+            @*             <li class=""><a href="#" data-page="4">4</a></li> *@
+            @*             <li class=""><a href="#" data-page="5">5</a></li> *@
+            @*             <li class=""><a href="#" data-page="6">6</a></li> *@
+            @*             <li class=""><a href="#" data-page="7">7</a></li> *@
+            @*             <li class="ellipsis"><a href="#">…</a></li> *@
+            @*             <li class=""><a href="#" data-page="10">10</a></li> *@
+            @*             <li class="pager"><a href="#" data-page="2">›</a></li></ul></nav> *@
+            @* </div> *@
+        </div>
+    </div>
+</div>
 }
-

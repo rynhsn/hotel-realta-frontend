@@ -32,7 +32,6 @@ public class HotelHttpRepository : IHotelHttpRepository
         var result  = JsonSerializer.Deserialize<List<HotelsDto>>(content, _options);
         return result;
     }
-
     public async Task<PagingResponse<HotelsDto>> GetHotelPaging(HotelParameters hotelParameters)
     {
         var queryStringParam = new Dictionary<string, string>

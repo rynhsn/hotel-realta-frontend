@@ -1,0 +1,8 @@
+<div class="dataTable-search mb-20">
+    <input class="dataTable-input" placeholder="Search..." type="text"
+           @bind-value="@SearchTerm" @bind-value:event="oninput" @onkeyup="async () => await OnSearchChanged.InvokeAsync(SearchTerm)" />
+</div>
+
+@code {
+    
+}
