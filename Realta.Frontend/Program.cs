@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Realta.Contract.Models;
 using Realta.Frontend;
 using Realta.Frontend.HttpRepository.Purchasing;
 
@@ -24,6 +25,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 // purchasing
 // builder.Services.AddScoped<IPurchaseOrderHttpRepository, PurchaseOrderHttpRepository>();
 builder.Services.AddScoped<IVendorHttpRepository, VendorHttpRepository>();
+builder.Services.AddScoped<IVendorProductHttpRepository, VendorProductHttpRepository>();
 
 // resto
 
