@@ -1,5 +1,7 @@
 ﻿@page "/hotelList"
 @using Microsoft.AspNetCore.Components
+@using Realta.Contract.Models
+@using Realta.Frontend.HttpRepository.Booking
 <section>
 <div class="container-fluid">
     <div class="title-wrapper pt-30">
@@ -133,63 +135,33 @@
                 <!--!-->
 
                 <div class="col-xl-9 col-lg-9">
-                    @foreach (var hotel in hotels.Where(h => string.IsNullOrEmpty(FilterFacility) ||
-                                                             (h.HasRoom && FilterFacility == "room") ||
-                                                             (h.HasMeetingRoom && FilterFacility == "meeting") ||
-                                                             (h.HasRestaurant && FilterFacility == "restaurant") ||
-                                                             (h.HasGym && FilterFacility == "gym") ||
-                                                             (h.HasAula && FilterFacility == "aula") ||
-                                                             (h.HasSwimmingPool && FilterFacility == "swimming") ||
-                                                             (h.HasBalroom && FilterFacility == "balroom")))
+                    @foreach (var hotel in HotelsList.Take(displayCount))
                     {
                         <div class="card-style mb-30">
                             <div class="row">
                                 <div class="card-image col-lg-5 col-xl-5">
-                                    <a href="@hotel.ImageUrl" target="_blank">
-                                        <img class="img-thumbnail" style="height: 230px; width: 450px" src="@hotel.ThumbnailUrl" alt="@hotel.Name">
+                                    <a href="@hotel.FaciPhotoUrl" target="_blank">
+                                        <img class="img-thumbnail" style="height: 230px; width: 450px" src="@hotel.FaciPhotoUrl" alt="@hotel.HotelName">
                                     </a>
                                 </div>
                                 <div class="card-content col-lg-7 col-xl-7">
                                     <h4>
-                                        <a href="@hotel.ImageUrl" target="_blank">@hotel.Name</a>
+                                        <a href="@hotel.FaciPhotoUrl" target="_blank">@hotel.HotelName</a>
                                     </h4>
-                                    <h5 class="text-sm text-regular mb-10">@hotel.Location</h5>
-                                    <h5 class="text-sm text-regular mb-10"><span class="mdi mdi-star"></span>@hotel.RatingStar</h5>
-                                    <div class="card-facilities">
-                                        @if (hotel.HasRoom)
-                                        {
-                                            <span class="mdi mdi-bed-outline px-3" alt=""></span>
-                                        }
-                                        @if (hotel.HasMeetingRoom)
-                                        {
-                                            <span class="mdi mdi-google-classroom px-3"></span>
-                                        }
-                                        @if (hotel.HasRestaurant)
-                                        {
-                                            <span class="mdi mdi-silverware-fork-knife px-3"></span>
-                                        }
-                                        @if (hotel.HasGym)
-                                        {
-                                            <span class="mdi mdi-run px-3"></span>
-                                        }
-                                        @if (hotel.HasAula)
-                                        {
-                                            <span class="mdi mdi-school-outline px-3"></span>
-                                        }
-                                        @if (hotel.HasSwimmingPool)
-                                        {
-                                            <span class="mdi mdi-pool px-3"></span>
-                                        }
-                                        @if (hotel.HasBalroom)
-                                        {
-                                            <span class="mdi mdi-crown-outline px-3"></span>
-                                        }
-                                    </div>
-                                    <h5 class="text-sm text-regular mb-10">@hotel.RoomName</h5>
-                                    <h5 class="text-sm text-regular mb-10">Rp. @hotel.RoomPrice</h5>
+                                    <h5 class="text-sm text-regular mb-10">@hotel.HotelAddress</h5>
+                                    <h5 class="text-sm text-regular mb-10"><span class="mdi mdi-star"></span>@hotel.HotelRatingStar</h5>
+                                    
+                                    <h5 class="text-sm text-regular mb-10">@hotel.FaciName</h5>
+                                    
                                     <a href="#0" class="main-btn primary-btn btn-hover">Book Now</a>
                                 </div>
                             </div>
+                        </div>
+                    }
+                    @if (displayCount < HotelsList.Count())
+                    {
+                        <div class="text-center">
+                            <button class="main-btn primary-btn btn-hover" @onclick="LoadMore">Load More</button>
                         </div>
                     }
                 </div>
@@ -201,6 +173,24 @@
 
 
 @code {
+    private void LoadMore()
+    {
+        displayCount += incrementCount;
+    }
+
+    private int displayCount = 5;
+    private int incrementCount = 5;
+    
+    public List<HotelsDto> HotelsList { get; set; } = new List<HotelsDto>();
+    [Inject] 
+    public IHotelHttpRepository HotelHttpRepository { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        HotelsList= await HotelHttpRepository.GetHotels();
+    }
+    
+    
     private string FilterFacility { get; set; }
 
     private void HandleFilterFacilityChange(ChangeEventArgs e)

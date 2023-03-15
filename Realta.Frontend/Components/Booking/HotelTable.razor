@@ -1,8 +1,8 @@
-@if (hotels.Count > 0)
+@if (HotelsList.Count > 0)
 {
     <div class="col-lg-12">
 
-        <h6>Product Table</h6>
+        <h6>Hotel Table</h6>
         <div class="table-wrapper table-responsive">
             <table class="table">
                 <thead>
@@ -27,12 +27,11 @@
                 </thead>
                 <tbody>
 
-                    @foreach (var hotel in hotels)
+                    @foreach (var hotel in HotelsList)
                     {
                         <tr>
                             <td class="min-width">
                                 <div class="lead">
-
                                     <div class="lead-text">
                                         <p>@hotel.HotelName</p>
                                     </div>
@@ -45,12 +44,6 @@
                                 <p><a href="#0">@hotel.HotelRatingStar</a></p>
                             </td>
                             <td>
-                            <td class="alig-middle">
-                                <button type="button" @onclick="()=> RedirectToUpdate(hotel.HotelId)">Update</button>
-                            </td>
-                            <td class="alig-middle">
-                                <button type="button" @onclick="()=> Delete(hotel.HotelId)">Delete</button>
-                            </td>
                             </td>
 
                         </tr>

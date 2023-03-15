@@ -28,7 +28,7 @@ namespace Realta.Frontend.Components.Booking
         private async Task SearchChange(string searchTerm)
         {
             Console.WriteLine(searchTerm);
-            _specialOfferParameters.PageNumber = 1;
+            _specialOfferParameters.PageNumber = 0;
             _specialOfferParameters.SearchTerm = searchTerm;
             await GetSpecialOfferPaging();
         }

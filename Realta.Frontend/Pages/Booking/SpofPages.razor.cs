@@ -11,7 +11,7 @@ namespace Realta.Frontend.Pages.Booking
         private async Task SeacrhChange(string searchTerm)
         {
             Console.WriteLine(searchTerm);
-            _specialOfferParameters.PageNumber = 1;
+            _specialOfferParameters.PageNumber = 0;
             _specialOfferParameters.SearchTerm = searchTerm;
             await GetSpecialOfferPaging();
         }

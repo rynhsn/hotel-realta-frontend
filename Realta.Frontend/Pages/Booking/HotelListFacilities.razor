@@ -302,46 +302,46 @@
                         </div>
                         <hr/>
                     }
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="main-btn primary-btn btn-hover mt-0 mb-20 mr-60" data-bs-toggle="modal" data-bs-target="#addCoupon">Get Coupons</button>
-                    </div>
+                    @* <div class="d-flex justify-content-end"> *@
+                    @*     <button type="button" class="main-btn primary-btn btn-hover mt-0 mb-20 mr-60" data-bs-toggle="modal" data-bs-target="#addCoupon">Get Coupons</button> *@
+                    @* </div> *@
                     <!-- Pop up form -->
 
-                    <div class="warning-modal">
-                        <div class="modal fade" id="@($"addCoupon")" tabindex="-1" style="display: none;" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <form class="modal-content card-style" action="/update" method="post">
-                                    <div class="modal-header px-0 border-0">
-                                        <h5 class="text-bold">Choose Coupon</h5>
-                                        <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
-                                            <i class="lni lni-cross-circle"></i>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body px-0">
-                                        @foreach (var specialoffers in SpecialOffersList )
-                                        {
-                                            <div class="row mb-4">
-                                                <div class="col-12">
-                                                    <input type="checkbox" id="@specialoffers.SpofName" name="coupon" value="@specialoffers.SpofDiscount">
-                                                    <label for="@specialoffers.SpofName">@specialoffers.SpofName</label>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                    
-                                    <div class="action d-flex flex-wrap justify-content-end">
-                                        <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
-                                            Cancel
-                                        </button>
-                                        <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1" @onclick="() => {}">
-                                            Save
-                                        </button>
-                                    </div>
-                                    
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                    @* <div class="warning-modal"> *@
+                    @*     <div class="modal fade" id="@($"addCoupon")" tabindex="-1" style="display: none;" aria-hidden="true"> *@
+                    @*         <div class="modal-dialog modal-dialog-centered"> *@
+                    @*             <form class="modal-content card-style" action="/update" method="post"> *@
+                    @*                 <div class="modal-header px-0 border-0"> *@
+                    @*                     <h5 class="text-bold">Choose Coupon</h5> *@
+                    @*                     <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal"> *@
+                    @*                         <i class="lni lni-cross-circle"></i> *@
+                    @*                     </button> *@
+                    @*                 </div> *@
+                    @*                 <div class="modal-body px-0"> *@
+                    @*                     @foreach (var specialoffers in SpecialOffersList ) *@
+                    @*                     { *@
+                    @*                         <div class="row mb-4"> *@
+                    @*                             <div class="col-12"> *@
+                    @*                                 <input type="checkbox" id="@specialoffers.SpofName" name="coupon" value="@specialoffers.SpofDiscount"> *@
+                    @*                                 <label for="@specialoffers.SpofName">@specialoffers.SpofName</label> *@
+                    @*                             </div> *@
+                    @*                         </div> *@
+                    @*                     } *@
+                    @*                 </div> *@
+                    @*                  *@
+                    @*                 <div class="action d-flex flex-wrap justify-content-end"> *@
+                    @*                     <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1"> *@
+                    @*                         Cancel *@
+                    @*                     </button> *@
+                    @*                     <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1" @onclick="() => {}"> *@
+                    @*                         Save *@
+                    @*                     </button> *@
+                    @*                 </div> *@
+                    @*                  *@
+                    @*             </form> *@
+                    @*         </div> *@
+                    @*     </div> *@
+                    @* </div> *@
 
                     <div class="row">
                         <div class="col-5">

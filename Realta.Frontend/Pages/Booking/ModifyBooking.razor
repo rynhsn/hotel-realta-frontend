@@ -1,4 +1,7 @@
 ﻿@page "/booking/room-extra"
+@using Realta.Contract.Models
+@using Realta.Domain.RequestFeatures
+@using Realta.Frontend.HttpRepository.Booking
 
 <section>
   <div class="title-wrapper pt-30">
@@ -213,22 +216,22 @@
                     <i class="lni lni-cross-circle"></i>
                   </button>
                 </div>
-                @* <div class="modal-body px-0"> *@
-                @*   @foreach (var item in coupon) *@
-                @*   { *@
-                @*     <div class="row mb-4"> *@
-                @*       <div class="col-12"> *@
-                @*         <input type="checkbox" id="@item.Name" name="coupon" value="@item.DiscountPercent"> *@
-                @*         <label for="@item.Name">@item.Name</label> *@
-                @*       </div> *@
-                @*     </div> *@
-                @*   } *@
-                @* </div> *@
+                <div class="modal-body px-0">
+                  @foreach (var specialoffers in SpecialOffersList )
+                  {
+                    <div class="row mb-4">
+                      <div class="col-12">
+                        <input type="checkbox" id="@specialoffers.SpofName" name="coupon" value="@specialoffers.SpofDiscount">
+                        <label for="@specialoffers.SpofName">@specialoffers.SpofName</label>
+                      </div>
+                    </div>
+                  }
+                </div>
                 <div class="action d-flex flex-wrap justify-content-end">
                   <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
                     Cancel
                   </button>
-                  <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1 " @onclick="() => { }">
+                  <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1" @onclick="() => {}">
                     Save
                   </button>
                 </div>
@@ -263,5 +266,12 @@
 </section>
 
 @code {
+  public List<SpecialOffersDto> SpecialOffersList { get; set; } = new List<SpecialOffersDto>();
+  [Inject] 
+  public ISpecialOfferHttpRepository SpecialOfferHttpRepository { get; set; }
 
+  protected async override Task OnInitializedAsync()
+  {
+    SpecialOffersList= await SpecialOfferHttpRepository.GetSpecialOffers();
+  }
 }

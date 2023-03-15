@@ -1,18 +1,18 @@
+using Realta.Frontend.Components;
+using System.Text.Json;
+using Microsoft.AspNetCore.WebUtilities;
+using Realta.Contract.Models;
 using Realta.Domain.RequestFeatures;
 using Realta.Frontend.Features;
 
 namespace Realta.Frontend.HttpRepository.Booking;
-using Realta.Contract.Models;
-using System.Text.Json;
-using Microsoft.AspNetCore.WebUtilities;
-
 
 public class HotelHttpRepository : IHotelHttpRepository
 {
     private readonly HttpClient _client;
     private readonly JsonSerializerOptions _options;
 
-    public HotelHttpRepository(HttpClient client, JsonSerializerOptions options)
+    public HotelHttpRepository(HttpClient client)
     {
         _client = client;
         _options = new JsonSerializerOptions{ PropertyNameCaseInsensitive = true};
@@ -21,6 +21,7 @@ public class HotelHttpRepository : IHotelHttpRepository
 
     public async Task<List<HotelsDto>?> GetHotels()
     {
+        //Call API endpoint, e.g : https://localhost:7068/api/BookingOrders/hotelList
         var response = await _client.GetAsync("BookingOrders/hotelList");
         var content = await response.Content.ReadAsStringAsync();
 
