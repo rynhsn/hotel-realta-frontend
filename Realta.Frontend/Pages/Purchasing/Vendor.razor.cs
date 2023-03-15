@@ -22,9 +22,7 @@ namespace Realta.Frontend.Pages.Purchasing
         public EventCallback<int> OnDeleteConfirmed { get; set; }
         
         private VendorParameters _vendorParameters = new VendorParameters();
-
         public List<VendorDto> VendorListPaging { get; set; } = new List<VendorDto>();
-        
         public MetaData MetaData { get; set; } = new MetaData();
         protected async override Task OnInitializedAsync()
         {
