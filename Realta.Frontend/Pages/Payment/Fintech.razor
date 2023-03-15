@@ -70,17 +70,17 @@
                                 <!-- end table row-->
                                 </thead>
                                 <tbody>
-                                @for (int i = 1; i < 8; i++)
+                                @foreach (var fintech in FintechList)
                                 {
                                     <tr>
                                         <td class="min-width">
-                                            <p>@i</p>
+                                            <p>@fintech.Id</p>
                                         </td>
                                         <td class="min-width">
-                                            <p>GOPAY</p>
+                                            <p>@fintech.Code</p>
                                         </td>
                                         <td class="min-width">
-                                            <p>Gojek Tokopedia</p>
+                                            <p>@fintech.Name</p>
                                         </td>
                                         <td>
                                             <ActionPopup/>

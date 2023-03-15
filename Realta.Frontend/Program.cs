@@ -21,6 +21,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 
 // payment
 builder.Services.AddScoped<IBankHttpRepository, BankHttpRepository>();
+builder.Services.AddScoped<IFintechHttpRepository, FintechHttpRepository>();
 
 // purchasing
 // builder.Services.AddScoped<IPurchaseOrderHttpRepository, PurchaseOrderHttpRepository>();

@@ -3,20 +3,20 @@ using Realta.Contract.Models;
 
 namespace Realta.Frontend.HttpRepository.Payment;
 
-public class BankHttpRepository : IBankHttpRepository
+public class FintechHttpRepository : IFintechHttpRepository
 {
     private readonly HttpClient _httpClient;
     private readonly JsonSerializerOptions _options;
 
-    public BankHttpRepository(HttpClient httpClient)
+    public FintechHttpRepository(HttpClient httpClient)
     {
         _httpClient = httpClient;
         _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
 
-    public async Task<List<BankDto>> GetBanks()
+    public async Task<List<FintechDto>> GetFintechs()
     {
-        var response = await _httpClient.GetAsync("banks");
+        var response = await _httpClient.GetAsync("fintechs");
         var content = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
@@ -24,8 +24,8 @@ public class BankHttpRepository : IBankHttpRepository
             throw new ApplicationException(content);
         }
 
-        var result = JsonSerializer.Deserialize<JsonCollection<BankDto>>(content, _options);
+        var result = JsonSerializer.Deserialize<JsonCollection<FintechDto>>(content, _options);
 
-        return result.data["banks"];
+        return result.data["fintechs"];
     }
 }
