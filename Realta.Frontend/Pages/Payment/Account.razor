@@ -74,29 +74,31 @@
                                 </tr>
                                 <!-- end table row-->
                                 </thead>
+                                @{ var idx = 1; }
                                 <tbody>
-                                @for (int i = 1; i < 5; i++)
+                                @foreach (var account in AccountList)
                                 {
                                     <tr>
                                         <td>
-                                            <p>@i</p>
+                                            <p>@idx</p>
                                         </td>
                                         <td class="min-width">
-                                            <p>131-3456-78</p>
+                                            <p>@account.Number</p>
                                         </td>
                                         <td>
-                                            <p>BANK BRI</p>
+                                            <p>@account.CodeName</p>
                                         </td>
                                         <td>
-                                            <p>Rp. 10,000,000</p>
+                                            <p>Rp. @string.Format("{0:#,0}", @account.Saldo),-</p>
                                         </td>
                                         <td class="min-width">
-                                            <p>Debet</p>
+                                            <p>@account.Type</p>
                                         </td>
                                         <td>
                                             <ActionPopup/>
                                         </td>
                                     </tr>
+                                    @{idx++;}
                                 }
                                 <!-- end table row -->
                                 </tbody>
