@@ -4,9 +4,8 @@ namespace Realta.Frontend.Components;
 
 public partial class Sort
 {
-    [Parameter]
-    public EventCallback<string> OnSortChanged { get; set; }
-        
+    [Parameter] public EventCallback<string> OnSortChanged { get; set; }
+    
     private async Task ApplySort(ChangeEventArgs eventArgs)
     {
         if (eventArgs.Value.ToString() == "-1")
