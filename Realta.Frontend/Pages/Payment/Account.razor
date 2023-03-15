@@ -52,9 +52,6 @@
                                 <thead>
                                 <tr>
                                     <th>
-                                        <h6>#</h6>
-                                    </th>
-                                    <th>
                                         <h6>Account Number</h6>
                                     </th>
                                     <th>
@@ -74,14 +71,10 @@
                                 </tr>
                                 <!-- end table row-->
                                 </thead>
-                                @{ var idx = 1; }
                                 <tbody>
                                 @foreach (var account in AccountList)
                                 {
                                     <tr>
-                                        <td>
-                                            <p>@idx</p>
-                                        </td>
                                         <td class="min-width">
                                             <p>@account.Number</p>
                                         </td>
@@ -98,7 +91,6 @@
                                             <ActionPopup/>
                                         </td>
                                     </tr>
-                                    @{idx++;}
                                 }
                                 <!-- end table row -->
                                 </tbody>
