@@ -49,10 +49,39 @@
   </a>
   <ul id="master" class="collapse dropdown-nav">
     <li>
-      <a href="settings.html"> Settings </a>
+      <div class="nav-item px-3">
+        <NavLink class="nav-link" href="/locations">
+          <span class="oi oi-list-rich" aria-hidden="true"></span>Locations
+        </NavLink>
+      </div>
     </li>
     <li>
-      <a href="blank-page.html"> Blank Page </a>
+      <div class="nav-item px-3">
+        <NavLink class="nav-link" href="/policy">
+          <span class="oi oi-list-rich" aria-hidden="true"></span>Policy
+        </NavLink>
+      </div>
+    </li>
+    <li>
+      <div class="nav-item px-3">
+        <NavLink class="nav-link" href="/categorygroup">
+          <span class="oi oi-list-rich" aria-hidden="true"></span>Category Group
+        </NavLink>
+      </div>
+    </li>
+    <li>
+      <div class="nav-item px-3">
+        <NavLink class="nav-link" href="/priceitems">
+          <span class="oi oi-list-rich" aria-hidden="true"></span>Price Items
+        </NavLink>
+      </div>
+    </li>
+    <li>
+      <div class="nav-item px-3">
+        <NavLink class="nav-link" href="/servicetask">
+          <span class="oi oi-list-rich" aria-hidden="true"></span>Service Task
+        </NavLink>
+      </div>
     </li>
   </ul>
 </li>
@@ -73,11 +102,53 @@
   </a>
   <ul id="users" class="collapse dropdown-nav">
     <li>
-      <a href="settings.html"> Settings </a>
+      <div class="nav-item px-3">
+        <NavLink class="nav-link" href="profile">
+          My Profile
+        </NavLink>
+      </div>
     </li>
     <li>
-      <a href="blank-page.html"> Blank Page </a>
+      <div class="nav-item px-3">
+        <NavLink class="nav-link" href="booking">
+          My Booking
+        </NavLink>
+      </div>
     </li>
+    <li>
+      <div class="nav-item px-3">
+        <NavLink class="nav-link" href="accounts">
+          My Accounts
+        </NavLink>
+      </div>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-item nav-item-has-children">
+  <a href="#0" 
+     class="collapsed" 
+     data-bs-toggle="collapse" 
+     data-bs-target="#auth" 
+     aria-controls="auth" 
+     aria-expanded="false" 
+     aria-label="Toggle navigation">
+    <span class="icon">
+      <i class="mdi mdi-shield-key-outline"></i>
+    </span>
+    <span class="text">Auth</span>
+  </a>
+  <ul id="auth" class="dropdown-nav collapse" style="">
+    <div class="nav-item px-3">
+      <NavLink class="nav-link" href="signin">
+        Sign In
+      </NavLink>
+    </div>
+    <div class="nav-item px-3">
+      <NavLink class="nav-link" href="signup">
+        Sign Up
+      </NavLink>
+    </div>
   </ul>
 </li>
 
@@ -124,13 +195,10 @@
   </a>
   <ul id="hotel" class="collapse dropdown-nav">
     <li>
-      <NavLink class="nav-link" href="hotels">Hotels</NavLink>
+      <a href="settings.html"> Settings </a>
     </li>
     <li>
-      <NavLink class="nav-link" href="facility">Facility</NavLink>
-    </li>
-    <li>
-      <NavLink class="nav-link" href="reviews">Reviews</NavLink>
+      <a href="blank-page.html"> Blank Page </a>
     </li>
   </ul>
 </li>
@@ -181,10 +249,13 @@
   </a>
   <ul id="resto" class="collapse dropdown-nav">
     <li>
-      <a href="settings.html"> Settings </a>
+      <a href="restoMenus"> Resto Menus </a>
     </li>
     <li>
-      <a href="blank-page.html"> Blank Page </a>
+      <a href="orderMenus"> Order Menus </a>
+    </li>
+    <li>
+      <a href="completeOrder"> Complete Order </a>
     </li>
   </ul>
 </li>
@@ -205,19 +276,19 @@
   </a>
   <ul id="payment" class="collapse dropdown-nav">
     <li>
-      <a href="banks"> Bank </a>
+      <a href="/payments/banks"> Bank </a>
     </li>
     <li>
-      <a href="fintechs"> Fintech </a>
+      <a href="/payments/fintechs"> Fintech </a>
     </li>
     <li>
-      <a href="accounts"> Account </a>
+      <a href="/payments/accounts"> Account </a>
     </li>
     <li>
-      <a href="topup"> Topup </a>
+      <a href="/payments/topup"> Topup </a>
     </li>
     <li>
-      <a href="transactions"> Transaction </a>
+      <a href="/payments/transactions"> Transaction </a>
     </li>
   </ul>
 </li>
@@ -244,7 +315,7 @@
       <NavLink class="nav-link" href="/purchasing/vendor">Vendor</NavLink>
     </li>
     <li>
-      <NavLink class="nav-link" href="/purchasing/stocks">Stock</NavLink>
+      <NavLink class="nav-link" href="/purchasing/stock">Stock</NavLink>
     </li>
     <li>
       <NavLink class="nav-link" href="/purchasing/list-order">Purchase Order</NavLink>
