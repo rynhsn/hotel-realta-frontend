@@ -51,4 +51,8 @@
     <_ContentIncludedByDefault Remove="wwwroot\js\Sortable.min.js" />
     <_ContentIncludedByDefault Remove="wwwroot\js\world-merc.js" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\HotelRealtaBackend\Realta.Contract\Realta.Contract.csproj" />
+  </ItemGroup>
 </Project>
