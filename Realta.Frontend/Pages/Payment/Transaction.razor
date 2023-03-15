@@ -1,6 +1,5 @@
 ﻿@page "/payments/transactions"
 
-
 <TableSection Title="Transaction"
               Link="/payments/transactions"
               LinkText="Payment">
@@ -61,41 +60,41 @@
   </Thead>
   <Tbody>
 
-@for (int i = 1; i < 8; i++)
+@foreach (var transaction in TransactionList)
 {
 <tr>
 <td>
-    <p>TRX#202127-113</p>
+    <p>@transaction.TransactionNumber</p>
 </td>
 <td>
-    <p>12 Jul 2022</p>
+    <p>@transaction.ModifiedDate.ToString("yyyy MMMM dd")</p>
 </td>
 <td>
-    <p>Rp. 10,000,000</p>
+    <p>Rp. @string.Format("{0:#,0}", @transaction.Debet),-</p>
 </td>
 <td>
-    <p>-</p>
+    <p>Rp. @string.Format("{0:#,0}", @transaction.Credit),-</p>
 </td>
 <td>
-    <p>Topup</p>
+    <p>@transaction.Note</p>
 </td>
 <td>
-    <p>-</p>
+    <p>@transaction.OrderNumber</p>
 </td>
 <td>
-    <p>131-3456-78</p>
+    <p>@transaction.SourceId</p>
 </td>
 <td>
-    <p>11-4567-980</p>
+    <p>@transaction.TargetId</p>
 </td>
 <td>
-    <p>-</p>
+    <p>@transaction.TransactionRef</p>
 </td>
 <td>
-    <p>TP</p>
+    <p>@transaction.Type</p>
 </td>
 <td>
-    <p>John Doe</p>
+    <p>@transaction.UserName</p>
 </td>
 </tr>
 }
