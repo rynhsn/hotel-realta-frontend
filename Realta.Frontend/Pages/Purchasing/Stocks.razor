@@ -1,4 +1,6 @@
 ﻿@page "/purchasing/stocks"
+@using Realta.Domain.RequestFeatures
+@using Realta.Frontend.Components.Purchasing
 
 <TableSection Title="Stocks"
               Link="/purchasing"
@@ -15,6 +17,9 @@
       </div>
     </div>
   </CustomComponent>
+  <Topbar>
+        <TableToolbar Placeholder="Stock Name" OnSearchChanged="SearchChange" />
+  </Topbar>
   <Thead>
     <tr>
       <th class="min-width">
@@ -77,7 +82,7 @@
                       <a class="text-gray" data-bs-toggle="modal" data-bs-target="#editStock">Edit</a>
                     </li>
                     <li class="dropdown-item">
-                      <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#uploadFotoStock">Upload Foto</a>
+                      <a class="text-gray" data-bs-toggle="modal" data-bs-target="#uploadFotoStock[@so.StockId.Value]">Upload Foto</a>
                     </li>
                     <li class="dropdown-item">
                       <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#">Delete</a>
@@ -88,9 +93,15 @@
                   </ul>
                 </td>
               </tr>
+                @* // Upload Foto Modal *@
+                <ModalUploadFotoStock PhotoList="stocksPhotoList" Id="@so.StockId.Value" />    
+               
         }
     }
   </Tbody>
+  <Page>
+        <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+  </Page>
 </TableSection>
 
 @* // Update Modal *@
@@ -245,33 +256,6 @@
     </div>
 </div>
 
-@* // Upload Foto Modal *@
-<div class="warning-modal">
-    <div class="modal fade" id="uploadFotoStock" tabindex="-1" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <form class="modal-content card-style" action="" method="post">
-                <div class="modal-header px-0 border-0">
-                    <h5 class="text-bold">Stock : Bantal</h5>
-                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
-                        <i class="lni lni-cross-circle"></i>
-                    </button>
-                </div>
-                <div class="modal-body px-0">
-                    <div class="content mb-20">
-                            
-                    </div>
-                    <div class="action d-flex flex-wrap justify-content-end">
-                        <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
-                            Cancel
-                        </button>
-                        <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
-                            Send
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
 
 <DeleteModal Target="#delete"/>

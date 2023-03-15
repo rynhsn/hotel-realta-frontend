@@ -21,7 +21,6 @@ public partial class Paging
     private void CreatePaginationLinks()
     {
         _links = new List<PagingLink>();
-        _links.Add(new PagingLink(MetaData.CurrentPage - 1, MetaData.HasPrevious, "‹"));
 
         for (var i = 1; i <= MetaData.TotalPages; i++) {
             if (i >= MetaData.CurrentPage - Spread && i <= MetaData.CurrentPage + Spread) {
@@ -29,7 +28,7 @@ public partial class Paging
             }
         }
 
-        _links.Add(new PagingLink(MetaData.CurrentPage + 1, MetaData.HasNext, "›"));
+        _links.Add(new PagingLink(MetaData.CurrentPage + 1, MetaData.HasNext, "�"));
     }
 
     private async Task OnSelectedPage(PagingLink link)
