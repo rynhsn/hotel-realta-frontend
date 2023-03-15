@@ -1,154 +1,52 @@
 ﻿@page "/payments/accounts"
 
-<section class="table-components">
-    <div class="container-fluid">
-        <!-- ========== title-wrapper start ========== -->
-        <div class="title-wrapper pt-30">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="title mb-30">
-                        <h2>Account</h2>
-                    </div>
-                </div>
-                <!-- end col -->
-                <div class="col-md-6">
-                    <div class="breadcrumb-wrapper mb-30">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="#">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Accounts
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-                <!-- end col -->
-            </div>
-            <!-- end row -->
-        </div>
-        <!-- ========== title-wrapper end ========== -->
-
-        <!-- ========== tables-wrapper start ========== -->
-        <div class="tables-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card-style mb-30">
-                        <div class="dataTable-top">
-                            <div class="dataTable-dropdown mb-20">
-                                <h6 class="mb-10">Daftar Account</h6>
-                                <p class="text-sm">
-                                    Informasi tentang daftar account.
-                                </p>
-                            </div>
-                            <div class="dataTable-search">
-                                <input class="dataTable-input" placeholder="Search..." type="text">
-                            </div>
-                        </div>
-                        <div class="table-wrapper table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        <h6>Account Number</h6>
-                                    </th>
-                                    <th>
-                                        <h6>Payment</h6>
-                                    </th>
-                                    <th>
-                                        <h6>Saldo</h6>
-                                    </th>
-                                    <th>
-                                        <h6>Type</h6>
-                                    </th>
-                                    <th>
-                                        <h6>
-                                            <a href="#">Add +</a>
-                                        </h6>
-                                    </th>
-                                </tr>
-                                <!-- end table row-->
-                                </thead>
-                                <tbody>
-                                @foreach (var account in AccountList)
-                                {
-                                    <tr>
-                                        <td class="min-width">
-                                            <p>@account.Number</p>
-                                        </td>
-                                        <td>
-                                            <p>@account.CodeName</p>
-                                        </td>
-                                        <td>
-                                            <p>Rp. @string.Format("{0:#,0}", @account.Saldo),-</p>
-                                        </td>
-                                        <td class="min-width">
-                                            <p>@account.Type</p>
-                                        </td>
-                                        <td>
-                                            <ActionPopup/>
-                                        </td>
-                                    </tr>
-                                }
-                                <!-- end table row -->
-                                </tbody>
-                            </table>
-                            <!-- end table -->
-                        </div>
-                        <div class="dataTable-bottom">
-                            @* <div class="dataTable-info">Showing 1 to 10 of 100 entries</div> *@
-                            <div class="dataTable-dropdown">
-                                <label>
-                                    <select class="dataTable-selector">
-                                        <option value="5">5</option><option value="10" selected="">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option>
-                                    </select> entries per page
-                                </label>
-                            </div>
-                            <nav class="dataTable-pagination">
-                                <ul class="dataTable-pagination-list">
-                                    <li class="active">
-                                        <a href="#" data-page="1">1</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" data-page="2">2</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" data-page="3">3</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" data-page="4">4</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" data-page="5">5</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" data-page="6">6</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" data-page="7">7</a>
-                                    </li>
-                                    <li class="ellipsis">
-                                        <a href="#">…</a>
-                                    </li>
-                                    <li class="">
-                                        <a href="#" data-page="10">10</a>
-                                    </li>
-                                    <li class="pager">
-                                        <a href="#" data-page="2">›</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                    <!-- end card -->
-                </div>
-                <!-- end col -->
-            </div>
-            <!-- end row -->
-        </div>
-        <!-- ========== tables-wrapper end ========== -->
-    </div>
-    <!-- end container -->
-</section>
+<TableSection Title="Account"
+              Link="/payments/accounts"
+              LinkText="Payment">
+    <CustomComponent>
+    </CustomComponent>
+    <Thead>
+    <tr>
+        <th>
+            <h6>Account Number</h6>
+        </th>
+        <th>
+            <h6>Payment</h6>
+        </th>
+        <th>
+            <h6>Saldo</h6>
+        </th>
+        <th>
+            <h6>Type</h6>
+        </th>
+        <th>
+            <h6>
+                <a href="#">Add +</a>
+            </h6>
+        </th>
+    </tr>
+    <!-- end table row-->
+    </Thead>
+    <Tbody>
+    @foreach (var account in AccountList)
+    {
+        <tr>
+            <td class="min-width">
+                <p>@account.Number</p>
+            </td>
+            <td>
+                <p>@account.CodeName</p>
+            </td>
+            <td>
+                <p>Rp. @string.Format("{0:#,0}", @account.Saldo),-</p>
+            </td>
+            <td class="min-width">
+                <p>@account.Type</p>
+            </td>
+            <td>
+                <ActionPopup/>
+            </td>
+        </tr>
+    }
+    </Tbody>
+</TableSection>
