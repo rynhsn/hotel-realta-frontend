@@ -248,13 +248,13 @@
           <div class="row">
             <label for="poNumber" class="col-form-label col-5">PO Number</label>
             <div class="col">
-              <input type="text" class="form-control-plaintext" readonly id="poNumber" value="PoNumber">
+              <input type="text" class="form-control-plaintext" readonly id="poNumber" value="@Header.PoheNumber">
             </div>
           </div>
           <div class="row">
             <label for="poDate" class="col-form-label col-5">PO Date</label>
             <div class="col">
-              <input type="text" class="form-control-plaintext" readonly id="poDate" value="Tanggal">
+              <input type="text" class="form-control-plaintext" readonly id="poDate" value="@Header.PoheOrderDate.ToString("dd/MM/yyyy")">
             </div>
           </div>
         </div>
@@ -262,13 +262,13 @@
           <div class="row">
             <label for="vendor" class="col-form-label col-4">Vendor</label>
             <div class="col">
-              <input type="text" class="form-control-plaintext" readonly id="vendor" value="VendorTarget">
+              <input type="text" class="form-control-plaintext" readonly id="vendor" value="@Header.VendorName">
             </div>
           </div>
           <div class="row">
             <label class="col-form-label col-4">Status</label>
             <div class="col">
-              <span class="status-btn success-btn">Status</span>
+              <span class="status-btn @GetStatus(@Header.PoheStatus).Item1">@GetStatus(@Header.PoheStatus).Item2</span>
             </div>
           </div>
         </div>
@@ -276,17 +276,19 @@
           <div class="row">
             <label for="subTotal" class="col-form-label col-5">Sub total</label>
             <div class="col">
-              <input type="text" class="form-control-plaintext" readonly id="subTotal" value="IDR TotalAmount">
+              <input type="text" class="form-control-plaintext" readonly id="subTotal" value="@(((decimal)Header.PoheSubtotal).ToString("C", new CultureInfo("id-ID")))">
             </div>
           </div>
           <div class="row">
             <label for="totalAmount" class="col-form-label col-5">Total amount</label>
             <div class="col">
-              <input type="text" class="form-control-plaintext" readonly id="totalAmount" value="IDR TotalAmount">
+              <input type="text" class="form-control-plaintext" readonly id="totalAmount" value="@(((decimal)Header.PoheTotalAmount).ToString("C", new CultureInfo("id-ID")))">
             </div>
           </div>
         </div>
-        <span class="divider"><hr/></span>
+        <span class="divider">
+          <hr/>
+        </span>
       </div>
     </div>
   </CustomComponent>
@@ -302,7 +304,7 @@
         <h6>Stock Name</h6>
       </a>
     </th>
-    <th data-sortable class="@(_param.OrderBy switch { "PodeOrderQuantity desc" => "desc", "PodeOrderQuantity asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PodeOrderQuantity"))">
+    <th data-sortable class="@(_param.OrderBy switch { "PodeOrderQty desc" => "desc", "PodeOrderQty asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PodeOrderQty"))">
       <a class="dataTable-sorter">
         <h6>Qty</h6>
       </a>
@@ -312,12 +314,12 @@
         <h6>Price</h6>
       </a>
     </th>
-    <th data-sortable class="@(_param.OrderBy switch { "PodeReceivedQuantity desc" => "desc", "PodeReceivedQuantity asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PodeReceivedQuantity"))">
+    <th data-sortable class="@(_param.OrderBy switch { "PodeReceivedQty desc" => "desc", "PodeReceivedQty asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PodeReceivedQty"))">
       <a class="dataTable-sorter">
         <h6>Received</h6>
       </a>
     </th>
-    <th data-sortable class="@(_param.OrderBy switch { "PodeRejectedQuantity desc" => "desc", "PodeRejectedQuantity asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PodeRejectedQuantity"))">
+    <th data-sortable class="@(_param.OrderBy switch { "PodeRejectedQty desc" => "desc", "PodeRejectedQuantity asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PodeRejectedQty"))">
       <a class="dataTable-sorter">
         <h6>Rejected</h6>
       </a>
@@ -336,7 +338,7 @@
 
   @if (DataList != null)
   {
-    foreach (var item in DataList)
+    @foreach (var item in DataList)
     {
       <tr>
         <td>

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Realta.Contract.Models;
+using Realta.Domain.Entities;
 using Realta.Domain.RequestFeatures;
 using Realta.Frontend.HttpRepository.Purchasing;
 
@@ -15,8 +16,7 @@ public partial class ListOrder
     protected async override Task OnInitializedAsync()
     {
         // DataList = await Repo.Get();
-        Console.WriteLine(_param.OrderBy);
-        await GetPaging();
+        await Get();
     }
     
     private PurchaseOrderParameters _param = new();
@@ -25,10 +25,10 @@ public partial class ListOrder
     private async Task SelectedPage(int page)
     {
         _param.PageNumber = page;
-        await GetPaging();
+        await Get();
     }
     
-    private async Task GetPaging()
+    private async Task Get()
     {
         var response = await Repo.GetHeaders(_param);
         DataList = response.Items;
@@ -51,13 +51,13 @@ public partial class ListOrder
     {
         _param.PageNumber = 1;
         _param.Keyword = keyword;
-        await GetPaging();
+        await Get();
     }
     // private async Task SortChanged(string orderBy)
     // {
     //     Console.WriteLine(_param.OrderBy);
     //     _param.OrderBy = orderBy;
-    //     await GetPaging();
+    //     await Get();
     // }
     
     private string orderBy = ""; // menunjukkan kolom yang diurutkan
@@ -78,6 +78,6 @@ public partial class ListOrder
         }
     
         _param.OrderBy = orderBy + " " + sortOrder; // menambahkan urutan sortir baru ke parameter
-        await GetPaging();
+        await Get();
     }
 }
