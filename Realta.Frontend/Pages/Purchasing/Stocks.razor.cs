@@ -2,6 +2,7 @@
 using Realta.Contract.Models;
 using Realta.Domain.RequestFeatures;
 using Realta.Frontend.HttpRepository.Purchasing;
+using Realta.Frontend.Shared;
 
 namespace Realta.Frontend.Pages.Purchasing;
 
@@ -41,4 +42,20 @@ public partial class Stocks
         await GetPaging();
     }
 
+    private async Task applySort(ChangeEventArgs eventArgs)
+    {
+        _stocksParameters.OrderBy = eventArgs.Value.ToString();
+        await GetPaging();
+    }
+
+    public StocksDto _createStock { get; set; } = new StocksDto();
+
+    private SuccessNotification _notification;
+    private bool isDisabled = true;
+
+    private async Task Create()
+    {
+        await StocksHttpRepository.CreateStock(_createStock);
+        _notification.Show("/purchasing/stocks");
+    }
 }

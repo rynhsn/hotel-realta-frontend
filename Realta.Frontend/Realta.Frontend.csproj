@@ -53,7 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\RealtaHotelPurchasing\Realta.Contract\Realta.Contract.csproj" />
-    <ProjectReference Include="..\..\..\..\RealtaHotelPurchasing\Realta.Domain\Realta.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\RealtaHotelAPI\Realta.Contract\Realta.Contract.csproj" />
+    <ProjectReference Include="..\..\..\..\RealtaHotelAPI\Realta.Domain\Realta.Domain.csproj" />
   </ItemGroup>
 </Project>

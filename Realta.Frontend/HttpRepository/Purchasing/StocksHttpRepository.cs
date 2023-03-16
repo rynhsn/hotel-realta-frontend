@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.WebUtilities;
 using Realta.Contract.Models;
@@ -15,6 +16,20 @@ public class StocksHttpRepository : IStocksHttpRepository
     {
         _httpClient = httpClient;
         _options =  new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+    }
+
+    public async Task CreateStock(StocksDto stockCreateDto)
+    {
+        var content = JsonSerializer.Serialize(stockCreateDto);
+        var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+
+        var postResult = await _httpClient.PostAsync("stocks", bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(postContent);
+        }
     }
 
     public async Task<List<StocksDto>> GetStocks()
@@ -38,6 +53,7 @@ public class StocksHttpRepository : IStocksHttpRepository
         {
             ["pageNumber"] = stocksParameters.PageNumber.ToString(),
             ["searchTerm"] = stocksParameters.SearchTerm == null ? "" : stocksParameters.SearchTerm.ToString(),
+            ["orderBy"] = stocksParameters.OrderBy,
         };
 
         var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("stocks/pageList", queryStringParam));
@@ -59,7 +75,7 @@ public class StocksHttpRepository : IStocksHttpRepository
 
     public async Task<List<StockPhotoDto>> GetStocksPhoto(int stockId)
     {
-        // call api end point e.g : http://localhost:7068/api/stocks
+        // call api end point e.g : http://localhost:7068/api/stock_photo/{id}
         string url = "stock_photo" + stockId;
         var response = await _httpClient.GetAsync(url);
         var content = await response.Content.ReadAsStringAsync();

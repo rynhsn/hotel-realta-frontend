@@ -1,0 +1,82 @@
+﻿@* // Update Modal *@
+<div class="warning-modal">
+    <div class="modal fade" id="createStock" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <EditForm Model="_createStock" OnValidSubmit="Create">
+                <DataAnnotationsValidator />
+                <div class="modal-header px-0 border-0">
+                    <h5 class="text-bold">Edit Stock</h5>
+                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-0">
+                    <div class="content mb-20">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="input-style-1">
+                                    <label>Stock</label>
+                                    <InputText id="StockName" @bind-Value="_createStock.StockName" />
+                                    <ValidationMessage For="@( () => _createStock.StockName)" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-style-1">
+                                    <label>Re-Order Point</label>
+                                    <InputNumber id="StockReorderPoint" @bind-Value="_createStock.StockReorderPoint" />
+                                    <ValidationMessage For="@( () => _createStock.StockReorderPoint)" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="input-style-1">
+                                    <label>Quantity</label>
+                                    <InputNumber id="StockQuantity" @bind-Value="_createStock.StockQuantity" @bind-Disabled="isDisabled" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-style-1">
+                                    <label>Used</label>
+                                    <InputNumber id="StockUsed" @bind-Value="_createStock.StockUsed" @bind-Disabled="isDisabled" />
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="input-style-1">
+                                    <label>Scrap</label>
+                                    <InputNumber id="StockScrap" @bind-Value="_createStock.StockScrap" @bind-Disabled="isDisabled" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-style-1">
+                                    <label>Size</label>
+                                    <InputText id="StockSize" @bind-Value="_createStock.StockSize" />
+                                    <ValidationMessage For="@( () => _createStock.StockSize)" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-style-1">
+                                    <label>Color</label>
+                                    <InputText id="StockColor" @bind-Value="_createStock.StockColor" />
+                                    <ValidationMessage For="@( () => _createStock.StockColor)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="action d-flex flex-wrap justify-content-end">
+                        <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                            Cancel
+                        </button>
+                        <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+<SuccessNotification @ref="_notification" />

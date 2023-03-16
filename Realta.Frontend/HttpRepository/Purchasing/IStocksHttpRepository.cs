@@ -9,5 +9,6 @@ public interface IStocksHttpRepository
     Task<List<StocksDto>> GetStocks();
     Task<PagingResponse<StocksDto>> GetStocksPaging(StocksParameters stocksParameters);
     Task<List<StockPhotoDto>> GetStocksPhoto(int stockId);
+    Task CreateStock(StocksDto stockCreateDto);
 }
 
