@@ -69,26 +69,26 @@
 
   @if (DataList != null)
   {
-    foreach (var po in DataList)
+    foreach (var item in DataList)
     {
       <tr>
         <td>
-          <p>@po.PoheNumber</p>
+          <p>@item.PoheNumber</p>
         </td>
         <td>
-          <p>@po.PoheOrderDate.ToString("dd/MM/yyyy")</p>
+          <p>@item.PoheOrderDate.ToString("dd/MM/yyyy")</p>
         </td>
         <td>
-          <p>@po.VendorName</p>
+          <p>@item.VendorName</p>
         </td>
         <td>
-          <p>@po.LineItem Item(s)</p>
+          <p>@item.LineItem Item(s)</p>
         </td>
         <td>
-          <p>@(((decimal)po.PoheTotalAmount).ToString("C", new CultureInfo("id-ID")))</p>
+          <p>@(((decimal)item.PoheTotalAmount).ToString("C", new CultureInfo("id-ID")))</p>
         </td>
         <td>
-          <span class="status-btn @GetStatus(@po.PoheStatus).Item1">@GetStatus(@po.PoheStatus).Item2</span>
+          <span class="status-btn @GetStatus(@item.PoheStatus).Item1">@GetStatus(@item.PoheStatus).Item2</span>
         </td>
         <td>
           <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
@@ -96,13 +96,13 @@
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
             <li class="dropdown-item">
-              <a class="text-gray" href="/purchasing/list-order/@po.PoheNumber">Details</a>
+              <a class="text-gray" href="/purchasing/list-order/@item.PoheNumber">Details</a>
             </li>
             <li class="dropdown-item">
               <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#updateStatus">Switch Status</a>
             </li>
             <li class="dropdown-item">
-              <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete">Delete</a>
+              <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete@(item.PoheNumber)">Delete</a>
             </li>
           </ul>
         </td>
@@ -155,4 +155,38 @@
   </div>
 </div>
 
-<DeleteModal Target="#delete" id="" data-bs-target="" />
+@* <DeleteModal Target="#delete" id="" data-bs-target="" /> *@
+
+
+@foreach (var item in DataList)
+{
+  <!-- Seragam Modal Delete Vendor-->
+  <div class="warning-modal">
+    <div class="modal fade" id="@($"delete{item.PoheNumber}")" tabindex="-1" aria-hidden="true" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content card-style warning-card text-center">
+          <div class="modal-body">
+            <div class="icon text-danger mb-20">
+              <i class="lni lni-warning"></i>
+            </div>
+            <div class="content mb-30">
+              <h2 class="mb-15">Warning!</h2>
+              <h5> Purchase Order @item.PoheNumber will be deleted? </h5>
+              <p class="text-sm text-medium">
+                Data that has been deleted cannot be recovered
+              </p>
+            </div>
+            <div class="action d-flex flex-wrap justify-content-center">
+              <button data-bs-dismiss="modal" class="main-btn light-btn-outline rounded-full btn-hover m-1">
+                Cancel
+              </button>
+              <button data-bs-dismiss="modal" class="main-btn danger-btn rounded-full btn-hover m-1" @onclick="() => DeleteConfirmed(item.PoheNumber)">
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

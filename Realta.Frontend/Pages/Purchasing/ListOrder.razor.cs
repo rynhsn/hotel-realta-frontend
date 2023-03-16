@@ -1,27 +1,28 @@
 using Microsoft.AspNetCore.Components;
 using Realta.Contract.Models;
-using Realta.Domain.Entities;
 using Realta.Domain.RequestFeatures;
 using Realta.Frontend.HttpRepository.Purchasing;
+using Realta.Frontend.Shared;
 
 namespace Realta.Frontend.Pages.Purchasing;
 
 public partial class ListOrder
 {
-
-    [Inject]
-    public IPurchaseOrderHttpRepository Repo { get; set; }
+    [Inject] public IPurchaseOrderHttpRepository Repo { get; set; }
+    [Parameter] public EventCallback<int> OnDeleteConfirmed { get; set; }
+    [Parameter] public EventCallback<int> OnDeleted { get; set; }
+    private SuccessNotification _notif;
+    
     public List<PurchaseOrderDto> DataList { get; set; } = new();
+
+    private PurchaseOrderParameters _param = new();
+    public MetaData MetaData { get; set; } = new();
 
     protected async override Task OnInitializedAsync()
     {
         // DataList = await Repo.Get();
         await Get();
     }
-    
-    private PurchaseOrderParameters _param = new();
-    public MetaData MetaData { get; set; } = new();
-
     private async Task SelectedPage(int page)
     {
         _param.PageNumber = page;
@@ -35,6 +36,14 @@ public partial class ListOrder
         MetaData = response.MetaData;
     }
     
+    private async Task DeleteConfirmed(string id)
+    {
+        await Repo.DeleteHeader(id);
+        _param.PageNumber = 1;
+        _notif.Show("/purchasing/list-order");
+        await Get();;
+    }
+    
     public static (string, string) GetStatus(int status)
     {
         return status switch
@@ -46,23 +55,14 @@ public partial class ListOrder
             5 => ("dark-btn", "Complete")
         };
     }
-    
     private async Task SearchChanged(string keyword)
     {
         _param.PageNumber = 1;
         _param.Keyword = keyword;
         await Get();
     }
-    // private async Task SortChanged(string orderBy)
-    // {
-    //     Console.WriteLine(_param.OrderBy);
-    //     _param.OrderBy = orderBy;
-    //     await Get();
-    // }
-    
     private string orderBy = ""; // menunjukkan kolom yang diurutkan
     private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)
-    
     private async Task SortChanged(string columnName)
     {
         if (orderBy != columnName)

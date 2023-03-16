@@ -18,21 +18,7 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
         _httpClient = httpClient;
         _options =  new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
-    
-    public async Task Create(PurchaseOrderTransfer data)
-    {
-        var content = JsonSerializer.Serialize(data);
-        var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
-
-        var postResult = await _httpClient.PostAsync("PurchaseOrder", bodyContent);
-        var postContent = await postResult.Content.ReadAsStringAsync();
-
-        if (!postResult.IsSuccessStatusCode)
-        {
-            throw new ApplicationException(postContent);
-        }
-    }
-    
+   
     public async Task<PagingResponse<PurchaseOrderDto>> GetHeaders(PurchaseOrderParameters param)
     {
         var queryStringParam = new Dictionary<string, string>
@@ -58,7 +44,20 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
 
         return pagingResponse;
     }
-    
+    public async Task<PurchaseOrderDto> GetHeader(string po)
+    {
+        var response = await _httpClient.GetAsync($"purchaseorder/header/{po}");
+        var content = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+
+        var result = JsonSerializer.Deserialize<PurchaseOrderDto>(content, _options); //untuk inject filenya 
+
+        return result;
+    }
     public async Task<PagingResponse<PurchaseOrderDetailDto>> GetDetails(string po, PurchaseOrderDetailParameters param)
     {
         var queryStringParam = new Dictionary<string, string>
@@ -84,37 +83,30 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
 
         return pagingResponse;
     }
-    
-    public async Task<List<PurchaseOrderDto>> Get()
+    public async Task Create(PurchaseOrderTransfer data)
     {
-        var response = await _httpClient.GetAsync("purchaseorder");
-        var content = await response.Content.ReadAsStringAsync();
-        
-        if (!response.IsSuccessStatusCode)
+        var content = JsonSerializer.Serialize(data);
+        var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+
+        var postResult = await _httpClient.PostAsync("PurchaseOrder", bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
         {
-            throw new ApplicationException(content);
+            throw new ApplicationException(postContent);
         }
-
-        var result = JsonSerializer.Deserialize<List<PurchaseOrderDto>>(content, _options); //untuk inject filenya 
-
-        return result;
     }
-
-    public async Task<PurchaseOrderDto> GetHeader(string po)
+    public async Task DeleteHeader(string id)
     {
-        var response = await _httpClient.GetAsync($"purchaseorder/header/{po}");
-        var content = await response.Content.ReadAsStringAsync();
-        
-        if (!response.IsSuccessStatusCode)
+        var url = Path.Combine("purchaseoder", id);
+        var deleteResult = await _httpClient.DeleteAsync(url);
+        var deleteContent = await deleteResult.Content.ReadAsStringAsync();
+
+        if (!deleteResult.IsSuccessStatusCode)
         {
-            throw new ApplicationException(content);
+            throw new ApplicationException(deleteContent);
         }
-
-        var result = JsonSerializer.Deserialize<PurchaseOrderDto>(content, _options); //untuk inject filenya 
-
-        return result;
     }
-
 }
 
 

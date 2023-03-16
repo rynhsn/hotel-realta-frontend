@@ -7,9 +7,9 @@ namespace Realta.Frontend.HttpRepository.Purchasing;
 
 public interface IPurchaseOrderHttpRepository
 {
-    Task<List<PurchaseOrderDto>> Get();
     Task<PagingResponse<PurchaseOrderDto>> GetHeaders(PurchaseOrderParameters param);
     Task<PagingResponse<PurchaseOrderDetailDto>> GetDetails(string po, PurchaseOrderDetailParameters param);
     Task<PurchaseOrderDto> GetHeader(string po);
     Task Create(PurchaseOrderTransfer data);
+    Task DeleteHeader(string id);
 }
