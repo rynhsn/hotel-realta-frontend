@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
-using Realta.Contract.Models;
+﻿using HotelRealtaPayment.Contract.Models;
+using Microsoft.AspNetCore.Components;
 using Realta.Frontend.HttpRepository.Payment;
 
 namespace Realta.Frontend.Pages.Payment;

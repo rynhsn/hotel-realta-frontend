@@ -1,102 +1,107 @@
 ﻿@page "/payments/transactions"
+@using HotelRealtaPayment.Domain.RequestFeatures
+@using Realta.Frontend.Features
 
 <TableSection Title="Transaction"
               Link="/payments/transactions"
               LinkText="Payment">
-  <CustomComponent>
-    <div class="d-flex align-items-center">
-      <h6>Transaction Type :</h6>
-      <div class="select-style-1 mb-0 ml-10">
-        <div class="select-position">
-          <select class="p-0 pe-5 border-0">
-            <option value="" selected>All</option>
-            <option value="1">ORM</option>
-            <option value="2">TP</option>
-            <option value="3">TRB</option>
-            <option value="3">RF</option>
-            <option value="3">RPY</option>
-          </select>
+    <CustomComponent>
+        <div class="d-flex align-items-center">
+            <h6>Transaction Type :</h6>
+            <div class="select-style-1 mb-0 ml-10">
+                <div class="select-position">
+                    <select class="p-0 pe-5 border-0">
+                        <option value="" selected>All</option>
+                        <option value="1">ORM</option>
+                        <option value="2">TP</option>
+                        <option value="3">TRB</option>
+                        <option value="3">RF</option>
+                        <option value="3">RPY</option>
+                    </select>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </CustomComponent>
-  <Thead>
+    </CustomComponent>
+    <Thead>
     <tr>
-     <th>
-         <h6>Transaction No</h6>
-     </th>
-     <th>
-         <h6>Date</h6>
-     </th>
-     <th>
-         <h6>Debet</h6>
-     </th>
-     <th>
-         <h6>Credit</h6>
-     </th>
-     <th>
-         <h6>Note</h6>
-     </th>
-     <th>
-         <h6>Order Number</h6>
-     </th>
-     <th>
-         <h6>Source</h6>
-     </th>
-     <th>
-         <h6>Target</h6>
-     </th>
-     <th>
-         <h6>Transaction Ref</h6>
-     </th>
-     <th>
-         <h6>Type</h6>
-     </th>
-     <th>
-         <h6>User</h6>
-     </th>
- </tr>
- <!-- end table row-->
-  </Thead>
-  <Tbody>
+        <th>
+            <h6>Transaction No</h6>
+        </th>
+        <th>
+            <h6>Date</h6>
+        </th>
+        <th>
+            <h6>Debet</h6>
+        </th>
+        <th>
+            <h6>Credit</h6>
+        </th>
+        <th>
+            <h6>Note</h6>
+        </th>
+        <th>
+            <h6>Order Number</h6>
+        </th>
+        <th>
+            <h6>Source</h6>
+        </th>
+        <th>
+            <h6>Target</h6>
+        </th>
+        <th>
+            <h6>Transaction Ref</h6>
+        </th>
+        <th>
+            <h6>Type</h6>
+        </th>
+        <th>
+            <h6>User</h6>
+        </th>
+    </tr>
+    <!-- end table row-->
+    </Thead>
+    <Tbody>
 
-@foreach (var transaction in TransactionList)
-{
-<tr>
-<td>
-    <p>@transaction.TransactionNumber</p>
-</td>
-<td>
-    <p>@transaction.ModifiedDate.ToString("yyyy MMMM dd")</p>
-</td>
-<td>
-    <p>Rp. @string.Format("{0:#,0}", @transaction.Debet),-</p>
-</td>
-<td>
-    <p>Rp. @string.Format("{0:#,0}", @transaction.Credit),-</p>
-</td>
-<td>
-    <p>@transaction.Note</p>
-</td>
-<td>
-    <p>@transaction.OrderNumber</p>
-</td>
-<td>
-    <p>@transaction.SourceId</p>
-</td>
-<td>
-    <p>@transaction.TargetId</p>
-</td>
-<td>
-    <p>@transaction.TransactionRef</p>
-</td>
-<td>
-    <p>@transaction.Type</p>
-</td>
-<td>
-    <p>@transaction.UserName</p>
-</td>
-</tr>
-}
-  </Tbody>
+    @foreach (var transaction in TransactionList)
+    {
+        <tr>
+            <td>
+                <p>@transaction.TransactionNumber</p>
+            </td>
+            <td>
+                <p>@transaction.ModifiedDate.ToString("yyyy MMMM dd")</p>
+            </td>
+            <td>
+                <p>Rp. @string.Format("{0:#,0}", @transaction.Debet),-</p>
+            </td>
+            <td>
+                <p>Rp. @string.Format("{0:#,0}", @transaction.Credit),-</p>
+            </td>
+            <td>
+                <p>@transaction.Note</p>
+            </td>
+            <td>
+                <p>@transaction.OrderNumber</p>
+            </td>
+            <td>
+                <p>@transaction.SourceId</p>
+            </td>
+            <td>
+                <p>@transaction.TargetId</p>
+            </td>
+            <td>
+                <p>@transaction.TransactionRef</p>
+            </td>
+            <td>
+                <p>@transaction.Type</p>
+            </td>
+            <td>
+                <p>@transaction.UserName</p>
+            </td>
+        </tr>
+    }
+    </Tbody>
+    <Page>
+        <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+    </Page>
 </TableSection>

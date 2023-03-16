@@ -1,37 +1,13 @@
 <div class="dataTable-bottom">
-  <div class="dataTable-info">Showing 1 to 10 of 100 entries</div>
+  <div class="dataTable-info">Showing 1 to @MetaData.PageSize of @MetaData.TotalCount entries</div>
   <nav class="dataTable-pagination">
     <ul class="dataTable-pagination-list">
-      <li class="active">
-        <a href="#" data-page="1">1</a>
-      </li>
-      <li class="">
-        <a href="#" data-page="2">2</a>
-      </li>
-      <li class="">
-        <a href="#" data-page="3">3</a>
-      </li>
-      <li class="">
-        <a href="#" data-page="4">4</a>
-      </li>
-      <li class="">
-        <a href="#" data-page="5">5</a>
-      </li>
-      <li class="">
-        <a href="#" data-page="6">6</a>
-      </li>
-      <li class="">
-        <a href="#" data-page="7">7</a>
-      </li>
-      <li class="ellipsis">
-        <a href="#">…</a>
-      </li>
-      <li class="">
-        <a href="#" data-page="10">10</a>
-      </li>
-      <li class="pager">
-        <a href="#" data-page="2">›</a>
-      </li>
+      @foreach (var link in _links)
+      {
+        <li @onclick="() => OnSelectedPage(link)" class="@(link.Active ? "active" : null) @(link.Enabled ? "visible" : "invisible")">
+          <a class="page-link">@link.Text</a>
+        </li>
+      }
     </ul>
   </nav>
 </div>

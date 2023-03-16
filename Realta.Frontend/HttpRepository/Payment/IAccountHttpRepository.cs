@@ -1,4 +1,4 @@
-﻿using Realta.Contract.Models;
+﻿using HotelRealtaPayment.Contract.Models;
 
 namespace Realta.Frontend.HttpRepository.Payment;
 

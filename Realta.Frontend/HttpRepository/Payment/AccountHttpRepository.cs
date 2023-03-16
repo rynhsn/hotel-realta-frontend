@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
-using Realta.Contract.Models;
+using HotelRealtaPayment.Contract.Models;
+using HotelRealtaPayment.Contract.Models.FrontEnd;
 
 namespace Realta.Frontend.HttpRepository.Payment;
 
