@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Realta.Contract.Models;
 using Realta.Domain.RequestFeatures;
+using Realta.Frontend.Components;
 using Realta.Frontend.HttpRepository.Purchasing;
 using Realta.Frontend.Shared;
 
@@ -9,10 +10,8 @@ namespace Realta.Frontend.Pages.Purchasing;
 public partial class ListOrder
 {
     [Inject] public IPurchaseOrderHttpRepository Repo { get; set; }
-    [Parameter] public EventCallback<int> OnDeleteConfirmed { get; set; }
-    [Parameter] public EventCallback<int> OnDeleted { get; set; }
     private SuccessNotification _notif;
-    
+    private DeleteModal _del;
     public List<PurchaseOrderDto> DataList { get; set; } = new();
 
     private PurchaseOrderParameters _param = new();
@@ -23,12 +22,7 @@ public partial class ListOrder
         // DataList = await Repo.Get();
         await Get();
     }
-    private async Task SelectedPage(int page)
-    {
-        _param.PageNumber = page;
-        await Get();
-    }
-    
+
     private async Task Get()
     {
         var response = await Repo.GetHeaders(_param);
@@ -36,12 +30,21 @@ public partial class ListOrder
         MetaData = response.MetaData;
     }
     
-    private async Task DeleteConfirmed(string id)
+    
+    private async Task OnDelete(string id)
     {
+        _del.Show(id, $"Purchase Order {id} will be deleted!");
+        Console.WriteLine("ini liat" + OnDeleteConfirmed);
+        await Task.Delay(100);
+    }
+
+    private async Task OnDeleteConfirmed(string id)
+    {
+        _del.Hide();
         await Repo.DeleteHeader(id);
         _param.PageNumber = 1;
         _notif.Show("/purchasing/list-order");
-        await Get();;
+        await Get();
     }
     
     public static (string, string) GetStatus(int status)
@@ -54,6 +57,11 @@ public partial class ListOrder
             4 => ("secondary-btn", "Receive"),
             5 => ("dark-btn", "Complete")
         };
+    }
+    private async Task SelectedPage(int page)
+    {
+        _param.PageNumber = page;
+        await Get();
     }
     private async Task SearchChanged(string keyword)
     {

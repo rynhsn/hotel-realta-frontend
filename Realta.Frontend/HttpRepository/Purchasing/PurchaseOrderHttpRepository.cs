@@ -98,7 +98,7 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
     }
     public async Task DeleteHeader(string id)
     {
-        var url = Path.Combine("purchaseoder", id);
+        var url = Path.Combine("PurchaseOrder", id);
         var deleteResult = await _httpClient.DeleteAsync(url);
         var deleteContent = await deleteResult.Content.ReadAsStringAsync();
 

@@ -47,35 +47,6 @@ public partial class ListOrderDetail
     
     private string orderBy = ""; // menunjukkan kolom yang diurutkan
     private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)
-    
-    //sort sisi client
-    // private async Task SortChanged(string columnName)
-    // {
-    //     if (orderBy != columnName)
-    //     {
-    //         // kolom baru yang di klik, urutan sortir diatur ulang ke ascending
-    //         orderBy = columnName;
-    //         sortOrder = "asc";
-    //     }
-    //     else
-    //     {
-    //         // kolom yang sama yang di klik, urutan sortir diubah antara ascending dan descending
-    //         sortOrder = sortOrder == "asc" ? "desc" : "asc";
-    //     }
-    //
-    //     if (sortOrder == "asc")
-    //     {
-    //         DataList = DataList.OrderBy(x => x.GetType().GetProperty(columnName).GetValue(x)).ToList();
-    //     }
-    //     else
-    //     {
-    //         DataList = DataList.OrderByDescending(x => x.GetType().GetProperty(columnName).GetValue(x)).ToList();
-    //     }
-    //
-    //     // menampilkan ulang data yang sudah diurutkan pada tampilan Razor
-    //     StateHasChanged();
-    // }
-    
     private async Task SortChanged(string columnName)
     {
         if (orderBy != columnName)
@@ -106,16 +77,3 @@ public partial class ListOrderDetail
         };
     }
 } 
-
-// public class PurchaseOrderDetail
-// {
-//     public int PodeId { get; set; }
-//     public int PodePoheId { get; set; }
-//     public string? StockName { get; set; }
-//     public int Qty { get; set; }
-//     public decimal Price { get; set; }
-//     public int Received { get; set; }
-//     public int Rejected { get; set; }
-//
-//     public decimal Total => Qty * Price;
-// }

@@ -102,7 +102,9 @@
               <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#updateStatus">Switch Status</a>
             </li>
             <li class="dropdown-item">
-              <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete@(item.PoheNumber)">Delete</a>
+              @* <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete@(item.PoheNumber)">Delete</a> *@
+              @* <a class="text-danger" href="#" @onclick="() => OnDelete(item.PoheNumber))">Delete modal</a>  *@
+              <button @onclick="() => OnDelete(item.PoheNumber)">Hapus ini anjing</button>
             </li>
           </ul>
         </td>
@@ -155,8 +157,8 @@
   </div>
 </div>
 
-@* <DeleteModal Target="#delete" id="" data-bs-target="" /> *@
-
+<DeleteModal @ref="_del" OnDeletedData="OnDeleteConfirmed"></DeleteModal>
+<SuccessNotification @ref="_notif"></SuccessNotification>
 
 @foreach (var item in DataList)
 {
