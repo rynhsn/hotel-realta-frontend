@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Frontend", "Realta.Frontend\Realta.Frontend.csproj", "{56875969-C411-439B-B7AD-91FD326C3B85}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Contract", "..\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj", "{9ADC2257-8A88-47CA-ADEE-DE710AE71022}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Domain", "..\HotelRealtaAPI\Realta.Domain\Realta.Domain.csproj", "{932C39E2-1808-49DA-8556-2F107F61D087}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Frontend", "Realta.Frontend\Realta.Frontend.csproj", "{2EAC7796-FDE6-442A-B6B0-79563AD92ABB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,10 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{56875969-C411-439B-B7AD-91FD326C3B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56875969-C411-439B-B7AD-91FD326C3B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56875969-C411-439B-B7AD-91FD326C3B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56875969-C411-439B-B7AD-91FD326C3B85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ADC2257-8A88-47CA-ADEE-DE710AE71022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ADC2257-8A88-47CA-ADEE-DE710AE71022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ADC2257-8A88-47CA-ADEE-DE710AE71022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ADC2257-8A88-47CA-ADEE-DE710AE71022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{932C39E2-1808-49DA-8556-2F107F61D087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{932C39E2-1808-49DA-8556-2F107F61D087}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{932C39E2-1808-49DA-8556-2F107F61D087}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{932C39E2-1808-49DA-8556-2F107F61D087}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EAC7796-FDE6-442A-B6B0-79563AD92ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EAC7796-FDE6-442A-B6B0-79563AD92ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EAC7796-FDE6-442A-B6B0-79563AD92ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EAC7796-FDE6-442A-B6B0-79563AD92ABB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

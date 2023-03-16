@@ -22,12 +22,10 @@ namespace Realta.Frontend.HttpRepository.Purchasing
         {
             var response = await _httpClient.GetAsync("vendor");
             var content = await response.Content.ReadAsStringAsync();
-
             if (!response.IsSuccessStatusCode)
             {
                 throw new ApplicationException(content);
             }
-
             var vendors = JsonSerializer.Deserialize<List<VendorDto>>(content, _options); //untuk inject filenya 
 
             return vendors;
@@ -41,8 +39,6 @@ namespace Realta.Frontend.HttpRepository.Purchasing
                 ["Keyword"] = vendorsParameters.Keyword == null ? "" : vendorsParameters.Keyword,
                 ["orderBy"] = vendorsParameters.OrderBy
             };
-
-
             var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("vendor/paging",queryStringParam));
             var content = await response.Content.ReadAsStringAsync();
 
@@ -63,7 +59,6 @@ namespace Realta.Frontend.HttpRepository.Purchasing
         public async Task DeleteVendor(int id)
         {
             var url = Path.Combine("vendor", id.ToString());
-
             var deleteResult = await _httpClient.DeleteAsync(url);
             var deleteContent = await deleteResult.Content.ReadAsStringAsync();
 

@@ -13,17 +13,21 @@ namespace Realta.Frontend.Pages.Purchasing
     {
         [Inject]
         public IVendorHttpRepository VendorRepo { get; set; }
-        public List<VendorDto> VendorList { get; set; } = new List<VendorDto>();
-        //protected async override Task OnInitializedAsync()
-        //{
-        //    VendorList = await VendorRepo.GetVendors();
-        //}        
+        private VendorParameters _vendorParameters = new VendorParameters();
+        
         [Parameter]
         public EventCallback<int> OnDeleteConfirmed { get; set; }
-        
-        private VendorParameters _vendorParameters = new VendorParameters();
         public List<VendorDto> VendorListPaging { get; set; } = new List<VendorDto>();
         public MetaData MetaData { get; set; } = new MetaData();
+        private string orderBy = ""; // menunjukkan kolom yang diurutkan
+        private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)
+        private VendorDto _vendor = new VendorDto();
+        private SuccessNotification _notification;
+        [Inject]
+        public IJSRuntime JS { get; set; }
+        [Parameter]
+        public EventCallback<int> OnDeleted { get; set; }
+        
         protected async override Task OnInitializedAsync()
         {
             await GetVendorPaging();
@@ -39,44 +43,45 @@ namespace Realta.Frontend.Pages.Purchasing
             _vendorParameters.PageNumber = page;
             await GetVendorPaging();
         }
-        private async Task SearchChange(string keyword)
+        
+        private async Task SearchChanged(string keyword)
         {
-            Console.WriteLine(keyword);
             _vendorParameters.PageNumber = 1;
             _vendorParameters.Keyword = keyword;
             await GetVendorPaging();
         }
-        private async Task SortChanged(string orderBy)
+        
+        private async Task SortChanged(string columnName)
         {
-            _vendorParameters.OrderBy = orderBy;
+            if (orderBy != columnName)
+            {
+                orderBy = columnName;
+                sortOrder = "asc";
+            }
+            else
+            {
+                sortOrder = sortOrder == "asc" ? "desc" : "asc";
+            }
+            _vendorParameters.OrderBy = orderBy + " " + sortOrder;
             await GetVendorPaging();
         }
         
-        private VendorDto _vendor = new VendorDto();
-        private SuccessNotification _notification;
         private async Task Create()
         {
             await VendorRepo.CreateVendor(_vendor);
+            _notification.Show("/purchasing/vendor");
+            await GetVendorPaging();;
         }
-
-        [Inject]
-        public IJSRuntime JS { get; set; }
-        [Parameter]
-        public EventCallback<int> OnDeleted { get; set; }
         private async Task DeleteConfirmed(int id)
         {
             await VendorRepo.DeleteVendor(id);
             _vendorParameters.PageNumber = 1;
+            _notification.Show("/purchasing/vendor");
             await GetVendorPaging();;
-            
             // await OnDeleted.InvokeAsync(id);
             // await ShowSuccessModal();
         }
-        
-        private async Task ShowSuccessModal()
-        {
-            await JS.InvokeAsync<object>("$('#successModal').modal('show');");
-        }
+     
 
 }
 }

@@ -52,20 +52,12 @@
     <_ContentIncludedByDefault Remove="wwwroot\js\world-merc.js" />
   </ItemGroup>
 
-<<<<<<< HEAD
-    <ItemGroup>
-      <ProjectReference Include="..\..\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj" />
-      <ProjectReference Include="..\..\HotelRealtaAPI\Realta.Domain\Realta.Domain.csproj" />
-      <ProjectReference Include="..\..\RealtaAPI\Realta.Contract\Realta.Contract.csproj" />
-      <ProjectReference Include="..\..\RealtaAPI\Realta.Domain\Realta.Domain.csproj" />
-    </ItemGroup>
-=======
   <ItemGroup>
     <ProjectReference Include="..\..\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj" />
     <ProjectReference Include="..\..\HotelRealtaAPI\Realta.Domain\Realta.Domain.csproj" />
   </ItemGroup>
->>>>>>> 352fd0d6fe945dcb561c910b1ddf4fd1496f4553
-  <ItemGroup>
+	
+  <!-- <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\_content\js\.DS_Store" />
     <_ContentIncludedByDefault Remove="wwwroot\_content\js\apexcharts.min.js" />
     <_ContentIncludedByDefault Remove="wwwroot\_content\js\bootstrap.bundle.min.js" />
@@ -98,7 +90,9 @@
     <_ContentIncludedByDefault Remove="wwwroot\js\world-merc.js" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\RealtaHotelPurchasing\Realta.Contract\Realta.Contract.csproj" />
+    <ProjectReference Include="..\..\..\..\RealtaHotelPurchasing\Realta.Domain\Realta.Domain.csproj" />
     <ProjectReference Include="..\..\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj" />
     <ProjectReference Include="..\..\HotelRealtaAPI\Realta.Domain\Realta.Domain.csproj" />
-  </ItemGroup>
+  </ItemGroup> -->
 </Project>
