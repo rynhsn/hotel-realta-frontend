@@ -13,20 +13,29 @@ public class SpofItem
     public ISpecialOfferHttpRepository SpecialOfferHttpRepository { get; set; }
     protected async  Task OnInitializedAsync()
     {
-        SpecialOffersList= await SpecialOfferHttpRepository.GetSpecialOffers();
+        SpecialOffersList = await SpecialOfferHttpRepository.GetSpecialOffers();
+        HotelsList= await HotelHttpRepository.GetHotels();
+        HotelsListById = await HotelHttpRepository.GetHotelsById();
     }
+    
+    public List<HotelsDto> HotelsListById { get; set; } = new List<HotelsDto>();
+    public List<HotelsDto> HotelsList { get; set; } = new List<HotelsDto>();
+    [Inject] 
+    public IHotelHttpRepository HotelHttpRepository { get; set; }
+    
+    public MetaData MetaData { get; set; } = new MetaData();
     
 }
 
 
 public class CartItem
 {
-    public RoomDesc? Room { get; set; }
+    public HotelParameters? Room { get; set; }
     public int Quantity { get; set; }
 
     public double Subtotal
     {
-        get { return (Room.RoomPrice * Quantity); }
+        get { return (double)(Room.FaciPrice * Quantity); }
     }
 }
 
@@ -40,10 +49,10 @@ public class Cart
     private List<CartItem> items = new List<CartItem>();
     
     // Add item to cart
-    public void AddItem(RoomDesc desc, int qty = 1)
+    public void AddItem(HotelParameters desc, int qty = 1)
     {
         // Check if item already exists in cart
-        var existingItem = items.FirstOrDefault(item => item.Room.RoomName == desc.RoomName);
+        var existingItem = items.FirstOrDefault(item => item.Room.FaciName == desc.FaciName);
 
         if (existingItem != null)
         {
@@ -63,7 +72,7 @@ public class Cart
     
     public void RemoveItem(string roomName)
     {
-        var itemToRemove = items.FirstOrDefault(item => item.Room.RoomName == roomName);
+        var itemToRemove = items.FirstOrDefault(item => item.Room.FaciName == roomName);
 
         if (itemToRemove != null)
         {
@@ -73,7 +82,7 @@ public class Cart
     
     public void UpdateQuantity(string roomName, int quantity)
     {
-        var itemToUpdate = items.FirstOrDefault(item => item.Room.RoomName == roomName);
+        var itemToUpdate = items.FirstOrDefault(item => item.Room.FaciName == roomName);
 
         if (itemToUpdate != null)
         {
@@ -101,7 +110,7 @@ public class Cart
     // Get total price of items in cart (excluding tax)
     public double TotalPriceExcludingTax
     {
-        get { return items.Sum(item => item.Room.RoomPrice * item.Quantity); }
+        get { return (double)items.Sum(item => item.Room.FaciPrice * item.Quantity); }
     }
     public double TaxAmount
     {

@@ -6,7 +6,7 @@ using Realta.Domain.RequestFeatures;
 
 namespace Realta.Frontend.Pages.Booking
 {
-    public partial class SpofPages
+    public partial class SpofPages 
     {
         private async Task SeacrhChange(string searchTerm)
         {

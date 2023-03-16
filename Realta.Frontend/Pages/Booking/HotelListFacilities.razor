@@ -108,30 +108,29 @@
     <div class="col-xl-7 col-lg-7">
         <div class="card-style-3 mb-30 mt-30">
             <div class="card-content mt-10">
-                @foreach (var hotel in hotelDesc)
-                {
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6">
-                            <h2 class="mb-0 mr-20">
-                                <a href="#0"> @hotel.HotelName </a>
-                            </h2>
-                            <h5 class="text-sm text-regular mt-0 mr-20"> @hotel.HotelLocation </h5>
-                            <p class="mt-15">
-                                <span class="badge danger-btn">@hotel.MemberStatus</span>
-                            </p>
-                            <h5 class="text-medium mt-20 mb-10">Description</h5>
-                            <p class="mt-0">
-                                @hotel.Description
-                            </p>
-                        </div>
-                        <div class="col-xl-6 col-lg-6">
-                            <li class="badge success-btn">
-                                <span class="mdi mdi-star-box">@hotel.RatingStar</span>
-                            </li>
-                            <p class="fw-bold" style="font-size: 12px;">(@hotel.TotalRating Ratings) @hotel.RatingDescription</p>
-                        </div>
-                    </div>
-                }
+                
+                    @* <div class="row"> *@
+                    @*     <div class="col-xl-6 col-lg-6"> *@
+                    @*         <h2 class="mb-0 mr-20"> *@
+                    @*             <a href="#0"> @Hotels.HotelName </a> *@
+                    @*         </h2> *@
+                    @*         <h5 class="text-sm text-regular mt-0 mr-20"> @Hotels.HotelAddress , @Hotels.HotelCity </h5> *@
+                    @*         <p class="mt-15"> *@
+                    @*             <span class="badge danger-btn">VIP</span> *@
+                    @*         </p> *@
+                    @*         <h5 class="text-medium mt-20 mb-10">Description</h5> *@
+                    @*         <p class="mt-0"> *@
+                    @*             @Hotels.HotelDescription *@
+                    @*         </p> *@
+                    @*     </div> *@
+                    @*     <div class="col-xl-6 col-lg-6"> *@
+                    @*         <li class="badge success-btn"> *@
+                    @*             <span class="mdi mdi-star-box">@Hotels.HotelRatingStar</span> *@
+                    @*         </li> *@
+                    @*         $1$ <p class="fw-bold" style="font-size: 12px;">(@hotel.TotalRating Ratings) @hotel.RatingDescription</p> #1# *@
+                    @*     </div> *@
+                    @* </div> *@
+                
             </div>
             <div class="card-style-3 mb-30 mt-20" style="max-width: 750px; height: 70px">
                 <div class="card-content mb-10" style="text-align: center;">
@@ -139,22 +138,22 @@
                 </div>
             </div>
             <!-- Perulangan Hotel Lain -->
-            @foreach (var room in rooms)
+            @foreach (var room in HotelsListById)
             {
                 <div class="row mt-30 mb-30">
                     <div class="card-body col-xl-5 col-lg-5">
-                        <h4 class="mt-10 ml-10">@room.RoomName</h4>
-                        <p class="mt-0 ml-10" style="font-size: 12px;">Kamar untuk @room.RoomCapacity orang</p>
+                        <h4 class="mt-10 ml-10">@room.FaciName</h4>
+                        <p class="mt-0 ml-10" style="font-size: 12px;">Kamar untuk @room.FaciMaxNumber orang</p>
                         <p class="mt-30 ml-10 mr-3 fw-bold" style="font-size: 12px">
-                            @room.RoomPrice.ToString("C0", new CultureInfo("id-ID"))<s class="ml-10 text-danger"> @room.RoomMaxPrice.ToString("C0", new CultureInfo("id-ID"))</s>
+                            @room.FaciPrice<s class="ml-10 text-danger">@room.FaciPrice</s>
                         </p>
                     </div>
                     <div class="card-body col-xl-7 col-lg-7">
-                        <a href="@room.RoomPicLink" target="_blank">
-                            <img class="card-img-top" src="@room.RoomPicLink" alt="Room Picture">
+                        <a href="@room.FaciPhotoUrl" target="_blank">
+                            <img class="card-img-top" src="@room.FaciPhotoUrl" alt="Room Picture">
                         </a>
                         <div class="d-flex justify-content-end">
-                            <button class="main-btn primary-btn btn-hover mt-10 mr-60" @onclick="() => AddtoCart(room)" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart"> Add Room </button>
+                            <button class="main-btn primary-btn btn-hover mt-10 mr-60" @*@onclick="() => AddtoCart(HotelParameters)"*@ data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart"> Add Room </button>
                         </div>
                     </div>
                 </div>
@@ -265,8 +264,8 @@
                     @foreach (var item in Cart.Instance.getItems)
                     { 
                         <div class="d-flex justify-content-between">
-                            <h2 class="mb-20 mt-20">@item.Room.RoomName</h2>
-                            <button type="button" class="border-0 bg-transparent h6" @onclick="() => RemoveItem(item.Room.RoomName)">
+                            <h2 class="mb-20 mt-20">@item.Room.FaciName</h2>
+                            <button type="button" class="border-0 bg-transparent h6" @onclick="() => RemoveItem(item.Room.FaciName)">
                                 <i class="lni lni-trash-can text-danger"></i>
                             </button>
                         </div>
@@ -285,7 +284,7 @@
                         <div class="row">
                             <label for="price" class="card-text text-sm form-label text-muted col">Price</label>
                             <div class="col-7">
-                                <input type="text" name="price" id="price" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent" value="@item.Room.RoomPrice.ToString("C0", new CultureInfo("id-ID"))" readonly/>
+                                <input type="text" name="price" id="price" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent" value="@item.Room.FaciPrice" readonly/>
                             </div>
                         </div>
                         <div class="row">
@@ -302,46 +301,6 @@
                         </div>
                         <hr/>
                     }
-                    @* <div class="d-flex justify-content-end"> *@
-                    @*     <button type="button" class="main-btn primary-btn btn-hover mt-0 mb-20 mr-60" data-bs-toggle="modal" data-bs-target="#addCoupon">Get Coupons</button> *@
-                    @* </div> *@
-                    <!-- Pop up form -->
-
-                    @* <div class="warning-modal"> *@
-                    @*     <div class="modal fade" id="@($"addCoupon")" tabindex="-1" style="display: none;" aria-hidden="true"> *@
-                    @*         <div class="modal-dialog modal-dialog-centered"> *@
-                    @*             <form class="modal-content card-style" action="/update" method="post"> *@
-                    @*                 <div class="modal-header px-0 border-0"> *@
-                    @*                     <h5 class="text-bold">Choose Coupon</h5> *@
-                    @*                     <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal"> *@
-                    @*                         <i class="lni lni-cross-circle"></i> *@
-                    @*                     </button> *@
-                    @*                 </div> *@
-                    @*                 <div class="modal-body px-0"> *@
-                    @*                     @foreach (var specialoffers in SpecialOffersList ) *@
-                    @*                     { *@
-                    @*                         <div class="row mb-4"> *@
-                    @*                             <div class="col-12"> *@
-                    @*                                 <input type="checkbox" id="@specialoffers.SpofName" name="coupon" value="@specialoffers.SpofDiscount"> *@
-                    @*                                 <label for="@specialoffers.SpofName">@specialoffers.SpofName</label> *@
-                    @*                             </div> *@
-                    @*                         </div> *@
-                    @*                     } *@
-                    @*                 </div> *@
-                    @*                  *@
-                    @*                 <div class="action d-flex flex-wrap justify-content-end"> *@
-                    @*                     <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1"> *@
-                    @*                         Cancel *@
-                    @*                     </button> *@
-                    @*                     <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1" @onclick="() => {}"> *@
-                    @*                         Save *@
-                    @*                     </button> *@
-                    @*                 </div> *@
-                    @*                  *@
-                    @*             </form> *@
-                    @*         </div> *@
-                    @*     </div> *@
-                    @* </div> *@
 
                     <div class="row">
                         <div class="col-5">
@@ -379,6 +338,12 @@
 
 @code
 {
+    public HotelsDto Hotels { get; set; } = new HotelsDto();
+
+    public List<HotelsDto> HotelsListById { get; set; } = new List<HotelsDto>();
+    [Inject] 
+    public IHotelHttpRepository HotelHttpRepository { get; set; }
+    
     public List<SpecialOffersDto> SpecialOffersList { get; set; } = new List<SpecialOffersDto>();
     [Inject] 
     public ISpecialOfferHttpRepository SpecialOfferHttpRepository { get; set; }
@@ -386,6 +351,8 @@
     protected async override Task OnInitializedAsync()
     {
         SpecialOffersList= await SpecialOfferHttpRepository.GetSpecialOffers();
+        HotelsListById= await HotelHttpRepository.GetHotelsById();
+        Hotels = HotelsListById.FirstOrDefault();
     }
     
     private readonly List<RoomDesc> rooms = new()
@@ -431,7 +398,7 @@
     };
     
 
-    private void AddtoCart(RoomDesc desc)
+    private void AddtoCart(HotelParameters desc)
     {
         Cart.Instance.AddItem(desc);
         OpenCart();
@@ -445,7 +412,7 @@
             newQuantity = 1;
         }
 
-        if (item.Room != null) Cart.Instance.UpdateQuantity(item.Room.RoomName, newQuantity);
+        if (item.Room != null) Cart.Instance.UpdateQuantity(item.Room.FaciName, newQuantity);
 
         StateHasChanged();
     }
