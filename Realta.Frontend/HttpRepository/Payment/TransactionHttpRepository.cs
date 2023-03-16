@@ -32,13 +32,16 @@ public class TransactionHttpRepository : ITransactionHttpRepository
 
         return result.data["transactions"];
     }
-
+    
     public async Task<PagingResponse<TransactionDto>> GetTransactionPaging(TransactionParameters transactionParameters)
     {
         var queryStringParam = new Dictionary<string, string>
         {
             ["pageNumber"] = transactionParameters.PageNumber.ToString(),
-            ["searchTerm"] = transactionParameters.SearchTerm
+            ["searchTerm"] = transactionParameters.SearchTerm,
+            ["orderBy"] = transactionParameters.OrderBy,
+            ["pageSize"] = transactionParameters.PageSize.ToString(),
+            ["type"] = transactionParameters.Type
         };
 
 

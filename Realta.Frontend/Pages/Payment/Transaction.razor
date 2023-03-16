@@ -1,93 +1,126 @@
 ﻿@page "/payments/transactions"
-@using HotelRealtaPayment.Domain.RequestFeatures
-@using Realta.Frontend.Features
 
 <TableSection Title="Transaction"
               Link="/payments/transactions"
               LinkText="Payment">
+
+    <CustomComponent>
+        <TableFilter Title="Type" OptionList="@TransactionType" OnFilterChanged="FilterTypeChanged"/>
+    </CustomComponent>
+
     <Topbar>
-         <TableToolbar Placeholder="Transaction Number" OnSearchChanged="SearchChanged"/>
-     </Topbar>
+        <TableToolbar Placeholder="Transaction Number" OnSearchChanged="SearchChanged" OnPageSizeChanged="PageSizeChanged"/>
+    </Topbar>
+
     <Thead>
     <tr>
-        <th>
-            <h6>Transaction No</h6>
+        <th data-sortable class="@(_param.OrderBy switch { "PatrTrxNumber desc" => "desc", "PatrTrxNumber asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrTrxNumber"))">
+            <a class="dataTable-sorter">
+                <h6>Transaction No</h6>
+            </a>
         </th>
-        <th>
-            <h6>Date</h6>
+        <th data-sortable class="@(_param.OrderBy switch { "PatrModifiedDate desc" => "desc", "PatrModifiedDate asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrModifiedDate"))">
+            <a class="dataTable-sorter">
+                <h6>Date</h6>
+            </a>
         </th>
-        <th>
-            <h6>Debet</h6>
+        <th data-sortable class="@(_param.OrderBy switch { "PatrDebet desc" => "desc", "PatrDebet asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrDebet"))">
+            <a class="dataTable-sorter">
+                <h6>Debet</h6>
+            </a>
         </th>
-        <th>
-            <h6>Credit</h6>
+        <th data-sortable class="@(_param.OrderBy switch { "PatrCredit desc" => "desc", "PatrCredit asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrCredit"))">
+            <a class="dataTable-sorter">
+                <h6>Credit</h6>
+            </a>
         </th>
-        <th>
-            <h6>Note</h6>
+        <th data-sortable class="@(_param.OrderBy switch { "PatrNote desc" => "desc", "PatrNote asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrNote"))">
+            <a class="dataTable-sorter">
+                <h6>Note</h6>
+            </a>
         </th>
-        <th>
-            <h6>Order Number</h6>
+        <th data-sortable class="@(_param.OrderBy switch { "PatrOrderNumber desc" => "desc", "PatrOrderNumber asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrOrderNumber"))">
+            <a class="dataTable-sorter">
+                <h6>Order Number</h6>
+            </a>
         </th>
-        <th>
-            <h6>Source</h6>
+        <th data-sortable class="@(_param.OrderBy switch { "PatrSourceId desc" => "desc", "PatrSourceId asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrSourceId"))">
+            <a class="dataTable-sorter">
+                <h6>Source</h6>
+            </a>
         </th>
-        <th>
-            <h6>Target</h6>
+        <th data-sortable class="@(_param.OrderBy switch { "PatrTargetId desc" => "desc", "PatrTargetId asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrTargetId"))">
+            <a class="dataTable-sorter">
+                <h6>Target</h6>
+            </a>
         </th>
-        <th>
-            <h6>Transaction Ref</h6>
+        <th data-sortable class="@(_param.OrderBy switch { "PatrTrxNumberRef desc" => "desc", "PatrTrxNumberRef asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrTrxNumberRef"))">
+            <a class="dataTable-sorter">
+                <h6>Transaction Ref</h6>
+            </a>
         </th>
-        <th>
-            <h6>Type</h6>
+        <th data-sortable class="@(_param.OrderBy switch { "PatrType desc" => "desc", "PatrType asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrType"))">
+            <a class="dataTable-sorter">
+                <h6>Type</h6>
+            </a>
         </th>
-        <th>
-            <h6>User</h6>
+        <th data-sortable class="@(_param.OrderBy switch { "UserFullName desc" => "desc", "UserFullName asc" => "asc", _ => ""})" onclick="@(() => SortChanged("UserFullName"))">
+            <a class="dataTable-sorter">
+                <h6>User</h6>
+            </a>
         </th>
     </tr>
     <!-- end table row-->
     </Thead>
     <Tbody>
-
-    @foreach (var transaction in TransactionList)
+    @if (TransactionList.Count > 0)
     {
-        <tr>
-            <td>
-                <p>@transaction.TransactionNumber</p>
-            </td>
-            <td>
-                <p>@transaction.ModifiedDate.ToString("yyyy MMMM dd")</p>
-            </td>
-            <td>
-                <p>Rp. @string.Format("{0:#,0}", @transaction.Debet),-</p>
-            </td>
-            <td>
-                <p>Rp. @string.Format("{0:#,0}", @transaction.Credit),-</p>
-            </td>
-            <td>
-                <p>@transaction.Note</p>
-            </td>
-            <td>
-                <p>@transaction.OrderNumber</p>
-            </td>
-            <td>
-                <p>@transaction.SourceId</p>
-            </td>
-            <td>
-                <p>@transaction.TargetId</p>
-            </td>
-            <td>
-                <p>@transaction.TransactionRef</p>
-            </td>
-            <td>
-                <p>@transaction.Type</p>
-            </td>
-            <td>
-                <p>@transaction.UserName</p>
-            </td>
-        </tr>
+        @foreach (var transaction in TransactionList)
+            {
+                <tr>
+                    <td>
+                        <p>@transaction.TransactionNumber</p>
+                    </td>
+                    <td>
+                        <p>@transaction.ModifiedDate.ToString("yyyy MMMM dd")</p>
+                    </td>
+                    <td>
+                        <p>Rp. @string.Format("{0:#,0}", @transaction.Debet),-</p>
+                    </td>
+                    <td>
+                        <p>Rp. @string.Format("{0:#,0}", @transaction.Credit),-</p>
+                    </td>
+                    <td>
+                        <p>@transaction.Note</p>
+                    </td>
+                    <td>
+                        <p>@transaction.OrderNumber</p>
+                    </td>
+                    <td>
+                        <p>@transaction.SourceId</p>
+                    </td>
+                    <td>
+                        <p>@transaction.TargetId</p>
+                    </td>
+                    <td>
+                        <p>@transaction.TransactionRef</p>
+                    </td>
+                    <td>
+                        <p>@transaction.Type</p>
+                    </td>
+                    <td>
+                        <p>@transaction.UserName</p>
+                    </td>
+                </tr>
+            }
     }
+    else
+    {
+        <tr><td colspan="10">No Data</td></tr>
+    }
+    
     </Tbody>
     <Page>
-        <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+        <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
     </Page>
 </TableSection>
