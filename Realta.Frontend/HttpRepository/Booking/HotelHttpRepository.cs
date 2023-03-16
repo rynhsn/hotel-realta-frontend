@@ -33,21 +33,23 @@ public class HotelHttpRepository : IHotelHttpRepository
         var result  = JsonSerializer.Deserialize<List<HotelsDto>>(content, _options);
         return result;
     }
-    
-    public async Task<List<HotelsDto>?> GetHotelsById()
-    {
-        //Call API endpoint, e.g : https://localhost:7068/api/Booking/
-        var response = await _client.GetAsync("Booking");
-        var content = await response.Content.ReadAsStringAsync();
 
+    public async Task<List<HotelsDto>> GetHotelsById(int id)
+    {
+        var url = Path.Combine("Booking", id.ToString());
+
+        var response = await _client.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
-            throw new InvalidOperationException(content);
+            throw new ApplicationException(content);
         }
-        
-        var result  = JsonSerializer.Deserialize<List<HotelsDto>>(content, _options);
-        return result;
+
+        var hotel = JsonSerializer.Deserialize<List<HotelsDto>>(content, _options);
+        return hotel;
     }
+    
+    
     
     public async Task<PagingResponse<HotelsDto>> GetHotelPaging(HotelParameters hotelParameters)
     {

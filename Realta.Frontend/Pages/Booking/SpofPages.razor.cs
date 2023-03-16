@@ -43,6 +43,12 @@ namespace Realta.Frontend.Pages.Booking
             _specialOfferParameters.PageNumber = page;
             await GetSpecialOfferPaging();
         }
+        
+        private async Task SortChanged(string orderBy )
+        {
+            _specialOfferParameters.OrderBy = orderBy;
+            await GetSpecialOfferPaging();
+        }
     }
     
 }

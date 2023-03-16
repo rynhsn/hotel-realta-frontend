@@ -1,4 +1,9 @@
-﻿<Router AppAssembly="@typeof(Program).Assembly">
+﻿@using System.Net;
+@using Microsoft.AspNetCore.Components.Routing
+@using System.Net.Http.Json
+@using System.Threading.Tasks
+@using Realta.Contract.Models;
+<Router AppAssembly="@typeof(Program).Assembly">
   <Found Context="routeData">
     <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
     @* <FocusOnNavigate RouteData="@routeData" Selector="h1"/> *@
@@ -10,3 +15,29 @@
     </LayoutView>
   </NotFound>
 </Router>
+@code {
+  [Inject]
+  public NavigationManager NavigationManager { get; set; }
+
+  [Inject]
+  public HttpClient Http { get; set; }
+
+  protected override void OnInitialized()
+  {
+    NavigationManager.LocationChanged += HandleLocationChanged;
+  }
+
+  private async void HandleLocationChanged(object sender, LocationChangedEventArgs args)
+  {
+    var uri = new Uri(args.Location, UriKind.Relative);
+    if (uri.Segments.Length >= 2 && uri.Segments[1] == "booking/")
+    {
+      var hotelId = uri.Segments[2].TrimEnd('/');
+      var endpoint = $"https://localhost:7068/api/booking/{hotelId}";
+  // call API using endpoint
+      var hotel = await Http.GetFromJsonAsync<HotelsDto>(endpoint);
+  // navigate to booking page with hotel id
+      NavigationManager.NavigateTo($"/booking/room/{hotel.HotelId}");
+    }
+  }
+}

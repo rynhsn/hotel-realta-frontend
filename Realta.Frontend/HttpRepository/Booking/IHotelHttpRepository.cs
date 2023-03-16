@@ -8,8 +8,10 @@ namespace Realta.Frontend.HttpRepository.Booking;
 public interface IHotelHttpRepository
 {
     Task<List<HotelsDto>?> GetHotels();
-    Task<List<HotelsDto>?> GetHotelsById();
+
+    Task<List<HotelsDto>> GetHotelsById(int id);
 
     Task<PagingResponse<HotelsDto>> GetHotelPaging(HotelParameters hotelParameters);
 
+    
 }

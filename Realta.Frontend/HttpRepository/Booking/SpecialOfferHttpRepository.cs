@@ -37,7 +37,9 @@ namespace Realta.Frontend.HttpRepository.Booking
             var queryStringParam = new Dictionary<string, string>
             {
                 ["pageNumber"] = specialOfferParameters.PageNumber.ToString(),
-                ["searchTerm"] = specialOfferParameters.SearchTerm == null ? "" : specialOfferParameters.SearchTerm
+                ["searchTerm"] = specialOfferParameters.SearchTerm == null ? "" : specialOfferParameters.SearchTerm,
+                ["orderBy"] = specialOfferParameters.OrderBy
+
             };
             var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("SpecialOffers/pageList", queryStringParam));
             var content = await response.Content.ReadAsStringAsync();

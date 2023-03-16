@@ -6,17 +6,19 @@ using Realta.Domain.RequestFeatures;
 
 namespace Realta.Frontend.Pages.Booking;
 
-public class HotelItem
+public partial class HotelList
 {
-    public List<HotelsDto> HotelsList { get; set; } = new List<HotelsDto>();
-    [Inject] 
-    public IHotelHttpRepository HotelHttpRepository { get; set; }
+    [Parameter]
+    public List<HotelsDto> HotelsList { get; set; }
     
-    protected async  Task OnInitializedAsync()
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+    private void RedirectId(int id)
     {
-        HotelsList= await HotelHttpRepository.GetHotels();
+        var pathUrl = Path.Combine("/booking/", id.ToString());
+        NavigationManager.NavigateTo(pathUrl);
     }
-    
-    public MetaData MetaData { get; set; } = new MetaData();
+
 
 }

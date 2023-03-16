@@ -2,148 +2,127 @@ using System.Collections;
 using Realta.Contract.Models;
 using Realta.Frontend.HttpRepository.Booking;
 using Microsoft.AspNetCore.Components;
+using Realta.Domain.Entities;
 using Realta.Domain.RequestFeatures;
 
 namespace Realta.Frontend.Pages.Booking;
 
-public class SpofItem
+public partial class HotelListFacilities
 {
-    public List<SpecialOffersDto> SpecialOffersList { get; set; } = new List<SpecialOffersDto>();
-    [Inject] 
-    public ISpecialOfferHttpRepository SpecialOfferHttpRepository { get; set; }
-    protected async  Task OnInitializedAsync()
+    [Parameter]
+    public int Id { get; set; }
+
+    public HotelParameters HotelParameters { get; set; }
+
+    public class RoomItem
     {
-        SpecialOffersList = await SpecialOfferHttpRepository.GetSpecialOffers();
-        HotelsList= await HotelHttpRepository.GetHotels();
-        HotelsListById = await HotelHttpRepository.GetHotelsById();
-    }
-    
-    public List<HotelsDto> HotelsListById { get; set; } = new List<HotelsDto>();
-    public List<HotelsDto> HotelsList { get; set; } = new List<HotelsDto>();
-    [Inject] 
-    public IHotelHttpRepository HotelHttpRepository { get; set; }
-    
-    public MetaData MetaData { get; set; } = new MetaData();
-    
-}
+        public HotelsDto? Room { get; set; }
+        public int Quantity { get; set; }
 
-
-public class CartItem
-{
-    public HotelParameters? Room { get; set; }
-    public int Quantity { get; set; }
-
-    public double Subtotal
-    {
-        get { return (double)(Room.FaciPrice * Quantity); }
-    }
-}
-
-public class Cart
-{
-    // Singleton instance
-    public static readonly Cart Instance = new Cart();
-    // Private constructor to prevent direct instantiation
-    private Cart() { }
-    // List of cart items
-    private List<CartItem> items = new List<CartItem>();
-    
-    // Add item to cart
-    public void AddItem(HotelParameters desc, int qty = 1)
-    {
-        // Check if item already exists in cart
-        var existingItem = items.FirstOrDefault(item => item.Room.FaciName == desc.FaciName);
-
-        if (existingItem != null)
+        public int NumberOfRoom
         {
-            // Item already exists, update the quantity
-            existingItem.Quantity += qty;
+            get { return this.Room.FaciMaxNumber; }
         }
-        else
+
+        public double Subtotal
         {
-            // Item doesn't exist yet, add it to the cart
-            items.Add(new CartItem
+            get { return (double)(Room.FaciPrice * Quantity); }
+        }
+    }
+
+    public class Cart
+    {
+        // Singleton instance
+        public static readonly Cart Instance = new Cart();
+        // Private constructor to prevent direct instantiation
+        private Cart() { }
+        // List of cart items
+        public List<RoomItem> items = new List<RoomItem>();
+
+ 
+        // Add item to cart
+        public void AddItem(HotelsDto desc, int qty = 1)
+        {
+            
+            // Check if item already exists in cart
+            var existingItem = items.FirstOrDefault(item => item.Room.FaciName == desc.FaciName);
+
+            if (existingItem != null)
             {
-                Room = desc,
-                Quantity = qty,
-            });
+                // Item already exists, update the quantity
+                existingItem.Quantity += qty;
+            }
+            else
+            {
+                // Item doesn't exist yet, add it to the cart
+                items.Add(new RoomItem
+                {
+                    Room = desc,
+                    Quantity = qty,
+                });
+            }
         }
-    }
-    
-    public void RemoveItem(string roomName)
-    {
-        var itemToRemove = items.FirstOrDefault(item => item.Room.FaciName == roomName);
-
-        if (itemToRemove != null)
+        public bool IsAddedToCart(HotelsDto desc)
         {
-            items.Remove(itemToRemove);
+            var item = Cart.Instance.items.FirstOrDefault(i => i.Room.FaciName == desc.FaciName);
+            return item != null;
         }
-    }
-    
-    public void UpdateQuantity(string roomName, int quantity)
-    {
-        var itemToUpdate = items.FirstOrDefault(item => item.Room.FaciName == roomName);
-
-        if (itemToUpdate != null)
+        
+        public void RemoveItem(string roomName)
         {
-            itemToUpdate.Quantity = quantity;
+            var itemToRemove = items.FirstOrDefault(item => item.Room.FaciName == roomName);
+
+            if (itemToRemove != null)
+            {
+                items.Remove(itemToRemove);
+            }
         }
-    }
+        
+        public void UpdateQuantity(string roomName, int quantity)
+        {
+            var itemToUpdate = items.FirstOrDefault(item => item.Room.FaciName == roomName);
 
-    // Clear all items from cart
-    public void Clear()
-    {
-        items.Clear();
+            if (itemToUpdate != null)
+            {
+                itemToUpdate.Quantity = quantity;
+            }
+        }
+
+        // Clear all items from cart
+        public void Clear()
+        {
+            items.Clear();
+        }
+        
+        //Get All items from cart
+        public IEnumerable<RoomItem> getItems
+        {
+            get { return items; }
+        }
+
+        public int TotalItems
+        {
+            get { return items.Sum(item => item.Quantity); }
+        }
+
+        // Get total price of items in cart (excluding tax)
+        public double TotalPriceExcludingTax
+        {
+            get { return (double)items.Sum(item => item.Room.FaciPrice * item.Quantity); }
+        }
+        public double TaxAmount
+        {
+            get { return TotalPriceExcludingTax * 0.1d; }
+        }
+
+        // Get total price of items in cart (including tax)
+        public double TotalPrice
+        {
+            get { return TotalPriceExcludingTax  /*+ TaxAmount*/; }
+        }
+        
     }
     
-    //Get All items from cart
-    public IEnumerable<CartItem> getItems
-    {
-        get { return items; }
-    }
-
-    public int TotalItems
-    {
-        get { return items.Sum(item => item.Quantity); }
-    }
-
-    // Get total price of items in cart (excluding tax)
-    public double TotalPriceExcludingTax
-    {
-        get { return (double)items.Sum(item => item.Room.FaciPrice * item.Quantity); }
-    }
-    public double TaxAmount
-    {
-        get { return TotalPriceExcludingTax * 0.1d; }
-    }
-
-    // Get total price of items in cart (including tax)
-    public double TotalPrice
-    {
-        get { return TotalPriceExcludingTax + TaxAmount; }
-    }
-    
-}
-public class RoomDesc
-{
-    public string? RoomName { get; set; }
-    public double RoomPrice { get; set; }
-    public double RoomMaxPrice { get; set; }
-    public int RoomCapacity { get; set; }
-    public string? RoomPicLink { get; set; }
-
-}
-
-public class HotelDesc
-{
-
-    public string? HotelName { get; set; }
-    public string? HotelLocation { get; set; }
-    public double RatingStar { get; set; }
-    public string? MemberStatus { get; set; }
-    public string? Description { get; set; }
-    public string? RatingDescription { get; set; }
-    public int TotalRating { get; set; }
 }
 
 
