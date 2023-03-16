@@ -1,0 +1,4 @@
+<section style="margin-bottom: 10px">
+    <input type="text" class="form-control" placeholder="Search By Name ..."
+           @bind-value="@Keyword" @bind-value:event="oninput" @onkeyup="async () => await OnSearchChanged.InvokeAsync(Keyword)" />
+</section>

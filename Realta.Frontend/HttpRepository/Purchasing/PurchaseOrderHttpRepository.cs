@@ -100,6 +100,21 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
         return result;
     }
 
+    public async Task<PurchaseOrderDto> GetHeader(string po)
+    {
+        var response = await _httpClient.GetAsync($"purchaseorder/header/{po}");
+        var content = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+
+        var result = JsonSerializer.Deserialize<PurchaseOrderDto>(content, _options); //untuk inject filenya 
+
+        return result;
+    }
+
 }
 
 

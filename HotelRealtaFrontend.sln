@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Frontend", "Realta.Frontend\Realta.Frontend.csproj", "{56875969-C411-439B-B7AD-91FD326C3B85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Contract", "..\RealtaHotelAPI\Realta.Contract\Realta.Contract.csproj", "{8AC99571-8603-4281-B01C-07158AA7B556}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Contract", "..\..\..\RealtaHotelAPI\Realta.Contract\Realta.Contract.csproj", "{08380D79-297D-4121-979B-EC8D670A3DBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Domain", "..\RealtaHotelAPI\Realta.Domain\Realta.Domain.csproj", "{81B72999-EF9C-4097-AA26-6AD34E599026}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Domain", "..\..\..\RealtaHotelAPI\Realta.Domain\Realta.Domain.csproj", "{0F92B384-A47A-4397-9096-66E8380D4474}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Frontend", "Realta.Frontend\Realta.Frontend.csproj", "{F6133D88-99F4-439F-A620-B505594A96DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{56875969-C411-439B-B7AD-91FD326C3B85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56875969-C411-439B-B7AD-91FD326C3B85}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56875969-C411-439B-B7AD-91FD326C3B85}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56875969-C411-439B-B7AD-91FD326C3B85}.Release|Any CPU.Build.0 = Release|Any CPU
-		{08380D79-297D-4121-979B-EC8D670A3DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{08380D79-297D-4121-979B-EC8D670A3DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{08380D79-297D-4121-979B-EC8D670A3DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{08380D79-297D-4121-979B-EC8D670A3DBA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F92B384-A47A-4397-9096-66E8380D4474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F92B384-A47A-4397-9096-66E8380D4474}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F92B384-A47A-4397-9096-66E8380D4474}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F92B384-A47A-4397-9096-66E8380D4474}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AC99571-8603-4281-B01C-07158AA7B556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AC99571-8603-4281-B01C-07158AA7B556}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AC99571-8603-4281-B01C-07158AA7B556}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AC99571-8603-4281-B01C-07158AA7B556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81B72999-EF9C-4097-AA26-6AD34E599026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81B72999-EF9C-4097-AA26-6AD34E599026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81B72999-EF9C-4097-AA26-6AD34E599026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81B72999-EF9C-4097-AA26-6AD34E599026}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6133D88-99F4-439F-A620-B505594A96DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6133D88-99F4-439F-A620-B505594A96DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6133D88-99F4-439F-A620-B505594A96DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6133D88-99F4-439F-A620-B505594A96DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
