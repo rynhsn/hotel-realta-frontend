@@ -12,4 +12,5 @@ public interface IPurchaseOrderHttpRepository
     Task<PurchaseOrderDto> GetHeader(string po);
     Task Create(PurchaseOrderTransfer data);
     Task DeleteHeader(string id);
+    Task DeleteDetail(int id);
 }

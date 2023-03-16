@@ -34,14 +34,13 @@ public partial class ListOrder
     private async Task OnDelete(string id)
     {
         _del.Show(id, $"Purchase Order {id} will be deleted!");
-        Console.WriteLine("ini liat" + OnDeleteConfirmed);
         await Task.Delay(100);
     }
 
-    private async Task OnDeleteConfirmed(string id)
+    private async Task OnDeleteConfirmed(object id)
     {
         _del.Hide();
-        await Repo.DeleteHeader(id);
+        await Repo.DeleteHeader(id.ToString());
         _param.PageNumber = 1;
         _notif.Show("/purchasing/list-order");
         await Get();

@@ -13,10 +13,10 @@
             </p>
           </div>
           <div class="action d-flex flex-wrap justify-content-center">
-            <button @onclick="Hide" class="main-btn light-btn-outline rounded-full btn-hover m-1">
+            <button @onclick="() => Hide()" class="main-btn light-btn-outline rounded-full btn-hover m-1">
               Cancel
             </button>
-            <button @onclick="() => OnDeleteConfirmed(_id)" class="main-btn danger-btn rounded-full btn-hover m-1">
+            <button @onclick="() => OnDeleteConfirmed()" class="main-btn danger-btn rounded-full btn-hover m-1">
               Continue
             </button>
           </div>

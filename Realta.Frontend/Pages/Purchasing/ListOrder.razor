@@ -99,12 +99,10 @@
               <a class="text-gray" href="/purchasing/list-order/@item.PoheNumber">Details</a>
             </li>
             <li class="dropdown-item">
-              <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#updateStatus">Switch Status</a>
+              <a class="text-gray" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#updateStatus">Switch Status</a>
             </li>
             <li class="dropdown-item">
-              @* <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete@(item.PoheNumber)">Delete</a> *@
-              @* <a class="text-danger" href="#" @onclick="() => OnDelete(item.PoheNumber))">Delete modal</a>  *@
-              <button @onclick="() => OnDelete(item.PoheNumber)">Hapus ini anjing</button>
+              <a class="text-danger" href="javascript:void(0)" @onclick="() => OnDelete(item.PoheNumber)">Delete modal</a>
             </li>
           </ul>
         </td>
@@ -157,38 +155,5 @@
   </div>
 </div>
 
-<DeleteModal @ref="_del" OnDeletedData="OnDeleteConfirmed"></DeleteModal>
-<SuccessNotification @ref="_notif"></SuccessNotification>
-
-@foreach (var item in DataList)
-{
-  <!-- Seragam Modal Delete Vendor-->
-  <div class="warning-modal">
-    <div class="modal fade" id="@($"delete{item.PoheNumber}")" tabindex="-1" aria-hidden="true" role="dialog">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content card-style warning-card text-center">
-          <div class="modal-body">
-            <div class="icon text-danger mb-20">
-              <i class="lni lni-warning"></i>
-            </div>
-            <div class="content mb-30">
-              <h2 class="mb-15">Warning!</h2>
-              <h5> Purchase Order @item.PoheNumber will be deleted? </h5>
-              <p class="text-sm text-medium">
-                Data that has been deleted cannot be recovered
-              </p>
-            </div>
-            <div class="action d-flex flex-wrap justify-content-center">
-              <button data-bs-dismiss="modal" class="main-btn light-btn-outline rounded-full btn-hover m-1">
-                Cancel
-              </button>
-              <button data-bs-dismiss="modal" class="main-btn danger-btn rounded-full btn-hover m-1" @onclick="() => DeleteConfirmed(item.PoheNumber)">
-                Continue
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-}
+<DeleteModal @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
+<SuccessNotification @ref="_notif"/>

@@ -2,19 +2,19 @@ using Microsoft.AspNetCore.Components;
 using Realta.Contract.Models;
 using Realta.Domain.Entities;
 using Realta.Domain.RequestFeatures;
+using Realta.Frontend.Components;
 using Realta.Frontend.HttpRepository.Purchasing;
+using Realta.Frontend.Shared;
 
 namespace Realta.Frontend.Pages.Purchasing;
 
 public partial class ListOrderDetail
 {
-    [Parameter]
-    public string Id { get; set; }
-    
-    [Inject]
-    public IPurchaseOrderHttpRepository Repo { get; set; }
-
-    public PurchaseOrderDto Header { get; set; }
+    [Parameter] public string Id { get; set; }
+    [Inject] public IPurchaseOrderHttpRepository Repo { get; set; }
+    private SuccessNotification _notif;
+    private DeleteModal _del;
+    public PurchaseOrderDto Header { get; set; } = new();
     public MetaData MetaData { get; set; } = new();
 
     private PurchaseOrderDetailParameters _param = new();
@@ -36,6 +36,31 @@ public partial class ListOrderDetail
         var response = await Repo.GetDetails(Id, _param);
         DataList = response.Items;
         MetaData = response.MetaData;
+    }
+    
+    
+    private async Task OnDelete(int id)
+    {
+        _del.Show<int>(id, $"Purchase Order {id} will be deleted!");
+        Console.WriteLine("ini liat" + OnDeleteConfirmed);
+        await Task.Delay(100);
+    }
+
+    private async Task OnDeleteConfirmed(object id)
+    {
+        Console.WriteLine("ini kodenya " + id);
+        _del.Hide();
+        await Repo.DeleteDetail((int)id);
+        await Get();
+        if (DataList.Any())
+        {
+            _param.PageNumber = 1;
+            _notif.Show($"/purchasing/list-order/{Id}");
+        }
+        else
+        {
+            _notif.Show($"/purchasing/list-order");
+        }
     }
     
     private async Task SearchChanged(string keyword)

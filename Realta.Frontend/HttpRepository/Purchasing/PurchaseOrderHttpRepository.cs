@@ -107,6 +107,17 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
             throw new ApplicationException(deleteContent);
         }
     }
+    public async Task DeleteDetail(int id)
+    {
+        var url = Path.Combine("PurchaseOrder/detail", id.ToString());
+        var deleteResult = await _httpClient.DeleteAsync(url);
+        var deleteContent = await deleteResult.Content.ReadAsStringAsync();
+
+        if (!deleteResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(deleteContent);
+        }
+    }
 }
 
 
