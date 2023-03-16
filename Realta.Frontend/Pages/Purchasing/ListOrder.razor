@@ -1,4 +1,5 @@
 ﻿@page "/purchasing/list-order"
+@using Realta.Contract.Models
 @inject NavigationManager NavigationManager
 
 <PageTitle>Purchase Order</PageTitle>
@@ -99,7 +100,7 @@
               <a class="text-gray" href="/purchasing/list-order/@item.PoheNumber">Details</a>
             </li>
             <li class="dropdown-item">
-              <a class="text-gray" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#updateStatus">Switch Status</a>
+              <a class="text-gray" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#update" @onclick="() => OnUpdate(item)">Switch Status</a>
             </li>
             <li class="dropdown-item">
               <a class="text-danger" href="javascript:void(0)" @onclick="() => OnDelete(item.PoheNumber)">Delete modal</a>
@@ -109,51 +110,54 @@
       </tr>
     }
   }
+  
   </Tbody>
   <Page>
     <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
   </Page>
 </TableSection>
 
+@if (toUpdate != null)
+{
 @* // Update Modal *@
-<div class="warning-modal">
-  <div class="modal fade" id="updateStatus" tabindex="-1" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <form class="modal-content card-style" action="/update" method="post">
-        <div class="modal-header px-0 border-0">
-          <h5 class="text-bold">Switch Status</h5>
-          <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
-            <i class="lni lni-cross-circle"></i>
-          </button>
-        </div>
-        <div class="modal-body px-0">
-          <div class="content mb-30">
-            <div class="select-style-1 col rounded-sm">
-              <label>Purchase Order Status</label>
-              <div class="select-position">
-                <select>
-                  <option value="1">Pending</option>
-                  <option value="2">Approve</option>
-                  <option value="3">Receive</option>
-                  <option value="4">Reject</option>
-                  <option value="5">Complete</option>
-                </select>
+  <div class="warning-modal">
+    <div class="modal fade" id="update" tabindex="-1" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content card-style">
+          <div class="modal-header px-0 border-0">
+            <h5 class="text-bold">Switch Status</h5>
+            <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+              <i class="lni lni-cross-circle"></i>
+            </button>
+          </div>
+          <div class="modal-body px-0">
+            <div class="content mb-30">
+              <div class="select-style-1 col rounded-sm">
+                <label>Purchase Order Status @(toUpdate.PoheStatus)</label>
+                <div class="select-position">
+                  <select @bind="selected">
+                    <option value="1">Pending</option>
+                    <option value="2">Approve</option>
+                    <option value="3">Reject</option>
+                    <option value="4">Receive</option>
+                    <option value="5">Complete</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="action d-flex flex-wrap justify-content-end">
-            <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
-              Cancel
-            </button>
-            <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
-              Send
-            </button>
+            <div class="action d-flex flex-wrap justify-content-end">
+              <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                Cancel
+              </button>
+              <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1" @onclick="() => OnUpdateConfirmed(toUpdate.PoheNumber)">
+                Send
+              </button>
+            </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
-</div>
-
+}
 <DeleteModal @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
 <SuccessNotification @ref="_notif"/>

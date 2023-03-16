@@ -11,6 +11,7 @@ public interface IPurchaseOrderHttpRepository
     Task<PagingResponse<PurchaseOrderDetailDto>> GetDetails(string po, PurchaseOrderDetailParameters param);
     Task<PurchaseOrderDto> GetHeader(string po);
     Task Create(PurchaseOrderTransfer data);
+    Task UpdateStatus(string id, StatusUpdateDto data);
     Task DeleteHeader(string id);
     Task DeleteDetail(int id);
 }

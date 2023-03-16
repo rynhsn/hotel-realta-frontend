@@ -96,6 +96,21 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
             throw new ApplicationException(postContent);
         }
     }
+    
+    public async Task UpdateStatus(string id, StatusUpdateDto data)
+    {
+        var content = JsonSerializer.Serialize(data);
+        var bodyContent = new StringContent(content,Encoding.UTF8,"application/json");
+        var url = Path.Combine("purchaseorder/status", id);
+
+        var postResult = await _httpClient.PutAsync(url, bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(postContent);
+        }
+    }
     public async Task DeleteHeader(string id)
     {
         var url = Path.Combine("PurchaseOrder", id);
@@ -107,6 +122,7 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
             throw new ApplicationException(deleteContent);
         }
     }
+    
     public async Task DeleteDetail(int id)
     {
         var url = Path.Combine("PurchaseOrder/detail", id.ToString());

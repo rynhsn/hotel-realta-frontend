@@ -1,3 +1,4 @@
+using System.Data;
 using Microsoft.AspNetCore.Components;
 using Realta.Contract.Models;
 using Realta.Domain.RequestFeatures;
@@ -10,12 +11,11 @@ namespace Realta.Frontend.Pages.Purchasing;
 public partial class ListOrder
 {
     [Inject] public IPurchaseOrderHttpRepository Repo { get; set; }
+    public List<PurchaseOrderDto> DataList { get; set; } = new();
+    public MetaData MetaData { get; set; } = new();
+    private PurchaseOrderParameters _param = new();
     private SuccessNotification _notif;
     private DeleteModal _del;
-    public List<PurchaseOrderDto> DataList { get; set; } = new();
-
-    private PurchaseOrderParameters _param = new();
-    public MetaData MetaData { get; set; } = new();
 
     protected async override Task OnInitializedAsync()
     {
@@ -28,6 +28,31 @@ public partial class ListOrder
         var response = await Repo.GetHeaders(_param);
         DataList = response.Items;
         MetaData = response.MetaData;
+    }
+
+    private PurchaseOrderDto toUpdate { get; set; } = new();
+    private bool showUpdateModal = false;
+    private byte selected = 1;
+
+    private async Task CloseUpdateModal()
+    {
+        showUpdateModal = false;
+    }
+    private async Task OnUpdate(PurchaseOrderDto data)
+    {
+        toUpdate = data;
+        selected = data.PoheStatus;
+        showUpdateModal = true;
+    }
+
+    private async Task OnUpdateConfirmed(string id)
+    {
+        // Console.WriteLine(selected);
+        CloseUpdateModal();
+        await Repo.UpdateStatus(id, new StatusUpdateDto(){PoheStatus = selected});
+        _param.PageNumber = 1;
+        _notif.Show("/purchasing/list-order");
+        await Get();
     }
     
     
@@ -51,8 +76,8 @@ public partial class ListOrder
         return status switch
         {
             1 => ("warning-btn", "Pending"),
-            2 => ("info-btn", "Approve"),
-            3 => ("danger-btn", "Reject"),
+            2 => ("success-btn", "Approve"),
+            3 => ("close-btn", "Reject"),
             4 => ("secondary-btn", "Receive"),
             5 => ("dark-btn", "Complete")
         };
