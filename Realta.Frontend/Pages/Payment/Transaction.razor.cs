@@ -19,10 +19,16 @@ public partial class Transaction
         await Get();
     }
 
-
     private async Task SelectedPage(int page)
     {
         _param.PageNumber = page;
+        await Get();
+    }
+    
+    private async Task SearchChanged(string keyword)
+    {
+        _param.PageNumber = 1;
+        _param.SearchTerm = keyword;
         await Get();
     }
     

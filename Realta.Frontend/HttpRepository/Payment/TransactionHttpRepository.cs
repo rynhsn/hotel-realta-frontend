@@ -37,7 +37,8 @@ public class TransactionHttpRepository : ITransactionHttpRepository
     {
         var queryStringParam = new Dictionary<string, string>
         {
-            ["pageNumber"] = transactionParameters.PageNumber.ToString()
+            ["pageNumber"] = transactionParameters.PageNumber.ToString(),
+            ["searchTerm"] = transactionParameters.SearchTerm
         };
 
 

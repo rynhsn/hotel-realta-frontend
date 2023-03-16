@@ -5,23 +5,9 @@
 <TableSection Title="Transaction"
               Link="/payments/transactions"
               LinkText="Payment">
-    <CustomComponent>
-        <div class="d-flex align-items-center">
-            <h6>Transaction Type :</h6>
-            <div class="select-style-1 mb-0 ml-10">
-                <div class="select-position">
-                    <select class="p-0 pe-5 border-0">
-                        <option value="" selected>All</option>
-                        <option value="1">ORM</option>
-                        <option value="2">TP</option>
-                        <option value="3">TRB</option>
-                        <option value="3">RF</option>
-                        <option value="3">RPY</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </CustomComponent>
+    <Topbar>
+         <TableToolbar Placeholder="Transaction Number" OnSearchChanged="SearchChanged"/>
+     </Topbar>
     <Thead>
     <tr>
         <th>
