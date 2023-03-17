@@ -97,13 +97,26 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
         }
     }
     
-    public async Task UpdateStatus(string id, StatusUpdateDto data)
+    public async Task UpdateStatus(StatusUpdateDto data)
     {
         var content = JsonSerializer.Serialize(data);
         var bodyContent = new StringContent(content,Encoding.UTF8,"application/json");
-        var url = Path.Combine("purchaseorder/status", id);
+        var url = Path.Combine("purchaseorder/status", data.PoheNumber);
 
         var postResult = await _httpClient.PutAsync(url, bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(postContent);
+        }
+    }
+    public async Task UpdateQty(QtyUpdateDto data)
+    {
+        var content = JsonSerializer.Serialize(data);
+        var bodyContent = new StringContent(content,Encoding.UTF8,"application/json");
+
+        var postResult = await _httpClient.PutAsync($"purchaseorder/detail/{data.PodeId}", bodyContent);
         var postContent = await postResult.Content.ReadAsStringAsync();
 
         if (!postResult.IsSuccessStatusCode)

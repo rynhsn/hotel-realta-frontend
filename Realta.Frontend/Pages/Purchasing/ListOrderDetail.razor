@@ -1,4 +1,5 @@
 ﻿@page "/purchasing/list-order/{id}"
+@inject NavigationManager NavigationManager
 
 <PageTitle>Purchase Order Detail</PageTitle>
 
@@ -123,7 +124,7 @@
         </td>
         <td>
           <div class="action">
-            <button class="text-gray">
+            <button class="text-gray" data-bs-toggle="modal" data-bs-target="#update" @onclick="() => OnUpdate(item)">
               <i class="lni lni-pencil"></i>
             </button>
             <button class="text-danger" @onclick="() => OnDelete(item.PodeId)">
@@ -139,6 +140,61 @@
     <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
   </Page>
 </TableSection>
+
+@* // Update Modal *@
+<div class="warning-modal">
+  <div class="modal fade" id="update" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form class="modal-content card-style" action="/update" method="post">
+        <div class="modal-header px-0 border-0">
+          <h5 class="text-bold">Edit Quantity</h5>
+          <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+            <i class="lni lni-cross-circle"></i>
+          </button>
+        </div>
+        <div class="modal-body px-0">
+          <div class="content mb-30 row">
+            <div class="col-12">
+              <div class="input-style-1">
+                <label for="stockName">Stock Name</label>
+                <input type="text" readonly id="stokName" name="stokName" @bind-value="toUpdate.StockName" disabled>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="input-style-1">
+                <label for="orderQty">Order Qty</label>
+                <input type="number" min="0" id="orderQty" name="orderQty" @bind-value="toUpdate.PodeOrderQty" required>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="input-style-1">
+                <label for="receivedQty">Received</label>
+                <input type="number" min="0" id="receivedQty" name="receivedQty" @bind-value="toUpdate.PodeReceivedQty" required>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+              <div class="input-style-1">
+                <label for="rejectedQty">Rejected</label>
+                <input type="number" min="0" id="rejectedQty" name="rejectedQty" @bind-value="toUpdate.PodeRejectedQty" required>
+              </div>
+            </div>
+            <button type="button" data-bs-dismiss="modal" class="main-btn primary-btn-outline btn-hover m-1">
+              Generate Barcode
+            </button>
+          </div>
+          <div class="action d-flex flex-wrap justify-content-end">
+            <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+              Cancel
+            </button>
+            <button type="button" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1" @onclick="() => OnUpdateConfirmed()">
+              Send
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <DeleteModal @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
 <SuccessNotification @ref="_notif"/>
