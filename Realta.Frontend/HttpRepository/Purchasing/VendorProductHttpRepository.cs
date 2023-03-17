@@ -16,30 +16,15 @@ public class VendorProductHttpRepository : IVendorProductHttpRepository
         _httpClient = httpClient;
         _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
-    public async  Task<List<VendorProductDto>> GetVendorProduct(int id)
-    {
-        var response = await _httpClient.GetAsync($"vendorproduct/{id}");
-        var content = await response.Content.ReadAsStringAsync();
 
-        if (!response.IsSuccessStatusCode)
-        {
-            throw new ApplicationException(content);
-        }
-        var venpro = JsonSerializer.Deserialize<List<VendorProductDto>>(content, _options); //untuk inject filenya 
-
-        return venpro;
-    }
-    
-    public async Task<PagingResponse<VendorProductDto>> GetVenProPaging(VenproParameters vendorsParameters, int id)
+    public async Task<PagingResponse<VendorProductDto>> GetVenProPaging(VenproParameters _param, int id)
     {
         var queryStringParam = new Dictionary<string, string>
         {
-            ["pageNumber"] = vendorsParameters.PageNumber.ToString(),
-            ["Keyword"] = vendorsParameters.Keyword == null ? "" : vendorsParameters.Keyword,
-           // ["orderBy"] = vendorsParameters.OrderBy
+            ["pageNumber"] = _param.PageNumber.ToString(),
+            ["Keyword"] = _param.Keyword == null ? "" : _param.Keyword,
+            ["orderBy"] = _param.OrderBy
         };
-
-
         var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString($"vendorproduct/{id}",queryStringParam));
         var content = await response.Content.ReadAsStringAsync();
 
@@ -47,12 +32,21 @@ public class VendorProductHttpRepository : IVendorProductHttpRepository
         {
             throw new ApplicationException(content);
         }
-
         var pagingResponse = new PagingResponse<VendorProductDto>
         {
             Items = JsonSerializer.Deserialize<List<VendorProductDto>>(content, _options),
             MetaData = JsonSerializer.Deserialize<MetaData>(response.Headers.GetValues("X-Pagination").First(), _options)
         };
         return pagingResponse;
+    }
+
+    public Task DeleteVenpro(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task CreateVenpro(VendorProductDto venproCreate)
+    {
+        throw new NotImplementedException();
     }
 }
