@@ -15,7 +15,7 @@ public partial class ListOrder
     public MetaData MetaData { get; set; } = new();
     private PurchaseOrderParameters _param = new();
     private SuccessNotification _notif;
-    private DeleteModal _del;
+    private ModalDelete _del;
 
     protected async override Task OnInitializedAsync()
     {

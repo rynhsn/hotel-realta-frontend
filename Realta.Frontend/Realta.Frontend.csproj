@@ -56,19 +56,6 @@
 		<ProjectReference Include="..\..\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj" />
 		<ProjectReference Include="..\..\HotelRealtaAPI\Realta.Domain\Realta.Domain.csproj" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Remove="Pages\Purchasing\ListOrderDetail.razor" />
-	  <Content Remove="Pages\Purchasing\ListOrder.razor" />
-	  <Content Remove="Pages\Purchasing\Gallery.razor" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Remove="Pages\Purchasing\ListOrderDetail.razor.cs" />
-	  <Compile Remove="Pages\Purchasing\ListOrder.razor.cs" />
-	  <Compile Remove="Pages\Purchasing\Gallery.razor.cs" />
-	  <Compile Remove="HttpRepository\Purchasing\PurchaseOrderHttpRepository.cs" />
-	</ItemGroup>
      
 
 </Project>

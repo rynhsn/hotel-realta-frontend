@@ -137,7 +137,7 @@
   }
   </Tbody>
   <Page>
-    <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
+    <TablePagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
   </Page>
 </TableSection>
 
@@ -196,5 +196,5 @@
   </div>
 </div>
 
-<DeleteModal @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
+<ModalDelete @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
 <SuccessNotification @ref="_notif"/>
