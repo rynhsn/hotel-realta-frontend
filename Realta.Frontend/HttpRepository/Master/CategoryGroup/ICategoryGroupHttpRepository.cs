@@ -1,4 +1,6 @@
 ﻿using Realta.Contract.Models;
+using Realta.Domain.RequestFeatures;
+using Realta.Frontend.Features;
 
 namespace Realta.Frontend.HttpRepository.Master.CategoryGroup
 {
@@ -6,5 +8,6 @@ namespace Realta.Frontend.HttpRepository.Master.CategoryGroup
     {
         Task<List<CategoryGroupDto>> GetCategoryGroup();
 
+        Task<PagingResponse<CategoryGroupDto>> GetCategoryGroupPaging(CategoryGroupParameter categoryGroupParameter);
     }
 }

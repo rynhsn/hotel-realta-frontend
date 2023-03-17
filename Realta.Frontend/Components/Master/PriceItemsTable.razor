@@ -1,76 +1,105 @@
 ﻿@using Realta.Frontend.Pages.Master
 @if (priceItems.Count > 0)
 {
-                                <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th class="lead-info">
-                                            <h6>ID</h6>
-                                        </th>
-                                        <th class="lead-email">
-                                            <h6>Item Name</h6>
-                                        </th>
-                                        <th class="lead-phone">
-                                            <h6>Price</h6>
-                                        </th>
-                                        <th class="lead-company">
-                                            <h6>Type</h6>
-                                        </th>
-                                        <th>
-                                            <h6>Action</h6>
-                                        </th>
-                                    </tr>
-                                    <!-- end table row-->
-                                </thead>
-                                <tbody>
-                                    @foreach(var priceitems in priceItems)
-                                    {
-                                        <tr>
-                                            <td>
-                                                <div class="lead">
-                                                    <div class="lead-image">
-                                                        <img src="@priceitems.PritIconUrl" alt="">
-                                                    </div>
-                                                    <div class="lead-text">
-                                                        <p>@priceitems.PritId</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="lead">
-                                                    <div class="lead-text">
-                                                        <p><a>@priceitems.PritName</a></p>
-                                                    </div>
-                                                        <div class="lead-info action">
-                                                            <button class="text-grey">
-                                                            <i class="lni lni-angle-double-right" title="Description" data-bs-toggle="modal" data-bs-target="#popupmodal"></i>
-                                                            </button>
-                                                        </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <td class="text-sm">Rp. @string.Format("{0:n0}", priceitems.PritPrice)</td>
-                                            </td>
-                                            <td>
-                                                <p>@priceitems.PritType</p>
-                                            </td>
-                                            <td>
-                                                <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
-                                                    <span class="mdi mdi-dots-vertical"></span>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
-                                                    <li class="dropdown-item">
-                                                        <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#@($"UpdateModal")">Edit</a>
-                                                    </li>
-                                                    <li class="dropdown-item">
-                                                        <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#@($"delete")">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    }
-                                    <!-- end table row -->
-                                </tbody>
-                            </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="lead-info">
+                    <h6>ID</h6>
+                </th>
+                <th class="lead-email">
+                    <h6>Item Name</h6>
+                </th>
+                <th class="lead-phone">
+                    <h6>Price</h6>
+
+                </th>
+                <th class="lead-company">
+                    <h6>Type</h6>
+                </th>
+                <th>
+                    <h6>Action</h6>
+                </th>
+            </tr>
+            <!-- end table row-->
+        </thead>
+        <tbody>
+            @foreach (var priceitems in priceItems)
+            {
+                <tr>
+                    <td>
+                        <div class="lead">
+                            <div class="lead-image">
+                                <img src="https://localhost:7068@(priceitems.PritIconUrl)" alt="">
+                            </div>
+                            <div class="lead-text">
+                                <p>@priceitems.PritId</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="lead">
+                            <div class="lead-text">
+                                <p><a>@priceitems.PritName</a></p>
+                            </div>
+                            <div class="lead-info action">
+                                <button class="text-grey">
+                                    <i class="lni lni-angle-double-right" title="Description" data-bs-toggle="modal" data-bs-target="#popupmodal-@priceitems.PritId"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                    <td class="text-sm">Rp. @string.Format("{0:n0}", priceitems.PritPrice)</td>
+                    </td>
+                    <td>
+                        <p>@priceitems.PritType</p>
+                    </td>
+                    <td>
+                        <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
+                            <span class="mdi mdi-dots-vertical"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+                            <li class="dropdown-item">
+                                <a class="text-gray" @onclick="() => RedirectToUpdate(priceitems.PritId)">Edit</a>
+                            </li>
+                            <li class="dropdown-item">
+                                <a class="text-danger" @onclick="() => Delete(priceitems.PritId)">Delete</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                @*pop up modal*@
+                <div class="warning-modal">
+                    <div class="modal fade" id="popupmodal-@priceitems.PritId" tabindex="3" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content card-style">
+                                <div class="modal-header px-0 border-0">
+                                    <h5 class="text-bold">Description</h5>
+                                </div>
+                                <div class="modal-body px-0">
+                                    <div class="content mb-30">
+                                        <p class="text-sm">
+                                            @priceitems.PritDescription
+                                        </p>
+                                    </div>
+                                    <div class="action d-flex flex-wrap align-items-center justify-content-center">
+
+                                        <!-- end checkbox -->
+                                        <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                                            Okay
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            <!-- end table row -->
+        </tbody>
+    </table>
 
 }

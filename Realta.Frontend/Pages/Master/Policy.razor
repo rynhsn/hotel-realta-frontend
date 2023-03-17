@@ -48,53 +48,31 @@
                                 <p>Show <span>@TotalRows</span> entries</p>
                             </div>
                             <div class="right">
-                                <div class="table-search d-flex" title="Add">
-                                    <button type="button" class="btn btn-primary mr-10" data-bs-toggle="modal" data-bs-target="#addpolicy">
-                                        +
-                                    </button>
+
+                                <div class="table-search d-flex  row-cols-auto">
+                                    <div>
+                                        <button type="button" class="btn btn-primary mr-10" title="Add" data-bs-toggle="modal" data-bs-target="#addpolicy">
+                                            +
+                                        </button>
+                                    </div>
+
                                     <form action="#">
-                                        <input type="text" placeholder="Search...">
-                                        <button><i class="lni lni-search-alt"></i></button>
+                                        <Search OnSearchChanged="SearchChange" />
+                                        <button>
+                                            <i class="lni lni-search-alt"></i>
+                                        </button>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
                         <div class="table-wrapper table-responsive ">
-                                                          <PolicyTable Policy="PolicyList"/>
+                            <PolicyTable Policy="PolicyList" OnDeleted="DeletePolicy" />
 
                             <!-- end table -->
                         </div>
-                        <div class="pt-10 d-flex flex-wrap justify-content-between">
-                            <div class="left">
-                                <p class="text-sm text-gray">Showing 12/30 products</p>
-                            </div>
-                            <div class="right table-pagination">
-                                <ul class="d-flex justify-content-end align-items-center">
-                                    <li class="ms-2">
-                                        <a href="#0">
-                                            <i class="lni lni-angle-double-left"></i>
-                                        </a>
-                                    </li>
-                                    <li class="ms-2">
-                                        <a href="#0"> 1 </a>
-                                    </li>
-                                    <li class="ms-2">
-                                        <a href="#0" class="active"> 2 </a>
-                                    </li>
-                                    <li class="ms-2">
-                                        <a href="#0"> 3 </a>
-                                    </li>
-                                    <li class="ms-2">
-                                        <a href="#0"> 4 </a>
-                                    </li>
-                                    <li class="ms-2">
-                                        <a href="#0">
-                                            <i class="lni lni-angle-double-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <Paging MetaData="MetaData" Spread="3" SelectedPage="SelectedPage" />
+
                     </div>
                     <!-- end card -->
                 </div>
@@ -106,101 +84,49 @@
     <!-- end container -->
 </section>
 
-@for (int i = 1; i <= @TotalRows; i++)
-{
-    <!-- Modal Add Policy -->
-    <div class="modal fade" id="addpolicy" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCagroLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Add Policy</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
 
-                        <div class="card-style mb-30">
-                            <div class="mb-3 row">
-                                <label for="recipient-name" class="col-sm-2 col-form-label">Policy Name:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="Item-price">
-                                </div>
-                            </div>
-
-
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Description:</label>
-                                <textarea class="form-control" id="Description"></textarea>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
+<!-- Modal Add Policy -->
+<div class="modal fade" id="addpolicy" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCagroLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Add Policy</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-    </div>
+            <div class="modal-body">
+                <EditForm Model="_policyCreateDto" OnValidSubmit="Create">
+                    <DataAnnotationsValidator />
+                    <div class="input-style-1">
+                        <div class="row">
+                            <label for="Poli-name" class="col-sm-2 col-form-label">Policy Name:</label>
+                            <div class="col-sm-10">
 
-    @*Delete Modal*@
-    <div class="warning-modal">
-        <div class="modal fade" id="@($"delete{i}")" tabindex="-1" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <form class="modal-content card-style" action="/delete" method="post">
-                    <div class="modal-header px-0 border-0">
-                        <h5 class="text-bold">
-                            <i class="lni lni-warning text-danger me-2"></i> Are you sure
-                            you want to delete?
-                        </h5>
-                    </div>
-                    <div class="modal-body px-0">
-                        <div class="content mb-30">
-                            <p class="text-sm">
-                                Category Group with ID: @i will be deleted. data that has been deleted cannot be recovered!
-                            </p>
+                                <InputText id="PolicyName" @bind-Value="_policyCreateDto.PoliName" />
+                                <ValidationMessage For="@(() => _policyCreateDto.PoliName)" />
+                            </div>
                         </div>
-                        <div class="action d-flex flex-wrap justify-content-end">
-                            <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
-                                Cancel
-                            </button>
-                            <button type="submit" class="main-btn warning-btn btn-hover m-1">
-                                Delete
+
+                        <div >
+                            <label for="message-text" class="col-form-label">Description:</label>
+                            <InputTextArea id="Description" @bind-Value="_policyCreateDto.PoliDescription" />
+                            <ValidationMessage For="@(() => _policyCreateDto.PoliDescription)" />
+                        </div>
+                        <div class="col-12 modal-footer">
+                            <button class="main-btn primary-btn btn-hover" data-bs-dismiss="modal">
+                                Submit
                             </button>
                         </div>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
-}
-
-@*pop up modal*@
-<div class="warning-modal">
-    <div class="modal fade" id="popupmodal" tabindex="-1" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content card-style">
-                <div class="modal-header px-0 border-0">
-                    <h5 class="text-bold">Description</h5>
-                </div>
-                <div class="modal-body px-0">
-                    <div class="content mb-30">
-                        <p class="text-sm">
-                            Pembatalan Gratis	Kebijakan pembatalan gratis yang memberikan kemudahan bagi tamu untuk membatalkan reservasi mereka hingga 24 jam sebelum tanggal check-in tanpa dikenakan biaya apapun
-                        </p>
-                    </div>
-                    <div class="action d-flex flex-wrap align-items-center justify-content-center">
-
-                        <!-- end checkbox -->
-                        <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
-                            Okay
-                        </button>
-                    </div>
-                </div>
+                </EditForm>
             </div>
         </div>
     </div>
 </div>
+<SuccessNotification @ref="_notification" />
+
+
+
+
 @code {
     public int TotalRows { get; set; } = 5;
 }

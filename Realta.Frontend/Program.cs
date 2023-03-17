@@ -35,8 +35,8 @@ builder.Services.AddScoped<IAddressHttpRepository, AddressHttpRepository>();
 // payment
 
 // purchasing
-// builder.Services.AddScoped<IVendorHttpRepository, VendorHttpRepository>();
-// builder.Services.AddScoped<IPurchaseOrderHttpRepository, PurchaseOrderHttpRepository>();
+builder.Services.AddScoped<IVendorHttpRepository, VendorHttpRepository>();
+builder.Services.AddScoped<IPurchaseOrderHttpRepository, PurchaseOrderHttpRepository>();
 
 // resto
 

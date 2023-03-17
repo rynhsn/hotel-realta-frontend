@@ -49,52 +49,28 @@
                             </div>
                             <div class="right">
 
-                                <div class="table-search d-flex">
-                                    <button type="button" class="btn btn-primary mr-10 " title="Add" data-bs-toggle="modal" data-bs-target="#addmodal">
-                                        +
-                                    </button>
+                                <div class="table-search d-flex  row-cols-auto">
+                                    <div>
+                                        <button type="button" class="btn btn-primary mr-10" title="Add" data-bs-toggle="modal" data-bs-target="#addmodal">
+                                            +
+                                        </button>
+                                    </div>
+
                                     <form action="#">
-                                        <input type="text" placeholder="Search...">
-                                        <button><i class="lni lni-search-alt"></i></button>
+                                        <Search OnSearchChanged="SearchChange" />
+                                        <button>
+                                            <i class="lni lni-search-alt"></i>
+                                        </button>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
                         <div class="table-wrapper table-responsive">
-                            <CategoryGroupTable CategoryGroups="CategoryGroupList"/>
+                            <CategoryGroupTable CategoryGroups="CategoryGroupList" />
                             <!-- end table -->
                         </div>
-                        <div class="pt-10 d-flex flex-wrap justify-content-between">
-                            <div class="left">
-                                <p class="text-sm text-gray">Showing 12/30 products</p>
-                            </div>
-                            <div class="right table-pagination">
-                                <ul class="d-flex justify-content-end align-items-center">
-                                    <li class="ms-2">
-                                        <a href="#0">
-                                            <i class="lni lni-angle-double-left"></i>
-                                        </a>
-                                    </li>
-                                    <li class="ms-2">
-                                        <a href="#0"> 1 </a>
-                                    </li>
-                                    <li class="ms-2">
-                                        <a href="#0" class="active"> 2 </a>
-                                    </li>
-                                    <li class="ms-2">
-                                        <a href="#0"> 3 </a>
-                                    </li>
-                                    <li class="ms-2">
-                                        <a href="#0"> 4 </a>
-                                    </li>
-                                    <li class="ms-2">
-                                        <a href="#0">
-                                            <i class="lni lni-angle-double-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <Paging MetaData="MetaData" Spread="3" SelectedPage="SelectedPage" />
                     </div>
                     <!-- end card -->
                 </div>

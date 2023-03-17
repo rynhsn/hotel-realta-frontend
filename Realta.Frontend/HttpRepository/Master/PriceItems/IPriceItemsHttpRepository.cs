@@ -9,5 +9,11 @@ namespace Realta.Frontend.HttpRepository.Master.PriceItems
         Task<List<PriceItemsDto>> GetPriceItems();
 
         Task<PagingResponse<PriceItemsDto>> GetPriceItemsPaging(PriceItemsParameters priceItemsParameters);
+
+        Task CreatePriceItems(PriceItemsCreateDto priceItemsCreateDto);
+        Task UpdatePriceItems(PriceItemsDto priceItemsDto);
+        Task<PriceItemsDto> GetPriceItemsById(int id);
+
+        Task deletePriceItems(int id);
     }
 }

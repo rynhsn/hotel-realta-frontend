@@ -25,7 +25,7 @@
                 <td>
                     <div class="lead">
                         <div class="lead-image">
-                            <img src="@categorygroup.CagroIconUrl" alt="">
+                                <img src="https://localhost:7068@(categorygroup.CagroIconUrl)" alt="">
                         </div>
                         <div class="lead-text">
                             <p>@categorygroup.CagroId</p>
@@ -41,7 +41,7 @@
                         </div>
                         <div class="lead-info action">
                             <button  title="Description" class="text-grey ">
-                                <i class="lni lni-angle-double-right " data-bs-toggle="modal" data-bs-target="#popupmodal"></i>
+                                    <i class="lni lni-angle-double-right " data-bs-toggle="modal" data-bs-target="#popupmodal-@categorygroup.CagroId"></i>
                             </button>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
             </tr>
             @*pop up modal*@
             <div class="warning-modal">
-                <div class="modal fade" id="popupmodal" tabindex="-1" style="display: none;" aria-hidden="true">
+                    <div class="modal fade" id="popupmodal-@categorygroup.CagroId" tabindex="3" style="display: none;" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content card-style">
                             <div class="modal-header px-0 border-0">

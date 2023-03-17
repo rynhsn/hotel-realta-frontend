@@ -1,5 +1,8 @@
 ﻿using Realta.Contract.Models;
 using System.Text.Json;
+using Realta.Domain.RequestFeatures;
+using Realta.Frontend.Features;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace Realta.Frontend.HttpRepository.Master
 {
@@ -30,5 +33,30 @@ namespace Realta.Frontend.HttpRepository.Master
             return address;
         }
 
+        public async Task<PagingResponse<AddressDto>> GetAddressPaging(AddressParameter addressParameter)
+        {
+            var queryStringParam = new Dictionary<string, string>
+            {
+                ["pageNumber"] = addressParameter.PageNumber.ToString(),
+                ["searchTerm"] = addressParameter.SearchTerm == null ? "" :addressParameter.SearchTerm
+            };
+            var response =
+                await _httpClient.GetAsync(QueryHelpers.AddQueryString("address/pageList", queryStringParam));
+            var content = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(content);
+            }
+
+            var pagingRespone = new PagingResponse<AddressDto>
+            {
+                Items = JsonSerializer.Deserialize<List<AddressDto>>(content, _options),
+                MetaData = JsonSerializer.Deserialize<MetaData>(response.Headers.GetValues("X-Pagination").First(),
+                    _options)
+            };
+            Console.WriteLine(pagingRespone.Items);
+            return pagingRespone;
+        }
     }
 }

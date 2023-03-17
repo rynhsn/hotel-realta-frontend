@@ -1,5 +1,8 @@
 ﻿@page "/servicetask"
 @using Realta.Frontend.Components.Master
+@using Realta.Domain.RequestFeatures
+@using Realta.Frontend.Pages.Master
+@using Realta.Contract.Models
 @inherits LayoutComponentBase
 <PageTitle>Service Task</PageTitle>
 
@@ -51,19 +54,28 @@
                                 <p>Show <span>@TotalRows</span> entries</p>
                             </div>
                             <div class="right">
-                                <div class="table-search d-flex">
+
+                                <div class="table-search d-flex  row-cols-auto">
+                                    <div>
+                                        <button type="button" class="btn btn-primary mr-10" title="Add" data-bs-toggle="modal" data-bs-target="#addmodal">
+                                            +
+                                        </button>
+                                    </div>
+
                                     <form action="#">
-                                        <input type="text" placeholder="Search...">
+                                        <Search OnSearchChanged="SearchChange" />
                                         <button>
                                             <i class="lni lni-search-alt"></i>
                                         </button>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <ServiceTaskGroupTable ServiceTask="ServiceTasList"/>
+                            <ServiceTaskTable ServiceTask="ServiceTaskList" OnDeleted="deleteServiceTask" />
                         </div>
+                        <Paging MetaData="MetaData" Spread="3" SelectedPage="SelectedPage" />
                     </div>
                 </div>
 
@@ -73,99 +85,54 @@
     <!-- end container -->
 </section>
 
-@for (int i = 1; i <= @TotalRows; i++)
-{
-    <!-- Modal Add Category Group -->
-    <div class="modal fade" id="addcagro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCagroLabel" aria-hidden="true">
+<!-- Modal Add Policy -->
+    <div class="modal fade" id="addmodal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCagroLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Add Category Item</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Add Policy</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <EditForm Model="_serviceTaskDto" OnValidSubmit="Create">
+                        <DataAnnotationsValidator />
+                        <div class="row">
+                            <div >
+                                <div class="input-style-1">
+                                    <label for="name">Task Name:</label>
 
-                        <div class="card-style mb-30">
-                            <div class="mb-3 row">
-                                <label for="recipient-name" class="col-sm-2 col-form-label">Group Name:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="Item-price">
+                                    <InputText id="ProductName" @bind-Value="_serviceTaskDto.SetaName" />
+                                    <ValidationMessage For="@(() => _serviceTaskDto.SetaName)" />
+
+                                </div>
+                            </div>
+                            <div >
+                                <div class="input-style-1">
+                                    <label for="name">Sequence Order:</label>
+
+                                    <InputNumber id="UnitsOnOrder" @bind-Value="_serviceTaskDto.SetaSeq" k />
+                                    <ValidationMessage For="@(() => _serviceTaskDto.SetaSeq)" />
+
                                 </div>
                             </div>
 
-                            <div class="select-style-2  mb-3 row">
-                                <label class="col-sm-2 col-form-label">Type</label>
-                                <div class="select-position col-sm-10">
-                                    <select>
-                                        <option value="">Select category</option>
-                                        <option value="">Category</option>
-                                        <option value="">Service</option>
-                                        <option value="">Facility</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-
-                            <div class="row">
-                                <label for="policyrules" class="col-sm-2 col-form-label">Policy Rules:</label>
-                                <div class="input-style-2 col-sm-10 ">
-                                    <input type="text" placeholder="Search">
-                                    <span class="icon"><i class="lni lni-search-alt"></i></span>
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Description:</label>
-                                <textarea class="form-control" id="Description"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="formFileSm" class="form-label">Upload Icon</label>
-                                <input class="form-control form-control-sm" id="formFileSm" type="file">
+                        <div class="col-12 modal-footer">
+                                <button class="main-btn primary-btn btn-hover"  data-bs-dismiss="modal">
+                                    Submit
+                                </button>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+
+                    </EditForm>
                 </div>
             </div>
         </div>
     </div>
+<SuccessNotification @ref="_notification" />
 
-    @*Delete Modal*@
-    <div class="warning-modal">
-        <div class="modal fade" id="@($"delete{i}")" tabindex="-1" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <form class="modal-content card-style" action="/delete" method="post">
-                    <div class="modal-header px-0 border-0">
-                        <h5 class="text-bold">
-                            <i class="lni lni-warning text-danger me-2"></i> Are you sure
-                            you want to delete?
-                        </h5>
-                    </div>
-                    <div class="modal-body px-0">
-                        <div class="content mb-30">
-                            <p class="text-sm">
-                                Item with ID: @i will be deleted. data that has been deleted cannot be recovered!
-                            </p>
-                        </div>
-                        <div class="action d-flex flex-wrap justify-content-end">
-                            <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
-                                Cancel
-                            </button>
-                            <button type="submit" class="main-btn warning-btn btn-hover m-1">
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-}
+
+
 @code {
     public int TotalRows { get; set; } = 5;
+
 }

@@ -3,58 +3,90 @@
 {
     <table class="table ">
         <thead>
-        <tr>
-            <th class="lead-info">
-                <h6>ID</h6>
-            </th>
-            <th class="lead-email">
-                <h6>Policy Name</h6>
-            </th>
-            <th>
-                <h6>Action</h6>
-            </th>
-        </tr>
-        <!-- end table row-->
+            <tr>
+                <th class="lead-info">
+                    <h6>ID</h6>
+                </th>
+                <th class="lead-email">
+                    <h6>Policy Name</h6>
+                </th>
+                <th>
+                    <h6>Action</h6>
+                </th>
+            </tr>
+            <!-- end table row-->
         </thead>
         <tbody>
-        @foreach (var policy in Policy)
-        {
-            <tr>
-                <td>
-                    <div class="lead-text">
-                        <p>@policy.PoliId</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="lead">
-                        <div class="lead-text">
-                            <p>
-                                <a>@policy.PoliDescription</a>
-                            </p>
+            @foreach (var policy in Policy)
+            {
+                <tr>
+                    <td>
+                        <div class="lead">
+                            <div class="check-input-primary">
+                                <input class="form-check-input" type="radio" name="flexradioaddres" id="flexRadioDefault1">
+                            </div>
+                            <div class="lead-text ml-10">
+                                <p>@policy.PoliId</p>
+                            </div>
                         </div>
-                        <div class="lead-info action">
-                            <button title="Description" class="text-grey  ">
-                                <i class="lni lni-angle-double-right " data-bs-toggle="modal" data-bs-target="#popupmodal"></i>
-                            </button>
+                    </td>
+                    <td>
+                        <div class="lead">
+                            <div class="lead-text">
+                                <p>
+                                    <a>@policy.PoliName</a>
+                                </p>
+                            </div>
+                            <div class="lead-info action">
+                                <button  title="Description" class="text-grey ">
+                                    <i class="lni lni-angle-double-right " data-bs-toggle="modal" data-bs-target="#popupmodal-@policy.PoliId"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
+                            <span class="mdi mdi-dots-vertical"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+                            <li class="dropdown-item">
+                                <a class="text-gray" @onclick="() => RedirectToUpdate(policy.PoliId)">Update</a>
+                            </li>
+                            <li class="dropdown-item">
+                                <a class="text-danger" @onclick="() => Delete(policy.PoliId)" >Delete</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                @*pop up modal*@
+                <div class="warning-modal">
+                    <div class="modal fade" id="popupmodal-@policy.PoliId" tabindex="3" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content card-style">
+                                <div class="modal-header px-0 border-0">
+                                    <h5 class="text-bold">Description</h5>
+                                </div>
+                                <div class="modal-body px-0">
+                                    <div class="content mb-30">
+                                        <p class="text-sm">
+                                            @policy.PoliDescription
+                                        </p>
+                                    </div>
+                                    <div class="action d-flex flex-wrap align-items-center justify-content-center">
+
+                                        <!-- end checkbox -->
+                                        <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                                            Okay
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </td>
-                <td>
-                    <button class="more-btn ml-10 dropdown-toggle" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
-                        <span class="mdi mdi-dots-vertical"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
-                        <li class="dropdown-item">
-                            <a class="text-gray" href="list-order/PO-20230303-001">Edit</a>
-                        </li>
-                        <li class="dropdown-item">
-                            <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#@($"delete")">Delete</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        }
-        <!-- end table row -->
+                </div>
+            }
+            <!-- end table row -->
         </tbody>
     </table>
 }

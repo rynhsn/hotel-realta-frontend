@@ -1,5 +1,6 @@
 ﻿@page "/locations"
         @using Realta.Frontend.Components.Master
+@using Realta.Domain.RequestFeatures
 <PageTitle>Locations</PageTitle>
 
 <section class="table-components">
@@ -46,16 +47,21 @@
         <div class="d-flex flex-wrap justify-content-center align-items-center py-3">
 
             <div class="right">
-                <div class="table-search d-sm-flex">
-                    <button type="button" class="btn btn-primary mr-10 " title="Add" data-bs-toggle="modal" data-bs-target="#addregions">
-                        +
-                    </button>
+
+                <div class="table-search d-flex  row-cols-auto">
+                    <div>
+                        <button type="button" class="btn btn-primary mr-10" title="Add" data-bs-toggle="modal" data-bs-target="#addregions">
+                            +
+                        </button>
+                    </div>
+
                     <form action="#">
-                        <input type="text" placeholder="Search...">
+                        <Search OnSearchChanged="SearchChangeR" />
                         <button>
                             <i class="lni lni-search-alt"></i>
                         </button>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -64,32 +70,8 @@
             <!-- end table -->
         </div>
         <div class="pt-10 d-flex flex-wrap justify-content-center">
-            <div class="right table-pagination">
-                <ul class="d-flex justify-content-end align-items-center">
-                    <li class="ms-2">
-                        <a href="#0">
-                            <i class="lni lni-angle-double-left"></i>
-                        </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0"> 1 </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0" class="active"> 2 </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0"> 3 </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0"> 4 </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0">
-                            <i class="lni lni-angle-double-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <Pagination MetaData="MetaDataR" Spread="3" SelectedPage="SelectedPageRegions" />
+
         </div>
     </div>
     <!-- end card -->
@@ -104,16 +86,21 @@
         <div class="d-flex flex-wrap justify-content-center align-items-center py-3">
 
             <div class="right">
-                <div class="table-search d-sm-flex">
-                    <button type="button" class="btn btn-primary mr-10 " title="Add" data-bs-toggle="modal" data-bs-target="#addcountry">
-                        +
-                    </button>
+
+                <div class="table-search d-flex  row-cols-auto">
+                    <div>
+                        <button type="button" class="btn btn-primary mr-10" title="Add" data-bs-toggle="modal" data-bs-target="#addcountry">
+                            +
+                        </button>
+                    </div>
+
                     <form action="#">
-                        <input type="text" placeholder="Search...">
+                        <Search OnSearchChanged="SearchChangeC" />
                         <button>
                             <i class="lni lni-search-alt"></i>
                         </button>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -122,32 +109,8 @@
             <!-- end table -->
         </div>
         <div class="pt-10 d-flex flex-wrap justify-content-center">
-            <div class="right table-pagination">
-                <ul class="d-flex justify-content-end align-items-center">
-                    <li class="ms-2">
-                        <a href="#0">
-                            <i class="lni lni-angle-double-left"></i>
-                        </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0"> 1 </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0" class="active"> 2 </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0"> 3 </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0"> 4 </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0">
-                            <i class="lni lni-angle-double-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+                            <Pagination MetaData="MetaDataC" Spread="3" SelectedPage="SelectedPageCountry" />
+
         </div>
     </div>
     <!-- end card -->
@@ -162,16 +125,21 @@
         <div class="d-flex flex-wrap justify-content-center align-items-center py-3">
 
             <div class="right">
-                <div class="table-search d-sm-flex">
-                    <button type="button" class="btn btn-primary mr-10 " title="Add" data-bs-toggle="modal" data-bs-target="#addprovinces">
-                        +
-                    </button>
+
+                <div class="table-search d-flex  row-cols-auto">
+                    <div>
+                        <button type="button" class="btn btn-primary mr-10" title="Add" data-bs-toggle="modal" data-bs-target="#addprovinces">
+                            +
+                        </button>
+                    </div>
+
                     <form action="#">
-                        <input type="text" placeholder="Search...">
+                        <Search OnSearchChanged="SearchChangeP" />
                         <button>
                             <i class="lni lni-search-alt"></i>
                         </button>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -180,32 +148,8 @@
             <!-- end table -->
         </div>
         <div class="pt-10 d-flex flex-wrap justify-content-center">
-            <div class="right table-pagination">
-                <ul class="d-flex justify-content-end align-items-center">
-                    <li class="ms-2">
-                        <a href="#0">
-                            <i class="lni lni-angle-double-left"></i>
-                        </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0"> 1 </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0" class="active"> 2 </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0"> 3 </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0"> 4 </a>
-                    </li>
-                    <li class="ms-2">
-                        <a href="#0">
-                            <i class="lni lni-angle-double-right"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+                            <Pagination MetaData="MetaDataP" Spread="3" SelectedPage="SelectedPageProvinces" />
+
         </div>
     </div>
     <!-- end card -->
@@ -227,16 +171,21 @@
                         <p>Show <span>@TotalRows</span> entries</p>
                     </div>
                     <div class="right">
-                        <div class="table-search d-flex">
-                            <button type="button" class="btn btn-primary mr-10 " title="Add" data-bs-toggle="modal" data-bs-target="#addaddress">
-                                +
-                            </button>
+
+                        <div class="table-search d-flex  row-cols-auto">
+                            <div>
+                                <button type="button" class="btn btn-primary mr-10" title="Add" data-bs-toggle="modal" data-bs-target="#addaddress">
+                                    +
+                                </button>
+                            </div>
+
                             <form action="#">
-                                <input type="text" placeholder="Search...">
+                                <Search OnSearchChanged="SearchChangeA" />
                                 <button>
                                     <i class="lni lni-search-alt"></i>
                                 </button>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -245,35 +194,7 @@
                     <!-- end table -->
                 </div>
                 <div class="pt-10 d-flex flex-wrap justify-content-between">
-                    <div class="left">
-                        <p class="text-sm text-gray">Showing 12/30 products</p>
-                    </div>
-                    <div class="right table-pagination">
-                        <ul class="d-flex justify-content-end align-items-center">
-                            <li class="ms-2">
-                                <a href="#0">
-                                    <i class="lni lni-angle-double-left"></i>
-                                </a>
-                            </li>
-                            <li class="ms-2">
-                                <a href="#0"> 1 </a>
-                            </li>
-                            <li class="ms-2">
-                                <a href="#0" class="active"> 2 </a>
-                            </li>
-                            <li class="ms-2">
-                                <a href="#0"> 3 </a>
-                            </li>
-                            <li class="ms-2">
-                                <a href="#0"> 4 </a>
-                            </li>
-                            <li class="ms-2">
-                                <a href="#0">
-                                    <i class="lni lni-angle-double-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <Paging MetaData="MetaDataA" Spread="3" SelectedPage="SelectedPageAddress" />
                 </div>
             </div>
             <!-- end card -->

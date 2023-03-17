@@ -49,4 +49,3 @@ namespace Realta.Frontend.Components
         }
     }
 }
->>>>>>> 256fff3a7da96e16be2fa137ce37ee7f9463207a
