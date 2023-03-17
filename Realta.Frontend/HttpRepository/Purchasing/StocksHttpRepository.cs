@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.WebUtilities;
 using Realta.Contract.Models;
@@ -15,6 +16,48 @@ public class StocksHttpRepository : IStocksHttpRepository
     {
         _httpClient = httpClient;
         _options =  new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+    }
+
+    public async Task CreateStock(StocksDto stockCreateDto)
+    {
+        var content = JsonSerializer.Serialize(stockCreateDto);
+        var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+
+        var postResult = await _httpClient.PostAsync("stocks", bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(postContent);
+        }
+    }
+
+    public async Task DeleteStock(int stockId)
+    {
+        var url = Path.Combine("stocks", stockId.ToString());
+
+        var deleteResult = await _httpClient.DeleteAsync(url);
+        var deleteContent = await deleteResult.Content.ReadAsStringAsync();
+
+        if (!deleteResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(deleteContent);
+        }
+    }
+
+    public async Task<StocksDto> GetStockById(int stockId)
+    {
+        string url = Path.Combine("stocks", stockId.ToString());
+        var response = await _httpClient.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+
+        var stocks = JsonSerializer.Deserialize<StocksDto>(content, _options);
+        return stocks;
     }
 
     public async Task<List<StocksDto>> GetStocks()
@@ -38,6 +81,7 @@ public class StocksHttpRepository : IStocksHttpRepository
         {
             ["pageNumber"] = stocksParameters.PageNumber.ToString(),
             ["searchTerm"] = stocksParameters.SearchTerm == null ? "" : stocksParameters.SearchTerm.ToString(),
+            ["orderBy"] = stocksParameters.OrderBy,
         };
 
         var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("stocks/pageList", queryStringParam));
@@ -59,8 +103,8 @@ public class StocksHttpRepository : IStocksHttpRepository
 
     public async Task<List<StockPhotoDto>> GetStocksPhoto(int stockId)
     {
-        // call api end point e.g : http://localhost:7068/api/stocks
-        string url = "stock_photo" + stockId;
+        // call api end point e.g : http://localhost:7068/api/stock_photo/{id}
+        string url = Path.Combine("stock_photo", stockId.ToString());
         var response = await _httpClient.GetAsync(url);
         var content = await response.Content.ReadAsStringAsync();
 
@@ -71,6 +115,21 @@ public class StocksHttpRepository : IStocksHttpRepository
 
         var stockPhoto = JsonSerializer.Deserialize<List<StockPhotoDto>>(content, _options);
         return stockPhoto;
+    }
+
+    public async Task UpdateStock(StocksDto stocksUpdateDto)
+    {
+        var content = JsonSerializer.Serialize(stocksUpdateDto);
+        var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+        var url = Path.Combine("stocks", stocksUpdateDto.StockId.ToString());
+
+        var postResult = await _httpClient.PutAsync(url, bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(postContent);
+        }
     }
 }
 

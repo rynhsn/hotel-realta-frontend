@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace Realta.Frontend.Shared;
-
 public partial class SuccessNotification
 {
     
@@ -33,3 +32,4 @@ public partial class SuccessNotification
         Navigation.NavigateTo(PathRoute);
     }
 }
+

@@ -14,7 +14,7 @@ public partial class VendorProduct
     [Inject]
     public IVendorProductHttpRepository VendproRepo { get; set; }
     public MetaData MetaData { get; set; } = new MetaData();
-    private VenproParameters _vendproParameters = new VenproParameters();
+    private VendorParameters _vendproParameters = new VendorParameters();
     public List<VendorProductDto> VendorListPaging { get; set; } = new List<VendorProductDto>();
     private string orderBy = ""; // menunjukkan kolom yang diurutkan
     private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)

@@ -25,6 +25,8 @@ public class VendorProductHttpRepository : IVendorProductHttpRepository
             ["Keyword"] = _param.Keyword == null ? "" : _param.Keyword,
             ["orderBy"] = _param.OrderBy
         };
+
+
         var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString($"vendorproduct/{id}",queryStringParam));
         var content = await response.Content.ReadAsStringAsync();
 
@@ -32,6 +34,7 @@ public class VendorProductHttpRepository : IVendorProductHttpRepository
         {
             throw new ApplicationException(content);
         }
+
         var pagingResponse = new PagingResponse<VendorProductDto>
         {
             Items = JsonSerializer.Deserialize<List<VendorProductDto>>(content, _options),

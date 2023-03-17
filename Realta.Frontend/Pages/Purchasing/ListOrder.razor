@@ -1,4 +1,5 @@
 ﻿@page "/purchasing/list-order"
+@using Realta.Contract.Models
 @inject NavigationManager NavigationManager
 
 <PageTitle>Purchase Order</PageTitle>
@@ -69,46 +70,47 @@
 
   @if (DataList != null)
   {
-    foreach (var po in DataList)
+    foreach (var item in DataList)
     {
       <tr>
         <td>
-          <p>@po.PoheNumber</p>
+          <p>@item.PoheNumber</p>
         </td>
         <td>
-          <p>@po.PoheOrderDate.ToString("dd/MM/yyyy")</p>
+          <p>@item.PoheOrderDate.ToString("dd/MM/yyyy")</p>
         </td>
         <td>
-          <p>@po.VendorName</p>
+          <p>@item.VendorName</p>
         </td>
         <td>
-          <p>@po.LineItem Item(s)</p>
+          <p>@item.LineItem Item(s)</p>
         </td>
         <td>
-          <p>@(((decimal)po.PoheTotalAmount).ToString("C", new CultureInfo("id-ID")))</p>
+          <p>@(((decimal)item.PoheTotalAmount).ToString("C", new CultureInfo("id-ID")))</p>
         </td>
         <td>
-          <span class="status-btn @GetStatus(@po.PoheStatus).Item1">@GetStatus(@po.PoheStatus).Item2</span>
+          <span class="status-btn @GetStatus(@item.PoheStatus).Item1">@GetStatus(@item.PoheStatus).Item2</span>
         </td>
         <td>
           <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
             <span class="mdi mdi-dots-vertical"></span>
           </button>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+          <ul class="dropdown-menu dropdown-menu-end border-0" aria-labelledby="moreAction">
             <li class="dropdown-item">
-              <a class="text-gray" href="/purchasing/list-order/@po.PoheNumber">Details</a>
+              <a class="text-gray" href="/purchasing/list-order/@item.PoheNumber">Details</a>
             </li>
             <li class="dropdown-item">
-              <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#updateStatus">Switch Status</a>
+              <a class="text-gray" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#update" @onclick="() => OnUpdate(item)">Switch Status</a>
             </li>
             <li class="dropdown-item">
-              <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete">Delete</a>
+              <a class="text-danger" href="javascript:void(0)" @onclick="() => OnDelete(item.PoheNumber)">Delete modal</a>
             </li>
           </ul>
         </td>
       </tr>
     }
   }
+  
   </Tbody>
   <Page>
     <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
@@ -117,9 +119,9 @@
 
 @* // Update Modal *@
 <div class="warning-modal">
-  <div class="modal fade" id="updateStatus" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal fade" id="update" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <form class="modal-content card-style" action="/update" method="post">
+      <div class="modal-content card-style">
         <div class="modal-header px-0 border-0">
           <h5 class="text-bold">Switch Status</h5>
           <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
@@ -129,13 +131,13 @@
         <div class="modal-body px-0">
           <div class="content mb-30">
             <div class="select-style-1 col rounded-sm">
-              <label>Purchase Order Status</label>
+              <label>Purchase Order Status for @toUpdate.PoheNumber</label>
               <div class="select-position">
-                <select>
+                <select @bind="toUpdate.PoheStatus">
                   <option value="1">Pending</option>
                   <option value="2">Approve</option>
-                  <option value="3">Receive</option>
-                  <option value="4">Reject</option>
+                  <option value="3">Reject</option>
+                  <option value="4">Receive</option>
                   <option value="5">Complete</option>
                 </select>
               </div>
@@ -145,14 +147,15 @@
             <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
               Cancel
             </button>
-            <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+            <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1" @onclick="() => OnUpdateConfirmed()">
               Send
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
 
-<DeleteModal Target="#delete" id="" data-bs-target="" />
+<DeleteModal @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
+<SuccessNotification @ref="_notif"/>
