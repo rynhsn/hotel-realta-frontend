@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Contract", "..\RealtaHotelAPI\Realta.Contract\Realta.Contract.csproj", "{8AC99571-8603-4281-B01C-07158AA7B556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Contract", "..\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj", "{8AC99571-8603-4281-B01C-07158AA7B556}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Domain", "..\RealtaHotelAPI\Realta.Domain\Realta.Domain.csproj", "{81B72999-EF9C-4097-AA26-6AD34E599026}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Domain", "..\HotelRealtaAPI\Realta.Domain\Realta.Domain.csproj", "{81B72999-EF9C-4097-AA26-6AD34E599026}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Realta.Frontend", "Realta.Frontend\Realta.Frontend.csproj", "{F6133D88-99F4-439F-A620-B505594A96DB}"
 EndProject
