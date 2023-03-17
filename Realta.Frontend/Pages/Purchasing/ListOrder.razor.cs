@@ -1,38 +1,74 @@
+using System.Data;
 using Microsoft.AspNetCore.Components;
 using Realta.Contract.Models;
-using Realta.Domain.Entities;
 using Realta.Domain.RequestFeatures;
+using Realta.Frontend.Components;
 using Realta.Frontend.HttpRepository.Purchasing;
+using Realta.Frontend.Shared;
 
 namespace Realta.Frontend.Pages.Purchasing;
 
 public partial class ListOrder
 {
-
-    [Inject]
-    public IPurchaseOrderHttpRepository Repo { get; set; }
+    [Inject] public IPurchaseOrderHttpRepository Repo { get; set; }
     public List<PurchaseOrderDto> DataList { get; set; } = new();
+    public MetaData MetaData { get; set; } = new();
+    private PurchaseOrderParameters _param = new();
+    private SuccessNotification _notif;
+    private DeleteModal _del;
 
     protected async override Task OnInitializedAsync()
     {
         // DataList = await Repo.Get();
         await Get();
     }
-    
-    private PurchaseOrderParameters _param = new();
-    public MetaData MetaData { get; set; } = new();
 
-    private async Task SelectedPage(int page)
-    {
-        _param.PageNumber = page;
-        await Get();
-    }
-    
     private async Task Get()
     {
         var response = await Repo.GetHeaders(_param);
         DataList = response.Items;
         MetaData = response.MetaData;
+    }
+
+    private PurchaseOrderDto toUpdate { get; set; } = new();
+    private bool showUpdateModal = false;
+    private byte selected = 1;
+
+    private async Task CloseUpdateModal()
+    {
+        showUpdateModal = false;
+    }
+    private async Task OnUpdate(PurchaseOrderDto data)
+    {
+        toUpdate = data;
+        selected = data.PoheStatus;
+        showUpdateModal = true;
+    }
+
+    private async Task OnUpdateConfirmed(string id)
+    {
+        // Console.WriteLine(selected);
+        CloseUpdateModal();
+        await Repo.UpdateStatus(id, new StatusUpdateDto(){PoheStatus = selected});
+        _param.PageNumber = 1;
+        _notif.Show("/purchasing/list-order");
+        await Get();
+    }
+    
+    
+    private async Task OnDelete(string id)
+    {
+        _del.Show(id, $"Purchase Order {id} will be deleted!");
+        await Task.Delay(100);
+    }
+
+    private async Task OnDeleteConfirmed(object id)
+    {
+        _del.Hide();
+        await Repo.DeleteHeader(id.ToString());
+        _param.PageNumber = 1;
+        _notif.Show("/purchasing/list-order");
+        await Get();
     }
     
     public static (string, string) GetStatus(int status)
@@ -40,29 +76,25 @@ public partial class ListOrder
         return status switch
         {
             1 => ("warning-btn", "Pending"),
-            2 => ("info-btn", "Approve"),
-            3 => ("danger-btn", "Reject"),
+            2 => ("success-btn", "Approve"),
+            3 => ("close-btn", "Reject"),
             4 => ("secondary-btn", "Receive"),
             5 => ("dark-btn", "Complete")
         };
     }
-    
+    private async Task SelectedPage(int page)
+    {
+        _param.PageNumber = page;
+        await Get();
+    }
     private async Task SearchChanged(string keyword)
     {
         _param.PageNumber = 1;
         _param.Keyword = keyword;
         await Get();
     }
-    // private async Task SortChanged(string orderBy)
-    // {
-    //     Console.WriteLine(_param.OrderBy);
-    //     _param.OrderBy = orderBy;
-    //     await Get();
-    // }
-    
     private string orderBy = ""; // menunjukkan kolom yang diurutkan
     private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)
-    
     private async Task SortChanged(string columnName)
     {
         if (orderBy != columnName)
