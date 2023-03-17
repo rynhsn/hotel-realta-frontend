@@ -95,7 +95,7 @@
           <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
             <span class="mdi mdi-dots-vertical"></span>
           </button>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+          <ul class="dropdown-menu dropdown-menu-end border-0" aria-labelledby="moreAction">
             <li class="dropdown-item">
               <a class="text-gray" href="/purchasing/list-order/@item.PoheNumber">Details</a>
             </li>
@@ -117,47 +117,45 @@
   </Page>
 </TableSection>
 
-@if (toUpdate != null)
-{
 @* // Update Modal *@
-  <div class="warning-modal">
-    <div class="modal fade" id="update" tabindex="-1" style="display: none;" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content card-style">
-          <div class="modal-header px-0 border-0">
-            <h5 class="text-bold">Switch Status</h5>
-            <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
-              <i class="lni lni-cross-circle"></i>
-            </button>
-          </div>
-          <div class="modal-body px-0">
-            <div class="content mb-30">
-              <div class="select-style-1 col rounded-sm">
-                <label>Purchase Order Status @(toUpdate.PoheStatus)</label>
-                <div class="select-position">
-                  <select @bind="selected">
-                    <option value="1">Pending</option>
-                    <option value="2">Approve</option>
-                    <option value="3">Reject</option>
-                    <option value="4">Receive</option>
-                    <option value="5">Complete</option>
-                  </select>
-                </div>
+<div class="warning-modal">
+  <div class="modal fade" id="update" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content card-style">
+        <div class="modal-header px-0 border-0">
+          <h5 class="text-bold">Switch Status</h5>
+          <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+            <i class="lni lni-cross-circle"></i>
+          </button>
+        </div>
+        <div class="modal-body px-0">
+          <div class="content mb-30">
+            <div class="select-style-1 col rounded-sm">
+              <label>Purchase Order Status for @toUpdate.PoheNumber</label>
+              <div class="select-position">
+                <select @bind="toUpdate.PoheStatus">
+                  <option value="1">Pending</option>
+                  <option value="2">Approve</option>
+                  <option value="3">Reject</option>
+                  <option value="4">Receive</option>
+                  <option value="5">Complete</option>
+                </select>
               </div>
             </div>
-            <div class="action d-flex flex-wrap justify-content-end">
-              <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
-                Cancel
-              </button>
-              <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1" @onclick="() => OnUpdateConfirmed(toUpdate.PoheNumber)">
-                Send
-              </button>
-            </div>
+          </div>
+          <div class="action d-flex flex-wrap justify-content-end">
+            <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+              Cancel
+            </button>
+            <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1" @onclick="() => OnUpdateConfirmed()">
+              Send
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-}
+</div>
+
 <DeleteModal @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
 <SuccessNotification @ref="_notif"/>

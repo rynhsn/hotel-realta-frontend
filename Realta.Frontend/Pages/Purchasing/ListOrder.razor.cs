@@ -30,31 +30,21 @@ public partial class ListOrder
         MetaData = response.MetaData;
     }
 
-    private PurchaseOrderDto toUpdate { get; set; } = new();
-    private bool showUpdateModal = false;
-    private byte selected = 1;
+    private StatusUpdateDto toUpdate = new();
 
-    private async Task CloseUpdateModal()
-    {
-        showUpdateModal = false;
-    }
     private async Task OnUpdate(PurchaseOrderDto data)
     {
-        toUpdate = data;
-        selected = data.PoheStatus;
-        showUpdateModal = true;
+        toUpdate.PoheNumber = data.PoheNumber;
+        toUpdate.PoheStatus = data.PoheStatus;
     }
 
-    private async Task OnUpdateConfirmed(string id)
+    private async Task OnUpdateConfirmed()
     {
-        // Console.WriteLine(selected);
-        CloseUpdateModal();
-        await Repo.UpdateStatus(id, new StatusUpdateDto(){PoheStatus = selected});
+        await Repo.UpdateStatus(toUpdate);
         _param.PageNumber = 1;
-        _notif.Show("/purchasing/list-order");
         await Get();
+        _notif.Show(NavigationManager.Uri);
     }
-    
     
     private async Task OnDelete(string id)
     {
@@ -93,6 +83,13 @@ public partial class ListOrder
         _param.Keyword = keyword;
         await Get();
     }
+    // private async Task SetEntry(int entry)
+    // {
+    //     Console.WriteLine(@ent);
+    //     _param.PageNumber = 1;
+    //     _param.PageSize = entry;
+    //     await Get();
+    // }
     private string orderBy = ""; // menunjukkan kolom yang diurutkan
     private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)
     private async Task SortChanged(string columnName)

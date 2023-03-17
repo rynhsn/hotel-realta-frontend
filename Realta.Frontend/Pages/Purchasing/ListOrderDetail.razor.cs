@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Realta.Contract.Models;
-using Realta.Domain.Entities;
 using Realta.Domain.RequestFeatures;
 using Realta.Frontend.Components;
 using Realta.Frontend.HttpRepository.Purchasing;
@@ -10,8 +9,8 @@ namespace Realta.Frontend.Pages.Purchasing;
 
 public partial class ListOrderDetail
 {
-    [Parameter] public string Id { get; set; }
-    [Inject] public IPurchaseOrderHttpRepository Repo { get; set; }
+    [Parameter] public string Id { get; set; } 
+    [Inject] private IPurchaseOrderHttpRepository Repo { get; set; }
     private SuccessNotification _notif;
     private DeleteModal _del;
     public PurchaseOrderDto Header { get; set; } = new();
@@ -38,7 +37,32 @@ public partial class ListOrderDetail
         MetaData = response.MetaData;
     }
     
+    private QtyUpdateDto toUpdate = new();
+    private async Task OnUpdate(PurchaseOrderDetailDto data)
+    {
+        toUpdate.PodeId = data.PodeId;
+        toUpdate.StockName = data.StockName;
+        toUpdate.PodeOrderQty = data.PodeOrderQty;
+        toUpdate.PodeReceivedQty = data.PodeReceivedQty;
+        toUpdate.PodeRejectedQty = data.PodeRejectedQty;
+    }
     
+    private async Task OnUpdateConfirmed()
+    {
+        await Repo.UpdateQty(toUpdate);
+        await Get();
+        _param.PageNumber = 1;
+        if (DataList.Any())
+        {
+            _param.PageNumber = 1;
+            _notif.Show(NavigationManager.Uri);
+        }
+        else
+        {
+            _notif.Show($"/purchasing/list-order");
+        }
+    }
+
     private async Task OnDelete(int id)
     {
         _del.Show<int>(id, $"Purchase Order {id} will be deleted!");
@@ -48,14 +72,13 @@ public partial class ListOrderDetail
 
     private async Task OnDeleteConfirmed(object id)
     {
-        Console.WriteLine("ini kodenya " + id);
         _del.Hide();
         await Repo.DeleteDetail((int)id);
         await Get();
         if (DataList.Any())
         {
             _param.PageNumber = 1;
-            _notif.Show($"/purchasing/list-order/{Id}");
+            _notif.Show(NavigationManager.Uri);
         }
         else
         {
