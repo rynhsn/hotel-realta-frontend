@@ -13,6 +13,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 // booking
 builder.Services.AddScoped<IHotelHttpRepository, HotelHttpRepository>();
 builder.Services.AddScoped<ISpecialOfferHttpRepository, SpecialOfferHttpRepository>();
+builder.Services.AddScoped<IBookingHttpRepository, BookingHttpRepository>();
 
 
 

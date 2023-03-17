@@ -1,4 +1,13 @@
-﻿@page "/booking/room-invoice"
+﻿@page "/BookingOrders/{Id:int}"
+
+@using Realta.Contract.Models
+
+@using Realta.Frontend.HttpRepository.Booking
+
+@* @Bookings.BoorOrderNumber *@
+@* @BookingDetailByBoorId *@
+@* @BookingExtraByBoorId *@
+@* @UserInfo *@
 <section>
 <div class="container-fluid">
 <!-- ========== title-wrapper start ========== -->
@@ -39,37 +48,37 @@
         <div class="invoice-for px-0">
           <h5 class="mt-40 ml-5">Order Number</h5>
           <p class="text-sm ml-5">
-            BO#20230101-0001
+            @Bookings.BoorOrderNumber
           </p>
         </div>
         <div class="invoice-date">
           <h5 class="text-bold mt-40">Order Date</h5>
           <p class="text-sm mr-20">
-            2023/01/01
+            @Bookings.BoorOrderDate
           </p>
         </div>
         <div class="invoice-date">
           <h5 class="text-bold mt-40">Invoice number</h5>
           <p class="text-sm">
-            TRX#20230101-0001
+            @Bookings.TrxNumber
           </p>
         </div>
         <div class="invoice-date">
           <h5 class="text-bold mt-40">Invoice Date</h5>
           <p class="text-sm">
-            2023/01/01
+            @Bookings.BoorOrderDate
           </p>
         </div>
         <div class="invoice-date">
           <h5 class="text-bold mt-40">Status</h5>
           <p class="text-sm">
-            Paid
+            @Bookings.BoorStatus
           </p>
         </div>
         <div class="invoice-date">
           <h5 class="text-bold mt-40">Payment Type</h5>
           <p class="text-sm">
-            GoTo
+            @Bookings.BoorPayType
           </p>
         </div>
       </div>
@@ -84,10 +93,10 @@
             <div class="mr-20">
               <h5 class="ml-10 mr-10 mb-10 mt-0">Full Name</h5>
               <p class="text-sm  ml-10 mr-10">
-                Customer Name
+                NamaUser
               </p>
             </div>
-          </div>          
+          </div>
           <div class="invoice-for px-0">
             <div class="mr-20">
               <h5 class="ml-10 mr-10 mb-10 mt-0">Contact Number</h5>
@@ -139,118 +148,174 @@
             </th>
             <th class="amount">
               <h6 class="text-sm text-medium">Price</h6>
-            </th>            
+            </th>
             <th class="amount">
               <h6 class="text-sm text-medium">Discount</h6>
-            </th>            
+            </th>
             <th class="amount">
               <h6 class="text-sm text-medium">Point Member</h6>
-            </th>            
+            </th>
             <th class="amount">
               <h6 class="text-sm text-medium">Sub Total</h6>
             </th>
           </tr>
           </thead>
           <tbody>
+         @{
+             var bookingDetails = BookingDetailByBoorId
+                 .GroupBy(x => new { x.FaciName, x.BordeAdults, x.BordeKids })
+                 .Select(g => new {
+                     g.Key.FaciName,
+                     g.Key.BordeAdults,
+                     g.Key.BordeKids,
+                     Qty = g.Count(),
+                     BordePrice = g.First().BordePrice,
+                     BordeDiscount = g.First().BordeDiscount,
+                     MemberDiscount = 0.1M // diskon member sebesar 10%
+                 });
+         }
+         
+         @foreach (var roomName in bookingDetails)
+         {
+             <tr>
+                 <td>
+                     <p class="text-sm">
+                         @roomName.FaciName
+                     </p>
+                 </td>
+                 <td>
+                     <p class="text-sm">@roomName.Qty</p>
+                 </td>
+                 <td>
+                     <p class="text-sm">@roomName.BordeAdults Adult, @roomName.BordeKids Child</p>
+                 </td>
+                 <td>
+                     <p class="text-sm">@string.Format("IDR {0:N0}", @roomName.BordePrice)</p>
+                 </td>
+                 <td>
+                     <p class="text-sm text-center mr-20">@string.Format("{0:#%}", roomName.BordeDiscount)</p>
+                 </td>
+                 @{
+                     var memberDiscount = 0.1; // diskon member sebesar 10%
+                     var totalDiscount = roomName.BordeDiscount + (decimal?)memberDiscount; // nilai total diskon
+                     var discountedPrice = roomName.BordePrice * (1 - (totalDiscount != null ? totalDiscount.Value : 0)); // harga kamar setelah didiskon
+                 }
+                 <td>
+                     <p class="text-sm"> Disc @string.Format("{0:#%}", memberDiscount) <br/> (-100 Pts)</p>
+                 </td>
+                 <td>
+                     <p class="text-sm">IDR @string.Format("{0:N0}", discountedPrice)</p>
+                 </td>
+             </tr>
+         }
+          @{
+              // dictionary untuk menyimpan jumlah item
+              Dictionary<string, int> itemQuantities = new Dictionary<string, int>();
+          }
+          
+          @foreach (var extra in BookingExtraByBoorId)
+          {
+              // tambahkan item ke dictionary
+              if (itemQuantities.ContainsKey(extra.PritName))
+              {
+                  itemQuantities[extra.PritName] += 1;
+              }
+              else
+              {
+                  itemQuantities[extra.PritName] = 1;
+              }
+          
+              // tampilkan item dan quantity-nya
+              <tr>
+                  <td>
+                      <p class="text-sm">
+                          @extra.PritName
+                      </p>
+                  </td>
+                  <td>
+                      <p class="text-sm">@itemQuantities[extra.PritName]</p>
+                  </td>
+                  <td>
+                      <p class="text-sm"></p>
+                  </td>
+                  <td>
+                      <p class="text-sm">@string.Format("IDR {0:N0}", @extra.BoexPrice)</p>
+                  </td>
+                  <td>
+                      <p class="text-sm text-center mr-20"></p>
+                  </td>
+                  <td>
+                      <p class="text-sm"></p>
+                  </td>
+                  <td>
+                      <p class="text-sm">@string.Format("IDR {0:N0}", extra.BoexPrice * itemQuantities[extra.PritName])</p>
+                  </td>
+              </tr>
+          }
+
           <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            
+            @{
+              itemQuantities = new Dictionary<string, int>();
+              foreach (var extra in BookingExtraByBoorId)
+                {
+                    if (itemQuantities.ContainsKey(extra.PritName))
+                    {
+                        itemQuantities[extra.PritName]++;
+                    }
+                    else
+                    {
+                        itemQuantities.Add(extra.PritName, 1);
+                    }
+                }
+            
+              decimal totalExtrasPrice = 0;
+              foreach (var extra in BookingExtraByBoorId)
+              {
+                totalExtrasPrice += extra.BoexPrice.GetValueOrDefault() * itemQuantities[extra.PritName];
+              }
+
+              decimal totalRoomPrice = 0;
+              foreach (var roomName in BookingDetailByBoorId)
+              {
+                var memberDiscount = 0.1;
+                var totalDiscount = roomName.BordeDiscount.GetValueOrDefault() + (decimal)memberDiscount;
+                var discountedPrice = roomName.BordePrice.GetValueOrDefault() * (1 - totalDiscount);
+                totalRoomPrice += discountedPrice;
+              }
+            
+                decimal tax = totalRoomPrice * 0.1M;
+                decimal totalPrice = totalRoomPrice + totalExtrasPrice + tax;
+            }
+            
             <td>
-              <p class="text-sm">
-                Indonesian Standard Double
-              </p>
+                <h6 class="text-sm text-medium">Tax</h6>
             </td>
             <td>
-              <p class="text-sm">2</p>
+                <h6 class="text-sm text-bold">IDR @string.Format("{0:N0} ({1}%)", tax, 10)</h6>
             </td>
-            <td>
-              <p class="text-sm">2 Adult, 0 Child</p>
-            </td>
-            <td>
-              <p class="text-sm">IDR 300.000</p>
-            </td>
-            <td>
-              <p class="text-sm text-center mr-20">10%</p>
-            </td>
-            <td>
-              <p class="text-sm"> Disc 10%<br/>(-100 Pts)</p>
-            </td>
-            <td>
-              <p class="text-sm">IDR 243.000</p>
-            </td>
+
           </tr>
           <tr>
-            <td>
-              <p class="text-sm">
-                Extra Beds
-              </p>
-            </td>
-            <td>
-              <p class="text-sm">1</p>
-            </td>
-            <td>
-              <p class="text-sm"></p>
-            </td>
-            <td>
-              <p class="text-sm">IDR 50.000</p>
-            </td>
-            <td>
-              <p class="text-sm text-center mr-20"></p>
-            </td>
-            <td>
-              <p class="text-sm"></p>
-            </td>
-            <td>
-              <p class="text-sm">IDR 50.000</p>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p class="text-sm">
-                SoftDrink
-              </p>
-            </td>
-            <td>
-              <p class="text-sm">2</p>
-            </td>
-            <td>
-              <p class="text-sm"></p>
-            </td>
-            <td>
-              <p class="text-sm">IDR.20.000</p>
-            </td>
-            <td>
-              <p class="text-sm text-center mr-20"></p>
-            </td>
-            <td>
-              <p class="text-sm"></p>
-            </td>
-            <td>
-              <p class="text-sm">IDR 20.000</p>
-            </td>
-          </tr>
-          <tr>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td>
-              <h6 class="text-sm text-medium">Tax</h6>
-            </td>
-            <td>
-              <h6 class="text-sm text-bold">IDR 31.300 (10%)</h6>
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            
+            @{
+                var totalDiscountAmount = bookingDetails.Sum(x => (x.BordePrice * (decimal)x.Qty) * (x.BordeDiscount + x.MemberDiscount));
+            }
             <td>
               <h6 class="text-sm text-medium">Total Discount</h6>
             </td>
             <td>
-              <h6 class="text-sm text-bold">IDR 57.000</h6>
+              <h6 class="text-sm text-bold">IDR @string.Format("{0:N0}", totalDiscountAmount)</h6>
             </td>
           </tr>
           <tr>
@@ -263,10 +328,10 @@
               <h6 class="text-sm text-medium">Payment Ammount</h6>
             </td>
             <td>
-              <h6 class="text-sm text-bold">IDR 313.000</h6>
+              <h6 class="text-sm text-bold">IDR 189,130</h6>
             </td>
           </tr>
- 
+
           </tbody>
         </table>
       </div>
@@ -295,3 +360,28 @@
 </div>
 <!-- end container -->
 </section>
+
+@code{
+  
+  public BookingOrdersDto? Bookings { get; set; } = new BookingOrdersDto();
+  public BookingOrderDetailDto? BookingOrderDetail { get; set; } = new BookingOrderDetailDto();
+  public BookingOrderDetailExtraDto? BookingOrderDetailExtra { get; set; } = new BookingOrderDetailExtraDto();
+  
+  //variable untuk menampung data dari endpoint
+  public List<BookingOrderDetailDto> BookingDetailByBoorId { get; set; } = new List<BookingOrderDetailDto>();
+  public List<BookingOrderDetailExtraDto> BookingExtraByBoorId { get; set; } = new List<BookingOrderDetailExtraDto>();
+  public UserMemberDto UserInfo { get; set; } = new UserMemberDto();
+  
+  [Inject]
+  public IBookingHttpRepository BookingHttpRepository {get; set; }
+  
+  protected async override Task OnInitializedAsync()
+  {
+    Bookings = await BookingHttpRepository.GetBookingOrdersById(Id);
+    BookingDetailByBoorId = await BookingHttpRepository.GetBookingOrderDetailByBoorId(Id);
+    BookingExtraByBoorId = await BookingHttpRepository.GetBookingOrderDetailExtraByBoorId(Id);
+    UserInfo = await BookingHttpRepository.GetUserMemberByBoorId(Id);    
+  }
+  
+  
+}

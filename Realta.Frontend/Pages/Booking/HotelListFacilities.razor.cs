@@ -39,10 +39,17 @@ public partial class HotelListFacilities
         // List of cart items
         public List<RoomItem> items = new List<RoomItem>();
 
- 
+        // Flag to indicate if cart is full
+        public bool IsCartFull { get; set; } = false;
+        
         // Add item to cart
         public void AddItem(HotelsDto desc, int qty = 1)
         {
+            // Check if cart is already full
+            if (IsCartFull)
+            {
+                return;
+            }
             
             // Check if item already exists in cart
             var existingItem = items.FirstOrDefault(item => item.Room.FaciName == desc.FaciName);
@@ -64,6 +71,11 @@ public partial class HotelListFacilities
         }
         public bool IsAddedToCart(HotelsDto desc)
         {
+            if (Cart.Instance.IsCartFull)
+            {
+                return true;
+            }
+
             var item = Cart.Instance.items.FirstOrDefault(i => i.Room.FaciName == desc.FaciName);
             return item != null;
         }

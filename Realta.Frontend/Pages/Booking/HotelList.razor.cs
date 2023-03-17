@@ -18,6 +18,7 @@ public partial class HotelList
     {
         var pathUrl = Path.Combine("/booking/", id.ToString());
         NavigationManager.NavigateTo(pathUrl);
+        // var pathUrlInvoice = Path.Combine("/booking/invoice", id.ToString());
     }
 
 

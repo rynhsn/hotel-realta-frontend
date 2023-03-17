@@ -1,12 +1,7 @@
 ﻿@page "/booking/{Id:int}"
-@using System.Net.Http.Json
-@using System.Net.Http
 @using Realta.Contract.Models
-@using Realta.Domain.RequestFeatures
 @using Realta.Frontend.HttpRepository.Booking
-@using System.Net
-@using Realta.Domain.Entities
-@using Realta.Frontend.Pages.Booking
+
 <link rel="stylesheet" href="HotelFacilitites.razor.css"/>
 <PageTitle>Booking Room Detail</PageTitle>
 <section class="card-components">
@@ -157,8 +152,8 @@
                             <img class="card-img-top" src="@room.FaciPhotoUrl" alt="Room Picture">
                         </a>
                         <div class="d-flex justify-content-end">
-                            <button class="main-btn primary-btn btn-hover mt-10 mr-60" @onclick="() => AddtoCart(room)" disabled="@Cart.Instance.IsAddedToCart(room)" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart"> Add Room </button>
-                        </div>
+                            <button class="main-btn primary-btn btn-hover mt-10 mr-60" @onclick="() => AddtoCart(room)" disabled="@(!CanAddToCart(room))" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart"> Add Room</button>
+                            </div>
                     </div>
                 </div>
                 <hr/>
@@ -299,17 +294,15 @@
                         </div>
                         <div class="row">
                             <div class="col-7">
-                                <p style="font-size: 12px"; class="fw-bold ">
-                                    hari, DD bulan <br>-<br/> hari, DD bulan
-                                </p>
+                                <div>
+                                    @* <input type="date" @bind="StartDateString" @onchange="OnStartDateChanged" /> *@
+                                    @* <input type="date" @bind="EndDateString" @onchange="OnEndDateChanged" /> *@
+                                </div>
                             </div>
                             <div class="col-5">
                                 <p style="font-size: 12px"; class="fw-bold">
-                                    @* @(item.Room.FaciMaxNumber.ToString())  *@
-                                    
                                 </p>
                                 @* <input type="text" name="price" id="price" style="font-size: 12px"; class="fw-bold" value=" @(item.Room.FaciMaxNumber.ToString())" readonly/> *@
-
                             </div>
                         </div>
                         <div class="row">
@@ -366,7 +359,47 @@
 <!-- end container -->
 </div>
 </section>
-
+<div class="warning-modal">
+    <div class="modal fade" id="ModalThree" tabindex="-1" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content card-style">
+          <div class="modal-header px-0 border-0">
+            <h5 class="text-bold">New message</h5>
+            <button class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+              <i class="lni lni-cross-circle"></i>
+            </button>
+          </div>
+          <div class="modal-body px-0">
+            <div class="content mb-30">
+              <p class="text-sm">
+                Lorem Ipsum is simply dummy text of the printing and
+                typesetting industry. Lorem Ipsum has been the industry's
+                standard dummy text ever since the 1500s, when an unknown
+                printer took a galley of type and scrambled it to make a type
+                specimen book. It has survived not only five centuries, but
+                also the leap into electronic typesetting, remaining
+                essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum
+                passages, and more recently with desktop publishing software
+                like Aldus PageMaker including versions of Lorem Ipsum.Lorem
+                Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the .
+              </p>
+            </div>
+            <div class="action d-flex flex-wrap justify-content-end">
+              <button data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                Cancel
+              </button>
+              <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                Send Message
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 @code
 {
     [Parameter]
@@ -404,19 +437,33 @@
             return item != null;
         }
     }
-
-
-
     
-
+    private bool CanAddToCart(HotelsDto desc)
+    {
+        var item = Cart.Instance.items.FirstOrDefault(i => i.Room.FaciName == desc.FaciName);
+        return item == null && Cart.Instance.items.Count == 0;
+    }
+    
     private void AddtoCart(HotelsDto hoteldata)
     {
+
+        int desiredCapacity = 1; // ubah angka 2 dengan kapasitas yang diinginkan
+
+    // cek apakah kamar tersebut sudah ada di cart dengan jumlah yang sama atau lebih besar dari kapasitas yang diinginkan
+        var existingItem = Cart.Instance.items.FirstOrDefault(item => item.Room.FaciName == hoteldata.FaciName && item.Quantity >= desiredCapacity);
+
+        if (existingItem != null)
+        {
+    // kamar tersebut sudah ada di cart dengan jumlah yang sama atau lebih besar dari kapasitas yang diinginkan
+    // kunci tombol "Add Room" untuk kamar tersebut
+            return;
+        }
 
         bool isAlreadyAdded = Cart.Instance.IsAddedToCart(hoteldata);
 
         if (!isAlreadyAdded)
         {
-            Cart.Instance.AddItem(hoteldata);
+            Cart.Instance.AddItem(hoteldata, desiredCapacity);
             OpenCart();
             StateHasChanged();
         }
@@ -455,6 +502,48 @@
     [Parameter]
     public int OrderDetail { get; set; } = 0;
     
+    // [Parameter]
+    // public EventCallback<DateTime> StartDateChanged { get; set; }
+    //
+    // [Parameter]
+    // public EventCallback<DateTime> EndDateChanged { get; set; }
+    //
+    // private string startDateString;
+    // private string endDateString;
+    //
+    // public string StartDateString
+    // {
+    //     get => startDateString;
+    //     set
+    //     {
+    //         startDateString = value;
+    //         DateTime.TryParseExact(startDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime startDate);
+    //         StartDateChanged.InvokeAsync(startDate);
+    //         EndDateString = startDate.AddDays(1).ToString("yyyy-MM-dd");
+    //         EndDateChanged.InvokeAsync(startDate.AddDays(1));
+    //     }
+    // }
+    //
+    // public string EndDateString
+    // {
+    //     get => endDateString;
+    //     set
+    //     {
+    //         endDateString = value;
+    //         DateTime.TryParseExact(endDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime endDate);
+    //         EndDateChanged.InvokeAsync(endDate);
+    //     }
+    // }
+    //
+    // private void OnStartDateChanged(ChangeEventArgs e)
+    // {
+    //     StartDateString = e.Value.ToString();
+    // }
+    //
+    // private void OnEndDateChanged(ChangeEventArgs e)
+    // {
+    //     EndDateString = e.Value.ToString();
+    // }
 }
 
 
