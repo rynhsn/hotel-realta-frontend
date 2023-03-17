@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Realta.Contract.Models;
 using Realta.Domain.RequestFeatures;
+using Realta.Frontend.Components.Purchasing;
 using Realta.Frontend.HttpRepository.Purchasing;
+using Realta.Frontend.Pages.Resto;
+using Realta.Frontend.Shared;
 
 namespace Realta.Frontend.Pages.Purchasing;
 
@@ -41,4 +45,35 @@ public partial class Stocks
         await GetPaging();
     }
 
+    private async Task applySort(ChangeEventArgs eventArgs)
+    {
+        _stocksParameters.OrderBy = eventArgs.Value.ToString();
+        await GetPaging();
+    }
+
+    private ModalCreateStock _createStock;
+
+    private ModalUpdateStock _updateStock;
+
+    public StocksDto GetUpdateStock { get; set; }
+    private async Task UpdateStock(int id)
+    {
+        GetUpdateStock = await StocksHttpRepository.GetStockById(id);
+        _updateStock.Show();
+    }
+
+    [Inject]
+    public IJSRuntime Js { get; set; }
+
+    private async Task onDelete(int id)
+    {
+        var stocks = stocksList.FirstOrDefault(s => s.StockId.Equals(id));
+        var confirmed = await Js.InvokeAsync<bool>("confirm", $"Delete stock {stocks.StockName} ?");
+        if (confirmed)
+        {
+            await StocksHttpRepository.DeleteStock(id);
+            _stocksParameters.PageNumber = 1;
+            await GetPaging();
+        }
+    }
 }

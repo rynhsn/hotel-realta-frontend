@@ -30,7 +30,7 @@ public class VendorProductHttpRepository : IVendorProductHttpRepository
         return venpro;
     }
     
-    public async Task<PagingResponse<VendorProductDto>> GetVenProPaging(VenproParameters vendorsParameters, int id)
+    public async Task<PagingResponse<VendorProductDto>> GetVenProPaging(VendorParameters vendorsParameters, int id)
     {
         var queryStringParam = new Dictionary<string, string>
         {
