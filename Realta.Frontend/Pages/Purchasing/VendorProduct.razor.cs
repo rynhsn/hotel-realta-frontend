@@ -15,7 +15,7 @@ public partial class VendorProduct
     public List<VendorProductDto> VenproList { get; set; } = new List<VendorProductDto>();
     
     public MetaData MetaData { get; set; } = new MetaData();
-    private VenproParameters _vendproParameters = new VenproParameters();
+    private VendorParameters _vendproParameters = new VendorParameters();
     public List<VendorProductDto> VendorListPaging { get; set; } = new List<VendorProductDto>();
     protected async override Task OnInitializedAsync()
     {

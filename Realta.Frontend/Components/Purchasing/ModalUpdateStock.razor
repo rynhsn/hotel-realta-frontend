@@ -8,7 +8,7 @@
                     <i class="lni lni-cross-circle"></i>
                 </button>
             </div>
-            <EditForm Model="_createStock" OnValidSubmit="Create">
+            <EditForm Model="UpdateStock" OnValidSubmit="Update">
             <DataAnnotationsValidator />
                 <div class="modal-body">
                     <div class="content">
@@ -16,15 +16,15 @@
                             <div class="col-8">
                                 <div class="input-style-1">
                                     <label>Stock</label>
-                                    <InputText id="StockName" @bind-Value="_createStock.StockName" />
-                                    <ValidationMessage For="@( () => _createStock.StockName)" />
+                                    <InputText id="StockName" @bind-Value="UpdateStock.StockName" />
+                                    <ValidationMessage For="@( () => UpdateStock.StockName)" />
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="input-style-1">
                                     <label>Re-Order Point</label>
-                                    <InputNumber id="StockReorderPoint" @bind-Value="_createStock.StockReorderPoint" />
-                                    <ValidationMessage For="@( () => _createStock.StockReorderPoint)" />
+                                    <InputNumber id="StockReorderPoint" @bind-Value="UpdateStock.StockReorderPoint" />
+                                    <ValidationMessage For="@( () => UpdateStock.StockReorderPoint)" />
                                 </div>
                             </div>
                         </div>
@@ -32,19 +32,19 @@
                             <div class="col-4">
                                 <div class="input-style-1">
                                     <label>Quantity</label>
-                                    <InputNumber id="StockQuantity" @bind-Value="_createStock.StockQuantity" disabled="true" />
+                                    <InputNumber id="StockQuantity" @bind-Value="UpdateStock.StockQuantity" disabled="true" />
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="input-style-1">
                                     <label>Used</label>
-                                    <InputNumber id="StockUsed" @bind-Value="_createStock.StockUsed" disabled="true" />
+                                    <InputNumber id="StockUsed" @bind-Value="UpdateStock.StockUsed" disabled="true" />
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="input-style-1">
                                     <label>Scrap</label>
-                                    <InputNumber id="StockScrap" @bind-Value="_createStock.StockScrap" disabled="true" />
+                                    <InputNumber id="StockScrap" @bind-Value="UpdateStock.StockScrap" disabled="true" />
                                 </div>
                             </div>
                         </div>
@@ -52,15 +52,15 @@
                             <div class="col-6">
                                 <div class="input-style-1">
                                     <label>Size</label>
-                                    <InputText id="StockSize" @bind-Value="_createStock.StockSize" />
-                                    <ValidationMessage For="@( () => _createStock.StockSize)" />
+                                    <InputText id="StockSize" @bind-Value="UpdateStock.StockSize" />
+                                    <ValidationMessage For="@( () => UpdateStock.StockSize)" />
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="input-style-1">
                                     <label>Color</label>
-                                    <InputText id="StockColor" @bind-Value="_createStock.StockColor" />
-                                    <ValidationMessage For="@( () => _createStock.StockColor)" />
+                                    <InputText id="StockColor" @bind-Value="UpdateStock.StockColor" />
+                                    <ValidationMessage For="@( () => UpdateStock.StockColor)" />
                                 </div>
                             </div>
                         </div>
