@@ -4,7 +4,7 @@ using Realta.Frontend.Features;
 
 namespace Realta.Frontend.Components;
 
-public partial class Paging
+public partial class TablePagination
 {
     [Parameter] public MetaData MetaData { get; set; }
 
