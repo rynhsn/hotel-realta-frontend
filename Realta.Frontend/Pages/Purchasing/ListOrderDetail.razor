@@ -178,7 +178,7 @@
                 <input type="number" min="0" id="rejectedQty" name="rejectedQty" @bind-value="toUpdate.PodeRejectedQty" required>
               </div>
             </div>
-            <button type="button" data-bs-dismiss="modal" class="main-btn primary-btn-outline btn-hover m-1">
+             <button type="button" data-bs-dismiss="modal" class="main-btn primary-btn-outline btn-hover m-1" @onclick="(() => GenerateBarcode(toUpdate))">
               Generate Barcode
             </button>
           </div>
@@ -198,3 +198,4 @@
 
 <ModalDelete @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
 <SuccessNotification @ref="_notif"/>
+<ErrorNotifModal @ref="_error" />

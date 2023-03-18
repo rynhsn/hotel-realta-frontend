@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.WebUtilities;
 using Realta.Contract.Models;
@@ -15,6 +16,21 @@ public class StockDetailHttpRepository : IStockDetailHttpRepository
     {
         _httpClient = httpClient;
         _options =  new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+    }
+
+    public async Task GenerateBarcode(QtyUpdateDto GenerateBarcodePd)
+    {
+        var content = JsonSerializer.Serialize(GenerateBarcodePd);
+        var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+        var url = Path.Combine("stock/generateBarcodePo", GenerateBarcodePd.PodeId.ToString());
+
+        var postResult = await _httpClient.PostAsync(url, bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(postContent);
+        }
     }
 
     public async Task<List<StockDetailDto>> GetStockDetail(int id)

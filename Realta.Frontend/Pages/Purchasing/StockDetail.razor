@@ -1,70 +1,109 @@
 ﻿@page "/purchasing/stock/{Id:int}"
 @using Realta.Domain.RequestFeatures
 
-
-<TableSection Title="@stocksDetailList[0].StockName"
+@if (stocksDetailList != null)
+{
+    <TableSection Title="@stocksDetailList[0].StockName"
               Link="/purchasing"
               LinkText="Purchasing">
-    <Thead>
-        <tr>
-            <th class="min-width">
-                <h6>Barcode</h6>
-            </th>
-            <th class="min-width">
-                <h6>Status</h6>
-            </th>
-            <th class="min-width">
-                <h6>Notes</h6>
-            </th>
-            <th class="min-width">
-                <h6>Po Number</h6>
-            </th>
-            <th class="min-width">
-                <h6>Used In</h6>
-            </th>
-            <th class="min-width">
-                <h6>Action</h6>
-            </th>
-        </tr>
-    </Thead>
-    <Tbody>
-        @if (stocksDetailList.Count > 0)
-        {
-            foreach (var so in stocksDetailList)
+        <Thead>
+            <tr>
+                <th class="min-width">
+                    <h6>Barcode</h6>
+                </th>
+                <th class="min-width">
+                    <h6>Status</h6>
+                </th>
+                <th class="min-width">
+                    <h6>Notes</h6>
+                </th>
+                <th class="min-width">
+                    <h6>Po Number</h6>
+                </th>
+                <th class="min-width">
+                    <h6>Used In</h6>
+                </th>
+                <th class="min-width">
+                    <h6>Action</h6>
+                </th>
+            </tr>
+        </Thead>
+        <Tbody>
+            @if (stocksDetailList.Count > 0)
             {
-                <tr>
-                    <td>
-                        <p>@so.StodBarcodeNumber</p>
-                    </td>
-                    <td>
-                        <span class="status-btn @GetStatus(int.Parse(so.StodStatus.Trim())).Item1">@GetStatus(int.Parse(so.StodStatus.Trim())).Item2</span>
-                    </td>
-                    <td>
-                        <p>@so.StodNotes</p>
-                    </td>
-                    <td>
-                        <p>@so.StodPoNumber</p>
-                    </td>
-                    <td>
-                        <p>@so.FaciRoomNumber</p>
-                    </td>
-                    <td>
-                        <button style="border: 0; background-color: transparent;" data-bs-toggle="modal" data-bs-target="#editStatusDetail">
-                            <i class="lni lni-pencil"></i>
-                            <b>Edit</b>
-                    </button>
-                    </td>
-                </tr>
+                foreach (var so in stocksDetailList)
+                {
+                    <tr>
+                        <td>
+                            <p>@so.StodBarcodeNumber</p>
+                        </td>
+                        <td>
+                            <span class="status-btn @GetStatus(int.Parse(so.StodStatus.Trim())).Item1">@GetStatus(int.Parse(so.StodStatus.Trim())).Item2</span>
+                        </td>
+                        <td>
+                            <p>@so.StodNotes</p>
+                        </td>
+                        <td>
+                            <p>@so.StodPoNumber</p>
+                        </td>
+                        <td>
+                            <p>@so.FaciRoomNumber</p>
+                        </td>
+                        <td>
+                            <button style="border: 0; background-color: transparent;" data-bs-toggle="modal" data-bs-target="#editStatusDetail">
+                                <i class="lni lni-pencil"></i>
+                                <b>Edit</b>
+                            </button>
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </Tbody>
-    <Tfoot>
-        <TablePagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
-    </Tfoot>
-</TableSection>
+        </Tbody>
+        <Tfoot>
+            <TablePagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+        </Tfoot>
+    </TableSection>
+}
+else
+{
+    <section class="table-components">
+        <div class="container-fluid">
+            <!-- ========== title-wrapper start ========== -->
+            <div class="title-wrapper pt-30">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="title mb-30">
+                            <h2>Data Belum Di Generate</h2>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- ========== title-wrapper end ========== -->
+            <!-- ========== tables-wrapper start ========== -->
+            <div class="tables-wrapper">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-style mb-30">
+                            <div class="title">
+                                <h6 class="mb-10">Data Belum Di Generate</h6>
+                            </div>
+                        </div>
+                        <!-- end card -->
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- ========== tables-wrapper end ========== -->
+        </div>
+        <!-- end container -->
+    </section>
+}
+
 
 @* // Update Modal *@
-<div class="warning-modal">
+@*<div class="warning-modal">
     <div class="modal fade" id="editStatusDetail" tabindex="-1" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <form class="modal-content card-style" action="" method="post">
@@ -126,3 +165,4 @@
         </div>
     </div>
 </div>
+*@

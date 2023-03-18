@@ -8,7 +8,7 @@ namespace Realta.Frontend.Pages.Purchasing
 {
     public partial class StockDetail
     {
-        [Parameter] public int Id { get; set; }
+        [Parameter] public int? Id { get; set; }
 
         [Inject] public IStockDetailHttpRepository StockDetailHttpRepository { get; set;}
         public MetaData MetaData { get; set; } = new MetaData();
@@ -29,11 +29,13 @@ namespace Realta.Frontend.Pages.Purchasing
         }
         private async Task GetPaging()
         {
-            _stockDetailParameters.StockId = Id;
-
-            var response = await StockDetailHttpRepository.GetStockDetailPaging(_stockDetailParameters);
-            stocksDetailList = response.Items;
-            MetaData = response.MetaData;
+            if (Id != null)
+            {
+                _stockDetailParameters.StockId = Id.Value;
+                var response = await StockDetailHttpRepository.GetStockDetailPaging(_stockDetailParameters);
+                stocksDetailList = response.Items;
+                MetaData = response.MetaData;
+            }
         }
 
         public static (string, string) GetStatus(int status)
