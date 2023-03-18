@@ -58,7 +58,7 @@
   </CustomComponent>
 
   <Topbar>
-    <TableToolbar Placeholder="Stock Name..." OnSearchChanged="SearchChanged"/>
+    <TableToolbar Placeholder="Stock Name..." OnSearchChanged="SearchChanged" OnPageSizeChanged="PageSizeChanged"/>
   </Topbar>
 
   <Thead>
@@ -179,7 +179,7 @@
                 <input type="number" min="0" max="@(toUpdate.PodeOrderQty-toUpdate.PodeReceivedQty)" id="rejectedQty" name="rejectedQty" @bind-value="@toUpdate.PodeRejectedQty" @bind-value:event="oninput" @onkeypress="ValidateRejectQty" disabled="@(Header.PoheStatus == 1 || Header.PoheStatus == 5)" required/>
               </div>
             </div>
-            <button type="button" class="btn btn-lg btn-outline-primary rounded-0 m-1 text-sm" @onclick="() => GenerateBarcode(toUpdate)" disabled="@(Header.PoheStatus!=4)">
+            <button type="button" class="btn btn-lg btn-outline-primary rounded-0 m-1 text-sm" @onclick="() => GenerateBarcode(toUpdate)" disabled="@(Header.PoheStatus!=4 || toUpdate.PodeReceivedQty==0)">
               Generate Barcode
             </button>
           </div>

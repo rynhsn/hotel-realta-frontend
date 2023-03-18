@@ -6,27 +6,11 @@
 
 <TableSection Title="Purchase Order" Link="/purchasing" LinkText="Purchasing">
   <CustomComponent>
-    <div class="d-flex justify-content-end">
-      <div class="d-flex align-items-center">
-        <h6>Status:</h6>
-        <div class="select-style-1 mb-0 ml-10">
-          <div class="select-position">
-            <select class="p-0 pe-5 border-0">
-              <option value="" selected>Semua</option>
-              <option value="1">Pending</option>
-              <option value="2">Approved</option>
-              <option value="3">Received</option>
-              <option value="4">Rejected</option>
-              <option value="5">Completed</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
+    <TableFilter Title="Status" OptionList="StatusList" OnFilterChanged="FilterStatusChanged"/>
   </CustomComponent>
   
   <Topbar>
-    <TableToolbar Placeholder="PO Number / Vendor Name" OnSearchChanged="SearchChanged"/>
+    <TableToolbar Placeholder="PO Number / Vendor Name" OnSearchChanged="SearchChanged" OnPageSizeChanged="PageSizeChanged"/>
   </Topbar>
   
   <Thead>
@@ -133,11 +117,8 @@
               <label>Purchase Order Status for @_updateStatus.PoheNumber</label>
               <div class="select-position">
                 <select @bind="_updateStatus.PoheStatus">
-                  <option value="1">Pending</option>
-                  <option value="2">Approve</option>
-                  <option value="3">Reject</option>
-                  <option value="4">Receive</option>
-                  <option value="5">Complete</option>
+                  <option value="2">Approved</option>
+                  <option value="3">Rejected</option>
                 </select>
               </div>
             </div>

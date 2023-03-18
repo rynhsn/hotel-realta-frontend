@@ -29,7 +29,6 @@ public partial class ListOrderDetail
 
     protected async override Task OnInitializedAsync()
     {
-        Header = await Repo.GetHeader(Id);
         await Get();
     }
 
@@ -41,19 +40,10 @@ public partial class ListOrderDetail
 
     private async Task Get()
     {
-        // Header = await Repo.GetHeader(Id);
-        // await Task.Delay(100);
+        Header = await Repo.GetHeader(Id);
         var response = await Repo.GetDetails(Id, _param);
         DataList = response.Items;
         MetaData = response.MetaData;
-        
-        // Header = await Repo.GetHeader(Id);
-        // var detailsTask = Repo.GetDetails(Id, _param); // simpan task ke variabel
-        // await detailsTask; // tunggu hingga task selesai
-        // DataList = detailsTask.Result.Items; // ambil result dari task
-        // MetaData = detailsTask.Result.MetaData; // ambil result dari task
-        // await Task.Delay(100); // delay selama 100ms sebelum melanjutkan ke kode berikutnya
-
     }
     
     private async Task OnUpdate(PurchaseOrderDetailDto data)
@@ -67,15 +57,13 @@ public partial class ListOrderDetail
     
     private async Task OnUpdateConfirmed()
     {
-        if (toUpdate.PodeRejectedQty == 0 && toUpdate.PodeReceivedQty == 0) OnUpdateStatus(2);
-        if (toUpdate.PodeRejectedQty > 0) OnUpdateStatus(3);
-        if (toUpdate.PodeReceivedQty == toUpdate.PodeOrderQty) OnUpdateStatus(4);
+        if (toUpdate.PodeRejectedQty == 0 && toUpdate.PodeReceivedQty == 0) await OnUpdateStatus(2);
+        if (toUpdate.PodeReceivedQty > 0 || toUpdate.PodeRejectedQty > 0 ) await OnUpdateStatus(4);
         await Task.Delay(100);
         await Repo.UpdateQty(toUpdate);
         _param.PageNumber = 1;
-        await Task.Delay(100);
         await Get();
-        var uri = DataList.Any() ? NavigationManager.Uri : "/purchasing/list-order";
+        var uri = Header != null ? NavigationManager.Uri : "/purchasing/list-order";
         _notif.Show(uri, "Data has been updated.");
     }
 
@@ -86,14 +74,12 @@ public partial class ListOrderDetail
             PoheNumber = Header.PoheNumber,
             PoheStatus = status //rejected
         };
-        Header.PoheStatus = status;
         await Repo.UpdateStatus(header);
     }
 
     private async Task OnDelete(int id)
     {
         _del.Show<int>(id, $"Purchase Order {id} will be deleted!");
-        Console.WriteLine("ini liat" + OnDeleteConfirmed);
         await Task.Delay(100);
     }
 
@@ -101,30 +87,17 @@ public partial class ListOrderDetail
     {
         _del.Hide();
         await Repo.DeleteDetail((int)id);
+        await Task.Delay(100);
         await Get();
-        if (DataList.Any())
-        {
-            _param.PageNumber = 1;
-            _notif.Show(NavigationManager.Uri, "Data has been deleted.");
-        }
-        else
-        {
-            _notif.Show($"/purchasing/list-order", "Data has been deleted.");
-        }
-    }
-    
-    private async Task SearchChanged(string keyword)
-    {
-        _param.PageNumber = 1;
-        _param.Keyword = keyword;
-        await Get();
+        var uri = Header != null ? NavigationManager.Uri : "/purchasing/list-order";
+        _notif.Show(uri, "Data has been updated.");
     }
 
     private async Task GenerateBarcode(QtyUpdateDto PoUpdate)
     {
         if (Header.PoheStatus == 4)
         {
-            OnUpdateStatus(5);
+            // await OnUpdateStatus(5);
             await StockDetailHttpRepository.GenerateBarcode(PoUpdate);
             await Task.Delay(100);
             _notif.ShowWithoutPath();
@@ -153,16 +126,17 @@ public partial class ListOrderDetail
         await Get();
     }
     
-    private static (string, string) GetStatus(int status)
+    private async Task PageSizeChanged(int page)
     {
-        return status switch
-        {
-            1 => ("warning-btn", "Pending"),
-            2 => ("info-btn", "Approve"),
-            3 => ("danger-btn", "Reject"),
-            4 => ("secondary-btn", "Receive"),
-            5 => ("dark-btn", "Complete")
-        };
+        _param.PageSize = page;
+        await Get();
+    } 
+    
+    private async Task SearchChanged(string keyword)
+    {
+        _param.PageNumber = 1;
+        _param.Keyword = keyword;
+        await Get();
     }
     
     private async Task ValidateRejectQty()
@@ -183,5 +157,17 @@ public partial class ListOrderDetail
             await Js.InvokeAsync<object>("alert", $"The maximum value is {maxQty}");
             toUpdate.PodeReceivedQty = 0;
         }
+    }
+    
+    private static (string, string) GetStatus(int status)
+    {
+        return status switch
+        {
+            1 => ("warning-btn", "Pending"),
+            2 => ("info-btn", "Approve"),
+            3 => ("danger-btn", "Reject"),
+            4 => ("secondary-btn", "Receive"),
+            5 => ("dark-btn", "Complete")
+        };
     }
 } 
