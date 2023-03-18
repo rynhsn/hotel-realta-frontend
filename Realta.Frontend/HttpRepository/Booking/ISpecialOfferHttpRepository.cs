@@ -9,6 +9,8 @@ namespace Realta.Frontend.HttpRepository.Booking
     {
         Task<List<SpecialOffersDto>> GetSpecialOffers();
 
-        Task<PagingResponse<SpecialOffersDto>> GetSpecialOfferPaging(SpecialOfferParameters specialOfferParameters); 
+        Task<PagingResponse<SpecialOffersDto>> GetSpecialOfferPaging(SpecialOfferParameters specialOfferParameters);
+        
+        
     }
 }

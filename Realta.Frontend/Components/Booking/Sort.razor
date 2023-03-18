@@ -1,7 +1,12 @@
-@* <section> *@
-@*     <select class="form-control" @onchange="ApplySort"> *@
-@*         <option value="-1">--Order By--</option> *@
-@*         <option value="spofName">Name</option> *@
-@*         <option value="spofDiscount">Discount</option> *@
-@*     </select> *@
-@* </section> *@
+<section>
+    <div class="col-md-2 mt-10 md-20">
+    <select class="form-control" @onchange="ApplySort">
+        <option value="-1">--Order By--</option>
+        <option value="spofId">ID</option>
+        <option value="spofName">Name</option>
+        <option value="spofDiscount">Discount</option>
+        <option value="spofMinQty">MinQty</option>
+        <option value="spofMaxQty">MaxQty</option>
+    </select>
+    </div>
+</section>

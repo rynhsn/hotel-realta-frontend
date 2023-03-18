@@ -153,7 +153,7 @@
                                     
                                     <h5 class="text-sm text-regular mb-10">@hotel.FaciName</h5>
                                     
-                                    <a href="#0" class="main-btn primary-btn btn-hover">Book Now</a>
+                                    <button href="booking/@hotel.HotelId" class="main-btn primary-btn btn-hover" @onclick="() => RedirectId(hotel.HotelId)">Book Now</button>
                                 </div>
                             </div>
                         </div>
@@ -173,15 +173,7 @@
 
 
 @code {
-    private void LoadMore()
-    {
-        displayCount += incrementCount;
-    }
-
-    private int displayCount = 5;
-    private int incrementCount = 5;
     
-    public List<HotelsDto> HotelsList { get; set; } = new List<HotelsDto>();
     [Inject] 
     public IHotelHttpRepository HotelHttpRepository { get; set; }
 
@@ -190,7 +182,16 @@
         HotelsList= await HotelHttpRepository.GetHotels();
     }
     
+    private void LoadMore()
+    {
+        displayCount += incrementCount;
+    }
+
+    private int displayCount = 5;
+    private int incrementCount = 5;
     
+    
+
     private string FilterFacility { get; set; }
 
     private void HandleFilterFacilityChange(ChangeEventArgs e)
@@ -198,101 +199,9 @@
         FilterFacility = e.Value.ToString();
     }
 
-    private List<Hotel> hotels = new List<Hotel>
-    {
-        new Hotel
-        {
-            Name = "Grand Hotel",
-            Location = "Danau Limboto",
-            RatingStar = 4.5 ,
-            RoomName = "Indonesian Regular Room",
-            RoomPrice = 300000,
-            Description = "A luxurious hotel with world-class amenities",
-            ThumbnailUrl = "https://via.placeholder.com/350x150",
-            ImageUrl = "https://www.example.com/grand-hotel.jpg",
-            HasRoom = true,
-            HasMeetingRoom = true,
-            HasRestaurant = true,
-            HasGym = false,
-            HasAula = true,
-            HasSwimmingPool = true,
-            HasBalroom = true
-        },
-        new Hotel
-        {
-            Name = "Economy Inn",
-            Location = "Danau Dekat Rumah",
-            RatingStar = 4.8 ,
-            RoomName = "Indonesian Deluxe Room",
-            RoomPrice = 350000,
-            Description = "A budget hotel for the cost-conscious traveler",
-            ThumbnailUrl = "https://via.placeholder.com/350x150",
-            ImageUrl = "https://www.example.com/economy-inn.jpg",
-            HasRoom = true,
-            HasMeetingRoom = true,
-            HasRestaurant = true,
-            HasGym = true,
-            HasAula = true,
-            HasSwimmingPool = true,
-            HasBalroom = true
-        },
-        new Hotel
-        {
-            Name = "Aston Sentul City",
-            Location = "Sentul City",
-            RatingStar = 4.8 ,
-            RoomName = "Indonesian Deluxe Room",
-            RoomPrice = 50000,
-            Description = "A budget hotel for the cost-conscious traveler",
-            ThumbnailUrl = "https://via.placeholder.com/350x150",
-            ImageUrl = "https://www.example.com/economy-inn.jpg",
-            HasRoom = true,
-            HasMeetingRoom = true,
-            HasRestaurant = true,
-            HasGym = true,
-            HasAula = true,
-            HasSwimmingPool = true,
-            HasBalroom = true
-        },
-        new Hotel
-        {
-            Name = "Sentul Hotel",
-            Location = "Dekat Rumah Kamu",
-            RatingStar = 4.8 ,
-            RoomName = "Indonesian Deluxe Room",
-            RoomPrice = 450000,
-            Description = "A budget hotel for the cost-conscious traveler",
-            ThumbnailUrl = "https://via.placeholder.com/350x150",
-            ImageUrl = "https://www.example.com/economy-inn.jpg",
-            HasRoom = true,
-            HasMeetingRoom = true,
-            HasRestaurant = true,
-            HasGym = true,
-            HasAula = true,
-            HasSwimmingPool = true,
-            HasBalroom = true
-        },
-        
-        // Add more hotels here...
+    
     };
 
-    public class Hotel
-    {
-        public string? Name { get; set; }
-        public string? Location { get; set; }
-        public double RatingStar { get; set; }
-        public string? Description { get; set; }
-        public string? ThumbnailUrl { get; set; }
-        public string? ImageUrl { get; set; }
-        public string? RoomName { get; set; }
-        public double RoomPrice { get; set;}
-        public bool HasRoom { get; set; }
-        public bool HasMeetingRoom { get; set; }
-        public bool HasRestaurant { get; set; }
-        public bool HasGym { get; set; }
-        public bool HasAula { get; set; }
-        public bool HasSwimmingPool { get; set; }
-        public bool HasBalroom { get; set; }
-    }
+   
 
 }

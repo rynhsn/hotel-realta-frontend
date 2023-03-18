@@ -1,7 +1,7 @@
-﻿@page "/booking/room"
+﻿@page "/booking/{Id:int}"
 @using Realta.Contract.Models
-@using Realta.Domain.RequestFeatures
 @using Realta.Frontend.HttpRepository.Booking
+
 <link rel="stylesheet" href="HotelFacilitites.razor.css"/>
 <PageTitle>Booking Room Detail</PageTitle>
 <section class="card-components">
@@ -109,27 +109,26 @@
         <div class="card-style-3 mb-30 mt-30">
             <div class="card-content mt-10">
                 
-                    @* <div class="row"> *@
-                    @*     <div class="col-xl-6 col-lg-6"> *@
-                    @*         <h2 class="mb-0 mr-20"> *@
-                    @*             <a href="#0"> @Hotels.HotelName </a> *@
-                    @*         </h2> *@
-                    @*         <h5 class="text-sm text-regular mt-0 mr-20"> @Hotels.HotelAddress , @Hotels.HotelCity </h5> *@
-                    @*         <p class="mt-15"> *@
-                    @*             <span class="badge danger-btn">VIP</span> *@
-                    @*         </p> *@
-                    @*         <h5 class="text-medium mt-20 mb-10">Description</h5> *@
-                    @*         <p class="mt-0"> *@
-                    @*             @Hotels.HotelDescription *@
-                    @*         </p> *@
-                    @*     </div> *@
-                    @*     <div class="col-xl-6 col-lg-6"> *@
-                    @*         <li class="badge success-btn"> *@
-                    @*             <span class="mdi mdi-star-box">@Hotels.HotelRatingStar</span> *@
-                    @*         </li> *@
-                    @*         $1$ <p class="fw-bold" style="font-size: 12px;">(@hotel.TotalRating Ratings) @hotel.RatingDescription</p> #1# *@
-                    @*     </div> *@
-                    @* </div> *@
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6">
+                            <h2 class="mb-0 mr-20">
+                                <a href="#0"> @Hotels.HotelName </a>
+                            </h2>
+                            <h5 class="text-sm text-regular mt-0 mr-20"> @Hotels.HotelAddress , @Hotels.HotelCity </h5>
+                            <p class="mt-15">
+                                <span class="badge danger-btn">VIP</span>
+                            </p>
+                            <h5 class="text-medium mt-20 mb-10">Description</h5>
+                            <p class="mt-0">
+                                @Hotels.HotelDescription
+                            </p>
+                        </div>
+                        <div class="col-xl-6 col-lg-6">
+                            <li class="badge success-btn">
+                                <span class="mdi mdi-star-box">@Hotels.HotelRatingStar</span>
+                            </li>
+                        </div>
+                    </div>
                 
             </div>
             <div class="card-style-3 mb-30 mt-20" style="max-width: 750px; height: 70px">
@@ -145,7 +144,7 @@
                         <h4 class="mt-10 ml-10">@room.FaciName</h4>
                         <p class="mt-0 ml-10" style="font-size: 12px;">Kamar untuk @room.FaciMaxNumber orang</p>
                         <p class="mt-30 ml-10 mr-3 fw-bold" style="font-size: 12px">
-                            @room.FaciPrice<s class="ml-10 text-danger">@room.FaciPrice</s>
+                            @string.Format("IDR {0:N0}", @room.FaciPrice)<s class="ml-10 text-danger"> @(string.Format("IDR {0:N0}", (room.FaciPrice ?? 0m) * 1.2m))</s>
                         </p>
                     </div>
                     <div class="card-body col-xl-7 col-lg-7">
@@ -153,97 +152,121 @@
                             <img class="card-img-top" src="@room.FaciPhotoUrl" alt="Room Picture">
                         </a>
                         <div class="d-flex justify-content-end">
-                            <button class="main-btn primary-btn btn-hover mt-10 mr-60" @*@onclick="() => AddtoCart(HotelParameters)"*@ data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart"> Add Room </button>
-                        </div>
+                            <button class="main-btn primary-btn btn-hover mt-10 mr-60" @onclick="() => AddtoCart(room)" disabled="@(!CanAddToCart(room))" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart"> Add Room</button>
+                            </div>
                     </div>
                 </div>
                 <hr/>
             }
                 <!-- End Perulangan Hotel Lain -->
             
-            <div class="row mt-30 mb-30">
-                @foreach (var hotel in hotelDesc)
-                {
+            <div class="row mt-30 mb-30" style="position: center">
+                
+                
                     <div class="card-body col-xl-6 col-lg-6">
                     <h4 class="mt-20 ml-30">Rating And Review</h4>
                     <p class="mt-10 ml-100 " style="font-size: 16px;">
-                        <span class="mdi mdi-star-box">@hotel.RatingStar</span>
+                        <span class="mdi mdi-star-box">@Hotels.HotelRatingStar</span>
                     </p>
-                    <h6 class="mt-50 ml-40"> (@hotel.TotalRating ratings) Good </h6>
+                    @{
+                        string indexRating;
+                        if (Hotels.HotelRatingStar <= 1)
+                        {
+                            indexRating = "Very Bad";
+                        }
+                        else if (Hotels.HotelRatingStar <= 2)
+                        {
+                            indexRating = "Bad";
+                        }
+                        else if (Hotels.HotelRatingStar <= 3)
+                        {
+                            indexRating = "Normal";
+                        }
+                        else if (Hotels.HotelRatingStar <= 4)
+                        {
+                            indexRating = "Good";
+                        }
+                        else
+                        {
+                            indexRating = "Very Good";
+                        }
+                    }
+                    <h6 class="mt-50 ml-50"> (@Hotels.HotelRatingStar ratings) @indexRating </h6>
+
 
                 </div>
-                }
-                <div class="card-body col-xl-6 col-lg-6">
-                    <div class="card-style mb-30">
-                        <div class="file-list">
-                            <div class="file-item">
-                                <div class="file-item-data w-100">
-                                    <div class="d-flex justify-content-between">
-                                        <h6 class="text-sm text-medium">
-                                            <span class="mdi mdi-star-box">5</span>
-                                        </h6>
-                                        <h6 class="text-xs text-medium">60%</h6>
-                                    </div>
-                                    <div class="file-size-wrapper">
-                                        <div class="file-size bg-warning" style="width: 60%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="file-item">
-                                <div class="file-item-data w-100">
-                                    <div class="d-flex justify-content-between">
-                                        <h6 class="text-sm text-medium">
-                                            <span class="mdi mdi-star-box">4</span>
-                                        </h6>
-                                        <h6 class="text-xs text-medium">20%</h6>
-                                    </div>
-                                    <div class="file-size-wrapper">
-                                        <div class="file-size bg-warning" style="width: 20%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="file-item">
-                                <div class="file-item-data w-100">
-                                    <div class="d-flex justify-content-between">
-                                        <h6 class="text-sm text-medium">
-                                            <span class="mdi mdi-star-box">3</span>
-                                        </h6>
-                                        <h6 class="text-xs text-medium">10%</h6>
-                                    </div>
-                                    <div class="file-size-wrapper">
-                                        <div class="file-size bg-warning" style="width: 10%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="file-item">
-                                <div class="file-item-data w-100">
-                                    <div class="d-flex justify-content-between">
-                                        <h6 class="text-sm text-medium">
-                                            <span class="mdi mdi-star-box">2</span>
-                                        </h6>
-                                        <h6 class="text-xs text-medium">7%</h6>
-                                    </div>
-                                    <div class="file-size-wrapper">
-                                        <div class="file-size bg-warning" style="width: 7%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="file-item">
-                                <div class="file-item-data w-100">
-                                    <div class="d-flex justify-content-between">
-                                        <h6 class="text-sm text-medium">
-                                            <span class="mdi mdi-star-box">1</span>
-                                        </h6>
-                                        <h6 class="text-xs text-medium">3%</h6>
-                                    </div>
-                                    <div class="file-size-wrapper">
-                                        <div class="file-size bg-warning" style="width: 3%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
+                @* <div class="card-body col-xl-6 col-lg-6"> *@
+                @*     <div class="card-style mb-30"> *@
+                @*         <div class="file-list"> *@
+                @*             <div class="file-item"> *@
+                @*                 <div class="file-item-data w-100"> *@
+                @*                     <div class="d-flex justify-content-between"> *@
+                @*                         <h6 class="text-sm text-medium"> *@
+                @*                             <span class="mdi mdi-star-box">5</span> *@
+                @*                         </h6> *@
+                @*                         <h6 class="text-xs text-medium">60%</h6> *@
+                @*                     </div> *@
+                @*                     <div class="file-size-wrapper"> *@
+                @*                         <div class="file-size bg-warning" style="width: 60%"></div> *@
+                @*                     </div> *@
+                @*                 </div> *@
+                @*             </div> *@
+                @*             <div class="file-item"> *@
+                @*                 <div class="file-item-data w-100"> *@
+                @*                     <div class="d-flex justify-content-between"> *@
+                @*                         <h6 class="text-sm text-medium"> *@
+                @*                             <span class="mdi mdi-star-box">4</span> *@
+                @*                         </h6> *@
+                @*                         <h6 class="text-xs text-medium">20%</h6> *@
+                @*                     </div> *@
+                @*                     <div class="file-size-wrapper"> *@
+                @*                         <div class="file-size bg-warning" style="width: 20%"></div> *@
+                @*                     </div> *@
+                @*                 </div> *@
+                @*             </div> *@
+                @*             <div class="file-item"> *@
+                @*                 <div class="file-item-data w-100"> *@
+                @*                     <div class="d-flex justify-content-between"> *@
+                @*                         <h6 class="text-sm text-medium"> *@
+                @*                             <span class="mdi mdi-star-box">3</span> *@
+                @*                         </h6> *@
+                @*                         <h6 class="text-xs text-medium">10%</h6> *@
+                @*                     </div> *@
+                @*                     <div class="file-size-wrapper"> *@
+                @*                         <div class="file-size bg-warning" style="width: 10%"></div> *@
+                @*                     </div> *@
+                @*                 </div> *@
+                @*             </div> *@
+                @*             <div class="file-item"> *@
+                @*                 <div class="file-item-data w-100"> *@
+                @*                     <div class="d-flex justify-content-between"> *@
+                @*                         <h6 class="text-sm text-medium"> *@
+                @*                             <span class="mdi mdi-star-box">2</span> *@
+                @*                         </h6> *@
+                @*                         <h6 class="text-xs text-medium">7%</h6> *@
+                @*                     </div> *@
+                @*                     <div class="file-size-wrapper"> *@
+                @*                         <div class="file-size bg-warning" style="width: 7%"></div> *@
+                @*                     </div> *@
+                @*                 </div> *@
+                @*             </div> *@
+                @*             <div class="file-item"> *@
+                @*                 <div class="file-item-data w-100"> *@
+                @*                     <div class="d-flex justify-content-between"> *@
+                @*                         <h6 class="text-sm text-medium"> *@
+                @*                             <span class="mdi mdi-star-box">1</span> *@
+                @*                         </h6> *@
+                @*                         <h6 class="text-xs text-medium">3%</h6> *@
+                @*                     </div> *@
+                @*                     <div class="file-size-wrapper"> *@
+                @*                         <div class="file-size bg-warning" style="width: 3%"></div> *@
+                @*                     </div> *@
+                @*                 </div> *@
+                @*             </div> *@
+                @*         </div> *@
+                @*     </div> *@
+                @* </div> *@
             </div>
         </div>
     </div>
@@ -271,20 +294,21 @@
                         </div>
                         <div class="row">
                             <div class="col-7">
-                                <p style="font-size: 12px"; class="fw-bold ">
-                                    hari, DD bulan <br>-<br/> hari, DD bulan
-                                </p>
+                                <div>
+                                    @* <input type="date" @bind="StartDateString" @onchange="OnStartDateChanged" /> *@
+                                    @* <input type="date" @bind="EndDateString" @onchange="OnEndDateChanged" /> *@
+                                </div>
                             </div>
                             <div class="col-5">
                                 <p style="font-size: 12px"; class="fw-bold">
-                                    1 Guest
                                 </p>
+                                @* <input type="text" name="price" id="price" style="font-size: 12px"; class="fw-bold" value=" @(item.Room.FaciMaxNumber.ToString())" readonly/> *@
                             </div>
                         </div>
                         <div class="row">
                             <label for="price" class="card-text text-sm form-label text-muted col">Price</label>
                             <div class="col-7">
-                                <input type="text" name="price" id="price" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent" value="@item.Room.FaciPrice" readonly/>
+                                <input type="text" name="price" id="price" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent" value="@string.Format("IDR {0:N0}", @item.Room.FaciPrice)" readonly/>
                             </div>
                         </div>
                         <div class="row">
@@ -302,21 +326,21 @@
                         <hr/>
                     }
 
-                    <div class="row">
-                        <div class="col-5">
-                            <p class="text-sm mb-10 fw-bold">Your Savings</p>
-                        </div>
-                        <div class="col-7">
-                            <p class="text-sm mb-10 fw-bold">: Rp. </p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label for="tax" class="card-text fw-bold form-label text-muted col">Tax (10%)</label>
-                        <div class="col-7">
-                            <input type="text" name="tax" id="tax" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@Cart.Instance.TaxAmount.ToString("C0", new CultureInfo("id-ID"))" readonly/>
-                        </div>
-                    </div>
+                    @* <div class="row"> *@
+                    @*     <div class="col-5"> *@
+                    @*         <p class="text-sm mb-10 fw-bold">Your Savings</p> *@
+                    @*     </div> *@
+                    @*     <div class="col-7"> *@
+                    @*         <p class="text-sm mb-10 fw-bold">: Rp. </p> *@
+                    @*     </div> *@
+                    @* </div> *@
+                    @* *@
+                    @* <div class="row"> *@
+                    @*     <label for="tax" class="card-text fw-bold form-label text-muted col">Tax (10%)</label> *@
+                    @*     <div class="col-7"> *@
+                    @*         <input type="text" name="tax" id="tax" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@Cart.Instance.TaxAmount.ToString("C0", new CultureInfo("id-ID"))" readonly/> *@
+                    @*     </div> *@
+                    @* </div> *@
                     <div class="row">
                         <label for="total" class="card-text fw-bold form-label text-muted col">Total</label>
                         <div class="col-7">
@@ -335,77 +359,117 @@
 <!-- end container -->
 </div>
 </section>
-
+<div class="warning-modal">
+    <div class="modal fade" id="ModalThree" tabindex="-1" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content card-style">
+          <div class="modal-header px-0 border-0">
+            <h5 class="text-bold">New message</h5>
+            <button class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+              <i class="lni lni-cross-circle"></i>
+            </button>
+          </div>
+          <div class="modal-body px-0">
+            <div class="content mb-30">
+              <p class="text-sm">
+                Lorem Ipsum is simply dummy text of the printing and
+                typesetting industry. Lorem Ipsum has been the industry's
+                standard dummy text ever since the 1500s, when an unknown
+                printer took a galley of type and scrambled it to make a type
+                specimen book. It has survived not only five centuries, but
+                also the leap into electronic typesetting, remaining
+                essentially unchanged. It was popularised in the 1960s with
+                the release of Letraset sheets containing Lorem Ipsum
+                passages, and more recently with desktop publishing software
+                like Aldus PageMaker including versions of Lorem Ipsum.Lorem
+                Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the .
+              </p>
+            </div>
+            <div class="action d-flex flex-wrap justify-content-end">
+              <button data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                Cancel
+              </button>
+              <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                Send Message
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 @code
 {
+    [Parameter]
+    public List<HotelsDto> HotelsList { get; set; } = new List<HotelsDto>();
+    
+    private string _apiUrl = "https://localhost:7068/api/booking";
+    
     public HotelsDto Hotels { get; set; } = new HotelsDto();
 
     public List<HotelsDto> HotelsListById { get; set; } = new List<HotelsDto>();
+    
     [Inject] 
     public IHotelHttpRepository HotelHttpRepository { get; set; }
     
     public List<SpecialOffersDto> SpecialOffersList { get; set; } = new List<SpecialOffersDto>();
+    
     [Inject] 
     public ISpecialOfferHttpRepository SpecialOfferHttpRepository { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
-        SpecialOffersList= await SpecialOfferHttpRepository.GetSpecialOffers();
-        HotelsListById= await HotelHttpRepository.GetHotelsById();
-        Hotels = HotelsListById.FirstOrDefault();
-    }
-    
-    private readonly List<RoomDesc> rooms = new()
-    {
-        new()
-        {
-            RoomName = "Regular Room",
-            RoomPrice = 1_500_000,
-            RoomMaxPrice = 2_000_000,
-            RoomCapacity = 2,
-            RoomPicLink = "https://via.placeholder.com/800x400?text=Gambar+1"
-        },
-        new()
-        {
-            RoomName = "Deluxe Room",
-            RoomPrice = 2_500_000,
-            RoomMaxPrice = 3_500_000,
-            RoomCapacity = 4,
-            RoomPicLink = "https://via.placeholder.com/800x400?text=Gambar+1"
-        },
-        new()
-        {
-            RoomName = "Diamond Room",
-            RoomPrice = 3_500_000,
-            RoomMaxPrice = 4_500_000,
-            RoomCapacity = 5,
-            RoomPicLink = "https://via.placeholder.com/800x400?text=Gambar+1"
-        }
-    };
-
-    private readonly List<HotelDesc> hotelDesc = new()
-    {
-        new HotelDesc()
-        {
-            HotelName = "Hotel Name",
-            HotelLocation = "Hotel Location",
-            RatingStar = 4.5,
-            MemberStatus = "VIP",
-            Description = "Hotel ditengah kota",
-            RatingDescription = "Good",
-            TotalRating = 337
-        }
-    };
-    
-
-    private void AddtoCart(HotelParameters desc)
-    {
-        Cart.Instance.AddItem(desc);
-        OpenCart();
+        //LIST facilities dari backend
+        HotelsListById = await HotelHttpRepository.GetHotelsById(Id);
+        //MENGAMBIL row pertama untuk mendapatkan data hotel saja
+        Hotels = HotelsListById.FirstOrDefault(h => h.HotelId == Id);
+        SpecialOffersList = await SpecialOfferHttpRepository.GetSpecialOffers();
         
     }
+    
+    public partial class HotelFacilities
+    {
+        private bool IsAddedToCart(HotelsDto desc)
+        {
+            var item = Cart.Instance.items.FirstOrDefault(i => i.Room.FaciName == desc.FaciName);
+            return item != null;
+        }
+    }
+    
+    private bool CanAddToCart(HotelsDto desc)
+    {
+        var item = Cart.Instance.items.FirstOrDefault(i => i.Room.FaciName == desc.FaciName);
+        return item == null && Cart.Instance.items.Count == 0;
+    }
+    
+    private void AddtoCart(HotelsDto hoteldata)
+    {
 
-    private void UpdateItemQuantity(CartItem item, int newQuantity)
+        int desiredCapacity = 1; // ubah angka 2 dengan kapasitas yang diinginkan
+
+    // cek apakah kamar tersebut sudah ada di cart dengan jumlah yang sama atau lebih besar dari kapasitas yang diinginkan
+        var existingItem = Cart.Instance.items.FirstOrDefault(item => item.Room.FaciName == hoteldata.FaciName && item.Quantity >= desiredCapacity);
+
+        if (existingItem != null)
+        {
+    // kamar tersebut sudah ada di cart dengan jumlah yang sama atau lebih besar dari kapasitas yang diinginkan
+    // kunci tombol "Add Room" untuk kamar tersebut
+            return;
+        }
+
+        bool isAlreadyAdded = Cart.Instance.IsAddedToCart(hoteldata);
+
+        if (!isAlreadyAdded)
+        {
+            Cart.Instance.AddItem(hoteldata, desiredCapacity);
+            OpenCart();
+            StateHasChanged();
+        }
+    }
+
+    private void UpdateItemQuantity(RoomItem item, int newQuantity)
     {
         if (newQuantity < 1)
         {
@@ -438,6 +502,48 @@
     [Parameter]
     public int OrderDetail { get; set; } = 0;
     
+    // [Parameter]
+    // public EventCallback<DateTime> StartDateChanged { get; set; }
+    //
+    // [Parameter]
+    // public EventCallback<DateTime> EndDateChanged { get; set; }
+    //
+    // private string startDateString;
+    // private string endDateString;
+    //
+    // public string StartDateString
+    // {
+    //     get => startDateString;
+    //     set
+    //     {
+    //         startDateString = value;
+    //         DateTime.TryParseExact(startDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime startDate);
+    //         StartDateChanged.InvokeAsync(startDate);
+    //         EndDateString = startDate.AddDays(1).ToString("yyyy-MM-dd");
+    //         EndDateChanged.InvokeAsync(startDate.AddDays(1));
+    //     }
+    // }
+    //
+    // public string EndDateString
+    // {
+    //     get => endDateString;
+    //     set
+    //     {
+    //         endDateString = value;
+    //         DateTime.TryParseExact(endDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime endDate);
+    //         EndDateChanged.InvokeAsync(endDate);
+    //     }
+    // }
+    //
+    // private void OnStartDateChanged(ChangeEventArgs e)
+    // {
+    //     StartDateString = e.Value.ToString();
+    // }
+    //
+    // private void OnEndDateChanged(ChangeEventArgs e)
+    // {
+    //     EndDateString = e.Value.ToString();
+    // }
 }
 
 
