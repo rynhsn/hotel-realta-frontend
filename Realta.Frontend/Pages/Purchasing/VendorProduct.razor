@@ -4,6 +4,14 @@
               Link="/purchasing/Vendor"
               LinkText="Vendor">
 
+    <CustomComponent>
+        <div class="d-flex justify-content-md-center">
+            <div class="heading-four mb-30">
+                <h4>@Header.VendorName</h4>
+            </div>
+        </div>
+    </CustomComponent>
+
     <Topbar>
         <TableToolbar Placeholder="Product Name" OnSearchChanged="SearchChanged"/>
     </Topbar>
@@ -69,9 +77,6 @@
     </div>
 </div>
 
-<SuccessNotification @ref="_notification"/>
-
-
 <!-- Modal Edit -->
 <div class="warning-modal">
     <div class="modal fade" id="@($"edit")" tabindex="-1" style="display: none;" aria-hidden="true">
@@ -121,9 +126,9 @@
 
 <!-- Modal Add-->
 <div class="warning-modal">
-    <div class="modal fade" id="@($"addProduct")" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="@($"addProduct")" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <form class="modal-content card-style" action="/update" method="post">
+            <EditForm autocomplete="off" class="modal-content card-style" Model="_venpro" OnValidSubmit="Create">
                 <div class="modal-header px-0 border-0">
                     <h5 class="text-bold">Add Product</h5>
                     <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
@@ -135,27 +140,34 @@
                         <div class="input-style-1 col-9 rounded-sm">
                             <label>Vendor Name</label>
                             <div class="select-position">
-                                <input class="form-control" type="text" placeholder="PT Maju Sejahtera" disabled>
+                                <input placeholder="@Header.VendorName" disabled>
                             </div>
                         </div>
                         <div class="input-style-1 col-9 rounded-sm">
                             <label>Stock Name</label>
-                            <div class="select-position">
-                                <input class="form-control" type="text" placeholder="Stock Name">
-                            </div>
+                            <InputSelect @bind-Value="_venpro.VenproStockId" class="form-control">
+                                <option value="" disabled selected>Choose Product...</option>
+                                @foreach (var item in stocks )
+                                {
+                                    <option value="@item.VenproStockId">@item.StockName</option>
+                                }
+                            </InputSelect>
                         </div>
                         <div class="input-style-1 col-6 rounded-sm">
-                            <label for="exampleDate" class="form-label">Qty Stocked</label>
-                            <input type="number" class="form-control" id="exampleDate" value="50">
+                            <label class="form-label">Qty Stocked</label>
+                            <InputNumber id="QtyStock" @bind-Value="_venpro.VeproQtyStocked"/>
+                            <ValidationMessage For="@(() => _venpro.VeproQtyStocked)"/>
                         </div>
 
                         <div class="input-style-1 col-6 rounded-sm">
                             <label for="exampleDate" class="form-label">Remaining</label>
-                            <input type="number" class="form-control" id="exampleDate" value="22">
+                            <InputNumber id="QtyRemaining" @bind-Value="_venpro.VeproQtyRemaining"/>
+                            <ValidationMessage For="@(() => _venpro.VeproQtyRemaining)"/>
                         </div>
                         <div class="input-style-1 col-9 rounded-sm">
                             <label for="exampleDate" class="form-label">Sell Price</label>
-                            <input type="number" class="form-control" id="exampleDate" placeholder="Rp.">
+                            <InputNumber id="SellPrice" @bind-Value="_venpro.VeproPrice"/>
+                            <ValidationMessage For="@(() => _venpro.VeproPrice)"/>
                         </div>
                     </div>
                 </div>
@@ -167,7 +179,9 @@
                         Save
                     </button>
                 </div>
-            </form>
+            </EditForm>
         </div>
     </div>
 </div>
+
+<SuccessNotification @ref="_notification"/>

@@ -18,10 +18,15 @@ public partial class VendorProduct
     public List<VendorProductDto> VendorListPaging { get; set; } = new List<VendorProductDto>();
     private string orderBy = ""; // menunjukkan kolom yang diurutkan
     private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)
-    private VendorProductDto _venpro = new();
+    private VendorProductDto _venpro = new VendorProductDto ();
     private SuccessNotification _notification;
+    public VendorHeaderDto Header { get; set; } = new();
+    private List<VendorProductDto> stocks = new ();
+    
     protected async override Task OnInitializedAsync()
     {
+        Header = await VendproRepo.GetHeaderId(Id);
+        stocks = await VendproRepo.GetStock();
         await GetVenproPaging();
     }
     
@@ -55,6 +60,12 @@ public partial class VendorProduct
         } 
         _vendproParameters.OrderBy = orderBy + " " + sortOrder;
         Console.WriteLine(sortOrder);
+        await GetVenproPaging();
+    }
+    private async Task Create()
+    {
+        await VendproRepo.CreateVenpro(_venpro);
+        _notification.Show($"/purchasing/vendorproduct/{Id}");
         await GetVenproPaging();
     }
 
