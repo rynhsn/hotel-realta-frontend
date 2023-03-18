@@ -23,10 +23,6 @@ namespace Realta.Frontend.Pages.Purchasing
         private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)
         private VendorDto _vendor = new VendorDto();
         private SuccessNotification _notification;
-        [Inject]
-        public IJSRuntime JS { get; set; }
-        [Parameter]
-        public EventCallback<int> OnDeleted { get; set; }
         
         protected async override Task OnInitializedAsync()
         {

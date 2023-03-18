@@ -12,7 +12,7 @@ public partial class ListOrderDetail
     [Parameter] public string Id { get; set; } 
     [Inject] private IPurchaseOrderHttpRepository Repo { get; set; }
     private SuccessNotification _notif;
-    private DeleteModal _del;
+    private ModalDelete _del;
     public PurchaseOrderDto Header { get; set; } = new();
     public MetaData MetaData { get; set; } = new();
 

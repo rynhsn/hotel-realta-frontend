@@ -136,9 +136,9 @@
     }
   }
   </Tbody>
-  <Page>
-    <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
-  </Page>
+  <Tfoot>
+    <TablePagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
+  </Tfoot>
 </TableSection>
 
 @* // Update Modal *@
@@ -196,6 +196,6 @@
   </div>
 </div>
 
-<DeleteModal @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
+<ModalDelete @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
 <SuccessNotification @ref="_notif"/>
 <ErrorNotifModal @ref="_error" />

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Realta.Frontend.Components;
 
-public partial class DeleteModal
+public partial class ModalDelete
 {
     [Parameter] public EventCallback<object> OnDeletedData { get; set; }
     private object _id;

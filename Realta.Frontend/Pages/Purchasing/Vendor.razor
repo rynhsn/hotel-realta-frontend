@@ -7,17 +7,17 @@
     <Topbar>
         <TableToolbar Placeholder="Vendor Name" OnSearchChanged="SearchChanged"/>
     </Topbar>
-    
+
     <Thead>
     <tr>
         <th class="min-width">
             <h6>#</h6>
         </th>
-      <th data-sortable class="@(_vendorParameters.OrderBy switch { "VendorName desc" => "desc", "VendorName asc" => "asc", _ => ""})" onclick="@(() => SortChanged("VendorName"))">
-        <a class="dataTable-sorter">
-          <h6>Vendor Name</h6>
-        </a>
-      </th>
+        <th data-sortable class="@(_vendorParameters.OrderBy switch { "VendorName desc" => "desc", "VendorName asc" => "asc", _ => ""})" onclick="@(() => SortChanged("VendorName"))">
+            <a class="dataTable-sorter">
+                <h6>Vendor Name</h6>
+            </a>
+        </th>
         <th class="min-width">
             <h6>Status</h6>
         </th>
@@ -25,14 +25,21 @@
             <h6>Priority</h6>
         </th>
         <th class="min-width">
-            <h6>Register At</h6>
+            <h6>Register</h6>
         </th>
         <th class="min-width">
-            <h6>Web URL</h6>
+            <h6>Modified</h6>
+        </th>
+        <th data-sortable class="@(_vendorParameters.OrderBy switch { "vendorWeburl desc" => "desc", "vendorWeburl asc" => "asc", _ => ""})" onclick="@(() => SortChanged("vendorWeburl"))">
+            <a class="dataTable-sorter">
+                <h6>Web URL</h6>
+            </a>
         </th>
         <th>
             <h6 class="text-sm text-medium">
-                <a a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#@("addVendor")">Add +</a>
+                <a a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#@("addVendor")">
+                    Add <span class="mdi mdi-layers-plus"></span>
+                </a>
             </h6>
         </th>
     </tr>
@@ -49,10 +56,35 @@
                 <p>@items.VendorName </p>
             </td>
             <td>
-                <p>@items.VendorActive</p>
+                <p>
+                    @{
+                        if (@items.VendorActive)
+                        {
+                            <span class="status-btn success-btn">Active</span>
+                        }
+                        else
+                        {
+                            <span class="status-btn warning-btn">Deactive</span>
+                        }
+                    }
+                </p>
             </td>
             <td>
-                <p>@items.VendorPriority</p>
+                <p>
+                    @{
+                        if (@items.VendorPriority)
+                        {
+                            <span class="status-btn success-btn">Primary</span>
+                        }
+                        else
+                        {
+                            <span class="status-btn warning-btn">Secondary</span>
+                        }
+                    }
+                </p>
+            </td>
+            <td>
+                <p>@items.VendorRegisterTime</p>
             </td>
             <td>
                 <p>@items.VendorModifiedDate</p>
@@ -62,7 +94,7 @@
             </td>
             <td>
                 <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
-                    <span class="mdi mdi-dots-vertical"></span>
+                    <span class="mdi mdi-dots-vertical mdi-2x"></span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
                     <li class="dropdown-item">
@@ -83,13 +115,12 @@
     }
 
     </Tbody>
+    <Tfoot>
+        <TablePagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
+    </Tfoot>
 </TableSection>
-    <div class="row">
-        <div class="col">
-            <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
-        </div>
-    </div>
 
+<SuccessNotification @ref="_notification"/>
 
 <!-- Modal Add Vendor -->
 <div class="warning-modal">
@@ -108,26 +139,26 @@
                         <div class="input-style-1">
                             <label for="name">Vendor Name</label>
                             <div class="select-position">
-                                <InputText id="vendorName" @bind-Value="_vendor.VendorName"/>
+                                <InputText id="vendorName" data-value="" @bind-Value="_vendor.VendorName"/>
                                 <ValidationMessage For="@(() => _vendor.VendorName)"/>
                             </div>
                         </div>
                         <div class="select-style-1 col-6 rounded-sm">
                             <label>Status</label>
-                            <div class="select-position"> 
-                                <InputSelect  @bind-Value="_vendor.VendorActive" class="form-control"> 
-                                    <option value="true" selected>Active</option> 
-                                    <option value="false">Inactive</option> 
-                                </InputSelect> 
-                            </div> 
+                            <div class="select-position">
+                                <InputSelect @bind-Value="_vendor.VendorActive" class="form-control">
+                                    <option value="true" selected>Active</option>
+                                    <option value="false">Inactive</option>
+                                </InputSelect>
+                            </div>
                         </div>
                         <div class="select-style-1 col-6 rounded-sm">
                             <label>Priority</label>
                             <div class="select-position">
-                                <InputSelect  @bind-Value="_vendor.VendorPriority" class="form-control"> 
-                                    <option value="true">Priority</option> 
-                                    <option value="false" selected>NotPriority</option> 
-                                </InputSelect> 
+                                <InputSelect @bind-Value="_vendor.VendorPriority" class="form-control">
+                                    <option value="true">Priority</option>
+                                    <option value="false" selected>NotPriority</option>
+                                </InputSelect>
                             </div>
                         </div>
                         <div class="input-style-1 col-8 rounded-sm">
@@ -151,7 +182,6 @@
         </div>
     </div>
 </div>
-<SuccessNotification @ref="_notification" />
 
 <!-- Modal Edit Vendor -->
 @foreach (var items in VendorListPaging)
@@ -246,8 +276,10 @@
         </div>
     </div>
 }
+
 @code {
 
     [Parameter]
     public int Id { get; set; }
+
 }

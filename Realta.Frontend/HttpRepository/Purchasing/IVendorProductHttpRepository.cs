@@ -7,6 +7,10 @@ namespace Realta.Frontend.HttpRepository.Purchasing;
 
 public interface IVendorProductHttpRepository
 {
-    Task<List<VendorProductDto>> GetVendorProduct( int id);
-   Task<PagingResponse<VendorProductDto>> GetVenProPaging(VendorParameters vendorsParameters, int id);
+   Task<PagingResponse<VendorProductDto>> GetVenProPaging(VenproParameters vendorsParameters, int id);
+   Task DeleteVenpro(int id);
+   Task CreateVenpro(VendorProductDto venproCreate);
+   Task<PagingResponse<VendorProductDto>> GetAll(VenproParameters param);
+   Task<VendorHeaderDto> GetHeaderId(int id);
+   Task<List<VendorProductDto>> GetStock();
 }

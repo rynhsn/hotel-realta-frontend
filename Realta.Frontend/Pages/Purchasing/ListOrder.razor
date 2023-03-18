@@ -110,16 +110,15 @@
       </tr>
     }
   }
-  
   </Tbody>
-  <Page>
-    <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
-  </Page>
+  <Tfoot>
+    <TablePagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
+  </Tfoot>
 </TableSection>
 
 @* // Update Modal *@
 <div class="warning-modal">
-  <div class="modal fade" id="update" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal ooterfade" id="update" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content card-style">
         <div class="modal-header px-0 border-0">
@@ -157,5 +156,5 @@
   </div>
 </div>
 
-<DeleteModal @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
+<ModalDelete @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
 <SuccessNotification @ref="_notif"/>

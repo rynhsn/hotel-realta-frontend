@@ -1,5 +1,9 @@
 <div class="dataTable-bottom">
-  <div class="dataTable-info">Showing 1 to 10 of @MetaData.TotalCount entries</div>
+  <div class="dataTable-info">Showing 1 to 
+    @{
+      var showTo = (@MetaData.TotalCount < 10) ? @MetaData.TotalCount : 10;
+    }
+    @showTo of @MetaData.TotalCount entries</div>
   <nav class="dataTable-pagination">
     <ul class="dataTable-pagination-list">
       @foreach (var link in _links)
