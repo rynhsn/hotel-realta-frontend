@@ -66,7 +66,7 @@ public class BookingHttpRepository : IBookingHttpRepository
 
     public async Task<UserMemberDto> GetUserMemberByBoorId(int id)
     {
-        var url = Path.Combine("BookingOrders/user", id.ToString());
+        var url = Path.Combine("booking/user/boor/", id.ToString());
 
         var response = await _client.GetAsync(url);
         var content = await response.Content.ReadAsStringAsync();
@@ -77,5 +77,33 @@ public class BookingHttpRepository : IBookingHttpRepository
         
         var usme = JsonSerializer.Deserialize<UserMemberDto>(content, _options);
         return usme;
+    }
+
+    public async Task<List<PriceItemsDto>> GetPriceItems()
+    {
+        var response = await _client.GetAsync("booking/priceitems");
+        var content = await response.Content.ReadAsStringAsync();
+            
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+        var pritItems = JsonSerializer.Deserialize<List<PriceItemsDto>>(content, _options);
+        return pritItems;
+    }
+
+    public async Task<UserDto> GetUserbyId(int id)
+    {
+        var url = Path.Combine("booking/user/", id.ToString());
+
+        var response = await _client.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+        
+        var user = JsonSerializer.Deserialize<UserDto>(content, _options);
+        return user;
     }
 }

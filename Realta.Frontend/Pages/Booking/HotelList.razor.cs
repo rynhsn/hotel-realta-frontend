@@ -11,6 +11,13 @@ public partial class HotelList
     [Parameter]
     public List<HotelsDto> HotelsList { get; set; }
     
+    public List<HotelsDto> HotelsListById { get; set; } = new List<HotelsDto>();
+
+    
+    
+    
+    
+    
     [Inject]
     public NavigationManager NavigationManager { get; set; }
 
@@ -18,7 +25,13 @@ public partial class HotelList
     {
         var pathUrl = Path.Combine("/booking/", id.ToString());
         NavigationManager.NavigateTo(pathUrl);
-        // var pathUrlInvoice = Path.Combine("/booking/invoice", id.ToString());
+        
+    }
+
+    private void RedirectBookNow(int id)
+    {
+        var pathUrlBookNow = Path.Combine("/booking/room-extra", id.ToString());
+        NavigationManager.NavigateTo(pathUrlBookNow);
     }
 
 

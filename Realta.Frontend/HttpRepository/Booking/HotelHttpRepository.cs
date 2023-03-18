@@ -48,9 +48,24 @@ public class HotelHttpRepository : IHotelHttpRepository
         var hotel = JsonSerializer.Deserialize<List<HotelsDto>>(content, _options);
         return hotel;
     }
+
+    public async Task<HotelsDto> GetHotelsByIdSingle(int id)
+    {
+        var url = Path.Combine("Booking", id.ToString());
     
-    
-    
+        var response = await _client.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+        var data = JsonSerializer.Deserialize<List<HotelsDto>>(content, _options);
+        var hotel = new HotelsDto();
+        hotel = data.FirstOrDefault();
+        return hotel;
+    }
+
+
     public async Task<PagingResponse<HotelsDto>> GetHotelPaging(HotelParameters hotelParameters)
     {
         var queryStringParam = new Dictionary<string, string>

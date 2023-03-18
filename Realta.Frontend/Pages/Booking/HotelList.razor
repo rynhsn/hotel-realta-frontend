@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="col-lg-3 col-xl-3">
                                         <div class="input-style-1">
-                                            <p class="ml-5">Room and Guest :</p>
+                                            <p class="ml-5"> Total Guest :</p>
                                             <input type="text" id="inputRoom" placeholder="Room and Guest">
                                         </div>
                                     </div>
@@ -152,8 +152,14 @@
                                     <h5 class="text-sm text-regular mb-10"><span class="mdi mdi-star"></span>@hotel.HotelRatingStar</h5>
                                     
                                     <h5 class="text-sm text-regular mb-10">@hotel.FaciName</h5>
-                                    
-                                    <button href="booking/@hotel.HotelId" class="main-btn primary-btn btn-hover" @onclick="() => RedirectId(hotel.HotelId)">Book Now</button>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button href="booking/@hotel.HotelId" class="main-btn primary-btn btn-hover" @onclick="() => RedirectId(hotel.HotelId)">Details</button>
+                                        </div>
+                                        <div class="col">
+                                            <button href="/booking/room-extra/@hotel.FaciId" class="main-btn primary-btn btn-hover" @onclick="() => RedirectBookNow(hotel.FaciId)">Book Now</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

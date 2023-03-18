@@ -1,7 +1,8 @@
-﻿@page "/booking/room-extra"
+﻿@page "/booking/room-extra/{Id:int}"
 @using Realta.Contract.Models
 @using Realta.Domain.RequestFeatures
 @using Realta.Frontend.HttpRepository.Booking
+
 
 <section>
   <div class="title-wrapper pt-30">
@@ -49,17 +50,17 @@
             <div class="col-6 mt-15">
               <div class="input-style-2">
                 <label>Full Name</label>
-                <input type="text" id="name" name="name" autocomplete="name">
+                  <h6 class="mb-10">@UserById.UserFullName</h6>
               </div>
               <div class="input-style-2">
                 <label>Mobile Number</label>
-                <input type="tel" id="phone" name="phone" pattern="\+62\d{12}" placeholder="+6281234567890" required>
+                  <h6 type="tel" id="phone" name="phone" pattern="\+62\d{12}" class="mb-10">@UserById.UserPhoneNumber</h6>
               </div>
             </div>
             <div class="col-6 mt-15">
               <div class="input-style-2">
                 <label>Email</label>
-                <input type="email" id="email" name="email" autocomplete="email">
+                  <h6 type="email" id="email" name="email" class="mb-10">@UserById.UserEmail</h6>
               </div>
               <a href="#0" class="main-btn primary-btn rounded-full btn-hover mt-30 ml-30" >Send Verification Code</a>
             </div>
@@ -76,34 +77,43 @@
               <!--!--><th class="min-width"><h6 class="ml-15">Price</h6></th>
               <th class="min-width"><h6 class="text-sm text-medium"><a a="" class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#addVendor">Add +</a></h6></th></tr></thead><!--!-->
             <tbody>
-                @foreach(var extra in BookingExtraByBoorId)
+                @foreach(var extra in PriceItemsList.Take(displayCount))
                 {
-                                
-            <tr>
-              <td class="min-width">
-                <p>@extra.BoexId</p>
-              </td>
-              <td class="min-width">
-                <p>@extra.PritName</p>
-              </td>
-              <td class="min-width">
-                <p class="">IDR @extra.BoexPrice</p>
-              </td>
-              <td>
-                <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more"><span class="mdi mdi-dots-vertical"></span></button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction"><li class="dropdown-item"><a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#edit"> Edit </a></li>
-                  <li class="dropdown-item"><a class="text-gray" href="/purchasing/vendor-product"> Add Item Product </a></li>
-                  <li class="dropdown-item">
-                    <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete">
-                      Delete
-                    </a>
-                  </li>
-                </ul>
-              </td>
-            </tr>
+                  <tr>
+                    <td class="min-width">
+                      <p>@extra.prit_id</p>
+                    </td>
+                    <td class="min-width">
+                      <p>@extra.prit_name</p>
+                    </td>
+                    <td class="min-width">
+                      <p class="">@string.Format("IDR {0:N0}", @extra.prit_price)</p>
+                      
+                    </td>
+                    <td>
+                      <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
+                        <span class="mdi mdi-dots-vertical"></span>
+                      </button>
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+                        <li class="dropdown-item"><a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#edit"> Edit </a></li>
+                        <li class="dropdown-item"><a class="text-gray" href="/purchasing/vendor-product"> Add Item Product </a></li>
+                        <li class="dropdown-item">
+                          <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete">
+                            Delete
+                          </a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
                 }
             </tbody>
           </table>
+                @if (displayCount < PriceItemsList.Count())
+                {
+                    <div class="text-center">
+                      <button class="main-btn active-btn-outline btn-hover" @onclick="LoadMore">Load More</button>
+                    </div>
+                }
         </div>
         <div class="card-style-2 mt-40 mb-20">
           <h5 class="ml-10">Payment</h5>
@@ -149,25 +159,31 @@
             </p>
           </div>
         </div>
+        <div class="header-left">
+          <h3 class="mb-10"> @Room.FaciName </h3>
+        </div>
         <div class="row">
-          <div class="col-7">
-            <p style="font-size: 12px"; class="fw-bold ">
-              Fri, 10 Feb - Sat, 11 Feb
-            </p>
+          <div class="col-6">
+              <div class="input-style-3">
+                  <p class="ml-15" style="font-size: 13px; font-weight: bold;">Start Date :</p>
+                  <input type="date" id="inputStartDate" @bind="startDate" min="@startDateFormat" style="font-size: 12px; padding: 4px 8px;" />
+              </div>
           </div>
-          <div class="col-5">
-            <p style="font-size: 12px"; class="fw-bold">
-              1 Room 1 Guest
-            </p>
+          <div class="col-6">
+              <div class="input-style-3">
+                  <p class="ml-15" style="font-size: 13px; font-weight: bold;">End Date :</p>
+                  <input type="date" id="inputEndDate" @bind="endDate" min="@minEndDate" style="font-size: 12px; padding: 4px 8px;" />
+              </div>
           </div>
         </div>
+
         <div class="row mt-20">
           <label for="price" class="card-text text-sm form-label text-muted col">Price</label>
           <div class="col-7">
             @*
             <input type="text" name="price" id="price" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent">
             *@
-            <p class="text-sm">IDR 300.000</p>
+            <p class="text-sm">IDR @Room.FaciPrice</p>
           </div>
         </div>
         <div class="row">
@@ -250,22 +266,19 @@
 </section>
 
 @code {
-    public List<SpecialOffersDto> SpecialOffersList { get; set; } = new List<SpecialOffersDto>();
+  
+  private static DateTime startDate = DateTime.Now;
+  private DateTime endDate = DateTime.Now.AddDays(1);
+  
+  private string startDateFormat = startDate.ToString("dd-mm-yyyy");
 
-    [Inject] 
-    public ISpecialOfferHttpRepository SpecialOfferHttpRepository { get; set; }
+  private string minEndDate => startDate.AddDays(1).ToString("yyyy-MM-dd");
+  
+  private void LoadMore()
+  {
+    displayCount += incrementCount;
+  }
 
-    [Inject]
-    public IBookingHttpRepository BookingHttpRepository { get; set; }
-
-
-    public BookingOrderDetailExtraDto? BookingOrderDetailExtra { get; set; } = new BookingOrderDetailExtraDto();
-    public List<BookingOrderDetailExtraDto> BookingExtraByBoorId { get; set; } = new List<BookingOrderDetailExtraDto>();
-
-    protected async override Task OnInitializedAsync()
-    {
-        SpecialOffersList= await SpecialOfferHttpRepository.GetSpecialOffers();
-        BookingExtraByBoorId = await BookingHttpRepository.GetBookingOrderDetailExtraByBoorId(Id);
-
-    }
+  private int displayCount = 5;
+  private int incrementCount = 5;
 }

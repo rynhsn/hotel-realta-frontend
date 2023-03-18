@@ -11,13 +11,23 @@ public partial class Invoice
 {
     [Parameter]
     public int Id { get; set; }
-    //
-    // [Parameter]
-    // public BookingOrdersDto BookingOrderList { get; set; } 
-    //
-    // [Parameter]
-    // public List<BookingOrderDetailDto> BookingOrderDetailList { get; set; }
-    //
-    // [Parameter]
-    // public List<BookingOrderDetailExtraDto> BookingOrderDetailExtraList { get; set; }
+    public BookingOrdersDto? Bookings { get; set; } = new BookingOrdersDto();
+    public BookingOrderDetailDto? BookingOrderDetail { get; set; } = new BookingOrderDetailDto();
+    public BookingOrderDetailExtraDto? BookingOrderDetailExtra { get; set; } = new BookingOrderDetailExtraDto();
+    public UserMemberDto UserInfo { get; set; } = new UserMemberDto();
+  
+    //variable untuk menampung data dari endpoint
+    public List<BookingOrderDetailDto> BookingDetailByBoorId { get; set; } = new List<BookingOrderDetailDto>();
+    public List<BookingOrderDetailExtraDto> BookingExtraByBoorId { get; set; } = new List<BookingOrderDetailExtraDto>();
+    
+    [Inject]
+    public IBookingHttpRepository BookingHttpRepository {get; set; }
+  
+    protected async override Task OnInitializedAsync()
+    {
+        Bookings = await BookingHttpRepository.GetBookingOrdersById(Id);
+        BookingDetailByBoorId = await BookingHttpRepository.GetBookingOrderDetailByBoorId(Id);
+        BookingExtraByBoorId = await BookingHttpRepository.GetBookingOrderDetailExtraByBoorId(Id);
+        UserInfo = await BookingHttpRepository.GetUserMemberByBoorId(Id);    
+    }
 }
