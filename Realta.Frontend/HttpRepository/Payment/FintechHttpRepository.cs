@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Json;
+using System.Text.Json;
 using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Contract.Models.FrontEnd;
 using HotelRealtaPayment.Domain.RequestFeatures;
@@ -58,5 +59,38 @@ public class FintechHttpRepository : IFintechHttpRepository
         };
 
         return pagingResponse;
+    }
+
+    public async Task Update(FintechDto fintech)
+    {
+        var response = await _httpClient.PutAsJsonAsync($"fintechs/{fintech.Id}", fintech);
+        var content = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+    }
+
+    public async Task Create(FintechDto fintech)
+    {
+        var response = await _httpClient.PostAsJsonAsync("fintechs", fintech);
+        var content = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+    }
+
+    public async Task Delete(int id)
+    {
+        var response = await _httpClient.DeleteAsync($"fintechs/{id}");
+        var content = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
     }
 }

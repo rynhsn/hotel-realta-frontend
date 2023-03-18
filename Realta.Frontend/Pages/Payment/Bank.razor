@@ -50,7 +50,7 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
                     <li class="dropdown-item">
-                        <a class="text-gray" @onclick:preventDefault="true" @onclick="() => OnUpdateBank(bank)" data-bs-toggle="modal" data-bs-target="#update"> Edit </a>
+                        <a class="text-gray" @onclick:preventDefault="true" @onclick="() => OnUpdate(bank)" data-bs-toggle="modal" data-bs-target="#update"> Edit </a>
                     </li>
                     <li class="dropdown-item">
                         <a class="text-danger" @onclick:preventDefault="true" @onclick="() => OnDelete(bank.Id)"

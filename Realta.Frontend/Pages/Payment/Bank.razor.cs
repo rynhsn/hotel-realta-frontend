@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Dynamic;
-using HotelRealtaPayment.Contract.Models;
+﻿using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Domain.RequestFeatures;
 using Microsoft.AspNetCore.Components;
 using Realta.Frontend.Components;
@@ -33,7 +31,7 @@ public partial class Bank
         MetaData = response.MetaData;
     }
 
-    private async Task OnUpdateBank(BankDto bank)
+    private async Task OnUpdate(BankDto bank)
     {
         _bank.Id = bank.Id;
         _bank.Code = bank.Code;
@@ -42,13 +40,13 @@ public partial class Bank
     
     private async Task onUpdateConfirmed()
     {
-        await BanksRepo.UpdateBank(_bank);
+        await BanksRepo.Update(_bank);
         await FetchBank();
     }
     
     private async Task onCreateConfirmed()
     {
-        await BanksRepo.CreateBank(_bank);
+        await BanksRepo.Create(_bank);
         await FetchBank();
     } 
     
@@ -74,7 +72,7 @@ public partial class Bank
     
     private async Task OnDelete(int id)
     {
-        _del.Show(id, $"Purchase Order {id} will be deleted!");
+        _del.Show(id, $"Bank {id} will be deleted!");
         await Task.Delay(100);
     }
 
@@ -82,7 +80,7 @@ public partial class Bank
     private async Task OnDeleteConfirmed(object id)
     {
         _del.Hide();
-        await BanksRepo.DeleteBank((int)id);
+        await BanksRepo.Delete((int)id);
         _param.PageNumber = 1;
         _notif.Show(NavigationManager.Uri);
         await FetchBank();

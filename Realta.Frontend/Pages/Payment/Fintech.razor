@@ -1,9 +1,11 @@
 ﻿@page "/payments/fintechs"
 
+@inject NavigationManager NavigationManager
+
 <TableSection Title="Fintech"
               Link="/payments/fintechs"
               LinkText="Payment">
-    
+
     <Topbar>
         <TableToolbar Placeholder="Fintech Name" OnSearchChanged="SearchChanged" OnPageSizeChanged="PageSizeChanged"/>
     </Topbar>
@@ -21,7 +23,9 @@
         </th>
         <th>
             <h6>
-                <a href="#">Add +</a>
+                <a a class="text-primary" @onclick:preventDefault="true" @onclick="() => _fintech = new()" data-bs-toggle="modal" data-bs-target="#addFintech">
+                    Add <span class="mdi mdi-layers-plus"></span>
+                </a>
             </h6>
         </th>
     </tr>
@@ -42,7 +46,20 @@
                 <p>@fintech.Name</p>
             </td>
             <td>
-                <ActionPopup/>
+                <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
+                    <span class="mdi mdi-dots-vertical mdi-2x"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+                    <li class="dropdown-item">
+                        <a class="text-gray" @onclick:preventDefault="true" @onclick="() => OnUpdate(fintech)" data-bs-toggle="modal" data-bs-target="#update"> Edit </a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a class="text-danger" @onclick:preventDefault="true" @onclick="() => OnDelete(fintech.Id)"
+                           data-item-id="">
+                            Delete
+                        </a>
+                    </li>
+                </ul>
             </td>
         </tr>
         <!-- end table row -->
@@ -52,3 +69,106 @@
         <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
     </Page>
 </TableSection>
+
+
+@* CREATE MODAL *@
+<div class="warning-modal">
+    <div class="modal fade" id="addFintech" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content card-style">
+                <div class="modal-header px-0 border-0">
+                    <h5 class="text-bold">Create Fintech</h5>
+                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-0">
+                    <EditForm Model="_fintech" OnValidSubmit="onCreateConfirmed">
+                        <DataAnnotationsValidator/>
+                        <div class="content mb-30">
+                            <div class="modal-body px-0">
+                                <div class="row">
+                                    <div class="input-style-1">
+                                        <label for="bankCode">Fintech Code</label>
+                                        <div class="select-position">
+                                            <InputText type="text" id="bankCode" @bind-Value="_fintech.Code"/>
+                                            <ValidationMessage For="@(() => _fintech.Code)"/>
+                                        </div>
+                                    </div>
+                                    <div class="input-style-1">
+                                        <label for="bankName">Fintech Name</label>
+                                        <div class="select-position">
+                                            <InputText type="text" id="bankName" @bind-Value="_fintech.Name"/>
+                                            <ValidationMessage For="@(() => _fintech.Name)"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action d-flex flex-wrap justify-content-end">
+                            <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                                Cancel
+                            </button>
+                            <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                                Create
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@* UPDATE MODAL *@
+<div class="warning-modal">
+    <div class="modal fade" id="update" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content card-style">
+                <div class="modal-header px-0 border-0">
+                    <h5 class="text-bold">Edit Fintech</h5>
+                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-0">
+                    <EditForm Model="_fintech" OnValidSubmit="onUpdateConfirmed">
+                        <DataAnnotationsValidator/>
+                        <div class="content mb-30">
+                            <div class="modal-body px-0">
+                                <div class="row">
+                                    <div class="input-style-1">
+                                        <label for="bankCode">Fintech Code</label>
+                                        <div class="select-position">
+                                            <InputText type="text" id="bankCode" @bind-Value="_fintech.Code"/>
+                                            <ValidationMessage For="@(() => _fintech.Code)"/>
+                                        </div>
+                                    </div>
+                                    <div class="input-style-1">
+                                        <label for="bankName">Fintech Name</label>
+                                        <div class="select-position">
+                                            <InputText type="text" id="bankName" @bind-Value="_fintech.Name"/>
+                                            <ValidationMessage For="@(() => _fintech.Name)"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action d-flex flex-wrap justify-content-end">
+                            <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                                Cancel
+                            </button>
+                            <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                                Save
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ModalDelete @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
+<SuccessNotification @ref="_notif"/>

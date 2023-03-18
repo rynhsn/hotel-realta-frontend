@@ -8,4 +8,7 @@ public interface IFintechHttpRepository
 {
     Task<List<FintechDto>> GetFintechs();
     Task<PagingResponse<FintechDto>> GetFintechsPaging(FintechParameters fintechParameters);
+    Task Update(FintechDto fintechDto);
+    Task Create(FintechDto fintech);
+    Task Delete(int id);
 }

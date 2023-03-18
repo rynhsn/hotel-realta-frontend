@@ -61,7 +61,7 @@ public class BankHttpRepository : IBankHttpRepository
         return pagingResponse;
     }
 
-    public async Task UpdateBank(BankDto bank)
+    public async Task Update(BankDto bank)
     {
         var response = await _httpClient.PutAsJsonAsync($"banks/{bank.Id}", bank);
         var content = await response.Content.ReadAsStringAsync();   
@@ -72,7 +72,7 @@ public class BankHttpRepository : IBankHttpRepository
         }
     }
 
-    public async Task CreateBank(BankDto bank)
+    public async Task Create(BankDto bank)
     {
         var response = await _httpClient.PostAsJsonAsync("banks", bank);
         var content = await response.Content.ReadAsStringAsync();
@@ -83,7 +83,7 @@ public class BankHttpRepository : IBankHttpRepository
         }
     }
 
-    public async Task DeleteBank(int id)
+    public async Task Delete(int id)
     {
         var response = await _httpClient.DeleteAsync($"banks/{id}");
         var content = await response.Content.ReadAsStringAsync();
