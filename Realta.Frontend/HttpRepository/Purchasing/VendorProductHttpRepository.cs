@@ -52,4 +52,31 @@ public class VendorProductHttpRepository : IVendorProductHttpRepository
     {
         throw new NotImplementedException();
     }
+    
+    // Untuk Gallery [Riyan] =================================================
+    public async Task<PagingResponse<VendorProductDto>> GetAll(VenproParameters _param)
+    {
+        var queryStringParam = new Dictionary<string, string>
+        {
+            ["pageNumber"] = _param.PageNumber.ToString(),
+            ["Keyword"] = _param.Keyword == null ? "" : _param.Keyword,
+            ["orderBy"] = _param.OrderBy
+        };
+
+
+        var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString($"vendorproduct",queryStringParam));
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+
+        var pagingResponse = new PagingResponse<VendorProductDto>
+        {
+            Items = JsonSerializer.Deserialize<List<VendorProductDto>>(content, _options),
+            MetaData = JsonSerializer.Deserialize<MetaData>(response.Headers.GetValues("X-Pagination").First(), _options)
+        };
+        return pagingResponse;
+    }
 }

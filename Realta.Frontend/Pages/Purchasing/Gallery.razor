@@ -48,57 +48,57 @@
                   <img src="vendor/assets/images/products/product-mini-2.jpg" class="card-img-top" alt="...">
                   <div class="card-body">
                     <p class="card-text text-sm fw-bold text-muted">@product.StockName</p>
-                    <p class="card-text text-sm mb-2">@product.VendorName</p>
+                    <p class="card-text text-sm mb-2">@product.StockName</p>
                     <div class="row">
                       <div class="col">
-                        <p class="card-text text-sm">Stck:20</p>
+                        <p class="card-text text-sm">Stck:@product.StockName</p>
                       </div>
                       <div class="col-7">
-                        <p class="card-text text-sm">ReOrd:20</p>
+                        <p class="card-text text-sm">ReOrd:@product.StockName</p>
                       </div>
                     </div>
-                    <p class="card-text text-sm fw-bold text-muted">@product.Price.ToString("C0", new CultureInfo("id-ID"))</p>
+                    <p class="card-text text-sm fw-bold text-muted">@product.VeproPrice.ToString("C0", new CultureInfo("id-ID"))</p>
                   </div>
                   <div class="d-flex justify-content-end">
-                    <button @onclick="() => AddToCart(product)" class="main-btn dark-btn btn-sm rounded-bottom rounded-top-0 btn-hover w-100" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart">Add to cart</button>
+                    <button @onclick="() => AddToCart(product.VeproId)" class="main-btn dark-btn btn-sm rounded-bottom rounded-top-0 btn-hover w-100" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart">Add to cart</button>
                   </div>
                 </div>
               </div>
             }
           </div>
         </div>
-        <div class="collapse col-3 @(CartIsOpen ? "show" : "")" id="cart">
+        <div class="collapse col-3 @(_isCartOpen ? "show" : "")" id="cart">
           <div class="card border-0">
             <div class="card-header d-flex justify-content-between border-0">
               <h6>Items Ordered</h6>
-              <button type="button" class="border-0 bg-transparent h6" @onclick="CloseCart">
-                <i class="lni lni-cross-circle"></i>
+              <button type="button" class="border-0 bg-transparent h6" @onclick="() => _isCartOpen = false">
+                <i class="lni lni-close"></i>
               </button>
             </div>
-            @if (Cart.Instance.Items.Any())
+            @if (Cart.Any())
             {
               <div class="card-body">
-                @foreach (var item in Cart.Instance.Items)
+                @foreach (var item in Cart)
                 {
                   <div class="d-flex justify-content-between">
                     <p class="card-text text-sm fw-bold text-muted">
-                      @item.Product?.StockName <produk></produk>
+                      @item.StockName <produk></produk>
                     </p>
-                    <button type="button" class="border-0 bg-transparent h6" @onclick="() => RemoveItem(item.Product.VeproId)">
+                    <button type="button" class="border-0 bg-transparent h6" @onclick="() => RemoveItem(item)">
                       <i class="lni lni-trash-can text-danger"></i>
                     </button>
-                  </div> 
-                  <p class="card-text text-sm mb-2">@item.Product?.VendorName</p>
+                  </div>
+                  <p class="card-text text-sm mb-2">@item.VendorName</p>
                   <div class="row">
                     <label for="price" class="card-text text-sm form-label text-muted col">Price</label>
                     <div class="col-7">
-                      <input type="text" name="price" id="price" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent" value="@item.Product?.Price.ToString("C0", new CultureInfo("id-ID"))" readonly/>
+                      <input type="text" name="price" id="price" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent" value="@((5000).ToString("C0", new CultureInfo("id-ID")))" readonly/>
                     </div>
                   </div>
                   <div class="row">
                     <label for="qty" class="card-text text-sm form-label text-muted col">Qty</label>
                     <div class="col-7">
-                      <input type="number" name="qty" id="qty" class="form-control form-control-sm text-sm text-muted border-0" min="1" value="@item.Quantity" @oninput="@(e => UpdateItemQuantity(item, int.Parse(e.Value.ToString())))"/>
+                      <input type="number" name="qty" id="qty" class="form-control form-control-sm text-sm text-muted border-0" min="1" value="@item.CartOrderQty" @oninput="@(e => UpdateItemQuantity(item, int.Parse(e.Value.ToString())))"/>
                     </div>
                   </div>
                   <div class="row">
@@ -112,19 +112,19 @@
                 <div class="row">
                   <label for="subtotal" class="card-text fw-bold form-label text-muted col">Sub total</label>
                   <div class="col-7">
-                    <input type="text" name="subtotal" id="subtotal" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@Cart.Instance.TotalPriceExcludingTax.ToString("C0", new CultureInfo("id-ID"))" readonly/>
+                    <input type="text" name="subtotal" id="subtotal" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@((5000).ToString("C0", new CultureInfo("id-ID")))" readonly/>
                   </div>
                 </div>
                 <div class="row">
                   <label for="tax" class="card-text fw-bold form-label text-muted col">Tax (10%)</label>
                   <div class="col-7">
-                    <input type="text" name="tax" id="tax" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@Cart.Instance.TaxAmount.ToString("C0", new CultureInfo("id-ID"))" readonly/>
+                    <input type="text" name="tax" id="tax" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@((5000).ToString("C0", new CultureInfo("id-ID")))" readonly/>
                   </div>
                 </div>
                 <div class="row">
                   <label for="total" class="card-text fw-bold form-label text-muted col">Total</label>
                   <div class="col-7">
-                    <input type="text" name="total" id="total" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@Cart.Instance.TotalPrice.ToString("C0", new CultureInfo("id-ID"))" readonly/>
+                    <input type="text" name="total" id="total" class="form-control form-control-sm fw-bold text-muted border-0 bg-transparent" value="@((5000).ToString("C0", new CultureInfo("id-ID")))" readonly/>
                   </div>
                 </div>
               </div>
@@ -132,7 +132,13 @@
                 <a href="#0" class="main-btn primary-btn btn-sm rounded-0 btn-hover w-100 rounded-bottom rounded-top-0">Request order</a>
               </div>
             }
-          </div>
+            else
+            {
+              <div class="row">    
+                <h5 class="text-gray text-center my-5">cart is empty</h5>
+              </div>
+            }
+            </div>
         </div>
       </div>
     </div>
@@ -141,63 +147,9 @@
   <!-- end container -->
 </section>
 
-@code {
-
-  public List<Product>? Products { get; set; }
-
-  protected override void OnInitialized()
-  {
-    base.OnInitialized();
-    Products = new List<Product>()
-    {
-      new Product { VeproId = 1, VendorName = "Vendor A", StockName = "Product A1", Price = 100, EmpId = 101 },
-      new Product { VeproId = 2, VendorName = "Vendor B", StockName = "Product B1", Price = 200, EmpId = 102 },
-      new Product { VeproId = 3, VendorName = "Vendor C", StockName = "Product C1", Price = 300, EmpId = 103 },
-      new Product { VeproId = 4, VendorName = "Vendor D", StockName = "Product D1", Price = 400, EmpId = 104 },
-      new Product { VeproId = 5, VendorName = "Vendor E", StockName = "Product E1", Price = 500, EmpId = 105 },
-      new Product { VeproId = 6, VendorName = "Vendor F", StockName = "Product F1", Price = 600, EmpId = 106 },
-      new Product { VeproId = 7, VendorName = "Vendor G", StockName = "Product G1", Price = 700, EmpId = 107 },
-      new Product { VeproId = 8, VendorName = "Vendor H", StockName = "Product H1", Price = 800, EmpId = 108 },
-      new Product { VeproId = 9, VendorName = "Vendor I", StockName = "Product I1", Price = 900, EmpId = 109 },
-      new Product { VeproId = 10, VendorName = "Vendor J", StockName = "Product J1", Price = 1000, EmpId = 110 }
-    };
-  }
-
-  private void AddToCart(Product product)
-  {
-    Cart.Instance.AddItem(product);
-    OpenCart();
-  }
-
-  private void UpdateItemQuantity(CartItem item, int newQuantity)
-  {
-    if (newQuantity < 1)
-    {
-      newQuantity = 1;
-    }
-
-    if (item.Product != null) Cart.Instance.UpdateQuantity(item.Product.VeproId, newQuantity);
-
-  // Refresh the cart view
-    StateHasChanged();
-  }
-
-  private static void RemoveItem(int veproId)
-  {
-    Cart.Instance.RemoveItem(veproId);
-  }
-  
-  [Parameter]
-  public bool CartIsOpen { get; set; } = false;
-
-  private void OpenCart()
-  {
-    CartIsOpen = true;
-  }
-
-  private void CloseCart()
-  {
-    CartIsOpen = !CartIsOpen;
-  }
-
-}
+@* Floating button cart *@
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999;">
+  <button class="btn btn-primary d-flex align-items-center justify-content-center" style="width:55px; height: 55px" type="button" @onclick="() => _isCartOpen = !_isCartOpen">
+    <i class="lni lni-cart"></i>
+  </button>
+</div>

@@ -10,4 +10,5 @@ public interface IVendorProductHttpRepository
    Task<PagingResponse<VendorProductDto>> GetVenProPaging(VenproParameters vendorsParameters, int id);
    Task DeleteVenpro(int id);
    Task CreateVenpro(VendorProductDto venproCreate);
+   Task<PagingResponse<VendorProductDto>> GetAll(VenproParameters param);
 }

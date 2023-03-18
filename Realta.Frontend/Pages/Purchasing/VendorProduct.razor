@@ -62,12 +62,10 @@
         </tr>
     }
     </Tbody>
+    <Tfoot>
+        <TablePagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
+    </Tfoot>
 </TableSection>
-<div class="row">
-    <div class="col">
-        <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
-    </div>
-</div>
 
 <SuccessNotification @ref="_notification"/>
 
