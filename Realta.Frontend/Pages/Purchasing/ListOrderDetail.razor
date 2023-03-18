@@ -1,4 +1,5 @@
 ﻿@page "/purchasing/list-order/{id}"
+@using Microsoft.VisualBasic.CompilerServices
 @inject NavigationManager NavigationManager
 
 <PageTitle>Purchase Order Detail</PageTitle>
@@ -145,7 +146,7 @@
 <div class="warning-modal">
   <div class="modal fade" id="update" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <form class="modal-content card-style" action="/update" method="post">
+      <div class="modal-content card-style">
         <div class="modal-header px-0 border-0">
           <h5 class="text-bold">Edit Quantity</h5>
           <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
@@ -163,22 +164,22 @@
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="input-style-1">
                 <label for="orderQty">Order Qty</label>
-                <input type="number" min="0" id="orderQty" name="orderQty" @bind-value="toUpdate.PodeOrderQty" required>
+                <input type="number" min="0" id="orderQty" name="orderQty" @bind-value="toUpdate.PodeOrderQty" disabled="@(Header.PoheStatus>1)" required />
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="input-style-1">
                 <label for="receivedQty">Received</label>
-                <input type="number" min="0" id="receivedQty" name="receivedQty" @bind-value="toUpdate.PodeReceivedQty" required>
+                <input type="number" min="0" max="@(toUpdate.PodeOrderQty-toUpdate.PodeRejectedQty)" id="receivedQty" name="receivedQty" @bind-value="@toUpdate.PodeReceivedQty" @bind-value:event="oninput" @onkeypress="ValidateReceiveQty" disabled="@(Header.PoheStatus == 1 || Header.PoheStatus == 5)" required />
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="input-style-1">
                 <label for="rejectedQty">Rejected</label>
-                <input type="number" min="0" id="rejectedQty" name="rejectedQty" @bind-value="toUpdate.PodeRejectedQty" required>
+                <input type="number" min="0" max="@(toUpdate.PodeOrderQty-toUpdate.PodeReceivedQty)" id="rejectedQty" name="rejectedQty" @bind-value="@toUpdate.PodeRejectedQty" @bind-value:event="oninput" @onkeypress="ValidateRejectQty" disabled="@(Header.PoheStatus == 1 || Header.PoheStatus == 5)" required/>
               </div>
             </div>
-             <button type="button" data-bs-dismiss="modal" class="main-btn primary-btn-outline btn-hover m-1" @onclick="(() => GenerateBarcode(toUpdate))">
+            <button type="button" class="btn btn-lg btn-outline-primary rounded-0 m-1 text-sm" @onclick="() => GenerateBarcode(toUpdate)" disabled="@(Header.PoheStatus!=4)">
               Generate Barcode
             </button>
           </div>
@@ -191,11 +192,11 @@
             </button>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 </div>
 
 <ModalDelete @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
 <SuccessNotification @ref="_notif"/>
-<ErrorNotifModal @ref="_error" />
+<ErrorNotifModal @ref="_error"/>

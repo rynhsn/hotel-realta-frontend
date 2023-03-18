@@ -25,6 +25,7 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
         {
             ["pageNumber"] = param.PageNumber.ToString(),
             ["keyword"] = param.Keyword == null ? "": param.Keyword,
+            ["status"] = param.Status == null ? "": param.Status.ToString(),
             ["orderBy"] = param.OrderBy 
         };
 

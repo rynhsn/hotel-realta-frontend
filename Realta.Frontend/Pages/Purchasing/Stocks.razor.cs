@@ -63,7 +63,7 @@ public partial class Stocks
         await _updateStock.Show();
     }
 
-    private DeleteModal _del;
+    private ModalDelete _del;
 
     private async Task OnDelete(int id)
     {

@@ -103,7 +103,7 @@
               <a class="text-gray" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#update" @onclick="() => OnUpdate(item)">Switch Status</a>
             </li>
             <li class="dropdown-item">
-              <a class="text-danger" href="javascript:void(0)" @onclick="() => OnDelete(item.PoheNumber)">Delete modal</a>
+              <a class="text-danger" href="javascript:void(0)" @onclick="() => OnDelete(item.PoheNumber)">Delete</a>
             </li>
           </ul>
         </td>
@@ -118,7 +118,7 @@
 
 @* // Update Modal *@
 <div class="warning-modal">
-  <div class="modal ooterfade" id="update" tabindex="-1" style="display: none;" aria-hidden="true">
+  <div class="modal fade" id="update" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content card-style">
         <div class="modal-header px-0 border-0">
@@ -130,9 +130,9 @@
         <div class="modal-body px-0">
           <div class="content mb-30">
             <div class="select-style-1 col rounded-sm">
-              <label>Purchase Order Status for @toUpdate.PoheNumber</label>
+              <label>Purchase Order Status for @_updateStatus.PoheNumber</label>
               <div class="select-position">
-                <select @bind="toUpdate.PoheStatus">
+                <select @bind="_updateStatus.PoheStatus">
                   <option value="1">Pending</option>
                   <option value="2">Approve</option>
                   <option value="3">Reject</option>

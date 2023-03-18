@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using Realta.Contract.Models;
 using Realta.Domain.RequestFeatures;
 using Realta.Frontend.Components;
@@ -9,15 +10,23 @@ namespace Realta.Frontend.Pages.Purchasing;
 
 public partial class ListOrderDetail
 {
-    [Parameter] public string Id { get; set; } 
-    [Inject] private IPurchaseOrderHttpRepository Repo { get; set; }
-    private SuccessNotification _notif;
-    private ModalDelete _del;
-    public PurchaseOrderDto Header { get; set; } = new();
-    public MetaData MetaData { get; set; } = new();
-
+    [Parameter] public string Id { get; set; }
+    [Inject] private IJSRuntime Js { get; set; }
+    [Inject] private IPurchaseOrderHttpRepository Repo { get; set; }    
+    [Inject] private IStockDetailHttpRepository StockDetailHttpRepository { get; set; }
+    
+    private PurchaseOrderDto Header { get; set; } = new();
+    private MetaData MetaData { get; set; } = new();
+    private List<PurchaseOrderDetailDto> DataList { get; set; } = new();
+    
     private PurchaseOrderDetailParameters _param = new();
-    public List<PurchaseOrderDetailDto> DataList { get; set; } = new();
+    private QtyUpdateDto toUpdate = new();
+    private SuccessNotification _notif;
+    private ErrorNotifModal _error;
+    private ModalDelete _del;
+    private string orderBy = ""; // menunjukkan kolom yang diurutkan
+    private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)
+
     protected async override Task OnInitializedAsync()
     {
         Header = await Repo.GetHeader(Id);
@@ -29,15 +38,24 @@ public partial class ListOrderDetail
         _param.PageNumber = page;
         await Get();
     }
-    
+
     private async Task Get()
     {
+        // Header = await Repo.GetHeader(Id);
+        // await Task.Delay(100);
         var response = await Repo.GetDetails(Id, _param);
         DataList = response.Items;
         MetaData = response.MetaData;
+        
+        // Header = await Repo.GetHeader(Id);
+        // var detailsTask = Repo.GetDetails(Id, _param); // simpan task ke variabel
+        // await detailsTask; // tunggu hingga task selesai
+        // DataList = detailsTask.Result.Items; // ambil result dari task
+        // MetaData = detailsTask.Result.MetaData; // ambil result dari task
+        // await Task.Delay(100); // delay selama 100ms sebelum melanjutkan ke kode berikutnya
+
     }
     
-    private QtyUpdateDto toUpdate = new();
     private async Task OnUpdate(PurchaseOrderDetailDto data)
     {
         toUpdate.PodeId = data.PodeId;
@@ -49,18 +67,27 @@ public partial class ListOrderDetail
     
     private async Task OnUpdateConfirmed()
     {
+        if (toUpdate.PodeRejectedQty == 0 && toUpdate.PodeReceivedQty == 0) OnUpdateStatus(2);
+        if (toUpdate.PodeRejectedQty > 0) OnUpdateStatus(3);
+        if (toUpdate.PodeReceivedQty == toUpdate.PodeOrderQty) OnUpdateStatus(4);
+        await Task.Delay(100);
         await Repo.UpdateQty(toUpdate);
-        await Get();
         _param.PageNumber = 1;
-        if (DataList.Any())
+        await Task.Delay(100);
+        await Get();
+        var uri = DataList.Any() ? NavigationManager.Uri : "/purchasing/list-order";
+        _notif.Show(uri, "Data has been updated.");
+    }
+
+    private async Task OnUpdateStatus(byte status)
+    {
+        var header = new StatusUpdateDto()
         {
-            _param.PageNumber = 1;
-            _notif.Show(NavigationManager.Uri, "Data has been updated.");
-        }
-        else
-        {
-            _notif.Show($"/purchasing/list-order", "Data has been updated.");
-        }
+            PoheNumber = Header.PoheNumber,
+            PoheStatus = status //rejected
+        };
+        Header.PoheStatus = status;
+        await Repo.UpdateStatus(header);
     }
 
     private async Task OnDelete(int id)
@@ -93,12 +120,11 @@ public partial class ListOrderDetail
         await Get();
     }
 
-    private ErrorNotifModal _error;
-    [Inject] public IStockDetailHttpRepository StockDetailHttpRepository { get; set; }
     private async Task GenerateBarcode(QtyUpdateDto PoUpdate)
     {
         if (Header.PoheStatus == 4)
         {
+            OnUpdateStatus(5);
             await StockDetailHttpRepository.GenerateBarcode(PoUpdate);
             await Task.Delay(100);
             _notif.ShowWithoutPath();
@@ -109,8 +135,6 @@ public partial class ListOrderDetail
         }
     }
     
-    private string orderBy = ""; // menunjukkan kolom yang diurutkan
-    private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)
     private async Task SortChanged(string columnName)
     {
         if (orderBy != columnName)
@@ -129,7 +153,7 @@ public partial class ListOrderDetail
         await Get();
     }
     
-    public static (string, string) GetStatus(int status)
+    private static (string, string) GetStatus(int status)
     {
         return status switch
         {
@@ -139,5 +163,25 @@ public partial class ListOrderDetail
             4 => ("secondary-btn", "Receive"),
             5 => ("dark-btn", "Complete")
         };
+    }
+    
+    private async Task ValidateRejectQty()
+    {
+        var maxQty = (int)(toUpdate.PodeOrderQty - toUpdate.PodeReceivedQty);
+        if ((int)toUpdate.PodeRejectedQty > maxQty)
+        {
+            await Js.InvokeAsync<object>("alert", $"The maximum value is {maxQty}");
+            toUpdate.PodeRejectedQty = 0;
+        }
+    }
+    
+    private async Task ValidateReceiveQty()
+    {
+        var maxQty = (int)(toUpdate.PodeOrderQty - toUpdate.PodeRejectedQty);
+        if ((int)toUpdate.PodeReceivedQty > maxQty)
+        {
+            await Js.InvokeAsync<object>("alert", $"The maximum value is {maxQty}");
+            toUpdate.PodeReceivedQty = 0;
+        }
     }
 } 
