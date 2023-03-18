@@ -215,15 +215,7 @@
           
           @foreach (var extra in BookingExtraByBoorId)
           {
-              // tambahkan item ke dictionary
-              if (itemQuantities.ContainsKey(extra.PritName))
-              {
-                  itemQuantities[extra.PritName] += 1;
-              }
-              else
-              {
-                  itemQuantities[extra.PritName] = 1;
-              }
+             
           
               // tampilkan item dan quantity-nya
               <tr>
@@ -233,7 +225,7 @@
                       </p>
                   </td>
                   <td>
-                      <p class="text-sm">@itemQuantities[extra.PritName]</p>
+                      <p class="text-sm">@extra.BoexQty</p>
                   </td>
                   <td>
                       <p class="text-sm"></p>
@@ -248,7 +240,7 @@
                       <p class="text-sm"></p>
                   </td>
                   <td>
-                      <p class="text-sm">@string.Format("IDR {0:N0}", extra.BoexPrice * itemQuantities[extra.PritName])</p>
+                      <p class="text-sm">@string.Format("IDR {0:N0}", extra.BoexPrice * @extra.BoexQty)</p>
                   </td>
               </tr>
           }
@@ -261,24 +253,24 @@
             <td></td>
             
             @{
-              itemQuantities = new Dictionary<string, int>();
-              foreach (var extra in BookingExtraByBoorId)
-                {
-                    if (itemQuantities.ContainsKey(extra.PritName))
-                    {
-                        itemQuantities[extra.PritName]++;
-                    }
-                    else
-                    {
-                        itemQuantities.Add(extra.PritName, 1);
-                    }
-                }
+              // itemQuantities = new Dictionary<string, int>();
+              // foreach (var extra in BookingExtraByBoorId)
+              //   {
+              //       if (itemQuantities.ContainsKey(extra.PritName))
+              //       {
+              //           itemQuantities[extra.PritName]++;
+              //       }
+              //       else
+              //       {
+              //           itemQuantities.Add(extra.PritName, 1);
+              //       }
+              //   }
             
-              decimal totalExtrasPrice = 0;
-              foreach (var extra in BookingExtraByBoorId)
-              {
-                totalExtrasPrice += extra.BoexPrice.GetValueOrDefault() * itemQuantities[extra.PritName];
-              }
+              decimal totalExtrasPrice = BookingOrderDetailExtra.BoexSubtotal.GetValueOrDefault();
+              // foreach (var extra in BookingExtraByBoorId)
+              // {
+              //   totalExtrasPrice += extra.BoexPrice.GetValueOrDefault() * ex;
+              // }
 
               decimal totalRoomPrice = 0;
               foreach (var roomName in BookingDetailByBoorId)
