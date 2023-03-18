@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.WebUtilities;
 using Realta.Contract.Models;
@@ -25,8 +26,6 @@ public class VendorProductHttpRepository : IVendorProductHttpRepository
             ["Keyword"] = _param.Keyword == null ? "" : _param.Keyword,
             ["orderBy"] = _param.OrderBy
         };
-
-
         var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString($"vendorproduct/{id}",queryStringParam));
         var content = await response.Content.ReadAsStringAsync();
 
@@ -48,9 +47,44 @@ public class VendorProductHttpRepository : IVendorProductHttpRepository
         throw new NotImplementedException();
     }
 
-    public Task CreateVenpro(VendorProductDto venproCreate)
+    public async Task CreateVenpro(VendorProductDto venproCreate)
     {
-        throw new NotImplementedException();
+        var content = JsonSerializer.Serialize(venproCreate);
+        var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+        var postResult = await _httpClient.PostAsync("vendor", bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(postContent);
+        }
+    }
+
+    public async Task<VendorHeaderDto> GetHeaderId(int id)
+    {
+        var response = await _httpClient.GetAsync($"vendor/header/{id}");
+        var content = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+
+        var result = JsonSerializer.Deserialize<VendorHeaderDto>(content, _options); //untuk inject filenya 
+        return result;
+    }
+
+    public async Task<List<VendorProductDto>> GetStock()
+    {
+        var response = await _httpClient.GetAsync($"vendorproduct");
+        var content = await response.Content.ReadAsStringAsync();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+
+        var vendors = JsonSerializer.Deserialize<List<VendorProductDto>>(content, _options);
+        return vendors;
     }
     
     // Untuk Gallery [Riyan] =================================================
