@@ -8,4 +8,7 @@ public interface IBankHttpRepository
 {
     Task<List<BankDto>> GetBanks();
     Task<PagingResponse<BankDto>> GetBanksPaging(BankParameters bankParameters);
+    Task UpdateBank(BankDto bank);
+    Task CreateBank(BankDto bank);
+    Task DeleteBank(int id);
 }

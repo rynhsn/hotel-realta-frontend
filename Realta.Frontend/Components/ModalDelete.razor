@@ -1,0 +1,27 @@
+﻿<div class="warning-modal">
+  <div class="modal fade @_state" id="delete" tabindex="-1" role="dialog" style="display:@_display">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content card-style warning-card text-center">
+        <div class="modal-body">
+          <div class="icon text-danger mb-20">
+            <i class="lni lni-warning"></i>
+          </div>
+          <div class="content mb-30">
+            <h2 class="mb-15">Warning!</h2>
+            <p class="text-sm text-medium">
+              @_message
+            </p>
+          </div>
+          <div class="action d-flex flex-wrap justify-content-center">
+            <button @onclick="() => Hide()" class="main-btn light-btn-outline rounded-full btn-hover m-1">
+              Cancel
+            </button>
+            <button @onclick="() => OnDeleteConfirmed()" class="main-btn danger-btn rounded-full btn-hover m-1">
+              Continue
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
