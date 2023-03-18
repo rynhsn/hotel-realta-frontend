@@ -1,25 +1,28 @@
 using Microsoft.AspNetCore.Components;
 using Realta.Contract.Models;
+using Realta.Domain.Entities;
 using Realta.Domain.Repositories;
 using Realta.Domain.RequestFeatures;
 using Realta.Frontend.HttpRepository.Purchasing;
+using Realta.Frontend.Shared;
 
 namespace Realta.Frontend.Pages.Purchasing;
 
 public partial class Gallery
 {
     private int empId = 10;
+    [Inject] public IPurchaseOrderHttpRepository RepoPurchaseOrder { get; set; } 
     [Inject] public IVendorProductHttpRepository RepoProduct { get; set; } 
     [Inject] public ICartHttpRepository RepoCart { get; set; } 
     public List<VendorProductDto> Products { get; set; } = new();
     public List<CartDto> Cart { get; set; } = new();
     public MetaData MetaData { get; set; } = new();
     private VenproParameters _param = new();
+    private SuccessNotification _notif;
     protected async override void OnInitialized()
     {
         await GetProducts();
         await GetCart();
-        Console.WriteLine(Products.Count);
     }
     
     private async Task GetProducts()
@@ -36,6 +39,18 @@ public partial class Gallery
         StateHasChanged();
     }
 
+    private async Task OnRequestOrder()
+    {
+        var data = Cart.Select(i=> new PurchaseOrderTransfer
+        {
+            PoCartId = i.CartId,
+            PoPayType = "TR"
+        }).ToList();
+        _isCartOpen = false;
+        await RepoPurchaseOrder.Create(data);
+        _notif.Show(NavigationManager.Uri, "Request has been created.");
+        await GetCart();
+    }
     private async Task AddToCart(int id)
     {
         var item = new CartDto()
@@ -48,14 +63,17 @@ public partial class Gallery
         await GetCart();
         _isCartOpen = true;
     }
-    private async Task UpdateItemQuantity(CartDto product, int newQuantity)
+    private async Task UpdateItemQuantity(CartDto product, int newQty)
     {
-        if (newQuantity < 1)
+        if (newQty < 1)
         {
-            newQuantity = 1;
+            RemoveItem(product);
         }
-
-        if (Products.Any()) await RepoCart.Update(product);
+        else
+        {
+            product.CartOrderQty = (short)newQty;
+            await RepoCart.Update(product);    
+        }
         await GetCart();
     }
 
@@ -64,111 +82,10 @@ public partial class Gallery
         await RepoCart.Delete(product);
         await GetCart();
     }
-
+    
     private bool _isCartOpen = false;
+    public int TotalItems => Cart.Sum(item => item.CartOrderQty);
+    public decimal SubTotal => Cart.Sum(item => item.Subtotal);
+    public decimal TaxAmount => SubTotal * 0.1m;
+    public decimal TotalPrice => SubTotal + TaxAmount;
 }
-
-public class CartItem
-{
-    public VendorProductDto? Product { get; set; }
-    public int Quantity { get; set; }
-
-    public decimal Subtotal
-    {
-        get { return Product.VeproPrice * Quantity; }
-    }
-}
-
-// public class Cart
-// {
-//     // Singleton instance
-//     public static readonly Cart Instance = new Cart();
-//
-//     // Private constructor to prevent direct instantiation
-//     private Cart()
-//     {
-//     }
-//
-//     // List of cart items
-//     private List<CartItem> items = new List<CartItem>();
-//
-//     // Add item to cart
-//     public void AddItem(VendorProductDto product, int quantity = 1)
-//     {
-//         // Check if item already exists in cart
-//         var existingItem = items.FirstOrDefault(item => item.Product.VeproId == product.VeproId);
-//
-//         if (existingItem != null)
-//         {
-//             // Item already exists, update the quantity
-//             existingItem.Quantity += quantity;
-//         }
-//         else
-//         {
-//             // Item doesn't exist yet, add it to the cart
-//             items.Add(new CartItem
-//             {
-//                 Product = product,
-//                 Quantity = quantity
-//             });
-//         }
-//     }
-//
-//     // Remove item from cart
-//     public void RemoveItem(int veproId)
-//     {
-//         var itemToRemove = items.FirstOrDefault(item => item.Product.VeproId == veproId);
-//
-//         if (itemToRemove != null)
-//         {
-//             items.Remove(itemToRemove);
-//         }
-//     }
-//
-//     // Update item quantity in cart
-//     public void UpdateQuantity(int veproId, int quantity)
-//     {
-//         var itemToUpdate = items.FirstOrDefault(item => item.Product.VeproId == veproId);
-//
-//         if (itemToUpdate != null)
-//         {
-//             itemToUpdate.Quantity = quantity;
-//         }
-//     }
-//
-//     // Clear all items from cart
-//     public void Clear()
-//     {
-//         items.Clear();
-//     }
-//
-//     // Get all items in cart
-//     public IEnumerable<CartItem> Items
-//     {
-//         get { return items; }
-//     }
-//
-//     // Get total number of items in cart
-//     public int TotalItems
-//     {
-//         get { return items.Sum(item => item.Quantity); }
-//     }
-//
-//     // Get total price of items in cart (excluding tax)
-//     public decimal TotalPriceExcludingTax
-//     {
-//         get { return items.Sum(item => item.Product.VeproPrice * item.Quantity); }
-//     }
-//
-//     // Get tax amount (10% of total price)
-//     public decimal TaxAmount
-//     {
-//         get { return TotalPriceExcludingTax * 0.1m; }
-//     }
-//
-//     // Get total price of items in cart (including tax)
-//     public decimal TotalPrice
-//     {
-//         get { return TotalPriceExcludingTax + TaxAmount; }
-//     }
-// }

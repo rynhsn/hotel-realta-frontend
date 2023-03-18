@@ -49,9 +49,18 @@ public class CartHttpRepository : ICartHttpRepository
         }
     }
 
-    public Task Update(CartDto data)
+    public async Task Update(CartDto data)
     {
-        throw new NotImplementedException();
+        var content = JsonSerializer.Serialize(data);
+        var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+
+        var postResult = await _httpClient.PutAsync($"cart/{data.CartId}", bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(postContent);
+        }
     }
 
     public async Task Delete(CartDto data)

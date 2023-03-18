@@ -65,14 +65,14 @@ namespace Realta.Frontend.Pages.Purchasing
         private async Task Create()
         {
             await VendorRepo.CreateVendor(_vendor);
-            _notification.Show("/purchasing/vendor");
+            _notification.Show("/purchasing/vendor", "Data has been created.");
             await GetVendorPaging();;
         }
         private async Task DeleteConfirmed(int id)
         {
             await VendorRepo.DeleteVendor(id);
             _vendorParameters.PageNumber = 1;
-            _notification.Show("/purchasing/vendor");
+            _notification.Show("/purchasing/vendor", "Data has been deleted.");
             await GetVendorPaging();;
             // await OnDeleted.InvokeAsync(id);
             // await ShowSuccessModal();

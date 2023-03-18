@@ -39,13 +39,13 @@
           <div class="row">
             <label for="subTotal" class="col-form-label col-5">Sub total</label>
             <div class="col">
-              <input type="text" class="form-control-plaintext" readonly id="subTotal" value="@(((decimal)Header.PoheSubtotal).ToString("C", new CultureInfo("id-ID")))">
+              <input type="text" class="form-control-plaintext" readonly id="subTotal" value="@((Header.PoheSubtotal).ToString("C0", new CultureInfo("id-ID")))">
             </div>
           </div>
           <div class="row">
             <label for="totalAmount" class="col-form-label col-5">Total amount</label>
             <div class="col">
-              <input type="text" class="form-control-plaintext" readonly id="totalAmount" value="@(((decimal)Header.PoheTotalAmount).ToString("C", new CultureInfo("id-ID")))">
+              <input type="text" class="form-control-plaintext" readonly id="totalAmount" value="@((Header.PoheTotalAmount).ToString("C0", new CultureInfo("id-ID")))">
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@
           <p>@item.PodeOrderQty</p>
         </td>
         <td>
-          <p>@(((decimal)item.PodePrice).ToString("C", new CultureInfo("id-ID")))</p>
+          <p>@((item.PodePrice).ToString("C0", new CultureInfo("id-ID")))</p>
         </td>
         <td>
           <p>@item.PodeReceivedQty</p>
@@ -120,7 +120,7 @@
           <p>@item.PodeRejectedQty</p>
         </td>
         <td>
-          <p>@(((decimal)item.PodeLineTotal).ToString("C", new CultureInfo("id-ID")))</p>
+          <p>@((item.PodeLineTotal).ToString("C0", new CultureInfo("id-ID")))</p>
         </td>
         <td>
           <div class="action">

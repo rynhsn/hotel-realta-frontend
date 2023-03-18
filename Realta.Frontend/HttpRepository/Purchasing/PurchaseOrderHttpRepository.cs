@@ -83,7 +83,7 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
 
         return pagingResponse;
     }
-    public async Task Create(PurchaseOrderTransfer data)
+    public async Task Create(List<PurchaseOrderTransfer> data)
     {
         var content = JsonSerializer.Serialize(data);
         var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");

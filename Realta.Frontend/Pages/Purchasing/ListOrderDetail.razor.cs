@@ -55,11 +55,11 @@ public partial class ListOrderDetail
         if (DataList.Any())
         {
             _param.PageNumber = 1;
-            _notif.Show(NavigationManager.Uri);
+            _notif.Show(NavigationManager.Uri, "Data has been updated.");
         }
         else
         {
-            _notif.Show($"/purchasing/list-order");
+            _notif.Show($"/purchasing/list-order", "Data has been updated.");
         }
     }
 
@@ -78,11 +78,11 @@ public partial class ListOrderDetail
         if (DataList.Any())
         {
             _param.PageNumber = 1;
-            _notif.Show(NavigationManager.Uri);
+            _notif.Show(NavigationManager.Uri, "Data has been deleted.");
         }
         else
         {
-            _notif.Show($"/purchasing/list-order");
+            _notif.Show($"/purchasing/list-order", "Data has been deleted.");
         }
     }
     

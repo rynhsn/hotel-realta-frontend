@@ -43,7 +43,7 @@ public partial class ListOrder
         await Repo.UpdateStatus(toUpdate);
         _param.PageNumber = 1;
         await Get();
-        _notif.Show(NavigationManager.Uri);
+        _notif.Show(NavigationManager.Uri, "Data has been updated.");
     }
     
     private async Task OnDelete(string id)
@@ -57,7 +57,7 @@ public partial class ListOrder
         _del.Hide();
         await Repo.DeleteHeader(id.ToString());
         _param.PageNumber = 1;
-        _notif.Show("/purchasing/list-order");
+        _notif.Show("/purchasing/list-order", "Data has been deleted.");
         await Get();
     }
     

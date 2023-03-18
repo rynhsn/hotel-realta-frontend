@@ -86,7 +86,7 @@
           <p>@item.LineItem Item(s)</p>
         </td>
         <td>
-          <p>@(((decimal)item.PoheTotalAmount).ToString("C", new CultureInfo("id-ID")))</p>
+          <p>@(((decimal)item.PoheTotalAmount).ToString("C0", new CultureInfo("id-ID")))</p>
         </td>
         <td>
           <span class="status-btn @GetStatus(@item.PoheStatus).Item1">@GetStatus(@item.PoheStatus).Item2</span>
