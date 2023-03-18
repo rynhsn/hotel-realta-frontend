@@ -39,7 +39,7 @@ namespace Realta.Frontend.Components.Purchasing
         private async Task Update()
         {
             await StocksHttpRepository.UpdateStock(UpdateStock);
-            _notification.Show("/purchasing/stocks");
+            _notification.Show("/purchasing/stocks", "Data has been updated.");
             await getPaging.InvokeAsync();
         }
     }

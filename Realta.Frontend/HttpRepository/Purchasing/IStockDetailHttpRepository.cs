@@ -9,5 +9,7 @@ public interface IStockDetailHttpRepository
     Task<List<StockDetailDto>> GetStockDetail(int id);
     Task<PagingResponse<StockDetailDto>> GetStockDetailPaging(StockDetailParameters stocksDetailParameters);
 
+    Task GenerateBarcode(QtyUpdateDto GenerateBarcodePd);
+
 }
 

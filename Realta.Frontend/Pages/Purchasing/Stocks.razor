@@ -85,7 +85,7 @@
                       <a class="text-gray" data-bs-toggle="modal" data-bs-target="#uploadFotoStock[@so.StockId.Value]">Upload Foto</a>
                     </li>
                     <li class="dropdown-item">
-                                <a class="text-danger" @onclick="()=> onDelete(so.StockId.Value)">Delete</a>
+                      <a class="text-danger" @onclick="()=> OnDelete(so.StockId.Value)">Delete</a>
                     </li>
                     <li class="dropdown-item">
                       <a class="text-gray" href="/purchasing/stock/@so.StockId">Detail Stock</a>
@@ -94,7 +94,7 @@
                 </td>
               </tr>
                                   
-        }
+            }
         }
   </Tbody>
   <Tfoot>    
@@ -112,4 +112,4 @@
 <ModalCreateStock @ref="_createStock" getPaging="GetPaging" />
 
 @* // Delete Stock Modal *@
-<DeleteModal Target="#delete" />
+<ModalDelete @ref="_del" OnDeletedData="OnDeleteConfirmed" />

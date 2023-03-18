@@ -66,7 +66,7 @@ public partial class VendorProduct
     {
         _venpro.VeproVendorId = Id;
         await VendproRepo.CreateVenpro(_venpro);
-        _notification.Show($"/purchasing/vendor-product/{Id}");
+        _notification.Show($"/purchasing/vendor-product/{Id}", "berhasil ditambahkan");
         await GetVenproPaging();
     }
 

@@ -1,0 +1,34 @@
+﻿<div class="d-flex justify-content-end">
+    <div class="d-flex align-items-center">
+        <h6>@Title:</h6>
+        <div class="select-style-1 mb-0 ml-10">
+            <div class="select-position">
+                <select class="p-0 pe-5 border-0" @onchange="FilterChanged">
+                    <option value="" selected>Semua</option>
+                    @foreach (var option in OptionList)
+                    {
+                        <option value="@option.Key">@option.Value</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; } = "Judul";
+
+    [Parameter]
+    public Dictionary<string, string> OptionList { get; set; }
+    
+    [Parameter] public EventCallback<string> OnFilterChanged { get; set; }
+    
+    private async void FilterChanged(ChangeEventArgs e)
+    {
+        var optionValue = e.Value?.ToString();
+        await OnFilterChanged.InvokeAsync(optionValue);
+    }
+
+}
