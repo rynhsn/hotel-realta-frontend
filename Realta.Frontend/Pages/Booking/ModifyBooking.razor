@@ -76,15 +76,18 @@
               <!--!--><th class="min-width"><h6 class="ml-15">Price</h6></th>
               <th class="min-width"><h6 class="text-sm text-medium"><a a="" class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#addVendor">Add +</a></h6></th></tr></thead><!--!-->
             <tbody>
+                @foreach(var extra in BookingExtraByBoorId)
+                {
+                                
             <tr>
               <td class="min-width">
-                <p>1</p>
+                <p>@extra.BoexId</p>
               </td>
               <td class="min-width">
-                <p>Extra Bed</p>
+                <p>@extra.PritName</p>
               </td>
               <td class="min-width">
-                <p class="">IDR 50.000</p>
+                <p class="">IDR @extra.BoexPrice</p>
               </td>
               <td>
                 <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more"><span class="mdi mdi-dots-vertical"></span></button>
@@ -98,26 +101,7 @@
                 </ul>
               </td>
             </tr>
-            <td class="min-width">
-              <p>2</p>
-            </td>
-            <td class="min-width">
-              <p>Cola-Cola</p>
-            </td>
-            <td class="min-width">
-              <p class="">IDR 10.000</p>
-            </td>
-            <td>
-              <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more"><span class="mdi mdi-dots-vertical"></span></button>
-              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction"><li class="dropdown-item"><a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#edit"> Edit </a></li>
-                <li class="dropdown-item"><a class="text-gray" href="/purchasing/vendor-product"> Add Item Product </a></li>
-                <li class="dropdown-item">
-                  <a class="text-danger" href="#" data-bs-toggle="modal" data-bs-target="#delete">
-                    Delete
-                  </a>
-                </li>
-              </ul>
-            </td>
+                }
             </tbody>
           </table>
         </div>
@@ -266,12 +250,22 @@
 </section>
 
 @code {
-  public List<SpecialOffersDto> SpecialOffersList { get; set; } = new List<SpecialOffersDto>();
-  [Inject] 
-  public ISpecialOfferHttpRepository SpecialOfferHttpRepository { get; set; }
+    public List<SpecialOffersDto> SpecialOffersList { get; set; } = new List<SpecialOffersDto>();
 
-  protected async override Task OnInitializedAsync()
-  {
-    SpecialOffersList= await SpecialOfferHttpRepository.GetSpecialOffers();
-  }
+    [Inject] 
+    public ISpecialOfferHttpRepository SpecialOfferHttpRepository { get; set; }
+
+    [Inject]
+    public IBookingHttpRepository BookingHttpRepository { get; set; }
+
+
+    public BookingOrderDetailExtraDto? BookingOrderDetailExtra { get; set; } = new BookingOrderDetailExtraDto();
+    public List<BookingOrderDetailExtraDto> BookingExtraByBoorId { get; set; } = new List<BookingOrderDetailExtraDto>();
+
+    protected async override Task OnInitializedAsync()
+    {
+        SpecialOffersList= await SpecialOfferHttpRepository.GetSpecialOffers();
+        BookingExtraByBoorId = await BookingHttpRepository.GetBookingOrderDetailExtraByBoorId(Id);
+
+    }
 }

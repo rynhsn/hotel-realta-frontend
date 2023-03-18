@@ -55,7 +55,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="C:\Users\User\source\repos\HotelRealtaAPI\Realta.Contract\Realta.Contract.csproj" />
-    <ProjectReference Include="C:\Users\User\source\repos\HotelRealtaAPI\Realta.Domain\Realta.Domain.csproj" />
+    <ProjectReference Include="..\..\RealtaBookingWebAPI\Realta.Contract\Realta.Contract.csproj" />
+    <ProjectReference Include="..\..\RealtaBookingWebAPI\Realta.Domain\Realta.Domain.csproj" />
   </ItemGroup>
 </Project>

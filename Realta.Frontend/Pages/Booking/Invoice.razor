@@ -316,11 +316,14 @@
             <td></td>
             <td></td>
             <td></td>
+            @{
+                
+            }
             <td>
               <h6 class="text-sm text-medium">Payment Ammount</h6>
             </td>
             <td>
-              <h6 class="text-sm text-bold">IDR 189,130</h6>
+              <h6 class="text-sm text-bold"> IDR @string.Format("{0:N0}", (totalPrice))</h6>
             </td>
           </tr>
 
