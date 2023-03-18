@@ -1,127 +1,130 @@
 ﻿@page "/payments/topup"
 
 <section class="section">
-  <div class="container-fluid">
-    <!-- ========== title-wrapper start ========== -->
-    <div class="title-wrapper pt-30">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <div class="title mb-30">
-            <h2>TopUp</h2>
-          </div>
-        </div>
-        <!-- end col -->
-        <div class="col-md-6">
-          <div class="breadcrumb-wrapper mb-30">
-            <nav aria-label="breadcrumb">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <a href="javascript:void(0)">Dashboard</a>
-                </li>
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Transactions</a></li>
-                <li class="breadcrumb-item active" aria-current="page">
-                  TopUp
-                </li>
-              </ol>
-            </nav>
-          </div>
-        </div>
-        <!-- end col -->
-      </div>
-      <!-- end row -->
-    </div>
-    <!-- ========== title-wrapper end ========== -->
-
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="card-style settings-card-1 mb-30">
-          <div class="
-              title
-              mb-30
-              d-flex
-              justify-content-between
-              align-items-center
-            ">
-            <h6>Source</h6>
-          </div>
-          <div class="profile-info">
-            <div class="input-style-1">
-              <input type="search" placeholder="Search Account (Bank)" value="">
-            </div>
-            <div class="select-style-1">
-              <label>Account</label>
-              <div class="select-position">
-                <select class="light-bg">
-                  <option value="">Select Account Number</option>
-                  <option value="">131-6723-923 (BANK BRI)</option>
-                  <option value="">872-9277-912 (BANK MANDIRI)</option>
-                  <option value="">112-9232-293 (BANK BCA)</option>
-                  <option value="">992-9238-293 (BANK JAGO)</option>
-                  <option value="">711-9812-923 (BANK BNI)</option>
-                </select>
-              </div>
-            </div>
-            <div class="input-style-1">
-              <label>Current Saldo</label>
-              <input type="text" disabled value="Rp. 10,000,000">
-            </div>
-            <div class="d-flex justify-content-center flex-wrap">
-              <div class="col-xxl-4">
-                <a class="main-btn primary-btn btn-hover" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#delete">
-                  Top Up
-                </a>
-              </div>
-              <div class="col-xxl-4">
-                <div class="input-style-1">
-                  <input type="text" placeholder="Transfer Amount" value="Rp. 2,000,000">
+    <div class="container-fluid">
+        <!-- ========== title-wrapper start ========== -->
+        <div class="title-wrapper pt-30">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="title mb-30">
+                        <h2>TopUp</h2>
+                    </div>
                 </div>
-              </div>
+                <!-- end col -->
+                <div class="col-md-6">
+                    <div class="breadcrumb-wrapper mb-30">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="javascript:void(0)">Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="javascript:void(0)">Transactions</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    TopUp
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <!-- end col -->
             </div>
-          </div>
+            <!-- end row -->
         </div>
-        <!-- end card -->
-      </div>
-      <!-- end col -->  
+        <!-- ========== title-wrapper end ========== -->
 
-      <div class="col-lg-6">
-        <div class="card-style settings-card-2 mb-30">
-          <div class="title mb-30">
-            <h6>Target</h6>
-          </div>
-          <form action="#">
+        <EditForm Model="_topUp" OnSubmit="TopUpFintech">
             <div class="row">
-              <div class="col-12">
-                <div class="input-style-1">
-                  <input type="search" placeholder="Search Payment (Fintech)" value="">
+                <div class="col-lg-6">
+                    <div class="card-style settings-card-1 mb-30">
+                        <div class="
+                      title
+                      mb-30
+                      d-flex
+                      justify-content-between
+                      align-items-center
+                    ">
+                            <h6>Source</h6>
+                        </div>
+                        <div class="profile-info">
+                            <div class="input-style-1">
+                                <input type="search" placeholder="Search Account (Bank)"/>
+                            </div>
+                            <div class="select-style-1">
+                                <label>Account</label>
+                                <div class="select-position">
+                                    <select class="light-bg" @onchange="SelectedBank" value="@_topUp.SourceAccount">
+                                        <option disabled selected>Select Account Number</option>
+                                        @foreach (var b in AccountBankList)
+                                        {
+                                            <option value="@b.AccountNumber">@b.AccountNumber - @b.PaymentName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-style-1">
+                                <label>Current Saldo</label>
+                                <input type="text" disabled @bind-value="BankSaldo">
+                            </div>
+                            <div class="d-flex justify-content-center flex-wrap">
+                                <div class="col-xxl-4">
+                                    <button class="main-btn primary-btn btn-hover">
+                                        Top Up
+                                    </button>
+                                </div>
+                                <div class="col-xxl-4">
+                                    <div class="input-style-1">
+                                        <label for="">Transfer Amount</label>
+                                        <InputNumber @bind-Value="_topUp.Amount"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
                 </div>
-              </div>
-              <div class="select-style-1">
-                <label>Account</label>
-                <div class="select-position">
-                  <select class="light-bg">
-                    <option value="">Select Account Number</option>
-                    <option value="">081272361444 - Gopay</option>
-                    <option value="">081253456231 - Shopee</option>
-                    <option value="">083552613451 - Flip.id</option>
-                    <option value="">087236641512 - Dana</option>
-                    <option value="">085982734155 - LinkAja</option>
-                  </select>
+                <!-- end col -->
+
+                <div class="col-lg-6">
+                    <div class="card-style settings-card-2 mb-30">
+                        <div class="title mb-30">
+                            <h6>Target</h6>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-style-1">
+                                    <input type="search" placeholder="Search Payment (Fintech)" value="">
+                                </div>
+                            </div>
+                            <div class="select-style-1">
+                                <label>Account</label>
+                                <div class="select-position">
+                                    <select class="light-bg" @onchange="SelectedFintech" value="@_topUp.TargetAccount">
+                                        <option selected disabled>Select Account Number</option>
+                                        @foreach (var f in AccountFintechList)
+                                        {
+                                            <option value="@f.AccountNumber">@f.AccountNumber - @f.PaymentName</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="input-style-1">
+                                <label>Current Saldo</label>
+                                <input type="text" disabled @bind-value="FintechSaldo">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end card -->
                 </div>
-              </div>
-              <div class="input-style-1">
-                <label>Current Saldo</label>
-                <input type="text" disabled value="Rp. 10,000,000">
-              </div>
+                <!-- end col -->
             </div>
-          </form>
-        </div>
-        <!-- end card -->
-      </div>
-      <!-- end col -->
+        </EditForm>
+        <!-- end row -->
     </div>
-    <!-- end row -->
-  </div>
-  <!-- end container -->
+    <!-- end container -->
 </section>
 
 <!-- Konfirmasi pembayaran -->
@@ -131,9 +134,9 @@
             <div class="modal-content card-style warning-card text-center">
                 <div class="modal-body">
                     <div class="content mb-30">
-                      <h3 class="mb-15">
-                        Konfirmasi Transaksi
-                      </h3>
+                        <h3 class="mb-15">
+                            Konfirmasi Transaksi
+                        </h3>
                         <p class="text-sm text-medium">
                             Apakah anda ingin melakukan TopUp dari akun BCA ke Gopay, tekan tombol TopUp untuk melanjutkan konfirmasi.
                         </p>

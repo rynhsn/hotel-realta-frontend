@@ -1,6 +1,9 @@
 ﻿using System.Text.Json;
 using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Contract.Models.FrontEnd;
+using HotelRealtaPayment.Domain.RequestFeatures;
+using Microsoft.AspNetCore.WebUtilities;
+using Realta.Frontend.Features;
 
 namespace Realta.Frontend.HttpRepository.Payment;
 
@@ -28,5 +31,32 @@ public class BankHttpRepository : IBankHttpRepository
         var result = JsonSerializer.Deserialize<JsonCollection<BankDto>>(content, _options);
 
         return result.data["banks"];
+    }
+
+    public async Task<PagingResponse<BankDto>> GetBanksPaging(BankParameters bankParameters)
+    {
+        var queryStringParam = new Dictionary<string, string>
+        {
+            ["pageNumber"] = bankParameters.PageNumber.ToString(),
+            ["searchTerm"] = bankParameters.SearchTerm,
+            ["orderBy"] = bankParameters.OrderBy,
+            ["pageSize"] = bankParameters.PageSize.ToString()
+        };
+
+        var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("banks/pagelist",queryStringParam));
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+
+        var pagingResponse = new PagingResponse<BankDto>
+        {
+            Items = JsonSerializer.Deserialize<JsonCollection<BankDto>>(content, _options).data["banks"],
+            MetaData = JsonSerializer.Deserialize<MetaData>(response.Headers.GetValues("X-Pagination").First(), _options)
+        };
+
+        return pagingResponse;
     }
 }

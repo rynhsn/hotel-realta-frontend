@@ -56,15 +56,15 @@ public partial class Transaction
         await Get();
     }
 
-    private async Task PageSizeChanged(int type)
+    private async Task PageSizeChanged(int size)
     {
-        _param.PageSize = type;
+        _param.PageSize = size;
         await Get();
     }
     
-    private async Task FilterTypeChanged(string transactionType)
+    private async Task FilterTypeChanged(string type)
     {
-        _param.Type= transactionType;
+        _param.Type= type;
         await Get();
     }
     

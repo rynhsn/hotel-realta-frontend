@@ -1,6 +1,9 @@
 ﻿using System.Text.Json;
 using HotelRealtaPayment.Contract.Models;
 using HotelRealtaPayment.Contract.Models.FrontEnd;
+using HotelRealtaPayment.Domain.RequestFeatures;
+using Microsoft.AspNetCore.WebUtilities;
+using Realta.Frontend.Features;
 
 namespace Realta.Frontend.HttpRepository.Payment;
 
@@ -28,5 +31,32 @@ public class FintechHttpRepository : IFintechHttpRepository
         var result = JsonSerializer.Deserialize<JsonCollection<FintechDto>>(content, _options);
 
         return result.data["fintechs"];
+    }
+
+    public async Task<PagingResponse<FintechDto>> GetFintechsPaging(FintechParameters fintechParameters)
+    {
+        var queryStringParam = new Dictionary<string, string>
+        {
+            ["pageNumber"] = fintechParameters.PageNumber.ToString(),
+            ["searchTerm"] = fintechParameters.SearchTerm,
+            ["orderBy"] = fintechParameters.OrderBy,
+            ["pageSize"] = fintechParameters.PageSize.ToString()
+        };
+
+        var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("fintechs/pagelist",queryStringParam));
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+
+        var pagingResponse = new PagingResponse<FintechDto>
+        {
+            Items = JsonSerializer.Deserialize<JsonCollection<FintechDto>>(content, _options).data["fintechs"],
+            MetaData = JsonSerializer.Deserialize<MetaData>(response.Headers.GetValues("X-Pagination").First(), _options)
+        };
+
+        return pagingResponse;
     }
 }

@@ -3,8 +3,11 @@
 <TableSection Title="Bank"
               Link="/payments/banks"
               LinkText="Payment">
-    <CustomComponent>
-    </CustomComponent>
+
+    <Topbar>
+        <TableToolbar Placeholder="Bank Name" OnSearchChanged="SearchChanged" OnPageSizeChanged="PageSizeChanged"/>
+    </Topbar>
+
     <Thead>
     <tr>
         <th>
@@ -38,9 +41,28 @@
                 <p>@bank.Name</p>
             </td>
             <td>
-                <ActionPopup/>
+                <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
+                    <span class="mdi mdi-dots-vertical mdi-2x"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+                    <li class="dropdown-item">
+                        <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#"> Edit </a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a class="text-gray" onclick="" href="/purchasing/vendor-product/"> Add Item Product </a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a class="text-danger" href="" data-bs-toggle="modal" data-bs-target="#@($"delete")"
+                           data-item-id="">
+                            Delete
+                        </a>
+                    </li>
+                </ul>
             </td>
         </tr>
     }
     </Tbody>
+    <Page>
+        <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
+    </Page>
 </TableSection>

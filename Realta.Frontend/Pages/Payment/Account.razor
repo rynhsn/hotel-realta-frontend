@@ -3,8 +3,9 @@
 <TableSection Title="Account"
               Link="/payments/accounts"
               LinkText="Payment">
-    <CustomComponent>
-    </CustomComponent>
+    <Topbar>
+        <TableToolbar Placeholder="Fintech Name" OnSearchChanged="SearchChanged" OnPageSizeChanged="PageSizeChanged"/>
+    </Topbar>
     <Thead>
     <tr>
         <th>
@@ -49,4 +50,7 @@
         </tr>
     }
     </Tbody>
+    <Page>
+        <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
+    </Page>
 </TableSection>

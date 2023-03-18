@@ -1,7 +1,17 @@
-﻿ <div class="dropdown">
-    <i class="btn mdi mdi-dots-vertical dropdown-toggle" data-bs-toggle="dropdown"></i>
-    <ul class="dropdown-menu">
-        <li><a class="dropdown-item btn btn-sm" href="#">Edit</a></li>
-        <li><a class="dropdown-item btn btn-sm text-danger" href="#">Delete</a></li>
-    </ul>
-</div>
+﻿<button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
+    <span class="mdi mdi-dots-vertical mdi-2x"></span>
+</button>
+<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+    <li class="dropdown-item">
+        <a class="text-gray" href="#" data-bs-toggle="modal" data-bs-target="#"> Edit </a>
+    </li>
+    <li class="dropdown-item">
+        <a class="text-gray" onclick="" href="/purchasing/vendor-product/"> Add Item Product </a>
+    </li>
+    <li class="dropdown-item">
+        <a class="text-danger" href="" data-bs-toggle="modal" data-bs-target="#@($"delete")"
+           data-item-id="">
+            Delete
+        </a>
+    </li>
+</ul>
