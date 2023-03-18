@@ -23,6 +23,14 @@ public partial class SuccessNotification
         StateHasChanged();
     }
 
+    public void ShowWithoutPath()
+    {
+        _modalDisplay = "block;";
+        _modalClass = "show";
+        _showBackdrop = true;
+        StateHasChanged();
+    }
+
     private void Hide()
     {
         _modalDisplay = "none;";

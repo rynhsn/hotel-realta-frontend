@@ -2,6 +2,7 @@
 using Microsoft.JSInterop;
 using Realta.Contract.Models;
 using Realta.Domain.RequestFeatures;
+using Realta.Frontend.Components;
 using Realta.Frontend.Components.Purchasing;
 using Realta.Frontend.HttpRepository.Purchasing;
 using Realta.Frontend.Pages.Resto;
@@ -23,7 +24,6 @@ public partial class Stocks
     protected async override Task OnInitializedAsync()
     {
         await GetPaging();
-
     }
 
     private async Task SelectedPage(int page)
@@ -59,21 +59,24 @@ public partial class Stocks
     private async Task UpdateStock(int id)
     {
         GetUpdateStock = await StocksHttpRepository.GetStockById(id);
-        _updateStock.Show();
+        Task.Delay(100);
+        await _updateStock.Show();
     }
 
-    [Inject]
-    public IJSRuntime Js { get; set; }
+    private DeleteModal _del;
 
-    private async Task onDelete(int id)
+    private async Task OnDelete(int id)
     {
         var stocks = stocksList.FirstOrDefault(s => s.StockId.Equals(id));
-        var confirmed = await Js.InvokeAsync<bool>("confirm", $"Delete stock {stocks.StockName} ?");
-        if (confirmed)
-        {
-            await StocksHttpRepository.DeleteStock(id);
-            _stocksParameters.PageNumber = 1;
-            await GetPaging();
-        }
+        _del.Show<int>(id, $"Stock {stocks.StockName} will be deleted!");
+        await Task.Delay(100);
     }
+    private async Task OnDeleteConfirmed(object id)
+    {
+        _del.Hide();
+        await StocksHttpRepository.DeleteStock((int)id);
+        _stocksParameters.PageNumber = 1;
+        await GetPaging();
+    }
+
 }

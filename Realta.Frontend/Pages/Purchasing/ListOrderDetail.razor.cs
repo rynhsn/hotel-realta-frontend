@@ -92,6 +92,22 @@ public partial class ListOrderDetail
         _param.Keyword = keyword;
         await Get();
     }
+
+    private ErrorNotifModal _error;
+    [Inject] public IStockDetailHttpRepository StockDetailHttpRepository { get; set; }
+    private async Task GenerateBarcode(QtyUpdateDto PoUpdate)
+    {
+        if (Header.PoheStatus == 4)
+        {
+            await StockDetailHttpRepository.GenerateBarcode(PoUpdate);
+            await Task.Delay(100);
+            _notif.ShowWithoutPath();
+        }
+        else
+        {
+            _error.Show("Can't generate barcode, status must be recivied");
+        }
+    }
     
     private string orderBy = ""; // menunjukkan kolom yang diurutkan
     private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)
