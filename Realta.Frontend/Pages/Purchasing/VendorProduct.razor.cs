@@ -21,7 +21,7 @@ public partial class VendorProduct
     private VendorProductDto _venpro = new VendorProductDto ();
     private SuccessNotification _notification;
     public VendorHeaderDto Header { get; set; } = new();
-    private List<VendorProductDto> stocks = new ();
+    private List<StocksDto> stocks = new ();
     
     protected async override Task OnInitializedAsync()
     {
@@ -64,10 +64,15 @@ public partial class VendorProduct
     }
     private async Task Create()
     {
+        _venpro.VeproVendorId = Id;
         await VendproRepo.CreateVenpro(_venpro);
-        _notification.Show($"/purchasing/vendorproduct/{Id}");
+        _notification.Show($"/purchasing/vendor-product/{Id}");
         await GetVenproPaging();
     }
 
-    
+    private void Clear()
+    {
+        _venpro = new ();
+    }
+
 }

@@ -37,7 +37,7 @@
         </th>
         <th class="min-width">
             <h6 class="text-sm text-medium">
-                <a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#@($"addProduct")">Add +</a>
+                <a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#@($"addProduct")" @onclick="Clear" >Add +</a>
             </h6>
         </th>
     </tr>
@@ -59,8 +59,8 @@
                 <p>@items.VeproQtyRemaining</p>
             </td>
             <td class="min-width">
-                <p> <span class="mdi mdi-currency-eur"></span> @string.Format("{0:#,0}", items.VeproPrice),-</p>
-                @* <p> Rp. @string.Format("{0:#,0}", items.VeproPrice),-</p> *@
+                @* <p> <span class="mdi mdi-currency-eur"></span> @string.Format("{0:#,0}", items.VeproPrice),-</p> *@
+                 <p> Rp. @string.Format("{0:#,0}", items.VeproPrice),-</p>
             </td>
             <td class="action">
                 <button class="text-dark" title="Edit">
@@ -147,7 +147,7 @@
                                 <option value="" disabled selected>Choose Product...</option>
                                 @foreach (var item in stocks )
                                 {
-                                    <option value="@item.VenproStockId">@item.StockName</option>
+                                    <option value="@item.StockId">@item.StockName</option>
                                 }
                             </InputSelect>
                         </div>
@@ -173,7 +173,7 @@
                     <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
                         Cancel
                     </button>
-                    <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                    <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1" >
                         Save
                     </button>
                 </div>
