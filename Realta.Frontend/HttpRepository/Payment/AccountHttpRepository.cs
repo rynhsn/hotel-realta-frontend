@@ -56,7 +56,7 @@ public class AccountHttpRepository : IAccountHttpRepository
         return response;
     }
 
-    public async Task<PagingResponse<AccountDto>> GetAccountsPaging(AccountParameters accountParameters)
+    public async Task<PagingResponse<AccountDto>> GetAccountsPaging(int id, AccountParameters accountParameters)
     {
         var queryStringParam = new Dictionary<string, string>
         {
@@ -66,7 +66,7 @@ public class AccountHttpRepository : IAccountHttpRepository
             ["pageSize"] = accountParameters.PageSize.ToString()
         };
 
-        var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString("accounts/pagelist",queryStringParam));
+        var response = await _httpClient.GetAsync(QueryHelpers.AddQueryString($"accounts/users/{id}/pagelist",queryStringParam));
         var content = await response.Content.ReadAsStringAsync();
 
         if (!response.IsSuccessStatusCode)
@@ -81,5 +81,53 @@ public class AccountHttpRepository : IAccountHttpRepository
         };
 
         return pagingResponse;
+    }
+
+    public async Task Delete(int id)
+    {
+        var response = await _httpClient.DeleteAsync($"accounts/{id}");
+        var content = await response.Content.ReadAsStringAsync();
+            
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+    }
+
+    public async Task Create(AccountDto account)
+    {
+        var response = await _httpClient.PostAsJsonAsync("accounts", account);
+        var content = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+    }
+
+    public async Task Update(AccountDto account)
+    {
+        var response = await _httpClient.PutAsJsonAsync($"accounts/{account.Id}", account);
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+    }
+
+    public async Task<List<PaymentDto>> GetPaymentsAll()
+    {
+        var response = await _httpClient.GetAsync("accounts/payments");
+        var content = await response.Content.ReadAsStringAsync();
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+        
+        var result = JsonSerializer.Deserialize<JsonCollection<PaymentDto>>(content, _options);
+        
+        return result.data["payments"];
     }
 }

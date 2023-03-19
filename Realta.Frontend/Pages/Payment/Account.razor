@@ -1,10 +1,12 @@
 ﻿@page "/payments/accounts"
 
+@inject NavigationManager NavigationManager
+
 <TableSection Title="Account"
               Link="/payments/accounts"
               LinkText="Payment">
     <Topbar>
-        <TableToolbar Placeholder="Fintech Name" OnSearchChanged="SearchChanged" OnPageSizeChanged="PageSizeChanged"/>
+        <TableToolbar Placeholder="Account Number" OnSearchChanged="SearchChanged" OnPageSizeChanged="PageSizeChanged"/>
     </Topbar>
     <Thead>
     <tr>
@@ -22,7 +24,9 @@
         </th>
         <th>
             <h6>
-                <a href="#">Add +</a>
+                <a a class="text-primary" @onclick:preventDefault="true" @onclick="() => _account = new()" data-bs-toggle="modal" data-bs-target="#addAccount">
+                    Add <span class="mdi mdi-layers-plus"></span>
+                </a>
             </h6>
         </th>
     </tr>
@@ -45,7 +49,20 @@
                 <p>@account.Type</p>
             </td>
             <td>
-                <ActionPopup/>
+                <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
+                    <span class="mdi mdi-dots-vertical mdi-2x"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction">
+                    <li class="dropdown-item">
+                        <a class="text-gray" @onclick:preventDefault="true" @onclick="() => OnUpdate(account)" data-bs-toggle="modal" data-bs-target="#update"> Edit </a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a class="text-danger" @onclick:preventDefault="true" @onclick="() => OnDelete(account.Id)"
+                           data-item-id="">
+                            Delete
+                        </a>
+                    </li>
+                </ul>
             </td>
         </tr>
     }
@@ -54,3 +71,204 @@
         <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
     </Page>
 </TableSection>
+
+@* CREATE MODAL *@
+<div class="warning-modal">
+    <div class="modal fade" id="addAccount" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content card-style">
+                <div class="modal-header px-0 border-0">
+                    <h5 class="text-bold">Edit Account</h5>
+                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-0">
+                    <EditForm Model="_account" OnValidSubmit="onCreateConfirmed">
+                        <DataAnnotationsValidator/>
+                        <div class="content mb-30">
+                            <div class="modal-body px-0">
+                                <div class="row">
+                                    <div class="input-style-1">
+                                        <label for="accountNumber">Account Number</label>
+                                        <div class="select-position">
+                                            <InputText type="text" id="accountNumber" @bind-Value="_account.Number"/>
+                                            <ValidationMessage For="@(() => _account.Number)"/>
+                                        </div>
+                                    </div>
+                                    <div class="select-style-1 rounded-sm">
+                                        <label for="CodeName">Payment Name</label>
+                                        <div class="select-position">
+                                            <InputSelect TValue="int" @bind-Value="_account.EntityId" class="form-control">
+                                                <option disable selected>Select Payment</option>
+                                                @foreach (var item in PaymentList)
+                                                {
+                                                    <option value="@item.Id">@item.Code (@item.Name)</option>
+                                                }
+                                            </InputSelect>
+                                        </div>
+                                    </div>
+                                    <div class="input-style-1">
+                                        <label for="saldo">Saldo</label>
+                                        <div class="select-position">
+                                            <InputNumber min="0" @bind-Value="_account.Saldo" id="saldo"/>
+                                        </div>
+                                    </div>
+                                    <div class="select-style-1 col-6 rounded-sm">
+                                        <label>Type</label>
+                                        <div class="select-position">
+                                            <InputSelect @bind-Value="_account.Type" class="form-control">
+                                                <option value="debet" selected>Debet</option>
+                                                <option value="credit_card">Credit Card</option>
+                                                <option value="payment">Fintech</option>
+                                            </InputSelect>
+                                        </div>
+                                    </div>
+                                    @if (_account.Type != "payment")
+                                    {
+                                        <div class="select-style-1 col-3 rounded-sm">
+                                            <label>Expiry (MM)</label>
+                                            <div class="select-position">
+                                                <InputSelect @bind-Value="_account.ExpMonth" class="form-control">
+                                                    <option value="false" disabled selected>Month</option>
+                                                    <option value="1">01</option>
+                                                    <option value="2">02</option>
+                                                    <option value="3">03</option>
+                                                    <option value="4">04</option>
+                                                    <option value="5">05</option>
+                                                    <option value="6">06</option>
+                                                    <option value="7">07</option>
+                                                    <option value="8">08</option>
+                                                    <option value="9">09</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                </InputSelect>
+                                            </div>
+                                        </div>
+                                        <div class="input-style-1 col-3 rounded-sm">
+                                            <label>Year (YY)</label>
+                                            <div class="select-position">
+                                                <InputNumber min="0" max="99" @bind-Value="_account.ExpYear" placeholder="Year"/>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action d-flex flex-wrap justify-content-end">
+                            <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                                Cancel
+                            </button>
+                            <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                                Create
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* UPDATE MODAL *@
+<div class="warning-modal">
+    <div class="modal fade" id="update" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content card-style">
+                <div class="modal-header px-0 border-0">
+                    <h5 class="text-bold">Edit Account</h5>
+                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-0">
+                    <EditForm Model="_account" OnValidSubmit="onUpdateConfirmed">
+                        <DataAnnotationsValidator/>
+                        <div class="content mb-30">
+                            <div class="modal-body px-0">
+                                <div class="row">
+                                    <div class="input-style-1">
+                                        <label for="accountNumber">Account Number</label>
+                                        <div class="select-position">
+                                            <InputText type="text" id="accountNumber" @bind-Value="_account.Number"/>
+                                            <ValidationMessage For="@(() => _account.Number)"/>
+                                        </div>
+                                    </div>
+                                    <div class="select-style-1 rounded-sm">
+                                        <label for="CodeName">Payment Name</label>
+                                        <div class="select-position">
+                                            <InputSelect TValue="int" @bind-Value="_account.EntityId" class="form-control">
+                                                <option disable selected>Select Payment</option>
+                                                @foreach (var item in PaymentList)
+                                                {
+                                                    <option value="@item.Id">@item.Code (@item.Name)</option>
+                                                }
+                                            </InputSelect>
+                                        </div>
+                                    </div>
+                                    <div class="input-style-1">
+                                        <label for="saldo">Saldo</label>
+                                        <div class="select-position">
+                                            <InputNumber min="0" @bind-Value="_account.Saldo" id="saldo"/>
+                                        </div>
+                                    </div>
+                                    <div class="select-style-1 col-6 rounded-sm">
+                                        <label>Type</label>
+                                        <div class="select-position">
+                                            <InputSelect @bind-Value="_account.Type" class="form-control">
+                                                <option value="debet" selected>Debet</option>
+                                                <option value="credit_card">Credit Card</option>
+                                                <option value="payment">Fintech</option>
+                                            </InputSelect>
+                                        </div>
+                                    </div>
+                                    @if (_account.Type != "payment")
+                                    {
+                                        <div class="select-style-1 col-3 rounded-sm">
+                                            <label>Expiry (MM)</label>
+                                            <div class="select-position">
+                                                <InputSelect @bind-Value="_account.ExpMonth" class="form-control">
+                                                    <option value="false" disabled selected>Month</option>
+                                                    <option value="1">01</option>
+                                                    <option value="2">02</option>
+                                                    <option value="3">03</option>
+                                                    <option value="4">04</option>
+                                                    <option value="5">05</option>
+                                                    <option value="6">06</option>
+                                                    <option value="7">07</option>
+                                                    <option value="8">08</option>
+                                                    <option value="9">09</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                </InputSelect>
+                                            </div>
+                                        </div>
+                                        <div class="input-style-1 col-3 rounded-sm">
+                                        <label>Year (YY)</label>
+                                        <div class="select-position">
+                                            <InputNumber min="0" max="99" @bind-Value="_account.ExpYear" placeholder="Year"/>
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action d-flex flex-wrap justify-content-end">
+                            <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                                Cancel
+                            </button>
+                            <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                                Update
+                            </button>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ModalDelete @ref="_del" OnDeletedData="OnDeleteConfirmed"/>
+<SuccessNotification @ref="_notif"/>
