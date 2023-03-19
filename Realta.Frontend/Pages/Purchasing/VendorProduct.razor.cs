@@ -22,7 +22,7 @@ public partial class VendorProduct
     private SuccessNotification _notification;
     public VendorHeaderDto Header { get; set; } = new();
     private List<StocksDto> stocks = new ();
-    
+    private VendorProductDto _stockName = new();
     protected async override Task OnInitializedAsync()
     {
         Header = await VendproRepo.GetHeaderId(Id);
@@ -73,6 +73,23 @@ public partial class VendorProduct
     private void Clear()
     {
         _venpro = new ();
+    }
+    
+    private async Task OnUpdate(VendorProductDto data)
+    {
+        _venpro.VeproId = data.VeproId;
+        _venpro.VeproQtyStocked = data.VeproQtyStocked;
+        _venpro.VeproQtyRemaining = data.VeproQtyRemaining;
+        _venpro.VeproPrice = data.VeproPrice;
+        _stockName.StockName = data.StockName;
+    }
+
+    private async Task OnUpdateConfirmed()
+    {
+        await VendproRepo.Update(_venpro);
+        _vendproParameters.PageNumber = 1;
+        await GetVenproPaging();
+        _notification.Show($"/purchasing/vendor-product/{Id}", "Data has been updated.");
     }
 
 }
