@@ -12,5 +12,6 @@ public interface IVendorProductHttpRepository
    Task CreateVenpro(VendorProductDto venproCreate);
    Task<PagingResponse<VendorProductDto>> GetAll(VenproParameters param);
    Task<VendorHeaderDto> GetHeaderId(int id);
-   Task<List<VendorProductDto>> GetStock();
+   Task<List<StocksDto>> GetStock();
+   Task Update(VendorProductDto data);
 }

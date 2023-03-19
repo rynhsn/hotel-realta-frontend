@@ -23,8 +23,10 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
     {
         var queryStringParam = new Dictionary<string, string>
         {
+            ["pageSize"] = param.PageSize.ToString(),
             ["pageNumber"] = param.PageNumber.ToString(),
-            ["keyword"] = param.Keyword == null ? "": param.Keyword,
+            ["keyword"] = param.Keyword,
+            ["status"] = param.Status,
             ["orderBy"] = param.OrderBy 
         };
 
@@ -35,7 +37,11 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
         {
             throw new ApplicationException(content);
         }
-
+        
+        if (string.IsNullOrEmpty(content))
+        {
+            return null; // atau return new PurchaseOrderDto();
+        }
         var pagingResponse = new PagingResponse<PurchaseOrderDto>
         {
             Items = JsonSerializer.Deserialize<List<PurchaseOrderDto>>(content, _options),
@@ -44,24 +50,32 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
 
         return pagingResponse;
     }
+    
     public async Task<PurchaseOrderDto> GetHeader(string po)
     {
         var response = await _httpClient.GetAsync($"purchaseorder/header/{po}");
         var content = await response.Content.ReadAsStringAsync();
-        
+    
         if (!response.IsSuccessStatusCode)
         {
             throw new ApplicationException(content);
         }
+    
+        if (string.IsNullOrEmpty(content))
+        {
+            return null; // atau return new PurchaseOrderDto();
+        }
 
-        var result = JsonSerializer.Deserialize<PurchaseOrderDto>(content, _options); //untuk inject filenya 
+        var result = JsonSerializer.Deserialize<PurchaseOrderDto>(content, _options);
 
         return result;
     }
+
     public async Task<PagingResponse<PurchaseOrderDetailDto>> GetDetails(string po, PurchaseOrderDetailParameters param)
     {
         var queryStringParam = new Dictionary<string, string>
         {
+            ["pageSize"] = param.PageSize.ToString(),
             ["pageNumber"] = param.PageNumber.ToString(),
             ["keyword"] = param.Keyword == null ? "": param.Keyword,
             ["orderBy"] = param.OrderBy 
@@ -74,6 +88,11 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
         {
             throw new ApplicationException(content);
         }
+        
+        if (string.IsNullOrEmpty(content))
+        {
+            return null; // atau return new PurchaseOrderDto();
+        }
 
         var pagingResponse = new PagingResponse<PurchaseOrderDetailDto>
         {
@@ -83,7 +102,8 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
 
         return pagingResponse;
     }
-    public async Task Create(PurchaseOrderTransfer data)
+    
+    public async Task Create(List<PurchaseOrderTransfer> data)
     {
         var content = JsonSerializer.Serialize(data);
         var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
@@ -111,6 +131,7 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
             throw new ApplicationException(postContent);
         }
     }
+    
     public async Task UpdateQty(QtyUpdateDto data)
     {
         var content = JsonSerializer.Serialize(data);
@@ -124,6 +145,7 @@ public class PurchaseOrderHttpRepository : IPurchaseOrderHttpRepository
             throw new ApplicationException(postContent);
         }
     }
+    
     public async Task DeleteHeader(string id)
     {
         var url = Path.Combine("PurchaseOrder", id);

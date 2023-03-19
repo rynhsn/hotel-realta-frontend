@@ -10,7 +10,7 @@ public interface IPurchaseOrderHttpRepository
     Task<PagingResponse<PurchaseOrderDto>> GetHeaders(PurchaseOrderParameters param);
     Task<PagingResponse<PurchaseOrderDetailDto>> GetDetails(string po, PurchaseOrderDetailParameters param);
     Task<PurchaseOrderDto> GetHeader(string po);
-    Task Create(PurchaseOrderTransfer data);
+    Task Create(List<PurchaseOrderTransfer> data);
     Task UpdateStatus(StatusUpdateDto data);
     Task UpdateQty(QtyUpdateDto data);
     Task DeleteHeader(string id);

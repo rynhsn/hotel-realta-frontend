@@ -37,34 +37,34 @@
         </th>
         <th class="min-width">
             <h6 class="text-sm text-medium">
-                <a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#@($"addProduct")">Add +</a>
+                <a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#@($"addProduct")" @onclick="Clear" >Add +</a>
             </h6>
         </th>
     </tr>
     </Thead>
     <Tbody>
-    @foreach (var items in VendorListPaging)
+    @foreach (var item in VendorListPaging)
     {
         <tr>
             <td class="min-width">
                 <p>-</p>
             </td>
             <td class="min-width">
-                <p>@items.StockName</p>
+                <p>@item.StockName</p>
             </td>
             <td class="min-width">
-                <p>@items.VeproQtyStocked</p>
+                <p>@item.VeproQtyStocked</p>
             </td>
             <td class="min-width">
-                <p>@items.VeproQtyRemaining</p>
+                <p>@item.VeproQtyRemaining</p>
             </td>
             <td class="min-width">
-                <p> <span class="mdi mdi-currency-eur"></span> @string.Format("{0:#,0}", items.VeproPrice),-</p>
-                @* <p> Rp. @string.Format("{0:#,0}", items.VeproPrice),-</p> *@
+                @* <p> <span class="mdi mdi-currency-eur"></span> @string.Format("{0:#,0}", item.VeproPrice),-</p> *@
+                 <p> Rp. @string.Format("{0:#,0}", item.VeproPrice),-</p>
             </td>
             <td class="action">
                 <button class="text-dark" title="Edit">
-                    <i class="mdi mdi-pencil-outline" data-bs-toggle="modal" data-bs-target="#edit"></i>
+                    <i class="mdi mdi-pencil-outline" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#edit" @onclick="() => OnUpdate(item)"></i>
                 </button>
             </td>
         </tr>
@@ -77,9 +77,9 @@
 
 <!-- Modal Edit -->
 <div class="warning-modal">
-    <div class="modal fade" id="@($"edit")" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="edit" tabindex="-1"  aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <form class="modal-content card-style" action="/update" method="post">
+             <EditForm class="modal-content card-style" Model="_venpro" OnValidSubmit="OnUpdateConfirmed">
                 <div class="modal-header px-0 border-0">
                     <h5 class="text-bold">Edit Product</h5>
                     <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
@@ -90,22 +90,26 @@
                     <div class="row">
                         <div class="input-style-1 col-9 rounded-sm">
                             <label>Stock Name</label>
-                            <div class="select-position">
-                                <input class="form-control" type="text" placeholder="Sprei Putih" disabled>
-                            </div>
+                            <InputText @bind-Value="_stockName.StockName" disabled/>
+                                @* <InputText id="vendorName" data-value="" @bind-Value="_venpro.StockName"/> *@
+                                @* <ValidationMessage For="@(() => _venpro.StockName)"/>  *@
+                                @* <input class="form-control" type="text" placeholder="@item.StockName" disabled> *@
                         </div>
                         <div class="input-style-1 col-6 rounded-sm">
-                            <label for="exampleDate" class="form-label">Qty Stocked</label>
-                            <input type="number" class="form-control" id="exampleDate" value="50">
+                            <label class="form-label">Qty Stocked</label>
+                            <InputNumber id="QtyStock" @bind-Value="_venpro.VeproQtyStocked"/>
+                            <ValidationMessage For="@(() => _venpro.VeproQtyStocked)"/>
                         </div>
 
                         <div class="input-style-1 col-6 rounded-sm">
                             <label for="exampleDate" class="form-label">Remaining</label>
-                            <input type="number" class="form-control" id="exampleDate" value="22">
+                            <InputNumber id="QtyRemaining" @bind-Value="_venpro.VeproQtyRemaining"/>
+                            <ValidationMessage For="@(() => _venpro.VeproQtyRemaining)"/>
                         </div>
                         <div class="input-style-1 col-9 rounded-sm">
                             <label for="exampleDate" class="form-label">Sell Price</label>
-                            <input type="number" class="form-control" id="exampleDate" value="Rp.500.000">
+                            <InputNumber id="SellPrice" @bind-Value="_venpro.VeproPrice"/>
+                            <ValidationMessage For="@(() => _venpro.VeproPrice)"/>
                         </div>
                     </div>
                 </div>
@@ -117,7 +121,7 @@
                         Save
                     </button>
                 </div>
-            </form>
+            </EditForm>
         </div>
     </div>
 </div>
@@ -147,7 +151,7 @@
                                 <option value="" disabled selected>Choose Product...</option>
                                 @foreach (var item in stocks )
                                 {
-                                    <option value="@item.VenproStockId">@item.StockName</option>
+                                    <option value="@item.StockId">@item.StockName</option>
                                 }
                             </InputSelect>
                         </div>
@@ -173,7 +177,7 @@
                     <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
                         Cancel
                     </button>
-                    <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                    <button class="main-btn primary-btn btn-hover m-1" >
                         Save
                     </button>
                 </div>

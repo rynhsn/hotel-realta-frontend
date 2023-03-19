@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using Realta.Contract.Models;
 using Realta.Domain.RequestFeatures;
 using Realta.Frontend.HttpRepository.Purchasing;
 using Realta.Frontend.Shared;
-using Microsoft.JSInterop;
+using System.Data;
 
 
 namespace Realta.Frontend.Pages.Purchasing
@@ -65,19 +64,37 @@ namespace Realta.Frontend.Pages.Purchasing
         private async Task Create()
         {
             await VendorRepo.CreateVendor(_vendor);
-            _notification.Show("/purchasing/vendor");
+            _notification.Show("/purchasing/vendor", "Data has been created.");
             await GetVendorPaging();;
         }
         private async Task DeleteConfirmed(int id)
         {
             await VendorRepo.DeleteVendor(id);
             _vendorParameters.PageNumber = 1;
-            _notification.Show("/purchasing/vendor");
+            _notification.Show("/purchasing/vendor", "Data has been deleted.");
             await GetVendorPaging();;
             // await OnDeleted.InvokeAsync(id);
             // await ShowSuccessModal();
         }
-     
+        private void Clear()
+        {
+            _vendor = new ();
+        }
+        private async Task OnUpdate(VendorDto data)
+        {
+            _vendor.VendorEntityId = data.VendorEntityId;
+            _vendor.VendorName = data.VendorName;
+            _vendor.VendorActive = data.VendorActive;
+            _vendor.VendorPriority = data.VendorPriority;
+            _vendor.VendorWeburl = data.VendorWeburl;
+        }
+        private async Task OnUpdateConfirmed()
+        {
+            await VendorRepo.UpdateVendor(_vendor);
+            _vendorParameters.PageNumber = 1;
+            await GetVendorPaging();
+            _notification.Show("/purchasing/vendor", "Data has been updated.");
+        }
 
-}
+    }
 }

@@ -51,7 +51,7 @@ public class VendorProductHttpRepository : IVendorProductHttpRepository
     {
         var content = JsonSerializer.Serialize(venproCreate);
         var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
-        var postResult = await _httpClient.PostAsync("vendor", bodyContent);
+        var postResult = await _httpClient.PostAsync("vendorproduct/", bodyContent);
         var postContent = await postResult.Content.ReadAsStringAsync();
 
         if (!postResult.IsSuccessStatusCode)
@@ -74,19 +74,34 @@ public class VendorProductHttpRepository : IVendorProductHttpRepository
         return result;
     }
 
-    public async Task<List<VendorProductDto>> GetStock()
+    public async Task<List<StocksDto>> GetStock()
     {
-        var response = await _httpClient.GetAsync($"vendorproduct");
+        var response = await _httpClient.GetAsync($"stocks");
         var content = await response.Content.ReadAsStringAsync();
         if (!response.IsSuccessStatusCode)
         {
             throw new ApplicationException(content);
         }
 
-        var vendors = JsonSerializer.Deserialize<List<VendorProductDto>>(content, _options);
+        var vendors = JsonSerializer.Deserialize<List<StocksDto>>(content, _options);
         return vendors;
     }
-    
+
+    public async Task Update(VendorProductDto data)
+    {
+        var content = JsonSerializer.Serialize(data);
+        var bodyContent = new StringContent(content,Encoding.UTF8,"application/json");
+        var url = Path.Combine("vendorproduct/", (data.VeproId).ToString());
+
+        var postResult = await _httpClient.PutAsync(url, bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(postContent);
+        }
+    }
+
     // Untuk Gallery [Riyan] =================================================
     public async Task<PagingResponse<VendorProductDto>> GetAll(VenproParameters _param)
     {

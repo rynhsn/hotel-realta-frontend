@@ -10,16 +10,19 @@ namespace Realta.Frontend.Pages.Purchasing;
 
 public partial class ListOrder
 {
-    [Inject] public IPurchaseOrderHttpRepository Repo { get; set; }
-    public List<PurchaseOrderDto> DataList { get; set; } = new();
-    public MetaData MetaData { get; set; } = new();
+    private int empId = 1;//employee
+    [Inject] private IPurchaseOrderHttpRepository Repo { get; set; }
+    private List<PurchaseOrderDto> DataList { get; set; } = new();
+    private MetaData MetaData { get; set; } = new();
+    private StatusUpdateDto _updateStatus = new();
     private PurchaseOrderParameters _param = new();
     private SuccessNotification _notif;
-    private ModalDelete _del;
+    private ModalDelete _del; 
+    private string orderBy = ""; // menunjukkan kolom yang diurutkan
+    private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)
 
     protected async override Task OnInitializedAsync()
     {
-        // DataList = await Repo.Get();
         await Get();
     }
 
@@ -30,20 +33,18 @@ public partial class ListOrder
         MetaData = response.MetaData;
     }
 
-    private StatusUpdateDto toUpdate = new();
-
     private async Task OnUpdate(PurchaseOrderDto data)
     {
-        toUpdate.PoheNumber = data.PoheNumber;
-        toUpdate.PoheStatus = data.PoheStatus;
+        _updateStatus.PoheNumber = data.PoheNumber;
+        _updateStatus.PoheStatus = data.PoheStatus;
     }
 
     private async Task OnUpdateConfirmed()
     {
-        await Repo.UpdateStatus(toUpdate);
+        await Repo.UpdateStatus(_updateStatus);
         _param.PageNumber = 1;
         await Get();
-        _notif.Show(NavigationManager.Uri);
+        _notif.Show(NavigationManager.Uri, "Data has been updated.");
     }
     
     private async Task OnDelete(string id)
@@ -57,41 +58,29 @@ public partial class ListOrder
         _del.Hide();
         await Repo.DeleteHeader(id.ToString());
         _param.PageNumber = 1;
-        _notif.Show("/purchasing/list-order");
+        _notif.Show(NavigationManager.Uri, "Data has been deleted.");
         await Get();
     }
     
-    public static (string, string) GetStatus(int status)
-    {
-        return status switch
-        {
-            1 => ("warning-btn", "Pending"),
-            2 => ("success-btn", "Approve"),
-            3 => ("close-btn", "Reject"),
-            4 => ("secondary-btn", "Receive"),
-            5 => ("dark-btn", "Complete")
-        };
-    }
     private async Task SelectedPage(int page)
     {
         _param.PageNumber = page;
         await Get();
     }
+    
+    private async Task PageSizeChanged(int page)
+    {
+        _param.PageSize = page;
+        await Get();
+    } 
+    
     private async Task SearchChanged(string keyword)
     {
         _param.PageNumber = 1;
         _param.Keyword = keyword;
         await Get();
     }
-    // private async Task SetEntry(int entry)
-    // {
-    //     Console.WriteLine(@ent);
-    //     _param.PageNumber = 1;
-    //     _param.PageSize = entry;
-    //     await Get();
-    // }
-    private string orderBy = ""; // menunjukkan kolom yang diurutkan
-    private string sortOrder = "asc"; // menunjukkan urutan sortir (asc atau desc)
+    
     private async Task SortChanged(string columnName)
     {
         if (orderBy != columnName)
@@ -109,4 +98,30 @@ public partial class ListOrder
         _param.OrderBy = orderBy + " " + sortOrder; // menambahkan urutan sortir baru ke parameter
         await Get();
     }
+    
+    private async Task FilterStatusChanged(string status)
+    {
+        _param.Status = status;
+        await Get();
+    }
+    
+    private static (string, string) GetStatus(int status)
+    {
+        return status switch
+        {
+            1 => ("warning-btn", "Pending"),
+            2 => ("success-btn", "Approve"),
+            3 => ("close-btn", "Reject"),
+            4 => ("secondary-btn", "Receive"),
+            5 => ("dark-btn", "Complete")
+        };
+    }
+    
+    private Dictionary<string, string> StatusList = new() {
+        {"1", "Pending"},
+        {"2", "Approved"},
+        {"3", "Rejected"},
+        {"4", "Received"},
+        {"5", "Completed"}
+    };
 }

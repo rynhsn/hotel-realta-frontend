@@ -10,6 +10,7 @@ namespace Realta.Frontend.HttpRepository.Purchasing
         Task<PagingResponse<VendorDto>> GetVendorPaging(VendorParameters vendorsParameters);
         Task DeleteVendor(int id);
         Task CreateVendor(VendorDto vendorCreate);
+        Task UpdateVendor(VendorDto updateVendor);
     }
     
 }

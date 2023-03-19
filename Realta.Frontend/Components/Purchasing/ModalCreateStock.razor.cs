@@ -37,7 +37,7 @@ namespace Realta.Frontend.Components.Purchasing
         private async Task Create()
         {
             await StocksHttpRepository.CreateStock(_createStock);
-            _notification.Show("/purchasing/stocks");
+            _notification.Show("/purchasing/stocks","Data has been created.");
             await getPaging.InvokeAsync();
         }
     }

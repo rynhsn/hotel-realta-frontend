@@ -7,6 +7,7 @@ public partial class SuccessNotification
     private string _modalDisplay;
     private string _modalClass;
     private bool _showBackdrop;
+    private string _displayMessage;
 
     [Parameter]
     public string PathRoute { get; set; }
@@ -14,11 +15,12 @@ public partial class SuccessNotification
     [Inject]
     public NavigationManager Navigation { get; set; }
 
-    public void Show(string path)
+    public void Show(string path, string displayMessage)
     {
         _modalDisplay = "block;";
         _modalClass = "show";
         _showBackdrop = true;
+        _displayMessage = displayMessage;
         PathRoute = path;
         StateHasChanged();
     }
