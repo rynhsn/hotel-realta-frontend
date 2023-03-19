@@ -13,7 +13,7 @@ public partial class Gallery
     private int empId = 10;
     [Inject] public IPurchaseOrderHttpRepository RepoPurchaseOrder { get; set; } 
     [Inject] public IVendorProductHttpRepository RepoProduct { get; set; } 
-    [Inject] public ICartHttpRepository RepoCart { get; set; } 
+    [Inject] public ICartHttpRepository RepoCart { get; set; }
     public List<VendorProductDto> Products { get; set; } = new();
     public List<CartDto> Cart { get; set; } = new();
     public MetaData MetaData { get; set; } = new();
@@ -88,4 +88,21 @@ public partial class Gallery
     public decimal SubTotal => Cart.Sum(item => item.Subtotal);
     public decimal TaxAmount => SubTotal * 0.1m;
     public decimal TotalPrice => SubTotal + TaxAmount;
+    
+    private async Task SelectedPage(int page)
+    {
+        _param.PageNumber = page;
+        await GetProducts();
+    }
+    private async Task SearchChanged(string keyword)
+    {
+        _param.PageNumber = 1;
+        _param.Keyword = keyword;
+        await GetProducts();
+    }
+    private async Task PageSizeChanged(int page)
+    {
+        _param.PageSize = page;
+        await GetProducts();
+    }
 }

@@ -38,9 +38,12 @@
     <!-- ========== title-wrapper end ========== -->
 
     <!-- ========== cards-styles start ========== -->
-    <div class="cards-styles">
+    <div class="cards-styles text-sm">
       <div class="row">
         <div class="col">
+          <div class="bg-white mb-20">
+          <TableToolbar Placeholder="Product Name..." OnSearchChanged="SearchChanged" OnPageSizeChanged="PageSizeChanged"/>
+          </div>
           <div class="row">
             @foreach (var product in Products)
             {
@@ -135,15 +138,16 @@
             }
             else
             {
-              <div class="row">    
+              <div class="row">
                 <h5 class="text-gray text-center my-5">cart is empty</h5>
               </div>
             }
-            </div>
+          </div>
         </div>
       </div>
     </div>
     <!-- ========== cards-styles end ========== -->
+    <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
   </div>
   <!-- end container -->
 </section>
