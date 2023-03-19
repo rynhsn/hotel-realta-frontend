@@ -16,7 +16,6 @@ public partial class Stocks
     public IStocksHttpRepository StocksHttpRepository { get; set; }
 
     public List<StocksDto> stocksList { get; set; } = new List<StocksDto>();
-    public List<StockPhotoDto> stocksPhotoList { get; set; } = new List<StockPhotoDto>();
 
     public MetaData MetaData { get; set; } = new MetaData();
     private StocksParameters _stocksParameters = new StocksParameters();
@@ -63,7 +62,7 @@ public partial class Stocks
         await _updateStock.Show();
     }
 
-    private DeleteModal _del;
+    private ModalDelete _del;
 
     private async Task OnDelete(int id)
     {
@@ -77,6 +76,16 @@ public partial class Stocks
         await StocksHttpRepository.DeleteStock((int)id);
         _stocksParameters.PageNumber = 1;
         await GetPaging();
+    }
+
+    public List<StockPhotoDto> stocksPhotoList { get; set; }
+    private ModalUploadFotoStock _uploadFoto;
+
+    private async Task UploadFoto(int id)
+    {
+        stocksPhotoList = await StocksHttpRepository.GetStocksPhoto(id);
+        Task.Delay(100);
+        await _uploadFoto.Show();
     }
 
 }

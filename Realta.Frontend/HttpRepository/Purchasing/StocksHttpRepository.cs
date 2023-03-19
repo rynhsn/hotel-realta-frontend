@@ -101,6 +101,21 @@ public class StocksHttpRepository : IStocksHttpRepository
         return pagingResponse;
     }
 
+    public async Task UpdateStock(StocksDto stocksUpdateDto)
+    {
+        var content = JsonSerializer.Serialize(stocksUpdateDto);
+        var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+        var url = Path.Combine("stocks", stocksUpdateDto.StockId.ToString());
+
+        var postResult = await _httpClient.PutAsync(url, bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(postContent);
+        }
+    }
+
     public async Task<List<StockPhotoDto>> GetStocksPhoto(int stockId)
     {
         // call api end point e.g : http://localhost:7068/api/stock_photo/{id}
@@ -117,19 +132,14 @@ public class StocksHttpRepository : IStocksHttpRepository
         return stockPhoto;
     }
 
-    public async Task UpdateStock(StocksDto stocksUpdateDto)
+    public Task UploadFotoStock(StockPhotoDto stockPhotoDto)
     {
-        var content = JsonSerializer.Serialize(stocksUpdateDto);
-        var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
-        var url = Path.Combine("stocks", stocksUpdateDto.StockId.ToString());
+        throw new NotImplementedException();
+    }
 
-        var postResult = await _httpClient.PutAsync(url, bodyContent);
-        var postContent = await postResult.Content.ReadAsStringAsync();
-
-        if (!postResult.IsSuccessStatusCode)
-        {
-            throw new ApplicationException(postContent);
-        }
+    public Task DeleteFotoStock(int stockPhotoid)
+    {
+        throw new NotImplementedException();
     }
 }
 

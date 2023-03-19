@@ -7,13 +7,20 @@
               LinkText="Purchasing">
   <CustomComponent>
     <div class="d-flex justify-content-end">
-      <div class="select-style-1 mb-0 ml-10">
-        <div class="select-position">
-          <select class="p-0 pe-5 border-0" @onchange="applySort">
-            <option value="stockName asc" selected>High</option>
-            <option value="stockName desc">Lowest</option>
-          </select>
-        </div>
+      <div class="row">
+          @*<div class="col">
+                <p>SortBy</p>
+          </div>*@
+          <div class="col">
+               <div class="select-style-1 mb-0">
+                    <div class="select-position">
+                        <select class="p-0 pe-5 border-0" @onchange="applySort">
+                            <option value="stockName desc" >High</option>
+                            <option value="stockName asc" selected>Lowest</option>
+                        </select>
+                    </div>
+               </div>
+          </div>
       </div>
     </div>
   </CustomComponent>
@@ -82,7 +89,7 @@
                         <a class="text-gray" @onclick="(() => UpdateStock(so.StockId.Value))">Edit</a>
                     </li>
                     <li class="dropdown-item">
-                      <a class="text-gray" data-bs-toggle="modal" data-bs-target="#uploadFotoStock[@so.StockId.Value]">Upload Foto</a>
+                      <a class="text-gray" @onclick="(() => UploadFoto(so.StockId.Value))">Upload Foto</a>
                     </li>
                     <li class="dropdown-item">
                       <a class="text-danger" @onclick="()=> OnDelete(so.StockId.Value)">Delete</a>
@@ -106,10 +113,10 @@
 <ModalUpdateStock @ref="_updateStock" getPaging="GetPaging" UpdateStock="GetUpdateStock" />
 
 @* // Upload Foto Modal *@
-<ModalUploadFotoStock PhotoList="stocksPhotoList" />
+<ModalUploadFotoStock @ref="_uploadFoto" getPaging="GetPaging" PhotoList="stocksPhotoList" />
 
 @* // Create Stock Modal *@
 <ModalCreateStock @ref="_createStock" getPaging="GetPaging" />
 
 @* // Delete Stock Modal *@
-<DeleteModal @ref="_del" OnDeletedData="OnDeleteConfirmed" />
+<ModalDelete @ref="_del" OnDeletedData="OnDeleteConfirmed" />

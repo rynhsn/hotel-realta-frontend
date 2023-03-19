@@ -49,6 +49,21 @@ public class StockDetailHttpRepository : IStockDetailHttpRepository
         return stockDetail;
     }
 
+    public async Task<StockDetailDto> GetStockDetailById(int id)
+    {
+        string url = Path.Combine("stock/detail", id.ToString());
+        var response = await _httpClient.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(content);
+        }
+
+        var stockDetail = JsonSerializer.Deserialize<StockDetailDto>(content, _options);
+        return stockDetail;
+    }
+
     public async Task<PagingResponse<StockDetailDto>> GetStockDetailPaging(StockDetailParameters stocksParameters)
     {
         var queryStringParam = new Dictionary<string, string>
@@ -74,6 +89,20 @@ public class StockDetailHttpRepository : IStockDetailHttpRepository
         return pagingResponse;
     }
 
+    public async Task EditStatus(StockDetailDto stockDetailDto)
+    {
+        var content = JsonSerializer.Serialize(stockDetailDto);
+        var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+        var url = Path.Combine("stock/switchStatus", stockDetailDto.StodId.ToString());
+
+        var postResult = await _httpClient.PutAsync(url, bodyContent);
+        var postContent = await postResult.Content.ReadAsStringAsync();
+
+        if (!postResult.IsSuccessStatusCode)
+        {
+            throw new ApplicationException(postContent);
+        }
+    }
 }
 
 

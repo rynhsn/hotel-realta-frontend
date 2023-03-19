@@ -1,0 +1,67 @@
+@if(_showBackdrop)
+{
+    <div class="warning-modal">
+        <div class="modal @_modalClass" tabindex="-1" role="dialog" style="display:@_modalDisplay">
+            <div class="modal-dialog modal-dialog" role="document">
+                <div class="modal-content card-style warning-card">
+                    <div class="modal-header px-0 border-0">
+                        <h5 class="text-bold">Switch Status</h5>
+                        <button type="button" class="border-0 bg-transparent h1" @onclick="Hide">
+                            <i class="lni lni-cross-circle"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body px-0">
+                        <div class="content mb-20">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="select-style-1 rounded-sm">
+                                        <label>Status</label>
+                                        <div class="select-position">
+                                            <select>
+                                                <option value="1">Stocked</option>
+                                                <option value="2">Expired</option>
+                                                <option value="3">Broken</option>
+                                                <option value="4">Complete</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class=" mt-20">
+                                        <p>Used In</p>
+                                    </div>
+                                </div>
+                                <div class="col-9">
+                                    <div class="input-style-3 rounded-sm">
+                                        <input type="text" placeholder="Room, BallRoom, other facility">
+                                        @*<span class="icon"><i class="lni lni-search-alt" ></i></span>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="input-style-1 rounded-sm">
+                                        <label>Notes</label>
+                                        <input type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="action d-flex flex-wrap justify-content-end">
+                            <button type="button" @onclick="Hide" class="main-btn danger-btn-outline btn-hover m-1">
+                                Cancel
+                            </button>
+                            <button type="submit" data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                                Send
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <SuccessNotification @ref="_notification" />
+}
