@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Realta.Contract.Models;
 using Realta.Domain.RequestFeatures;
+using Realta.Frontend.Components.Purchasing;
 using Realta.Frontend.HttpRepository.Purchasing;
 using System.ComponentModel;
 
@@ -47,6 +48,15 @@ namespace Realta.Frontend.Pages.Purchasing
                 3 => ("danger-btn", "Broken"),
                 4 => ("dark-btn", "Complete")
             };
+        }
+
+        private ModalEditStatusStockDetail _editStatus; 
+        public StockDetailDto EditStatusDetail { get; set; }
+        private async Task EditStatus(int id)
+        {
+            EditStatusDetail = await StockDetailHttpRepository.GetStockDetailById(id);
+            Task.Delay(100);
+            await _editStatus.Show();
         }
     }
 

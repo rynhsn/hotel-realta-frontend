@@ -80,5 +80,21 @@ namespace Realta.Frontend.HttpRepository.Purchasing
                 throw new ApplicationException(postContent);
             }
         }
+
+        public async Task UpdateVendor(VendorDto updateVendor)
+        {
+            var content = JsonSerializer.Serialize(updateVendor);
+            var bodyContent = new StringContent(content,Encoding.UTF8,"application/json");
+            
+            var url = Path.Combine("vendor/", (updateVendor.VendorEntityId).ToString());
+
+            var postResult = await _httpClient.PutAsync(url, bodyContent);
+            var postContent = await postResult.Content.ReadAsStringAsync();
+
+            if (!postResult.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(postContent);
+            }
+        }
     }
 }
