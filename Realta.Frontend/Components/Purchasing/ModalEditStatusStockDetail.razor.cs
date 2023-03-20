@@ -37,7 +37,7 @@ public partial class ModalEditStatusStockDetail
     private async Task Update()
     {
         await StockDetailHttpRepository.EditStatus(stocksDetail);
-        _notification.Show($"/purchasing/stock/{StockId}");
+        _notification.Show($"/purchasing/stock/{StockId}", "Data has been updated.");
         await getPaging.InvokeAsync();
     }
 }
