@@ -2,6 +2,7 @@
 using Realta.Contract.Models;
 using Realta.Domain.RequestFeatures;
 using Realta.Frontend.Features;
+using System.Text;
 using System.Text.Json;
 
 namespace Realta.Frontend.HttpRepository.Resto
@@ -17,12 +18,41 @@ namespace Realta.Frontend.HttpRepository.Resto
             _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
 
+        public async Task CreateProduct(RestoMenusDto restoMenusDto)
+        {
+            var content = JsonSerializer.Serialize(restoMenusDto);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+           
+            var postResult = await _httpClient.PostAsync("RestoMenus", bodyContent);
+            var postContent = await postResult.Content.ReadAsStringAsync();
+
+
+            if (!postResult.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(postContent);
+            } 
+        }
+
+        public async Task DeleteRestoMenus(int id)
+        {
+            var url = Path.Combine("RestoMenus", id.ToString());
+
+            var deleteResult = await _httpClient.DeleteAsync(url);
+            var deleteContent = await deleteResult.Content.ReadAsStringAsync();
+
+            if (!deleteResult.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(deleteContent);
+            }
+        } 
+
         public async Task<PagingResponse<RestoMenusDto>> GetPaging(RestoMenusParameters restoMenuParameters)
         {
             var queryStringParam = new Dictionary<string, string>
             {
                 ["pageNumber"] = restoMenuParameters.PageNumber.ToString(),
-                ["searchTerm"] = restoMenuParameters.SearchTerm == null ? "" : restoMenuParameters.SearchTerm
+                ["searchTerm"] = restoMenuParameters.SearchTerm == null ? "" : restoMenuParameters.SearchTerm,
+                ["orderBy"] = restoMenuParameters.orderBy
 
             };
 
@@ -58,6 +88,21 @@ namespace Realta.Frontend.HttpRepository.Resto
             var restoMenus = JsonSerializer.Deserialize<List<RestoMenusDto>>(content, _options); //untuk inject filenya 
 
             return restoMenus;
+        }
+
+        public async Task UpdateRestomenus(RestoMenusDto restoMenusDto)
+        {
+            var content = JsonSerializer.Serialize(restoMenusDto);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var url = Path.Combine("RestoMenus/", restoMenusDto.RemeId.ToString());
+
+            var postResult = await _httpClient.PutAsync(url, bodyContent);
+            var postContent = await postResult.Content.ReadAsStringAsync();
+
+            if (!postResult.IsSuccessStatusCode)
+            {
+                throw new ApplicationException(postContent);
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿@page "/hehe"
 
 <style>
 
@@ -188,80 +188,28 @@
                     <!-- Modal Edit -->
                     <div class="modal modal-lg fade" id="edit" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                            <form class="modal-content" action="" method="post">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="EditLabel">Add Resto Menus</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
+                            <div class="modal-content card-style text-center">
                                 <div class="modal-body">
-                                    <div class="row">
-                                        <div class="input-style-1 col-6 rounded-sm">
-                                            <label>Resto Name</label>
-                                            <div class="select-position">
-                                                <input type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="input-style-1 col-6 rounded-sm">
-                                            <label>Price</label>
-                                            <div class="select-position">
-                                                <input type="number" />
-                                            </div>
-                                        </div>
-                                        <div class="select-style-1 col-6 rounded-sm">
-                                            <label>Status</label>
-                                            <div class="select-position">
-                                                <select>
-                                                    <option value="1">Active</option>
-                                                    <option value="0">InActive</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                    <div class="image mb-30">
+                                        <img src="assets/images/modals/image-1.svg" alt="">
+                                    </div>
+                                    <div class="content mb-30">
+                                        <h2 class="mb-15">Follow-Up Email</h2>
+                                        <p class="text-sm text-medium">
+                                            Automatically Send your invitees a follow -Up email after you
+                                            meet
+                                        </p>
+                                    </div>
+                                    <div class="action d-flex flex-wrap justify-content-center">
+                                        <a href="#0" class="main-btn primary-btn square-btn btn-hover m-1">
+                                            Learn More
+                                        </a>
+                                        <button data-bs-dismiss="modal" class="main-btn primary-btn-outline square-btn btn-hover m-1">
+                                            Got it
+                                        </button>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="container">
-                                        <div class="row">
-                                            @for (var i = 0; i <= 3; i++)
-                                            {
-                                                <div class="col-sm-3">
-                                                    <div class="upload-container">
-                                                        <img src="vendor/assets/images/resto/meal-food-icon.png" alt="Foto 4" class="img-fluid upload-img">
-                                                        <label for="file2" class="upload-label">
-                                                            <i class="bi bi-cloud-upload"></i> Choose Image
-                                                        </label>
-                                                        <input type="file" id="file2" style="display:none;">
-                                                    </div>
-                                                    <div>
-                                                        <input type="radio" name="primary_key" value="1">
-                                                        <label> Primary Image</label>
-                                                    </div>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                                @* <div class="select-style-1 col-6 rounded-sm">
-                                <label>Priority</label>
-                                <div class="select-position">
-                                <select>
-                                <option value="1">1=Highest</option>
-                                <option value="0">0=Lowest</option>
-                                </select>
-                                </div>
-                                </div>
-                                <div class="input-style-1 col-8 rounded-sm">
-                                <label>Website</label>
-                                <div class="select-position">
-                                <input type="text" placeholder="URL..." />
-                                </div>
-                                </div>
-                                </div>
-                                </div>*@
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </tbody>

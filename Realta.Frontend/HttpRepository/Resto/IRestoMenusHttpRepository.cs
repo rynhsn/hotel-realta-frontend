@@ -8,6 +8,11 @@ namespace Realta.Frontend.HttpRepository.Resto
     {
         Task<List<RestoMenusDto>> GetRestoMenus();
         Task<PagingResponse<RestoMenusDto>> GetPaging(RestoMenusParameters restoMenuParameters);
+        Task CreateProduct(RestoMenusDto restoMenusDto);
+        Task DeleteRestoMenus(int id);
+
+        Task UpdateRestomenus(RestoMenusDto restoMenusDto);
+
     }
 }
     

@@ -27,17 +27,42 @@ namespace Realta.Frontend.Components.Resto
         {
             _links = new List<PagingLink>();
 
-            _links.Add(new PagingLink(MetaData.CurrentPage - 1, MetaData.HasPrevious, "<"));
-
-            for (int i = 1; i <= MetaData.TotalPages; i++)
+            if (MetaData.CurrentPage > 1)
             {
-                if (i >= MetaData.CurrentPage - Spread && i <= MetaData.CurrentPage + Spread)
+                _links.Add(new PagingLink(MetaData.CurrentPage - 1, MetaData.HasPrevious, "<"));
+            }
+
+            int maxPageLinks = 5; // jumlah maksimum tautan halaman yang ingin ditampilkan
+            int startPage = MetaData.CurrentPage - (maxPageLinks / 2);
+            int endPage = startPage + maxPageLinks - 1;
+
+            if (startPage < 1)
+            {
+                endPage += Math.Abs(startPage) + 1;
+                startPage = 1;
+            }
+
+            if (endPage > MetaData.TotalPages)
+            {
+                startPage -= (endPage - MetaData.TotalPages);
+                endPage = MetaData.TotalPages;
+            }
+
+            for (int i = 1; i <= endPage; i++) // dimulai dari 1
+            {
+                if (i >= startPage)
                 {
                     _links.Add(new PagingLink(i, true, i.ToString()) { Active = MetaData.CurrentPage == i });
                 }
             }
 
-            _links.Add(new PagingLink(MetaData.CurrentPage + 1, MetaData.HasNext, ">"));
+            if (MetaData.CurrentPage < MetaData.TotalPages)
+            {
+                _links.Add(new PagingLink(MetaData.CurrentPage + 1, MetaData.HasNext, ">"));
+            }
+
+
+
         }
 
         private async Task OnSelectedPage(PagingLink link)

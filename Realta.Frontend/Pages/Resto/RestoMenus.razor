@@ -67,13 +67,19 @@
             margin: 0 auto;
         }
 
+    .btn-small {
+        padding: 1px 3px;
+        font-size: 8px;
+        border-radius: 3px;
+    }
+
 </style>
 
 <section class="table-components">
     <div class="container-fluid">
         <div class="title-wrapper pt-30">
             <div class="row align-items-center">
-                <div class="col-md-6"><div class="title mb-30"><h2>Tables</h2></div></div>
+                <div class="col-md-6"><div class="title mb-30"><h2>Resto Menus</h2></div></div>
 
                 <div class="col-md-6">
                     <div class="breadcrumb-wrapper mb-30">
@@ -81,7 +87,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#0">Dashboard</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Tables
+                                    Resto Menus
                                 </li>
                             </ol>
                         </nav>
@@ -102,24 +108,26 @@
                             <div class="right">
                                 <div class="table-search d-flex">
                                     <form action="#">
-                                        <Search OnSearchChanged="SearchChange"/>
-                                       
+                                        <div class="d-flex align-items-center">
+                                            <Search OnSearchChanged="SearchChange" />
+                                            <Sort OnSortChanged="SortChgane" />
+                                        </div>
                                         <button disabled><i class="lni lni-search-alt"></i></button>
                                     </form>
                                 </div>
+
+
                             </div>
                         </div>
                         <div class="table-wrapper table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th></th>
+
                                         <th>
                                             <h6 class="text-sm text-medium"> Icon </h6>
                                         </th>
-                                        <th>
-                                            <h6 class="text-sm text-medium">Id</h6>
-                                        </th>
+
                                         <th class="min-width">
                                             <h6 class="text-sm text-medium">Menu Name</h6>
                                         </th>
@@ -129,12 +137,12 @@
                                         <th class="min-width">
                                             <h6 class="text-sm text-medium">Type</h6>
                                         </th>
-                                        <th class="min-width">
+                                        <th class="min-width" style="text-align: center;">
                                             <h6 class="text-sm text-medium">Status</h6>
                                         </th>
                                         <th class="min-width" style="text-align: left;">
                                             <h6 class="text-sm text-medium">
-                                                <a class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#edit"> Add +</a>
+                                                <a class="dropdown-item btn btn-sm" data-bs-toggle="modal" data-bs-target="#create"> Add +</a>
                                             </h6>
                                         </th>
 
@@ -146,23 +154,17 @@
                                     {
 
                                         <tr>
-                                            <td>
-                                                <div class="check-input-primary">
-                                                    <input class="form-check-input" type="checkbox" id="checkbox-1">
-                                                </div>
-                                            </td>
+
                                             <td border="1" width="100px">
                                                 <div class="product">
                                                     <div>
-                                                        <img src="@item.RempUrl" alt="@item.RempUrl" width="50" height="50">
+                                                        <img src="https://localhost:7068/Resources/Images/@item.RempPhotoFilename" alt="@item.RempPhotoFilename" width="50" height="50">
 
                                                     </div>
 
                                                 </div>
                                             </td>
-                                            <td>
-                                                <p class="text-sm">@item.RemeId</p>
-                                            </td>
+
                                             <td>
                                                 <p class="text-sm">@item.RemeName</p>
                                             </td>
@@ -172,10 +174,18 @@
                                             <td>
                                                 <p class="text-sm">@item.RemeType</p>
                                             </td>
-                                            <td>
-                                                <p class="text-sm">
-                                                    Available
-                                                </p>
+                                            <td class="text-center">
+                                                @{
+                                                    if (item.RemeStatus == "Available")
+                                                    {
+                                                        <span class="status-btn primary-btn">Available</span>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="status-btn danger-btn">Unavailable</span>
+                                                    }
+                                                }
                                             </td>
                                             <td>
                                                 <div class="text-sm" style="margin-left: 20px;">
@@ -184,11 +194,19 @@
                                                         <i class="lni lni-more-alt"></i>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="moreAction1" style="">
+
                                                         <li class="dropdown-item">
-                                                            <a href="#0" class="text-gray">Remove</a>
+                                                            <a class="main-btn danger-btn btn-small btn-hover" @onclick="()=> Delete(item.RemeId)">Delete</a>
+
                                                         </li>
                                                         <li class="dropdown-item">
-                                                            <a href="#0" class="text-gray">Edit</a>
+                                                            <a class="main-btn warning-btn btn-small btn-hover" data-bs-toggle="modal" data-bs-target="#update" @onclick="()=> OnUpdate(item)">Update</a>
+
+                                                        </li>
+
+                                                        <li class="dropdown-item">
+                                                            <a class="main-btn primary-btn btn-small btn-hover" data-bs-toggle="modal" data-bs-target="#updatep">Insert Photo</a>
+
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -211,35 +229,57 @@
     </div>
 </section>
 
-<!-- Modal Edit -->
-<div class="modal modal-lg fade" id="edit" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
+
+
+
+<!-- Modal create -->
+<div class="modal modal-lg fade" id="@("create")" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form class="modal-content" action="" method="post">
+        <EditForm autocomplete="off" class="modal-content card-style" Model="_restoMenus" OnValidSubmit="Create">
+            <DataAnnotationsValidator />
             <div class="modal-header">
                 <h5 class="modal-title" id="EditLabel">Add Resto Menus</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="input-style-1 col-6 rounded-sm">
+                    <div class="input-style-1 col-9 rounded-sm">
                         <label>Resto Name</label>
                         <div class="select-position">
-                            <input type="text" />
+                            <InputText id="RemeName" @bind-Value="_restoMenus.RemeName" />
+                            <ValidationMessage For="@(() => _restoMenus.RemeName)" />
+                        </div>
+                    </div>
+                    <div class="input-style-1 col-3 rounded-sm">
+                        <label>Price</label>
+                        <div class="select-position">
+                            <InputNumber id="RemePrice" @bind-Value="_restoMenus.RemePrice" />
+                            <ValidationMessage For="@(() => _restoMenus.RemePrice)" />
                         </div>
                     </div>
                     <div class="input-style-1 col-6 rounded-sm">
-                        <label>Price</label>
+                        <label>Desc</label>
                         <div class="select-position">
-                            <input type="number" />
+                            <InputText id="RemeDescription" @bind-Value="_restoMenus.RemeDescription" />
+                            <ValidationMessage For="@(() => _restoMenus.RemeDescription)" />
                         </div>
                     </div>
                     <div class="select-style-1 col-6 rounded-sm">
                         <label>Status</label>
                         <div class="select-position">
-                            <select>
-                                <option value="1">Active</option>
-                                <option value="0">InActive</option>
-                            </select>
+                            <div class="select-position">
+                                <InputSelect id="RemeStatus" @bind-Value="_restoMenus.RemeStatus" class="form-control">
+                                    <option value="asd" selected>Available</option>
+                                    <option value="_asd">Unavailable</option>
+                                </InputSelect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-style-1 col-6 rounded-sm">
+                        <label>Type</label>
+                        <div class="select-position">
+                            <InputText id="RemeType" @bind-Value="_restoMenus.RemeType" />
+                            <ValidationMessage For="@(() => _restoMenus.RemeType)" />
                         </div>
                     </div>
                 </div>
@@ -266,27 +306,122 @@
                     </div>
                 </div>
             </div>
-            @* <div class="select-style-1 col-6 rounded-sm">
-            <label>Priority</label>
-            <div class="select-position">
-            <select>
-            <option value="1">1=Highest</option>
-            <option value="0">0=Lowest</option>
-            </select>
+            <div class="action d-flex flex-wrap justify-content-end">
+                <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                    Cancel
+                </button>
+                <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                    Save
+                </button>
             </div>
-            </div>
-            <div class="input-style-1 col-8 rounded-sm">
-            <label>Website</label>
-            <div class="select-position">
-            <input type="text" placeholder="URL..." />
-            </div>
-            </div>
-            </div>
-            </div>*@
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-        </form>
+        </EditForm>
     </div>
 </div>
+
+<!--Modal Edit Photo--->
+<div class="modal modal-lg fade" id="updatep" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <EditForm autocomplete="off" class="modal-content card-style" Model="_restoMenus" OnValidSubmit="Create">
+            <DataAnnotationsValidator />
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditLabel">Add Resto Menus</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div>
+                <div class="container">
+                    <div class="row">
+                        @for (var i = 0; i <= 3; i++)
+                        {
+                            <div class="col-sm-3">
+                                <div class="upload-container">
+                                    <img src="vendor/assets/images/resto/meal-food-icon.png" alt="Foto 4" class="img-fluid upload-img">
+                                    <label for="file2" class="upload-label">
+                                        <i class="bi bi-cloud-upload"></i> Choose Image
+                                    </label>
+                                    <input type="file" id="file2" style="display:none;">
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="action d-flex flex-wrap justify-content-end">
+                <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                    Cancel
+                </button>
+                <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                    Save
+                </button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+
+<!-- Modal update -->
+
+<div class="modal modal-lg fade" id="update" tabindex="-1" aria-labelledby="EditLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <EditForm autocomplete="off" class="modal-content card-style" Model="_restoDto" OnValidSubmit="OnUpdateConf">
+            <DataAnnotationsValidator />
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditLabel">Add Resto Menus</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="input-style-1 col-9 rounded-sm">
+                        <label>Resto Name</label>
+                        <div class="select-position">
+                            <InputText id="RemeName" @bind-Value="_restoDto.RemeName" />
+                            <ValidationMessage For="@(() => _restoDto.RemeName)" />
+                        </div>
+                    </div>
+                    <div class="input-style-1 col-3 rounded-sm">
+                        <label>Price</label>
+                        <div class="select-position">
+                            <InputNumber id="RemePrice" @bind-Value="_restoDto.RemePrice" min="0" />
+                            <ValidationMessage For="@(() => _restoDto.RemePrice)" />
+
+
+                        </div>
+
+                    </div>
+                    <div class="select-style-1 col-6 rounded-sm">
+                        <label>Status</label>
+                        <div class="select-position">
+                            <div class="select-position">
+                                <InputSelect id="RemeStatus" @bind-Value="_restoDto.RemeStatus" class="form-control">
+                                    <option value="Available">Available</option>
+                                    <option value="Unavailable">Unavailable</option>
+                                    <ValidationMessage For="@(() => _restoDto.RemeDescription)" />
+                                </InputSelect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-style-1 col-6 rounded-sm">
+                        <label>Type</label>
+                        <div class="select-position">
+                            <InputText id="RemeType" @bind-Value="_restoDto.RemeType" />
+                            <ValidationMessage For="@(() => _restoDto.RemeType)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+            </div>
+            <div class="action d-flex flex-wrap justify-content-end">
+                <button type="button" data-bs-dismiss="modal" class="main-btn danger-btn-outline btn-hover m-1">
+                    Cancel
+                </button>
+                <button data-bs-dismiss="modal" class="main-btn primary-btn btn-hover m-1">
+                    Save
+                </button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+<SuccessNotification @ref="_notification" />
+

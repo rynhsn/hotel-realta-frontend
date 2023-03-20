@@ -27,6 +27,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https:/
 // resto
 
 builder.Services.AddScoped<IRestoMenusHttpRepository, RestoMenusHttpRepository>();
+builder.Services.AddScoped<IOrmeDetailHttpRepository, OrmeDetailHttpRepository>();
 
 
 // users

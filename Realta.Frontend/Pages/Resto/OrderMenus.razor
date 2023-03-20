@@ -1,7 +1,45 @@
 ﻿@page "/Ordermenus"
 @using System.Reflection.Metadata
+@inject NavigationManager NavigationManager
 
-<PageTitle>Gallery</PageTitle>
+<style>
+
+    .floating-wrapper {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 999;
+        width: 50px; /* ubah lebar menjadi 50px */
+        height: 50px;
+    }
+
+        .floating-wrapper .d-flex {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .floating-wrapper button {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none; /* hapus border pada tombol */
+            background-color: transparent; /* ubah background menjadi transparan */
+            padding: 0; /* hapus padding pada tombol */
+        }
+
+            .floating-wrapper button img {
+                width: 100%;
+                height: 100%;
+            }
+
+</style>
+
+
+<PageTitle>Order Menus</PageTitle>
 
 <section class="card-components">
     <div class="container-fluid">
@@ -10,7 +48,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div class="title mb-30">
-                        <h2>Gallery</h2>
+                        <h2>Order Menus</h2>
                     </div>
                 </div>
                 <!-- end col -->
@@ -22,42 +60,66 @@
                                     <a href="/">Home</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="purchasing">Purchasing</a>
+                                    <a href="/Restomenus">Resto Menus</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Gallery
+                                    Order Menus
                                 </li>
                             </ol>
                         </nav>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap justify-content-between align-items-center py-3" style="background-color: #ffffff">
+                    <div class="left">
+                        <div class="table-search d-flex">
+                            <form action="#">
+                                <div class="d-flex align-items-center">
+                                    <Realta.Frontend.Components.Resto.Search OnSearchChanged="SearchChange" />
+                                </div>
+                                <button disabled><i class="lni lni-search-alt"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <div class="table-search d-flex">
+                            <form action="#">
+                                <div class="d-flex align-items-center">
+                                    <Realta.Frontend.Components.Resto.Sort OnSortChanged="SortChgane" />
+                                </div>
+
+                            </form>
+                        </div>
+
+
                     </div>
                 </div>
                 <!-- end col -->
             </div>
             <!-- end row -->
         </div>
+        <br />
+
         <!-- ========== title-wrapper end ========== -->
         <!-- ========== cards-styles start ========== -->
         <div class="cards-styles">
             <div class="row">
                 <div class="col">
                     <div class="row">
-                        @foreach (var product in Products)
+                        @foreach (var product in RestoMenusListPaging)
                         {
                             <div class="mb-30 col-xl-3 col-lg-3 col-md-4 col-sm-4">
                                 <div class="card border-0">
-                                    <img src="vendor/assets/images/products/product-mini-2.jpg" class="card-img-top" alt="...">
+                                    <img src="https://localhost:7068/Resources/Images/@product.RempPhotoFilename" class="card-img-top" alt="@product.RempPhotoFilename" width="150" height="150">
                                     <div class="card-body">
-                                        <p class="card-text text-sm fw-bold text-muted">@product.StockName</p>
-                                        <p class="card-text text-sm mb-2">@product.VendorName</p>
+                                        <p class="card-text text-sm fw-bold text-muted">@product.RemeName</p>
+                                        @String.Join(" ", @product.RemeDescription.Split(' ').Take(3))
                                         <div class="row">
-                                            <div class="col">
-                                                <p class="card-text text-sm">Stck:20</p>
-                                            </div>
+
                                             <div class="col-7">
-                                                <p class="card-text text-sm">ReOrd:20</p>
+                                                <p class="card-text text-sm">@product.RemeStatus</p>
                                             </div>
                                         </div>
-                                        <p class="card-text text-sm fw-bold text-muted">IDR @product.Price.ToString("N0")</p>
+                                        <p class="card-text text-sm fw-bold text-muted">IDR @product.RemePrice.ToString("N0")</p>
                                     </div>
                                     <div class="d-flex justify-content-end">
                                         <button @onclick="() => AddToCart(product)" class="main-btn dark-btn btn-sm rounded-bottom rounded-top-0 btn-hover w-100" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart">Add to cart</button>
@@ -67,6 +129,9 @@
                         }
                     </div>
                 </div>
+
+
+
                 <div class="collapse col-3 @(CartIsOpen ? "show" : "")" id="cart">
                     <div class="card border-0">
                         <div class="card-header d-flex justify-content-between border-0">
@@ -82,17 +147,17 @@
                                 {
                                     <div class="d-flex justify-content-between">
                                         <p class="card-text text-sm fw-bold text-muted">
-                                            @item.Product.StockName <produk></produk>
+                                            <produk></produk>
                                         </p>
-                                        <button type="button" class="border-0 bg-transparent h6" @onclick="() => RemoveItem(item.Product.VeproId)">
+                                        <button type="button" class="border-0 bg-transparent h6" @onclick="() => RemoveItem(item.RestoMenusOrder.RemeId)">
                                             <i class="lni lni-trash-can text-danger"></i>
                                         </button>
                                     </div>
-                                    <p class="card-text text-sm mb-2">@item.Product.VendorName</p>
+                                    <p class="card-text text-sm mb-2">@item.RestoMenusOrder.RemeName</p>
                                     <div class="row">
                                         <label for="price" class="card-text text-sm form-label text-muted col">Price</label>
                                         <div class="col-7">
-                                            <input type="text" name="price" id="price" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent" value="@item.Product.Price.ToString("C0", new CultureInfo("id-ID"))" readonly />
+                                            <input type="text" name="price" id="price" class="form-control form-control-sm text-sm text-muted border-0 bg-transparent" value="@item.RestoMenusOrder.RemePrice.ToString("C0", new CultureInfo("id-ID"))" readonly />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -129,7 +194,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a href="completeOrder" class="main-btn primary-btn btn-sm rounded-0 btn-hover w-100 rounded-bottom rounded-top-0">Request order</a>
+                                <a href="javascript:void(0)" class="main-btn primary-btn btn-sm rounded-0 btn-hover w-100 rounded-bottom rounded-top-0" @onclick="OnCreate">Request order</a>
                             </div>
                         }
                     </div>
@@ -137,67 +202,17 @@
             </div>
         </div>
         <!-- ========== cards-styles end ========== -->
+        <Realta.Frontend.Components.Resto.Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPageOrder">  </Realta.Frontend.Components.Resto.Pagination>
+
     </div>
     <!-- end container -->
 </section>
 
-@code {
 
-    public List<Product>? Products { get; set; }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        Products = new List<Product>()
-    {
-      new Product { VeproId = 1, VendorName = "Vendor A", StockName = "Product A1", Price = 100, EmpId = 101 },
-      new Product { VeproId = 2, VendorName = "Vendor B", StockName = "Product B1", Price = 200, EmpId = 102 },
-      new Product { VeproId = 3, VendorName = "Vendor C", StockName = "Product C1", Price = 300, EmpId = 103 },
-      new Product { VeproId = 4, VendorName = "Vendor D", StockName = "Product D1", Price = 400, EmpId = 104 },
-      new Product { VeproId = 5, VendorName = "Vendor E", StockName = "Product E1", Price = 500, EmpId = 105 },
-      new Product { VeproId = 6, VendorName = "Vendor F", StockName = "Product F1", Price = 600, EmpId = 106 },
-      new Product { VeproId = 7, VendorName = "Vendor G", StockName = "Product G1", Price = 700, EmpId = 107 },
-      new Product { VeproId = 8, VendorName = "Vendor H", StockName = "Product H1", Price = 800, EmpId = 108 },
-      new Product { VeproId = 9, VendorName = "Vendor I", StockName = "Product I1", Price = 900, EmpId = 109 },
-      new Product { VeproId = 10, VendorName = "Vendor J", StockName = "Product J1", Price = 1000, EmpId = 110 }
-    };
-    }
-
-    private void AddToCart(Product product)
-    {
-        Cart.Instance.AddItem(product);
-        OpenCart();
-    }
-
-    private void UpdateItemQuantity(CartItem item, int newQuantity)
-    {
-        if (newQuantity < 1)
-        {
-            newQuantity = 1;
-        }
-
-        if (item.Product != null) Cart.Instance.UpdateQuantity(item.Product.VeproId, newQuantity);
-
-        // Refresh the cart view
-        StateHasChanged();
-    }
-
-    private static void RemoveItem(int veproId)
-    {
-        Cart.Instance.RemoveItem(veproId);
-    }
-
-    [Parameter]
-    public bool CartIsOpen { get; set; } = false;
-
-    private void OpenCart()
-    {
-        CartIsOpen = true;
-    }
-
-    private void CloseCart()
-    {
-        CartIsOpen = !CartIsOpen;
-    }
-
-}
+<div class="floating-wrapper">
+    <div class="d-flex justify-content-end">
+        <button @onclick="()=>CartIsOpen=!CartIsOpen" class="main-btn dark-btn btn-sm rounded-bottom rounded-top-0 btn-hover w-100" data-bs-toggle="collapse" aria-expanded="false" aria-controls="cart">
+            <img src="https://www.citypng.com/public/uploads/preview/download-hd-shopping-cart-black-logo-icon-png-11640441685ymd041qjws.png" alt="Cart">
+        </button>
+    </div>
+</div>
