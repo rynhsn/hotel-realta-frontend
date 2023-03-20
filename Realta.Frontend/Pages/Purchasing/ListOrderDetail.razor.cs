@@ -107,7 +107,7 @@ public partial class ListOrderDetail
             _error.Show("Can't generate barcode, status must be recivied");
         }
     }
-    
+
     private async Task SortChanged(string columnName)
     {
         if (orderBy != columnName)

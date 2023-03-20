@@ -10,7 +10,7 @@ namespace Realta.Frontend.Pages.Purchasing;
 
 public partial class ListOrder
 {
-    private int empId = 1;//employee
+    private int empId = 10;//employee
     [Inject] private IPurchaseOrderHttpRepository Repo { get; set; }
     private List<PurchaseOrderDto> DataList { get; set; } = new();
     private MetaData MetaData { get; set; } = new();
