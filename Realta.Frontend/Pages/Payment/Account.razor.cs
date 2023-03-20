@@ -23,7 +23,8 @@ public partial class Account
     public List<PaymentDto> PaymentList { get; set; } = new();
    
     protected async override Task OnInitializedAsync()
-    {
+    {     
+        _account.UserId = _userId;
         await FetchAccount();
     }
     

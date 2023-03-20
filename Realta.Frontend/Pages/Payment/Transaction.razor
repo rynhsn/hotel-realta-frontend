@@ -34,16 +34,16 @@
                 <h6>Credit</h6>
             </a>
         </th>
-        <th data-sortable class="@(_param.OrderBy switch { "PatrNote desc" => "desc", "PatrNote asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrNote"))">
-            <a class="dataTable-sorter">
-                <h6>Note</h6>
-            </a>
-        </th>
-        <th data-sortable class="@(_param.OrderBy switch { "PatrOrderNumber desc" => "desc", "PatrOrderNumber asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrOrderNumber"))">
-            <a class="dataTable-sorter">
-                <h6>Order Number</h6>
-            </a>
-        </th>
+        @* <th data-sortable class="@(_param.OrderBy switch { "PatrNote desc" => "desc", "PatrNote asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrNote"))"> *@
+        @*     <a class="dataTable-sorter"> *@
+        @*         <h6>Note</h6> *@
+        @*     </a> *@
+        @* </th> *@
+        @* <th data-sortable class="@(_param.OrderBy switch { "PatrOrderNumber desc" => "desc", "PatrOrderNumber asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrOrderNumber"))"> *@
+        @*     <a class="dataTable-sorter"> *@
+        @*         <h6>Order Number</h6> *@
+        @*     </a> *@
+        @* </th> *@
         <th data-sortable class="@(_param.OrderBy switch { "PatrSourceId desc" => "desc", "PatrSourceId asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrSourceId"))">
             <a class="dataTable-sorter">
                 <h6>Source</h6>
@@ -54,11 +54,11 @@
                 <h6>Target</h6>
             </a>
         </th>
-        <th data-sortable class="@(_param.OrderBy switch { "PatrTrxNumberRef desc" => "desc", "PatrTrxNumberRef asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrTrxNumberRef"))">
-            <a class="dataTable-sorter">
-                <h6>Transaction Ref</h6>
-            </a>
-        </th>
+        @* <th data-sortable class="@(_param.OrderBy switch { "PatrTrxNumberRef desc" => "desc", "PatrTrxNumberRef asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrTrxNumberRef"))"> *@
+        @*     <a class="dataTable-sorter"> *@
+        @*         <h6>Transaction Ref</h6> *@
+        @*     </a> *@
+        @* </th> *@
         <th data-sortable class="@(_param.OrderBy switch { "PatrType desc" => "desc", "PatrType asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrType"))">
             <a class="dataTable-sorter">
                 <h6>Type</h6>
@@ -85,26 +85,26 @@
                         <p>@transaction.ModifiedDate.ToString("yyyy MMMM dd")</p>
                     </td>
                     <td>
-                        <p>Rp. @string.Format("{0:#,0}", @transaction.Debet),-</p>
+                        <p>@(Decimal.Zero == transaction.Debet  ? "" : $"- Rp. {string.Format("{0:#,0}", transaction.Debet)}")</p>
                     </td>
                     <td>
-                        <p>Rp. @string.Format("{0:#,0}", @transaction.Credit),-</p>
+                        <p>@(Decimal.Zero == transaction.Credit ? "" : $"Rp. {string.Format("{0:#,0}", transaction.Credit)}")</p>
                     </td>
-                    <td>
-                        <p>@transaction.Note</p>
-                    </td>
-                    <td>
-                        <p>@transaction.OrderNumber</p>
-                    </td>
+                    @* <td> *@
+                    @*     <p>@transaction.Note</p> *@
+                    @* </td> *@
+                    @* <td> *@
+                    @*     <p>@transaction.OrderNumber</p> *@
+                    @* </td> *@
                     <td>
                         <p>@transaction.SourceId</p>
                     </td>
                     <td>
                         <p>@transaction.TargetId</p>
                     </td>
-                    <td>
-                        <p>@transaction.TransactionRef</p>
-                    </td>
+                    @* <td> *@
+                    @*     <p>@transaction.TransactionRef</p> *@
+                    @* </td> *@
                     <td>
                         <p>@transaction.Type</p>
                     </td>
