@@ -43,10 +43,10 @@
                 <p>@account.CodeName</p>
             </td>
             <td>
-                <p>Rp. @string.Format("{0:#,0}", @account.Saldo),-</p>
+                <p>@(@account.Type == "credit_card" ? "" : $"Rp. {string.Format("{0:#,0}", account.Saldo)}")</p>
             </td>
             <td class="min-width">
-                <p>@account.Type</p>
+                <p style="text-transform: uppercase;">@account.Type</p>
             </td>
             <td>
                 <button class="more-btn ml-10 dropdown-toggle text-gray" id="moreAction" data-bs-toggle="dropdown" aria-expanded="false" title="more">
@@ -108,12 +108,15 @@
                                             </InputSelect>
                                         </div>
                                     </div>
-                                    <div class="input-style-1">
-                                        <label for="saldo">Saldo</label>
-                                        <div class="select-position">
-                                            <InputNumber min="0" @bind-Value="_account.Saldo" id="saldo"/>
-                                        </div>
-                                    </div>
+                                    @* @if (_account.Type != "credit_card") *@
+                                    @* { *@
+                                    @*     <div class="input-style-1"> *@
+                                    @*         <label for="saldo">Saldo</label> *@
+                                    @*         <div class="select-position"> *@
+                                    @*             <InputNumber min="0" @bind-Value="_account.Saldo" id="saldo"/> *@
+                                    @*         </div> *@
+                                    @*     </div> *@
+                                    @* } *@
                                     <div class="select-style-1 col-6 rounded-sm">
                                         <label>Type</label>
                                         <div class="select-position">
@@ -130,7 +133,7 @@
                                             <label>Expiry (MM)</label>
                                             <div class="select-position">
                                                 <InputSelect @bind-Value="_account.ExpMonth" class="form-control">
-                                                    <option value="false" disabled selected>Month</option>
+                                                    <option value="null" disabled selected>Month</option>
                                                     <option value="1">01</option>
                                                     <option value="2">02</option>
                                                     <option value="3">03</option>
@@ -207,12 +210,16 @@
                                             </InputSelect>
                                         </div>
                                     </div>
-                                    <div class="input-style-1">
-                                        <label for="saldo">Saldo</label>
-                                        <div class="select-position">
-                                            <InputNumber min="0" @bind-Value="_account.Saldo" id="saldo"/>
+                                    @if (_account.Type != "credit_card" || _account.Saldo == decimal.Zero)
+                                    {
+                                        <div class="input-style-1">
+                                            <label for="saldo">Saldo</label>
+                                                <div class="select-position">
+                                                    @* <InputNumber min="0" @bind-Value="_account.Saldo" id="saldo"/> *@
+                                                    <input type="number" disabled @bind-value="_account.Saldo" class="saldo">
+                                                </div>
                                         </div>
-                                    </div>
+                                    }
                                     <div class="select-style-1 col-6 rounded-sm">
                                         <label>Type</label>
                                         <div class="select-position">

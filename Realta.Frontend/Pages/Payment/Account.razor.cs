@@ -15,7 +15,8 @@ public partial class Account
     private AccountDto _account = new();
     private ModalDelete _del;
     private SuccessNotification _notif;
-    private bool _expiry = true;
+    
+    private List<Decimal> _saldo = new(){ 750000, 568000, 892000, 450000, 815000, 632000, 782000, 852000, 902000, 1000000 };
     
     [Inject]
     public IAccountHttpRepository AccountsRepo { get; set; }
@@ -67,6 +68,12 @@ public partial class Account
     
     private async Task OnUpdate(AccountDto account)
     {
+        if (account.Type == "payment")
+        {
+            _account.ExpMonth = null;
+            _account.ExpYear = null;
+        }
+        
         _account.Id = account.Id;
         _account.Number = account.Number;
         _account.EntityId = account.EntityId;
@@ -79,6 +86,12 @@ public partial class Account
     
     private async Task onUpdateConfirmed()
     {
+        if (_account.Type == "payment")
+        {
+            _account.ExpMonth = null;
+            _account.ExpYear = null;
+        }
+        
         _account.UserId = _userId;
         await AccountsRepo.Update(_account);
         await FetchAccount();
@@ -86,6 +99,13 @@ public partial class Account
     
     private async Task onCreateConfirmed()
     {
+        _account.Saldo = _saldo[new Random().Next(0, 10)];
+        if (_account.Type == "payment")
+        {
+            _account.ExpMonth = null;
+            _account.ExpYear = null;
+        }
+        
         _account.UserId = _userId;
         await AccountsRepo.Create(_account);
         await FetchAccount();
