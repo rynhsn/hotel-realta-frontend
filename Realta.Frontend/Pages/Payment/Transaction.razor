@@ -24,14 +24,14 @@
                 <h6>Date</h6>
             </a>
         </th>
-        <th data-sortable class="@(_param.OrderBy switch { "PatrDebet desc" => "desc", "PatrDebet asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrDebet"))">
-            <a class="dataTable-sorter">
-                <h6>Debet</h6>
-            </a>
-        </th>
         <th data-sortable class="@(_param.OrderBy switch { "PatrCredit desc" => "desc", "PatrCredit asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrCredit"))">
             <a class="dataTable-sorter">
                 <h6>Credit</h6>
+            </a>
+        </th>
+        <th data-sortable class="@(_param.OrderBy switch { "PatrDebet desc" => "desc", "PatrDebet asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrDebet"))">
+            <a class="dataTable-sorter">
+                <h6>Debet</h6>
             </a>
         </th>
         @* <th data-sortable class="@(_param.OrderBy switch { "PatrNote desc" => "desc", "PatrNote asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrNote"))"> *@
@@ -39,26 +39,16 @@
         @*         <h6>Note</h6> *@
         @*     </a> *@
         @* </th> *@
-        @* <th data-sortable class="@(_param.OrderBy switch { "PatrOrderNumber desc" => "desc", "PatrOrderNumber asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrOrderNumber"))"> *@
-        @*     <a class="dataTable-sorter"> *@
-        @*         <h6>Order Number</h6> *@
-        @*     </a> *@
-        @* </th> *@
         <th data-sortable class="@(_param.OrderBy switch { "PatrSourceId desc" => "desc", "PatrSourceId asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrSourceId"))">
             <a class="dataTable-sorter">
-                <h6>Source</h6>
+                <h6>From</h6>
             </a>
         </th>
         <th data-sortable class="@(_param.OrderBy switch { "PatrTargetId desc" => "desc", "PatrTargetId asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrTargetId"))">
             <a class="dataTable-sorter">
-                <h6>Target</h6>
+                <h6>To</h6>
             </a>
         </th>
-        @* <th data-sortable class="@(_param.OrderBy switch { "PatrTrxNumberRef desc" => "desc", "PatrTrxNumberRef asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrTrxNumberRef"))"> *@
-        @*     <a class="dataTable-sorter"> *@
-        @*         <h6>Transaction Ref</h6> *@
-        @*     </a> *@
-        @* </th> *@
         <th data-sortable class="@(_param.OrderBy switch { "PatrType desc" => "desc", "PatrType asc" => "asc", _ => ""})" onclick="@(() => SortChanged("PatrType"))">
             <a class="dataTable-sorter">
                 <h6>Type</h6>
@@ -69,6 +59,9 @@
                 <h6>User</h6>
             </a>
         </th>
+        <th>
+            <h6>Detail</h6>
+        </th>
     </tr>
     <!-- end table row-->
     </Thead>
@@ -76,51 +69,130 @@
     @if (TransactionList.Count > 0)
     {
         @foreach (var transaction in TransactionList)
-            {
-                <tr>
-                    <td>
-                        <p>@transaction.TransactionNumber</p>
-                    </td>
-                    <td>
-                        <p>@transaction.ModifiedDate.ToString("yyyy MMMM dd")</p>
-                    </td>
-                    <td>
-                        <p>@(Decimal.Zero == transaction.Debet  ? "" : $"- Rp. {string.Format("{0:#,0}", transaction.Debet)}")</p>
-                    </td>
-                    <td>
-                        <p>@(Decimal.Zero == transaction.Credit ? "" : $"Rp. {string.Format("{0:#,0}", transaction.Credit)}")</p>
-                    </td>
-                    @* <td> *@
-                    @*     <p>@transaction.Note</p> *@
-                    @* </td> *@
-                    @* <td> *@
-                    @*     <p>@transaction.OrderNumber</p> *@
-                    @* </td> *@
-                    <td>
-                        <p>@transaction.SourceId</p>
-                    </td>
-                    <td>
-                        <p>@transaction.TargetId</p>
-                    </td>
-                    @* <td> *@
-                    @*     <p>@transaction.TransactionRef</p> *@
-                    @* </td> *@
-                    <td>
-                        <p>@transaction.Type</p>
-                    </td>
-                    <td>
-                        <p>@transaction.UserName</p>
-                    </td>
-                </tr>
-            }
+        {
+            <tr>
+                <td>
+                    <p>@transaction.TransactionNumber</p>
+                </td>
+                <td>
+                    <p>@transaction.ModifiedDate.ToString("dd MMMM yyyy hh:mm")</p>
+                </td>
+                <td>
+                    <p class="text-danger">@(decimal.Zero == transaction.Credit ? "" : $"- Rp. {string.Format("{0:#,0}", transaction.Credit)}")</p>
+                </td>
+                <td>
+                    <p class="text-success">@(decimal.Zero == transaction.Debet ? "" : $"Rp. {string.Format("{0:#,0}", transaction.Debet)}")</p>
+                </td>
+
+                @* <td> *@
+                @*     <p>@transaction.Note</p> *@
+                @* </td> *@
+                @* <td> *@
+                @*     <p>@transaction.OrderNumber</p> *@
+                @* </td> *@
+                <td>
+                    <p>@transaction.SourceId</p>
+                </td>
+                <td>
+                    <p>@transaction.TargetId</p>
+                </td>
+                @* <td> *@
+                @*     <p>@transaction.TransactionRef</p> *@
+                @* </td> *@
+                <td>
+                    <span class="status-btn @GetStatus(transaction.Type.Trim()).Item2" style="border-radius: 3px; padding: 2px 7px;">@GetStatus(transaction.Type.Trim()).Item1</span>
+                </td>
+                <td>
+                    <p>@transaction.UserName</p>
+                </td>
+                <td>
+                    @* <button class="more-btn" type="button" data-bs-toggle="modal" data-bs-target="#detailTransaction" aria-expanded="false" title="detail"> *@
+                    @* </button> *@
+                    <a class="text-gray" @onclick:preventDefault="true" @onclick="() => ShowDetail(transaction)" data-bs-toggle="modal" data-bs-target="#detailTransaction">
+                        <span class="lni lni-empty-file"></span>
+                    </a>
+                </td>
+            </tr>
+        }
     }
     else
     {
-        <tr><td colspan="10">No Data</td></tr>
+        <tr>
+            <td colspan="8" align="center">No Data</td>
+        </tr>
     }
-    
+
     </Tbody>
     <Page>
         <Paging MetaData="MetaData" Spread="2" SelectedPage="SelectedPage"/>
     </Page>
 </TableSection>
+
+@* DETAIL MODAL *@
+<div class="warning-modal">
+    <div class="modal fade" id="detailTransaction" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content card-style">
+                <div class="modal-header px-0 border-0">
+                    <h5 class="text-bold">Detail Transaction</h5>
+                    <button type="button" class="border-0 bg-transparent h1" data-bs-dismiss="modal">
+                        <i class="lni lni-cross-circle"></i>
+                    </button>
+                </div>
+                <div class="modal-body px-0">
+                    <div class="content mb-4">
+                        <div class="modal-body px-0">
+                            <div class="row">
+                                <div class="modal-meta-wrapper mb-4">
+                                    <div class="modal-meta col-12">
+                                        <span class="status-btn @GetStatus(_transaction?.Type?.Trim()).Item2" style="border-radius: 3px; padding: 2px 7px;">@GetStatus(_transaction?.Type?.Trim()).Item1</span>
+                                        <small class="text-sm text-gray" style="font-family: monospace;">@_transaction.OrderNumber</small>
+                                    </div>
+                                </div>
+                                <div class="modal-meta col-4">
+                                    <p class="text-sm text-medium text-black mb-1">Amount:</p>
+                                    <p class="text-sm text-gray">@(_transaction?.Debet == decimal.Zero ? $"- Rp. {_transaction?.Credit:#,0}" : $"Rp. {_transaction?.Debet:#,0}")</p>
+                                </div>
+                                <div class="modal-meta col-4">
+                                    <p class="text-sm text-medium text-black mb-1">From:</p>
+                                    <p class="text-sm text-gray">@_transaction?.SourceId</p>
+                                </div>
+                                <div class="modal-meta col-4">
+                                    <p class="text-sm text-medium text-black mb-1">To:</p>
+                                    <p class="text-sm text-gray">@_transaction?.TargetId</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="modal-meta col-4">
+                                <p class="text-sm text-medium text-black mb-1">Transaction Date:</p>
+                                <p class="text-sm text-gray">@_transaction?.ModifiedDate.ToString("dd/MM/yyyy hh:mm")</p>
+                        </div>
+                        @if (_transaction?.TransactionRef != null)
+                        {
+                            <div class="modal-meta col-4">
+                                <p class="text-sm text-medium text-black mb-1">Transaction Ref:</p>
+                                <p class="text-sm text-gray">@_transaction?.TransactionRef</p>
+                            </div>
+                        }
+                        <div class="modal-meta col-4">
+                            <p class="text-sm text-medium text-black mb-1">User:</p>
+                            <div class="d-flex align-items-center">
+                                <p class="text-sm text-gray">@_transaction?.UserName</p>
+                            </div>
+                        </div>
+                        <div class="modal-meta-wrapper mt-4">
+                            <div class="modal-meta col-12">
+                                <p class="text-sm text-medium text-black mb-1">NOTE:</p>
+                                <div class="d-flex align-items-center">
+                                    <p class="text-sm text-gray">@_transaction?.Note</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

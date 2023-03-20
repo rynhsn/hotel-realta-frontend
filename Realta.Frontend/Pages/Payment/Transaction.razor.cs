@@ -8,6 +8,7 @@ namespace Realta.Frontend.Pages.Payment;
 public partial class Transaction
 {
     public MetaData MetaData { get; set; } = new();
+    private TransactionDto _transaction = new();
     public List<TransactionDto> TransactionList { get; set; } = new List<TransactionDto>();
 
     public Dictionary<string, string> TransactionType = new() { { "tp", "TopUp" }, { "trb", "Booking" }, { "orm", "Order Menu" }, { "rf", "Refund" }, { "rpy", "Repayment"} };
@@ -73,5 +74,23 @@ public partial class Transaction
         var response = await TransactionRepo.GetTransactionPaging(_param);
         TransactionList = response.Items;
         MetaData = response.MetaData;
+    }
+    
+    private (string, string) GetStatus(string? status)
+    {
+        return status switch
+        {
+            "RF" => ("Refund", "orange-bg text-white" ),
+            "ORM" => ("Order Menu", "success-bg text-white"),
+            "RPY" => ("Repayment", "warning-bg text-white"),
+            "TRB" => ("Booking", "primary-btn"),
+            "TP" => ("TopUp", "info-bg text-white"),
+            _ => ("", "")
+        };
+    }
+
+    private void ShowDetail(TransactionDto transaction)
+    {
+        _transaction = transaction;
     }
 }
