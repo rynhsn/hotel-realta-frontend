@@ -10,20 +10,31 @@ namespace Realta.Frontend.Components.Purchasing
     {
         private string _modalDisplay;
         private string _modalClass;
+        //private string _srcImg;
+
+        private List<string> _srcImg;
         private bool _showBackdrop;
         [Parameter] public EventCallback getPaging { get; set; }
-        [Parameter] public List<StockPhotoDto> PhotoList { get; set; } = new List<StockPhotoDto>();
+        public List<StockPhotoDto> PhotoList { get; set; } = new List<StockPhotoDto>();
 
         private SuccessNotification _notification;
 
         [Inject]
         public IStocksHttpRepository StocksHttpRepository { get; set; }
 
-        public async Task Show()
+        public async Task Show(List<StockPhotoDto> stockPhotoDtoList)
         {
             _modalDisplay = "block;";
             _modalClass = "show";
             _showBackdrop = true;
+            if (stockPhotoDtoList.Count > 0)
+            {
+                _srcImg = new List<string>();
+                foreach (var item in stockPhotoDtoList)
+                {
+                    _srcImg.Add(item.SphoPhotoFileName);
+                }
+            }
             StateHasChanged();
         }
 

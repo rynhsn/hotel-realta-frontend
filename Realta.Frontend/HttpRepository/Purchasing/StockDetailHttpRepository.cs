@@ -89,7 +89,7 @@ public class StockDetailHttpRepository : IStockDetailHttpRepository
         return pagingResponse;
     }
 
-    public async Task EditStatus(StockDetailDto stockDetailDto)
+    public async Task EditStatus(UpdateStatusStockDetailDto stockDetailDto)
     {
         var content = JsonSerializer.Serialize(stockDetailDto);
         var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");

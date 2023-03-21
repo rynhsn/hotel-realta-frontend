@@ -78,14 +78,13 @@ public partial class Stocks
         await GetPaging();
     }
 
-    public List<StockPhotoDto> stocksPhotoList { get; set; }
     private ModalUploadFotoStock _uploadFoto;
 
     private async Task UploadFoto(int id)
     {
-        stocksPhotoList = await StocksHttpRepository.GetStocksPhoto(id);
+        var photoList = await StocksHttpRepository.GetStocksPhoto(id);
         Task.Delay(100);
-        await _uploadFoto.Show();
+        await _uploadFoto.Show(photoList);
     }
 
 }

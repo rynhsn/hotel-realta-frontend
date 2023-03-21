@@ -19,8 +19,8 @@ namespace Realta.Frontend.Pages.Purchasing
 
         protected async override Task OnInitializedAsync()
         {
-           
             await GetPaging();
+            await GetFaci();
         }
 
         private async Task SelectedPage(int page)
@@ -51,12 +51,31 @@ namespace Realta.Frontend.Pages.Purchasing
         }
 
         private ModalEditStatusStockDetail _editStatus; 
-        public StockDetailDto EditStatusDetail { get; set; }
+        public UpdateStatusStockDetailDto EditStatusDetail { get; set; } = new UpdateStatusStockDetailDto();
         private async Task EditStatus(int id)
         {
-            EditStatusDetail = await StockDetailHttpRepository.GetStockDetailById(id);
+            var getStockDetailDto = await StockDetailHttpRepository.GetStockDetailById(id);
+            EditStatusDetail.StodId = getStockDetailDto.StodId;
+            EditStatusDetail.StodStatus = getStockDetailDto.StodStatus;
+            EditStatusDetail.StodNotes = getStockDetailDto.StodNotes;
+            EditStatusDetail.StodFaciId = getStockDetailDto.StodFaciId;
             Task.Delay(100);
             await _editStatus.Show();
+        }
+
+        [Inject] public IStocksHttpRepository StocksHttpRepository { get; set; }
+        public List<StocksDto> stocksList { get; set; } = new List<StocksDto>();
+        private StocksParameters _stocksParameters = new StocksParameters();
+        private async Task GetFaci()
+        {
+             var response = await StocksHttpRepository.GetStocksPaging(_stocksParameters);
+             stocksList =  response.Items;
+
+        }
+        private async Task SearchChangeFaci(string searchTerm)
+        {
+            _stocksParameters.SearchTerm = searchTerm;
+            await GetFaci();
         }
     }
 

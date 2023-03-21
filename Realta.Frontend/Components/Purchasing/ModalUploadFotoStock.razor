@@ -2,73 +2,49 @@
 {
     @* // Create Modal *@
     <div class="modal @_modalClass" tabindex="-1" role="dialog" style="display:@_modalDisplay">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="text-bold">Create Stock</h5>
+                    <h5 class="text-bold">Upload Foto</h5>
                     <button type="button" class="border-0 bg-transparent h1" @onclick="Hide">
                         <i class="lni lni-cross-circle"></i>
                     </button>
                 </div>
-                @*<EditForm Model="UpdateStock" OnValidSubmit="Update">
-                    <DataAnnotationsValidator />*@
                     <div class="modal-body">
                         <div class="content mb-20">
                         <div class="row">
-                            @if (PhotoList.Count > 0)
+                            @for (int i = 0; i < 4; i++)
                             {
-                                @foreach (var photo in PhotoList)
+                                if (i == 0)
                                 {
                                     <div class="col-3">
-                                        <img src="/resources/images/@photo.SphoPhotoFileName" width="150" height="110" />
+                                        <img src="/resources/images/@(_srcImg[i] != null ? _srcImg[i] : "defaultImage.jpg")" width="220" height="110" />
+                                        <div class="form-check checkbox-style">
+                                            <div class="mt-10">
+                                                <Input type="file" >
+                                            </div>
+                                            <div class="mt-10">
+                                                <input class="form-check-input" type="checkbox" id="checkbox-1">
+                                                <label class="form-check-label" for="checkbox-1">
+                                                    Set Default Primary
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }else
+                                {
+                                    <div class="col-3">
+                                        <img src="/resources/images/defaultImage.jpg" alt="google logo" width="220" height="110">
+                                        <div class="mt-10">
+                                            <Input type="file" >
+                                        </div>
+                                        <div class="mt-10">
+                                            <a class="text-danger" style="border: 0; background-color: transparent;">
+                                                <b>X Remove</b>
+                                            </a>
+                                        </div>
                                     </div>
                                 }
-                            }else{
-                                <div class="col-3">
-                                    <img src="/resources/images/5817814e-2cb2-4d75-8444-55c50570df13RobloxScreenShot 2.png" width="220"   height="110" />
-                                    <div class="mt-10 mb-1">
-                                        <Input type="file" >
-                                    </div>
-                                    <div class="form-check checkbox-style">
-                                        <input class="form-check-input" type="checkbox" value="" id="checkbox-1">
-                                        <label class="form-check-label" for="checkbox-1">
-                                            Set Default Primary
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <img src="https://3.bp.blogspot.com/-lb1D3Dvku20/V1mbk_ZjSuI/AAAAAAAAB9I/KhcJcrKqq0YV9MRSFnKwLCFyE1rg89ROwCKgB/s1600/HTML_inntekno.jpg" alt="google logo" width="220" height="110">
-                                    <div class="mt-10">
-                                        <Input type="file" >
-                                    </div>
-                                    <div class="mt-10">
-                                        <button class="text-danger" style="border: 0; background-color: transparent;">
-                                            <b>X Remove</b>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <img src="/resources/images/6038383f-9644-459b-9c68-679e74859a8cRobloxScreenShot 1.png" width="220" height="110" />
-                                    <div class="mt-10">
-                                        <Input type="file" >
-                                    </div>
-                                    <div class="mt-10">
-                                        <button class="text-danger" style="border: 0; background-color: transparent;">
-                                            <b>X Remove</b>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <img src="/resources/images/c5bee9dc-62ad-4b6b-aec8-33fcb1600913RobloxScreenShot 1.png" width="220" height="110" />
-                                    <div class="mt-10">
-                                        <Input type="file" >
-                                    </div>
-                                    <div class="mt-10">
-                                        <button class="text-danger" style="border: 0; background-color: transparent;">
-                                            <b>X Remove</b>
-                                        </button>
-                                    </div>
-                                </div>
                             }
                         </div>
                     </div>
@@ -81,7 +57,6 @@
                             Submit
                         </button>
                     </div>
-                @*</EditForm>*@
             </div>
         </div>
     </div>
