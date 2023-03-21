@@ -1,5 +1,16 @@
 <div class="dataTable-bottom">
-  <div class="dataTable-info">@($"Showing {(MetaData.PageSize * (MetaData.CurrentPage - 1)) + 1} to {Math.Min(MetaData.PageSize * MetaData.CurrentPage, MetaData.TotalCount)} of {MetaData.TotalCount} entries")</div>
+  <div class="dataTable-info">
+    Showing 
+    @if(MetaData.TotalCount > 0)
+    {
+      @($"{MetaData.PageSize * (MetaData.CurrentPage - 1) + 1} to {Math.Min(MetaData.PageSize * MetaData.CurrentPage, MetaData.TotalCount)} of {MetaData.TotalCount} entries")
+    }
+    else
+    {
+      @( $"0 to 0 of 0 entries")
+    }
+
+  </div>
   <nav class="dataTable-pagination">
     <ul class="dataTable-pagination-list">
       @foreach (var link in _links)

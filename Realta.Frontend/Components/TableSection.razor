@@ -51,7 +51,7 @@
                     @Thead
                   </thead>
                   <tbody>
-                  @Tbody
+                    @Tbody
                   </tbody>
                 </table>
                 <!-- end table -->
@@ -90,18 +90,6 @@
 
   [Parameter]
   public RenderFragment? Tbody { get; set; }
-
-  [Parameter]
-  public int TotalItems { get; set; }
-
-  [Parameter]
-  public int PageIndex { get; set; }
-
-  [Parameter]
-  public int PageSize { get; set; }
-
-  [Parameter]
-  public EventCallback<int> PageIndexChanged { get; set; }
 
   [Parameter]
   public RenderFragment? Topbar{ get; set; }

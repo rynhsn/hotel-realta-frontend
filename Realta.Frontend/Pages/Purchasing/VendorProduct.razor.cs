@@ -82,6 +82,7 @@ public partial class VendorProduct
         _venpro.VeproQtyRemaining = data.VeproQtyRemaining;
         _venpro.VeproPrice = data.VeproPrice;
         _stockName.StockName = data.StockName;
+            
     }
 
     private async Task OnUpdateConfirmed()

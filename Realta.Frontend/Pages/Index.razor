@@ -1,13 +1,13 @@
 ﻿@page "/"
 
-<section class="table-components">
+<section class="section">
 <div class="container-fluid">
 <!-- ========== title-wrapper start ========== -->
 <div class="title-wrapper pt-30">
   <div class="row align-items-center">
     <div class="col-md-6">
-      <div class="title mb-30">
-        <h2>Tables</h2>
+      <div class="titlemb-30">
+        <h2>Dashboard</h2>
       </div>
     </div>
     <!-- end col -->
@@ -19,7 +19,7 @@
               <a href="#0">Dashboard</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">
-              Tables
+              CRM
             </li>
           </ol>
         </nav>
@@ -30,243 +30,84 @@
   <!-- end row -->
 </div>
 <!-- ========== title-wrapper end ========== -->
-
-<!-- ========== tables-wrapper start ========== -->
-<div class="tables-wrapper">
 <div class="row">
-<div class="col-lg-12">
-<div class="card-style mb-30">
-<h6 class="mb-10">Responsive Data Table</h6>
-<div class="table-responsive">
-<div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
-<div class="dataTable-top">
-  <div class="dataTable-dropdown">
-    <label>
-      <select class="dataTable-selector">
-        <option value="5">5</option><option value="10" selected="">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option>
-      </select> entries per page
-    </label>
+  <div class="col-xl-3 col-lg-4 col-sm-6">
+    <div class="icon-card icon-card-2 mb-30">
+      <div class="d-flex align-items-center">
+        <div class="icon purple">
+          <i class="lni lni-smile"></i>
+        </div>
+        <div class="content">
+          <h6 class="mb-10">Happy Clients</h6>
+          <h3 class="text-bold mb-10">65K</h3>
+        </div>
+      </div>
+      <div class="progress bg-purple-100">
+        <div class="progress-bar purple-bg" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
+    <!-- End Icon Cart -->
   </div>
-  <div class="dataTable-search">
-    <input class="dataTable-input" placeholder="Search..." type="text">
+  <!-- End Col -->
+  <div class="col-xl-3 col-lg-4 col-sm-6">
+    <div class="icon-card icon-card-2 mb-30">
+      <div class="d-flex align-items-center">
+        <div class="icon success">
+          <i class="lni lni-users"></i>
+        </div>
+        <div class="content">
+          <h6 class="mb-10">New Customers</h6>
+          <h3 class="text-bold mb-10">10K</h3>
+        </div>
+      </div>
+
+      <div class="progress bg-success-100">
+        <div class="progress-bar success-bg" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
+    <!-- End Icon Cart -->
   </div>
+  <!-- End Col -->
+  <div class="col-xl-3 col-lg-4 col-sm-6">
+    <div class="icon-card icon-card-2 mb-30">
+      <div class="d-flex align-items-center">
+        <div class="icon primary">
+          <i class="lni lni-headphone"></i>
+        </div>
+        <div class="content">
+          <h6 class="mb-10">New Deals</h6>
+          <h3 class="text-bold mb-10">755</h3>
+        </div>
+      </div>
+
+      <div class="progress bg-primary-100">
+        <div class="progress-bar primary-bg" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
+    <!-- End Icon Cart -->
+  </div>
+  <!-- End Col -->
+  <div class="col-xl-3 col-lg-4 col-sm-6">
+    <div class="icon-card icon-card-2 mb-30">
+      <div class="d-flex align-items-center">
+        <div class="icon orange">
+          <i class="lni lni-bullhorn"></i>
+        </div>
+        <div class="content">
+          <h6 class="mb-10">Campaign Leads</h6>
+          <h3 class="text-bold mb-10">34K</h3>
+        </div>
+      </div>
+
+      <div class="progress bg-orange-100">
+        <div class="progress-bar orange-bg" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+    </div>
+    <!-- End Icon Cart -->
+  </div>
+  <!-- End Col -->
 </div>
-<div class="dataTable-container">
-<table id="table" class="table dataTable-table">
-<thead>
-<tr>
-  <th data-sortable="" style="width: 24.4768%;" class="desc">
-    <a href="#" class="dataTable-sorter">
-      <h6>Name</h6>
-    </a>
-  </th>
-  <th data-sortable="" style="width: 9.75523%;">
-    <a href="#" class="dataTable-sorter">
-      <h6>Ext.</h6>
-    </a>
-  </th>
-  <th data-sortable="" style="width: 30.9507%;">
-    <a href="#" class="dataTable-sorter">
-      <h6>City</h6>
-    </a>
-  </th>
-  <th data-type="date" data-format="YYYY/MM/DD" data-sortable="" style="width: 17.6481%;">
-    <a href="#" class="dataTable-sorter">
-      <h6>Start Date</h6>
-    </a>
-  </th>
-  <th data-sortable="" style="width: 17.2047%;">
-    <a href="#" class="dataTable-sorter">
-      <h6>Completion</h6>
-    </a>
-  </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-  <td>
-    <p>Zelenia Roman</p>
-  </td>
-  <td>
-    <p>7516</p>
-  </td>
-  <td>
-    <p>Redwater</p>
-  </td>
-  <td>
-    <p>2012/03/03</p>
-  </td>
-  <td>
-    <p>31%</p>
-  </td>
-</tr>
-<tr>
-  <td>
-    <p>Zachery Morgan</p>
-  </td>
-  <td>
-    <p>6730</p>
-  </td>
-  <td>
-    <p>Collines-de-l'Outaouais</p>
-  </td>
-  <td>
-    <p>2006/04/09</p>
-  </td>
-  <td>
-    <p>51%</p>
-  </td>
-</tr>
-<tr>
-  <td>
-    <p>Yoko Freeman</p>
-  </td>
-  <td>
-    <p>4077</p>
-  </td>
-  <td>
-    <p>Lidköping</p>
-  </td>
-  <td>
-    <p>2002/27/12</p>
-  </td>
-  <td>
-    <p>48%</p>
-  </td>
-</tr>
-<tr>
-  <td>
-    <p>Wyatt Riley</p>
-  </td>
-  <td>
-    <p>5694</p>
-  </td>
-  <td>
-    <p>Cavaion Veronese</p>
-  </td>
-  <td>
-    <p>2012/19/02</p>
-  </td>
-  <td>
-    <p>67%</p>
-  </td>
-</tr>
-<tr>
-  <td>
-    <p>Wyatt Mccarthy</p>
-  </td>
-  <td>
-    <p>3547</p>
-  </td>
-  <td>
-    <p>Patan</p>
-  </td>
-  <td>
-    <p>2014/23/06</p>
-  </td>
-  <td>
-    <p>9%</p>
-  </td>
-</tr>
-<tr>
-  <td>
-    <p>Willow Gilliam</p>
-  </td>
-  <td>
-    <p>3497</p>
-  </td>
-  <td>
-    <p>Amqui</p>
-  </td>
-  <td>
-    <p>2009/29/11</p>
-  </td>
-  <td>
-    <p>30%</p>
-  </td>
-</tr>
-<tr>
-  <td>
-    <p>Walker Nixon</p>
-  </td>
-  <td>
-    <p>6901</p>
-  </td>
-  <td>
-    <p>Metz</p>
-  </td>
-  <td>
-    <p>2011/12/11</p>
-  </td>
-  <td>
-    <p>41%</p>
-  </td>
-</tr>
-<tr>
-  <td>
-    <p>Vivien Dominguez</p>
-  </td>
-  <td>
-    <p>5653</p>
-  </td>
-  <td>
-    <p>Bargagli</p>
-  </td>
-  <td>
-    <p>2001/09/01</p>
-  </td>
-  <td>
-    <p>86%</p>
-  </td>
-</tr>
-<tr>
-  <td>
-    <p>Vielka Olsen</p>
-  </td>
-  <td>
-    <p>3745</p>
-  </td>
-  <td>
-    <p>Vrasene</p>
-  </td>
-  <td>
-    <p>2016/08/01</p>
-  </td>
-  <td>
-    <p>70%</p>
-  </td>
-</tr>
-<tr>
-  <td>
-    <p>Ursula Reynolds</p>
-  </td>
-  <td>
-    <p>7544</p>
-  </td>
-  <td>
-    <p>Southampton</p>
-  </td>
-  <td>
-    <p>1999/16/12</p>
-  </td>
-  <td>
-    <p>61%</p>
-  </td>
-</tr>
-</tbody>
-</table>
-</div>
-<Paging/>
-</div>
-</div>
-</div>
-<!-- end card -->
-</div>
-<!-- end col -->
-</div>
-<!-- end row -->
-</div>
-<!-- ========== tables-wrapper end ========== -->
+<!-- End Row -->
 </div>
 <!-- end container -->
 </section>

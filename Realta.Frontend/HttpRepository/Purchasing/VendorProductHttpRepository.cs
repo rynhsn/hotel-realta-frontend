@@ -107,6 +107,7 @@ public class VendorProductHttpRepository : IVendorProductHttpRepository
     {
         var queryStringParam = new Dictionary<string, string>
         {
+            ["pageSize"] = _param.PageSize.ToString(),
             ["pageNumber"] = _param.PageNumber.ToString(),
             ["Keyword"] = _param.Keyword == null ? "" : _param.Keyword,
             ["orderBy"] = _param.OrderBy
