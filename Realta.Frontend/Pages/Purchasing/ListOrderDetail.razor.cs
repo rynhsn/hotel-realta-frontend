@@ -100,7 +100,7 @@ public partial class ListOrderDetail
             // await OnUpdateStatus(5);
             await StockDetailHttpRepository.GenerateBarcode(PoUpdate);
             await Task.Delay(100);
-            _notif.ShowWithoutPath();
+            _notif.ShowWithoutPath("Success Generate Barcode");
         }
         else
         {

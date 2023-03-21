@@ -18,7 +18,7 @@
                                 if (i == 0)
                                 {
                                     <div class="col-3">
-                                        <img src="/resources/images/@(_srcImg[i] != null ? _srcImg[i] : "defaultImage.jpg")" width="220" height="110" />
+                                        <img src="/resources/images/@_srcImg[i]" width="220" height="110" />
                                         <div class="form-check checkbox-style">
                                             <div class="mt-10">
                                                 <Input type="file" >
@@ -34,7 +34,7 @@
                                 }else
                                 {
                                     <div class="col-3">
-                                        <img src="/resources/images/defaultImage.jpg" alt="google logo" width="220" height="110">
+                                        <img src="/resources/images/@_srcImg[i]" alt="google logo" width="220" height="110">
                                         <div class="mt-10">
                                             <Input type="file" >
                                         </div>
@@ -61,6 +61,7 @@
         </div>
     </div>
 }
+
 <SuccessNotification @ref="_notification" />
 
 

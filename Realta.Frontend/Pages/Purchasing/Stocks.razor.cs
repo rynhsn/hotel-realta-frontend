@@ -80,11 +80,12 @@ public partial class Stocks
 
     private ModalUploadFotoStock _uploadFoto;
 
-    private async Task UploadFoto(int id)
+    private async Task UploadFoto(int? id)
     {
-        var photoList = await StocksHttpRepository.GetStocksPhoto(id);
+        var photoList = await StocksHttpRepository.GetStocksPhoto(id.Value);
         Task.Delay(100);
         await _uploadFoto.Show(photoList);
+        
     }
 
 }

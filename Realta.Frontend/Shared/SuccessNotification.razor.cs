@@ -25,10 +25,11 @@ public partial class SuccessNotification
         StateHasChanged();
     }
 
-    public void ShowWithoutPath()
+    public void ShowWithoutPath(string displayMessage)
     {
         _modalDisplay = "block;";
         _modalClass = "show";
+        _displayMessage = displayMessage;
         _showBackdrop = true;
         StateHasChanged();
     }
